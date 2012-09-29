@@ -763,8 +763,8 @@ h1{
 .loading-page .step-nav{float:left;}
 .loading-page .step-nav .prev{float:left;}
 .loading-page .step-nav .number{
-	float:right;
-	margin:0 -22px 0 0;
+	/*float:right;
+	margin:0 -22px 0 0;*/
 }
 
 
