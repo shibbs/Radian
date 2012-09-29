@@ -118,8 +118,8 @@
 		5C77047C16069D6A0058110F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		5C7704801606AD1C0058110F /* Default@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x~iphone.png"; sourceTree = "<group>"; };
 		5C7704821606AD240058110F /* Default~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default~iphone.png"; sourceTree = "<group>"; };
-		5C7704911606DF330058110F /* DataTransmission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataTransmission.h; sourceTree = "<group>"; };
 		5C7704921606DF330058110F /* DataTransmission.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataTransmission.m; sourceTree = "<group>"; };
+		5C8FE466161677CB00D6EF6C /* DataTransmission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataTransmission.h; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* radian-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "radian-Info.plist"; path = "../radian-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -320,7 +320,7 @@
 		5C77048D1606DC020058110F /* DataTransmission */ = {
 			isa = PBXGroup;
 			children = (
-				5C7704911606DF330058110F /* DataTransmission.h */,
+				5C8FE466161677CB00D6EF6C /* DataTransmission.h */,
 				5C7704921606DF330058110F /* DataTransmission.m */,
 			);
 			name = DataTransmission;

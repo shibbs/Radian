@@ -6,7 +6,7 @@
 //
 //
 
-#import <Cordova/Cordova.h>
+#import <Cordova/CDVPlugin.h>
 
 @interface DataTransmission : CDVPlugin
 
