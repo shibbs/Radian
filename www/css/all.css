@@ -1,0 +1,795 @@
+html{height:100%;}
+body{
+	margin:0;
+	color:#969696;
+	font:11px Helvetica, Arial, sans-serif;
+	background:#282828;
+	min-width:310px;
+}
+img{border-style:none;}
+a{
+	text-decoration:none;
+	color:#000;
+}
+a:hover{text-decoration:none;}
+input,
+textarea,
+select{
+	font:100% Helvetica, Arial, sans-serif;
+	vertical-align:middle;
+	color:#000;
+}
+form,
+fieldset{
+	margin:0;
+	padding:0;
+	border-style:none;
+}
+figure {
+	margin:0;
+	padding:0;
+}
+header,
+footer,
+article,
+section,
+hgroup,
+nav,
+figure{display:block;}
+@font-face {
+	font-family: 'Conv_Gotham-Black';
+	src: url('../fonts/Gotham-Black.eot');
+	src: local('☺'),
+	url('../fonts/Gotham-Black.woff') format('woff'),
+	url('../fonts/Gotham-Black.ttf') format('truetype'),
+	url('../fonts/Gotham-Black.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Conv_Gotham-Bold';
+	src: url('../fonts/Gotham-Bold.eot');
+	src: local('☺'),
+	url('../fonts/Gotham-Bold.woff') format('woff'),
+	url('../fonts/Gotham-Bold.ttf') format('truetype'),
+	url('../fonts/Gotham-Bold.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Conv_Gotham-Book';
+	src: url('../fonts/Gotham-Book.eot');
+	src: local('☺'),
+	url('../fonts/Gotham-Book.woff') format('woff'),
+	url('../fonts/Gotham-Book.ttf') format('truetype'),
+	url('../fonts/Gotham-Book.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Conv_Gotham-Medium';
+	src: url('../fonts/Gotham-Medium.eot');
+	src: local('☺'),
+	url('../fonts/Gotham-Medium.woff') format('woff'),
+	url('../fonts/Gotham-Medium.ttf') format('truetype'),
+	url('../fonts/Gotham-Medium.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+.center-page{
+	display:table;
+	width:100%;
+	height:100%;
+}
+.center-page #wrapper{
+	display:table-cell;
+	margin:0;
+	vertical-align:middle;
+}
+#wrapper{
+	overflow:hidden;
+	padding:47px 15px 10px;
+}
+.pan-page{padding-top:55px !important;}
+.inner-page{padding-top:13px !important;}
+.loading-page{padding-top:30px !important;}
+.page{margin:0 auto;}
+.logo{
+	margin:0 auto 9px;
+	overflow:hidden;
+	text-indent:-9999px;
+	background:url(../images/logo.png) no-repeat;
+	width:192px;
+	height:52px;
+	background-size:100% 100%;
+	-webkit-background-size:100% 100%;
+	-moz-background-size:100% 100%;
+	-o-background-size:100% 100%;
+}
+.logo a{
+	display:block;
+	height:100%;
+}
+.slogan{
+	display:block;
+	text-align:center;
+	color:#aaa;
+	font-size:14px;
+	line-height:16px;
+	font-weight:normal;
+}
+h1{
+	margin:0 0 36px;
+	color:#fff;
+	text-align:center;
+	font:bold 24px/29px "Conv_Gotham-Bold", Helvetica, Arial, sans-serif;
+}
+.pan-page h1{color:#c8c8c8;}
+.btn-box{
+	text-align:center;
+	clear:both;
+	overflow:hidden;
+	margin:0 0 39px;
+}
+.inner-page .btn-box{padding:30px 0 0}
+.pan-page .btn-box{margin:0 0 43px;}
+.btn-box a{
+	color:#fff;
+	text-transform:uppercase;
+	font:bold 20px/24px "Conv_Gotham-Black", Helvetica, Arial, sans-serif;
+	padding:18px 10px 19px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	background:#6e6e6e;
+	display:block;
+	margin:0 0 38px;
+}
+.btn-box a:hover{text-decoration:none;}
+.inner-page .btn-box a{margin-bottom:22px;}
+.btn-box .btn-blue{background:#008bca;}
+.btn-box .settings-btn{
+	display:inline-block;
+	vertical-align:top;
+	padding:0;
+	background:url(../images/btn-settings.png) no-repeat;
+	width:25px;
+	height:25px;
+	overflow:hidden;
+	text-indent:-9999px;
+	text-transform:none;
+	margin:-9px 0 0;
+	-webkit-border-radius: 0;
+	border-radius: 0;
+	background-size:100% 100%;
+	-webkit-background-size:100% 100%;
+	-moz-background-size:100% 100%;
+	-o-background-size:100% 100%;
+}
+.pan-page .btn-box .btn-row{
+	text-align:justify;
+	line-height:0.7em;
+	margin:0 0 45px;
+}
+.pan-page .btn-box .btn-row:after{
+	display:inline-block;
+	vertical-align:top;
+	width:100%;
+	height:0;
+	font-size:0;
+	line-height:0;
+	content:" ";
+}
+.pan-page .btn-box .btn-row a{
+	display:inline-block;
+	vertical-align:top;
+	text-align:center;
+	margin:0 0 -0.7em;
+	line-height:1.4em;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	width:46%;
+}
+.pan-page .btn-box a{
+	color:#5a5a5a;
+	padding:17px 10px 16px;
+	background:#ebebeb;
+}
+.pan-page .btn-box .dark-btn{
+	background:#6e6e6e;
+	padding:22px 10px 16px;
+}
+.step-nav{
+	width:50%;
+	float:right;
+	/*background:url(../images/bg-step-nav.gif) repeat-x 0 50%;*/
+}
+.inner-step,
+.pan-page .step-nav{
+	float:none;
+	width:100%;
+}
+.step-nav .number{
+	width:30px;
+	height:30px;
+	text-align:center;
+	/*color:#008bca;*/
+	font:bold 15px/30px "Conv_Gotham-Black", Helvetica, Arial, sans-serif;
+	border:5px solid #282828;
+	-webkit-border-radius: 20px;
+	border-radius: 20px;
+	float:left;
+	background:#282828;
+	margin:0 10px 0 10px;
+}
+
+.step-nav .selected{
+	color:#008bca;
+	border:5px solid #008bca;
+}
+.step-nav .prev,
+.step-nav .next{
+	width:23px;
+	height:34px;
+	overflow:hidden;
+	text-indent:-9999px;
+	background:#282828 url(../images/btn-next.png) no-repeat;
+	background-size:100% 100%;
+	-webkit-background-size:100% 100%;
+	-moz-background-size:100% 100%;
+	-o-background-size:100% 100%;
+	margin:2px 0 0 auto;
+	display:block;
+	-webkit-border-radius: 0;
+	border-radius: 0;
+	border:none;
+}
+.step-nav .prev{
+	background:#282828 url(../images/btn-prev.png) no-repeat;
+	background-size:100% 100%;
+	-webkit-background-size:100% 100%;
+	-moz-background-size:100% 100%;
+	-o-background-size:100% 100%;
+}
+.step-nav .prev-holder{
+	background:#282828;
+	padding:0 5px 0 0;
+}
+.step-nav .next-holder{
+	background:#282828;
+	padding:0 0 0 5px;
+}
+/*.step-nav ul .number{margin:0;}*/
+.step-nav ul{
+	list-style:none;
+	padding:0;
+	margin:0;
+	text-align:justify;
+	line-height:0.7em;
+}
+.step-nav li,
+.step-nav ul:after{
+	display:inline-block;
+	vertical-align:top;
+}
+.step-nav ul:after{
+	width:100%;
+	height:0;
+	font-size:0;
+	line-height:0;
+	content: '';
+}
+.step-nav li{
+	line-height:1.4em;
+	margin-bottom:-.7em;
+	position:relative;
+	text-align:center;
+}
+.step-nav ul a{
+	display:block;
+	width:38px;
+	height:38px;
+	text-align:center;
+	color:#c8c8c8;
+	font:bold 19px/38px "Conv_Gotham-Black", Helvetica, Arial, sans-serif;
+	border:4px solid #c8c8c8;
+	-webkit-border-radius: 23px;
+	border-radius: 23px;
+	float:left;
+	background:#f00;
+}
+.step-nav ul a:hover{text-decoration:none;}
+#header{
+	overflow:hidden;
+	width:100%;
+	text-align:center;
+}
+#header .no-btn,
+#header a{
+	width:24.37%;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	float:left;
+	background:#6e6e6e;
+	color:#282828;
+	font:bold 11px/14px "Conv_Gotham-Black", Helvetica, Arial, sans-serif;
+	padding:8px 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+#header .no-btn{
+	background:#282828;
+	color:#282828;
+}
+#header .alignright{float:right;}
+#header h1{
+	margin:0;
+	text-transform:uppercase;
+	color:#6e6e6e;
+	font:17px/19px "Conv_Gotham-Black", Helvetica, Arial, sans-serif;
+	overflow:hidden;
+	padding:7px 3px 0;
+}
+.inform-list{
+	list-style:none;
+	padding:26px 0 21px;
+	margin:0;
+	overflow:hidden;
+	line-height:42px;
+}
+.inform-list li{
+	overflow:hidden;
+	margin:0 0 12px;
+}
+.inform-list a{
+	float:right;
+	background:url(../images/arrow-inform-list.png) no-repeat 100% 0;
+	background-size:10px 14px;
+	-webkit-background-size:10px 14px;
+	-moz-background-size:10px 14px;
+	-o-background-size:10px 14px;
+	padding:0 20px 0 0;
+	color:#fff;
+	text-transform:uppercase;
+	font:13px/18px "Conv_Gotham-Book", Helvetica, Arial, sans-serif;
+	width:96px;
+	margin:21px 0 0 10px;
+}
+.inform-list a:hover{text-decoration:none;}
+.inform-list .holder{
+	overflow:hidden;
+	text-align:right;
+	color:#969696;
+	font-size:18px;
+	line-height:42px;
+}
+.block-info strong,
+.inform-list .holder strong{
+	font-size:36px;
+	line-height:42px;
+	font-family:"Conv_Gotham-Black", Helvetica, Arial, sans-serif;
+	display:inline-block;
+	vertical-align:baseline;
+}
+.block-info span,
+.inform-list .holder span{
+	display:inline-block;
+	vertical-align:baseline;
+	font-family:"Conv_Gotham-Medium", Helvetica, Arial, sans-serif;
+}
+.block-info strong{
+	font-size:50px;
+	line-height:54px;
+}
+.block-info span{
+	font-size:30px;
+	line-height:54px;
+}
+.mark{color:#008bca;}
+.total-box{
+	border-top:1px solid #6a6a6a;
+	width:73.11%;
+	margin:0 auto 15px;
+	font:14px/19px "", Helvetica, Arial, sans-serif;
+	color:#969696;
+	text-align:center;
+	padding:15px 0 0;
+}
+.total-box .holder{
+	display:inline-block;
+	vertical-align:top;
+	text-align:left;
+}
+.total-box span{
+	display:block;
+	font-family:"Conv_Gotham-Medium", Helvetica, Arial, sans-serif;
+}
+.total-box strong{
+	font-weight:bold;
+	padding:0 0 0 25px;
+	margin:0;
+	font-family:"Conv_Gotham-Black", Helvetica, Arial, sans-serif;
+	display:inline-block;
+	vertical-align:top;
+}
+.total-box .photo{
+	background:url(../images/ico-photo.png) no-repeat;
+	background-size:16px 16px;
+	-webkit-background-size:16px 16px;
+	-moz-background-size:16px 16px;
+	-o-background-size:16px 16px;
+}
+.total-box .photo-info{
+	background:url(../images/ico-photo-info.png) no-repeat;
+	background-size:16px 16px;
+	-webkit-background-size:16px 16px;
+	-moz-background-size:16px 16px;
+	-o-background-size:16px 16px;
+}
+.total-box .time{
+	background:url(../images/ico-time.png) no-repeat;
+	background-size:16px 16px;
+	-webkit-background-size:16px 16px;
+	-moz-background-size:16px 16px;
+	-o-background-size:16px 16px;
+}
+.block-info{
+	text-align:center;
+	padding:73px 0 38px;
+}
+.block-info .text{
+	display:block;
+	text-transform:uppercase;
+	color:#979797;
+	font:15px/19px "Conv_Gotham-Bold", Helvetica, Arial, sans-serif;
+}
+.block-info .row{color:#c8c8c8;}
+.choise-box{
+	position:absolute;
+	bottom:0;
+	left:0;
+	right:0;
+	background: rgb(115,115,115);
+	background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzczNzM3MyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjIlIiBzdG9wLWNvbG9yPSIjNzM3MzczIiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iOCUiIHN0b3AtY29sb3I9IiM2ODY4NjgiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSI5JSIgc3RvcC1jb2xvcj0iIzY5Njk2OSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjklIiBzdG9wLWNvbG9yPSIjNjU2NTY1IiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iMTElIiBzdG9wLWNvbG9yPSIjNjM2MzYzIiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iMTQlIiBzdG9wLWNvbG9yPSIjNWM1YzVjIiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iMTQlIiBzdG9wLWNvbG9yPSIjNWQ1ZDVkIiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iMTQlIiBzdG9wLWNvbG9yPSIjNWI1YjViIiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iMTclIiBzdG9wLWNvbG9yPSIjNTU1NTU1IiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iMzIlIiBzdG9wLWNvbG9yPSIjM2MzYzNjIiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iNDMlIiBzdG9wLWNvbG9yPSIjMmMyYzJjIiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iNDclIiBzdG9wLWNvbG9yPSIjMjkyOTI5IiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iNDclIiBzdG9wLWNvbG9yPSIjMjcyNzI3IiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iNDclIiBzdG9wLWNvbG9yPSIjMjgyODI4IiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iNDglIiBzdG9wLWNvbG9yPSIjMjIyMjIyIiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iNDglIiBzdG9wLWNvbG9yPSIjMjMyMzIzIiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iNDglIiBzdG9wLWNvbG9yPSIjMWMxYzFjIiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iNDglIiBzdG9wLWNvbG9yPSIjMWUxZTFlIiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iNDglIiBzdG9wLWNvbG9yPSIjMWExYTFhIiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzE5MTkxOSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgPC9saW5lYXJHcmFkaWVudD4KICA8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2dyYWQtdWNnZy1nZW5lcmF0ZWQpIiAvPgo8L3N2Zz4=);
+	background: -moz-linear-gradient(top,  rgba(115,115,115,1) 0%, rgba(115,115,115,1) 2%, rgba(104,104,104,1) 8%, rgba(105,105,105,1) 9%, rgba(101,101,101,1) 9%, rgba(99,99,99,1) 11%, rgba(92,92,92,1) 14%, rgba(93,93,93,1) 14%, rgba(91,91,91,1) 14%, rgba(85,85,85,1) 17%, rgba(60,60,60,1) 32%, rgba(44,44,44,1) 43%, rgba(41,41,41,1) 47%, rgba(39,39,39,1) 47%, rgba(40,40,40,1) 47%, rgba(34,34,34,1) 48%, rgba(35,35,35,1) 48%, rgba(28,28,28,1) 48%, rgba(30,30,30,1) 48%, rgba(26,26,26,1) 48%, rgba(25,25,25,1) 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(115,115,115,1)), color-stop(2%,rgba(115,115,115,1)), color-stop(8%,rgba(104,104,104,1)), color-stop(9%,rgba(105,105,105,1)), color-stop(9%,rgba(101,101,101,1)), color-stop(11%,rgba(99,99,99,1)), color-stop(14%,rgba(92,92,92,1)), color-stop(14%,rgba(93,93,93,1)), color-stop(14%,rgba(91,91,91,1)), color-stop(17%,rgba(85,85,85,1)), color-stop(32%,rgba(60,60,60,1)), color-stop(43%,rgba(44,44,44,1)), color-stop(47%,rgba(41,41,41,1)), color-stop(47%,rgba(39,39,39,1)), color-stop(47%,rgba(40,40,40,1)), color-stop(48%,rgba(34,34,34,1)), color-stop(48%,rgba(35,35,35,1)), color-stop(48%,rgba(28,28,28,1)), color-stop(48%,rgba(30,30,30,1)), color-stop(48%,rgba(26,26,26,1)), color-stop(100%,rgba(25,25,25,1)));
+	background: -webkit-linear-gradient(top,  rgba(115,115,115,1) 0%,rgba(115,115,115,1) 2%,rgba(104,104,104,1) 8%,rgba(105,105,105,1) 9%,rgba(101,101,101,1) 9%,rgba(99,99,99,1) 11%,rgba(92,92,92,1) 14%,rgba(93,93,93,1) 14%,rgba(91,91,91,1) 14%,rgba(85,85,85,1) 17%,rgba(60,60,60,1) 32%,rgba(44,44,44,1) 43%,rgba(41,41,41,1) 47%,rgba(39,39,39,1) 47%,rgba(40,40,40,1) 47%,rgba(34,34,34,1) 48%,rgba(35,35,35,1) 48%,rgba(28,28,28,1) 48%,rgba(30,30,30,1) 48%,rgba(26,26,26,1) 48%,rgba(25,25,25,1) 100%);
+	background: -o-linear-gradient(top,  rgba(115,115,115,1) 0%,rgba(115,115,115,1) 2%,rgba(104,104,104,1) 8%,rgba(105,105,105,1) 9%,rgba(101,101,101,1) 9%,rgba(99,99,99,1) 11%,rgba(92,92,92,1) 14%,rgba(93,93,93,1) 14%,rgba(91,91,91,1) 14%,rgba(85,85,85,1) 17%,rgba(60,60,60,1) 32%,rgba(44,44,44,1) 43%,rgba(41,41,41,1) 47%,rgba(39,39,39,1) 47%,rgba(40,40,40,1) 47%,rgba(34,34,34,1) 48%,rgba(35,35,35,1) 48%,rgba(28,28,28,1) 48%,rgba(30,30,30,1) 48%,rgba(26,26,26,1) 48%,rgba(25,25,25,1) 100%);
+	background: -ms-linear-gradient(top,  rgba(115,115,115,1) 0%,rgba(115,115,115,1) 2%,rgba(104,104,104,1) 8%,rgba(105,105,105,1) 9%,rgba(101,101,101,1) 9%,rgba(99,99,99,1) 11%,rgba(92,92,92,1) 14%,rgba(93,93,93,1) 14%,rgba(91,91,91,1) 14%,rgba(85,85,85,1) 17%,rgba(60,60,60,1) 32%,rgba(44,44,44,1) 43%,rgba(41,41,41,1) 47%,rgba(39,39,39,1) 47%,rgba(40,40,40,1) 47%,rgba(34,34,34,1) 48%,rgba(35,35,35,1) 48%,rgba(28,28,28,1) 48%,rgba(30,30,30,1) 48%,rgba(26,26,26,1) 48%,rgba(25,25,25,1) 100%);
+	background: linear-gradient(to bottom,  rgba(115,115,115,1) 0%,rgba(115,115,115,1) 2%,rgba(104,104,104,1) 8%,rgba(105,105,105,1) 9%,rgba(101,101,101,1) 9%,rgba(99,99,99,1) 11%,rgba(92,92,92,1) 14%,rgba(93,93,93,1) 14%,rgba(91,91,91,1) 14%,rgba(85,85,85,1) 17%,rgba(60,60,60,1) 32%,rgba(44,44,44,1) 43%,rgba(41,41,41,1) 47%,rgba(39,39,39,1) 47%,rgba(40,40,40,1) 47%,rgba(34,34,34,1) 48%,rgba(35,35,35,1) 48%,rgba(28,28,28,1) 48%,rgba(30,30,30,1) 48%,rgba(26,26,26,1) 48%,rgba(25,25,25,1) 100%);
+	padding:6px 28px 11px;
+}
+.choise-box .holder{
+	overflow:hidden;
+	border:1px solid #57595e;
+	border-right-color:#2a2b2b;
+	border-left:#0e0e0e;
+	border-top:#3b3b3b;
+	-webkit-border-radius: 6px;
+	border-radius: 6px;
+	background: rgb(43,47,50);
+	background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzJiMmYzMiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjElIiBzdG9wLWNvbG9yPSIjMmEyZTMxIiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iMSUiIHN0b3AtY29sb3I9IiMzMjM1M2EiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSIxJSIgc3RvcC1jb2xvcj0iIzMxMzQzOSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjIlIiBzdG9wLWNvbG9yPSIjMzYzOTNlIiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iMiUiIHN0b3AtY29sb3I9IiMzNTM4M2QiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSIzJSIgc3RvcC1jb2xvcj0iIzNjNDE0NyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjMlIiBzdG9wLWNvbG9yPSIjM2EzZjQ1IiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iMyUiIHN0b3AtY29sb3I9IiMzYjQwNDYiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSIzJSIgc3RvcC1jb2xvcj0iIzNjNDE0NyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjQlIiBzdG9wLWNvbG9yPSIjNDI0NjRmIiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iNCUiIHN0b3AtY29sb3I9IiMzZjQ2NGUiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSI0JSIgc3RvcC1jb2xvcj0iIzQ2NGQ1NyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjQlIiBzdG9wLWNvbG9yPSIjNDQ0YjU1IiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iNSUiIHN0b3AtY29sb3I9IiM0NjRkNTciIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSI1JSIgc3RvcC1jb2xvcj0iIzQ0NGI1NSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjUlIiBzdG9wLWNvbG9yPSIjNDY0ZDU3IiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iNSUiIHN0b3AtY29sb3I9IiM0YjUyNWMiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSI2JSIgc3RvcC1jb2xvcj0iIzRiNTI1YyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjYlIiBzdG9wLWNvbG9yPSIjNTA1NzYxIiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iNyUiIHN0b3AtY29sb3I9IiM0ZjU4NjEiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSI3JSIgc3RvcC1jb2xvcj0iIzU1NWU2NyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjglIiBzdG9wLWNvbG9yPSIjNTM1YjY2IiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iOCUiIHN0b3AtY29sb3I9IiM1YjYzNmUiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSI4JSIgc3RvcC1jb2xvcj0iIzVhNjQ2ZSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjklIiBzdG9wLWNvbG9yPSIjNjI2Yzc2IiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iOSUiIHN0b3AtY29sb3I9IiM2MTZiNzUiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSI5JSIgc3RvcC1jb2xvcj0iIzYzNmQ3NyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjklIiBzdG9wLWNvbG9yPSIjNjE2Yjc1IiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iOSUiIHN0b3AtY29sb3I9IiM2MjZjNzYiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSI5JSIgc3RvcC1jb2xvcj0iIzZhNzQ3ZSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwJSIgc3RvcC1jb2xvcj0iIzZiNzU4MSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwJSIgc3RvcC1jb2xvcj0iIzY5NzM3ZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwJSIgc3RvcC1jb2xvcj0iIzZiNzU4MSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwJSIgc3RvcC1jb2xvcj0iIzY5NzM3ZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwJSIgc3RvcC1jb2xvcj0iIzZhNzQ4MCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwJSIgc3RvcC1jb2xvcj0iIzczN2Q4OSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjExJSIgc3RvcC1jb2xvcj0iIzc0N2U4YSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjExJSIgc3RvcC1jb2xvcj0iIzdlODg5NCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEyJSIgc3RvcC1jb2xvcj0iIzdhODc5MCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEyJSIgc3RvcC1jb2xvcj0iIzgzOTA5OSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEyJSIgc3RvcC1jb2xvcj0iIzg1OTI5YiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEyJSIgc3RvcC1jb2xvcj0iIzgyOGY5OCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEyJSIgc3RvcC1jb2xvcj0iIzg2OTM5YyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEzJSIgc3RvcC1jb2xvcj0iIzgzOTA5OSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEzJSIgc3RvcC1jb2xvcj0iIzg0OTE5YSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEzJSIgc3RvcC1jb2xvcj0iIzhkOWFhMyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEzJSIgc3RvcC1jb2xvcj0iIzhlOWJhNCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEzJSIgc3RvcC1jb2xvcj0iIzhjOTlhMiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEzJSIgc3RvcC1jb2xvcj0iIzhlOWJhNCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEzJSIgc3RvcC1jb2xvcj0iIzhjOTlhMiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjE0JSIgc3RvcC1jb2xvcj0iIzhkOWFhMyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjE0JSIgc3RvcC1jb2xvcj0iIzkzYTBhOSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjE0JSIgc3RvcC1jb2xvcj0iIzkyOWZhOCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjE0JSIgc3RvcC1jb2xvcj0iIzk0YTFhYSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjE0JSIgc3RvcC1jb2xvcj0iIzkyOWZhOCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjE0JSIgc3RvcC1jb2xvcj0iIzkzYTBhOSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjE1JSIgc3RvcC1jb2xvcj0iIzk5YTZhZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjE1JSIgc3RvcC1jb2xvcj0iIzk5YTZhZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjE2JSIgc3RvcC1jb2xvcj0iIzljYTliMiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjE2JSIgc3RvcC1jb2xvcj0iIzljYTliMiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjE2JSIgc3RvcC1jb2xvcj0iIzllYWJiNCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjE4JSIgc3RvcC1jb2xvcj0iIzlmYWNiNSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjIxJSIgc3RvcC1jb2xvcj0iI2E1YjJiYSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjIyJSIgc3RvcC1jb2xvcj0iI2FiYjhjMCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjI0JSIgc3RvcC1jb2xvcj0iI2FjYjliZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjI0JSIgc3RvcC1jb2xvcj0iI2IwYmRjMyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjI1JSIgc3RvcC1jb2xvcj0iI2FmYmNjMiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjI2JSIgc3RvcC1jb2xvcj0iI2I0YmZjNSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjI3JSIgc3RvcC1jb2xvcj0iI2IzYzBjNiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjI3JSIgc3RvcC1jb2xvcj0iI2I3YzJjOCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjI4JSIgc3RvcC1jb2xvcj0iI2I3YzJjOCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjI5JSIgc3RvcC1jb2xvcj0iI2JjYzdjZCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjMwJSIgc3RvcC1jb2xvcj0iI2I5YzZjYyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjMxJSIgc3RvcC1jb2xvcj0iI2JjYzdjYiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjMxJSIgc3RvcC1jb2xvcj0iI2JlYzljZCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjMzJSIgc3RvcC1jb2xvcj0iI2MxY2NkMCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjM0JSIgc3RvcC1jb2xvcj0iI2MwY2RkMyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjM0JSIgc3RvcC1jb2xvcj0iI2MwY2VjZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjM1JSIgc3RvcC1jb2xvcj0iI2MzY2VkMCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjM1JSIgc3RvcC1jb2xvcj0iI2MzY2VkMCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjM2JSIgc3RvcC1jb2xvcj0iI2M1ZDBkNiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjM2JSIgc3RvcC1jb2xvcj0iI2M1ZDBkMiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjM4JSIgc3RvcC1jb2xvcj0iI2M3ZDJkNCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjM4JSIgc3RvcC1jb2xvcj0iI2M5ZDRkNiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjQwJSIgc3RvcC1jb2xvcj0iI2M5ZDRkNiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjQwJSIgc3RvcC1jb2xvcj0iI2NiZDZkOCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjQzJSIgc3RvcC1jb2xvcj0iI2NkZDhkYSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjQ0JSIgc3RvcC1jb2xvcj0iI2NkZDlkNyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjQ1JSIgc3RvcC1jb2xvcj0iI2NkZDhkYSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjQ2JSIgc3RvcC1jb2xvcj0iI2NlZGFkYSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjUzJSIgc3RvcC1jb2xvcj0iI2NkZDlkOSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjUzJSIgc3RvcC1jb2xvcj0iI2NiZDdkNyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjU1JSIgc3RvcC1jb2xvcj0iI2NhZDVkNyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjU5JSIgc3RvcC1jb2xvcj0iI2M0Y2ZkMSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjU5JSIgc3RvcC1jb2xvcj0iI2MxY2NjZSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjU5JSIgc3RvcC1jb2xvcj0iI2MyY2RjZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjYxJSIgc3RvcC1jb2xvcj0iI2JjY2FjYiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjYyJSIgc3RvcC1jb2xvcj0iI2JkYzhjYyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjYyJSIgc3RvcC1jb2xvcj0iI2JhYzVjOSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjY0JSIgc3RvcC1jb2xvcj0iI2I5YzRjOCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjY0JSIgc3RvcC1jb2xvcj0iI2I0YzJjNSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjY1JSIgc3RvcC1jb2xvcj0iI2IyYzBjMyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjY1JSIgc3RvcC1jb2xvcj0iI2I0YmZjMyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjY1JSIgc3RvcC1jb2xvcj0iI2I1YzBjNiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjY2JSIgc3RvcC1jb2xvcj0iI2IxYmNjMiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjY2JSIgc3RvcC1jb2xvcj0iI2IyYmRjMyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjY3JSIgc3RvcC1jb2xvcj0iI2FkYmFjMCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjY4JSIgc3RvcC1jb2xvcj0iI2FiYjhiZSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjY5JSIgc3RvcC1jb2xvcj0iI2E4YjViYiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjY5JSIgc3RvcC1jb2xvcj0iI2E5YjZiYyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjY5JSIgc3RvcC1jb2xvcj0iI2E2YjNiOSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjcxJSIgc3RvcC1jb2xvcj0iI2E0YjFiNyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjcxJSIgc3RvcC1jb2xvcj0iI2ExYWViNCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjcyJSIgc3RvcC1jb2xvcj0iI2EwYWRiNSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjczJSIgc3RvcC1jb2xvcj0iIzlkYWFiMiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijc0JSIgc3RvcC1jb2xvcj0iIzlhYTdhZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijc0JSIgc3RvcC1jb2xvcj0iIzliYThiMCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijc0JSIgc3RvcC1jb2xvcj0iIzlhYTdhZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijc0JSIgc3RvcC1jb2xvcj0iIzk2YTNhYiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijc1JSIgc3RvcC1jb2xvcj0iIzk3YTRhZCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijc1JSIgc3RvcC1jb2xvcj0iIzkyOWZhOCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijc2JSIgc3RvcC1jb2xvcj0iIzkyOWVhYSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijc2JSIgc3RvcC1jb2xvcj0iIzhlOWFhNiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijc3JSIgc3RvcC1jb2xvcj0iIzhlOWFhNiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijc3JSIgc3RvcC1jb2xvcj0iIzhhOTZhMiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijc3JSIgc3RvcC1jb2xvcj0iIzhhOThhMyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijc4JSIgc3RvcC1jb2xvcj0iIzg1OTM5ZSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijc4JSIgc3RvcC1jb2xvcj0iIzg3OTVhMCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijc5JSIgc3RvcC1jb2xvcj0iIzgxOGY5YSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijc5JSIgc3RvcC1jb2xvcj0iIzgzOTE5ZSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijc5JSIgc3RvcC1jb2xvcj0iIzgyOTA5ZCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjgwJSIgc3RvcC1jb2xvcj0iIzdmOGQ5YSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjgwJSIgc3RvcC1jb2xvcj0iIzdmOGQ5YSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjgxJSIgc3RvcC1jb2xvcj0iIzdiODk5NiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjgxJSIgc3RvcC1jb2xvcj0iIzdiODk5NiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjgxJSIgc3RvcC1jb2xvcj0iIzc4ODU5NSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjgyJSIgc3RvcC1jb2xvcj0iIzc4ODU5NSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjgyJSIgc3RvcC1jb2xvcj0iIzc1ODM5MCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjgzJSIgc3RvcC1jb2xvcj0iIzc1ODI5MiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjgzJSIgc3RvcC1jb2xvcj0iIzcxN2U4ZSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijg0JSIgc3RvcC1jb2xvcj0iIzcyN2Y5MCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijg0JSIgc3RvcC1jb2xvcj0iIzZmN2M4ZCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijg1JSIgc3RvcC1jb2xvcj0iIzZkN2E4YiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijg2JSIgc3RvcC1jb2xvcj0iIzZhNzc4OCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijg2JSIgc3RvcC1jb2xvcj0iIzZiNzg4OSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijg4JSIgc3RvcC1jb2xvcj0iIzY1NzI4MyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijg4JSIgc3RvcC1jb2xvcj0iIzY2NzM4NCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijg4JSIgc3RvcC1jb2xvcj0iIzY0NzE4MiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijg5JSIgc3RvcC1jb2xvcj0iIzY0NzE4NCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijg5JSIgc3RvcC1jb2xvcj0iIzYyNmY4MiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjkxJSIgc3RvcC1jb2xvcj0iIzYwNmQ4MCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjkyJSIgc3RvcC1jb2xvcj0iIzVlNjk3ZCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk0JSIgc3RvcC1jb2xvcj0iIzVkNjg3ZSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk1JSIgc3RvcC1jb2xvcj0iIzVjNjc3ZCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk1JSIgc3RvcC1jb2xvcj0iIzU5NjQ3YSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk1JSIgc3RvcC1jb2xvcj0iIzVkNjU3YyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk2JSIgc3RvcC1jb2xvcj0iIzVjNjQ3YiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk2JSIgc3RvcC1jb2xvcj0iIzU2NWU3MyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk3JSIgc3RvcC1jb2xvcj0iIzU3NWQ3MyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk3JSIgc3RvcC1jb2xvcj0iIzRmNTU2YiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk3JSIgc3RvcC1jb2xvcj0iIzUxNTc2ZCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk3JSIgc3RvcC1jb2xvcj0iIzRkNTQ2NyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk3JSIgc3RvcC1jb2xvcj0iIzUwNTc2YSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk3JSIgc3RvcC1jb2xvcj0iIzRlNTU2OCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk4JSIgc3RvcC1jb2xvcj0iIzQ1NGM1ZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk4JSIgc3RvcC1jb2xvcj0iIzQ2NGQ2MCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk4JSIgc3RvcC1jb2xvcj0iIzQ1NGE1ZSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk4JSIgc3RvcC1jb2xvcj0iIzQ4NGQ2MCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk4JSIgc3RvcC1jb2xvcj0iIzM5M2U1MSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk5JSIgc3RvcC1jb2xvcj0iIzNjNDE1NCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk5JSIgc3RvcC1jb2xvcj0iIzNiNDA1MyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk5JSIgc3RvcC1jb2xvcj0iIzNhM2Y1MiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk5JSIgc3RvcC1jb2xvcj0iIzMwMzU0OCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk5JSIgc3RvcC1jb2xvcj0iIzJlMzM0NiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMzMDM1NDgiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMmUzMzQ2IiBzdG9wLW9wYWNpdHk9IjEiLz4KICA8L2xpbmVhckdyYWRpZW50PgogIDxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9InVybCgjZ3JhZC11Y2dnLWdlbmVyYXRlZCkiIC8+Cjwvc3ZnPg==);
+	background: -moz-linear-gradient(top,  rgba(43,47,50,1) 0%, rgba(42,46,49,1) 1%, rgba(50,53,58,1) 1%, rgba(49,52,57,1) 1%, rgba(54,57,62,1) 2%, rgba(53,56,61,1) 2%, rgba(60,65,71,1) 3%, rgba(58,63,69,1) 3%, rgba(59,64,70,1) 3%, rgba(60,65,71,1) 3%, rgba(66,70,79,1) 4%, rgba(63,70,78,1) 4%, rgba(70,77,87,1) 4%, rgba(68,75,85,1) 4%, rgba(70,77,87,1) 5%, rgba(68,75,85,1) 5%, rgba(70,77,87,1) 5%, rgba(75,82,92,1) 5%, rgba(75,82,92,1) 6%, rgba(80,87,97,1) 6%, rgba(79,88,97,1) 7%, rgba(85,94,103,1) 7%, rgba(83,91,102,1) 8%, rgba(91,99,110,1) 8%, rgba(90,100,110,1) 8%, rgba(98,108,118,1) 9%, rgba(97,107,117,1) 9%, rgba(99,109,119,1) 9%, rgba(97,107,117,1) 9%, rgba(98,108,118,1) 9%, rgba(106,116,126,1) 9%, rgba(107,117,129,1) 10%, rgba(105,115,127,1) 10%, rgba(107,117,129,1) 10%, rgba(105,115,127,1) 10%, rgba(106,116,128,1) 10%, rgba(115,125,137,1) 10%, rgba(116,126,138,1) 11%, rgba(126,136,148,1) 11%, rgba(122,135,144,1) 12%, rgba(131,144,153,1) 12%, rgba(133,146,155,1) 12%, rgba(130,143,152,1) 12%, rgba(134,147,156,1) 12%, rgba(131,144,153,1) 13%, rgba(132,145,154,1) 13%, rgba(141,154,163,1) 13%, rgba(142,155,164,1) 13%, rgba(140,153,162,1) 13%, rgba(142,155,164,1) 13%, rgba(140,153,162,1) 13%, rgba(141,154,163,1) 14%, rgba(147,160,169,1) 14%, rgba(146,159,168,1) 14%, rgba(148,161,170,1) 14%, rgba(146,159,168,1) 14%, rgba(147,160,169,1) 14%, rgba(153,166,175,1) 15%, rgba(153,166,175,1) 15%, rgba(156,169,178,1) 16%, rgba(156,169,178,1) 16%, rgba(158,171,180,1) 16%, rgba(159,172,181,1) 18%, rgba(165,178,186,1) 21%, rgba(171,184,192,1) 22%, rgba(172,185,191,1) 24%, rgba(176,189,195,1) 24%, rgba(175,188,194,1) 25%, rgba(180,191,197,1) 26%, rgba(179,192,198,1) 27%, rgba(183,194,200,1) 27%, rgba(183,194,200,1) 28%, rgba(188,199,205,1) 29%, rgba(185,198,204,1) 30%, rgba(188,199,203,1) 31%, rgba(190,201,205,1) 31%, rgba(193,204,208,1) 33%, rgba(192,205,211,1) 34%, rgba(192,206,207,1) 34%, rgba(195,206,208,1) 35%, rgba(195,206,208,1) 35%, rgba(197,208,214,1) 36%, rgba(197,208,210,1) 36%, rgba(199,210,212,1) 38%, rgba(201,212,214,1) 38%, rgba(201,212,214,1) 40%, rgba(203,214,216,1) 40%, rgba(205,216,218,1) 43%, rgba(205,217,215,1) 44%, rgba(205,216,218,1) 45%, rgba(206,218,218,1) 46%, rgba(205,217,217,1) 53%, rgba(203,215,215,1) 53%, rgba(202,213,215,1) 55%, rgba(196,207,209,1) 59%, rgba(193,204,206,1) 59%, rgba(194,205,207,1) 59%, rgba(188,202,203,1) 61%, rgba(189,200,204,1) 62%, rgba(186,197,201,1) 62%, rgba(185,196,200,1) 64%, rgba(180,194,197,1) 64%, rgba(178,192,195,1) 65%, rgba(180,191,195,1) 65%, rgba(181,192,198,1) 65%, rgba(177,188,194,1) 66%, rgba(178,189,195,1) 66%, rgba(173,186,192,1) 67%, rgba(171,184,190,1) 68%, rgba(168,181,187,1) 69%, rgba(169,182,188,1) 69%, rgba(166,179,185,1) 69%, rgba(164,177,183,1) 71%, rgba(161,174,180,1) 71%, rgba(160,173,181,1) 72%, rgba(157,170,178,1) 73%, rgba(154,167,175,1) 74%, rgba(155,168,176,1) 74%, rgba(154,167,175,1) 74%, rgba(150,163,171,1) 74%, rgba(151,164,173,1) 75%, rgba(146,159,168,1) 75%, rgba(146,158,170,1) 76%, rgba(142,154,166,1) 76%, rgba(142,154,166,1) 77%, rgba(138,150,162,1) 77%, rgba(138,152,163,1) 77%, rgba(133,147,158,1) 78%, rgba(135,149,160,1) 78%, rgba(129,143,154,1) 79%, rgba(131,145,158,1) 79%, rgba(130,144,157,1) 79%, rgba(127,141,154,1) 80%, rgba(127,141,154,1) 80%, rgba(123,137,150,1) 81%, rgba(123,137,150,1) 81%, rgba(120,133,149,1) 81%, rgba(120,133,149,1) 82%, rgba(117,131,144,1) 82%, rgba(117,130,146,1) 83%, rgba(113,126,142,1) 83%, rgba(114,127,144,1) 84%, rgba(111,124,141,1) 84%, rgba(109,122,139,1) 85%, rgba(106,119,136,1) 86%, rgba(107,120,137,1) 86%, rgba(101,114,131,1) 88%, rgba(102,115,132,1) 88%, rgba(100,113,130,1) 88%, rgba(100,113,132,1) 89%, rgba(98,111,130,1) 89%, rgba(96,109,128,1) 91%, rgba(94,105,125,1) 92%, rgba(93,104,126,1) 94%, rgba(92,103,125,1) 95%, rgba(89,100,122,1) 95%, rgba(93,101,124,1) 95%, rgba(92,100,123,1) 96%, rgba(86,94,115,1) 96%, rgba(87,93,115,1) 97%, rgba(79,85,107,1) 97%, rgba(81,87,109,1) 97%, rgba(77,84,103,1) 97%, rgba(80,87,106,1) 97%, rgba(78,85,104,1) 97%, rgba(69,76,95,1) 98%, rgba(70,77,96,1) 98%, rgba(69,74,94,1) 98%, rgba(72,77,96,1) 98%, rgba(57,62,81,1) 98%, rgba(60,65,84,1) 99%, rgba(59,64,83,1) 99%, rgba(58,63,82,1) 99%, rgba(48,53,72,1) 99%, rgba(46,51,70,1) 99%, rgba(48,53,72,1) 100%, rgba(46,51,70,1) 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(43,47,50,1)), color-stop(1%,rgba(42,46,49,1)), color-stop(1%,rgba(50,53,58,1)), color-stop(1%,rgba(49,52,57,1)), color-stop(2%,rgba(54,57,62,1)), color-stop(2%,rgba(53,56,61,1)), color-stop(3%,rgba(60,65,71,1)), color-stop(3%,rgba(58,63,69,1)), color-stop(3%,rgba(59,64,70,1)), color-stop(3%,rgba(60,65,71,1)), color-stop(4%,rgba(66,70,79,1)), color-stop(4%,rgba(63,70,78,1)), color-stop(4%,rgba(70,77,87,1)), color-stop(4%,rgba(68,75,85,1)), color-stop(5%,rgba(70,77,87,1)), color-stop(5%,rgba(68,75,85,1)), color-stop(5%,rgba(70,77,87,1)), color-stop(5%,rgba(75,82,92,1)), color-stop(6%,rgba(75,82,92,1)), color-stop(6%,rgba(80,87,97,1)), color-stop(7%,rgba(79,88,97,1)), color-stop(7%,rgba(85,94,103,1)), color-stop(8%,rgba(83,91,102,1)), color-stop(8%,rgba(91,99,110,1)), color-stop(8%,rgba(90,100,110,1)), color-stop(9%,rgba(98,108,118,1)), color-stop(9%,rgba(97,107,117,1)), color-stop(9%,rgba(99,109,119,1)), color-stop(9%,rgba(97,107,117,1)), color-stop(9%,rgba(98,108,118,1)), color-stop(9%,rgba(106,116,126,1)), color-stop(10%,rgba(107,117,129,1)), color-stop(10%,rgba(105,115,127,1)), color-stop(10%,rgba(107,117,129,1)), color-stop(10%,rgba(105,115,127,1)), color-stop(10%,rgba(106,116,128,1)), color-stop(10%,rgba(115,125,137,1)), color-stop(11%,rgba(116,126,138,1)), color-stop(11%,rgba(126,136,148,1)), color-stop(12%,rgba(122,135,144,1)), color-stop(12%,rgba(131,144,153,1)), color-stop(12%,rgba(133,146,155,1)), color-stop(12%,rgba(130,143,152,1)), color-stop(12%,rgba(134,147,156,1)), color-stop(13%,rgba(131,144,153,1)), color-stop(13%,rgba(132,145,154,1)), color-stop(13%,rgba(141,154,163,1)), color-stop(13%,rgba(142,155,164,1)), color-stop(13%,rgba(140,153,162,1)), color-stop(13%,rgba(142,155,164,1)), color-stop(13%,rgba(140,153,162,1)), color-stop(14%,rgba(141,154,163,1)), color-stop(14%,rgba(147,160,169,1)), color-stop(14%,rgba(146,159,168,1)), color-stop(14%,rgba(148,161,170,1)), color-stop(14%,rgba(146,159,168,1)), color-stop(14%,rgba(147,160,169,1)), color-stop(15%,rgba(153,166,175,1)), color-stop(15%,rgba(153,166,175,1)), color-stop(16%,rgba(156,169,178,1)), color-stop(16%,rgba(156,169,178,1)), color-stop(16%,rgba(158,171,180,1)), color-stop(18%,rgba(159,172,181,1)), color-stop(21%,rgba(165,178,186,1)), color-stop(22%,rgba(171,184,192,1)), color-stop(24%,rgba(172,185,191,1)), color-stop(24%,rgba(176,189,195,1)), color-stop(25%,rgba(175,188,194,1)), color-stop(26%,rgba(180,191,197,1)), color-stop(27%,rgba(179,192,198,1)), color-stop(27%,rgba(183,194,200,1)), color-stop(28%,rgba(183,194,200,1)), color-stop(29%,rgba(188,199,205,1)), color-stop(30%,rgba(185,198,204,1)), color-stop(31%,rgba(188,199,203,1)), color-stop(31%,rgba(190,201,205,1)), color-stop(33%,rgba(193,204,208,1)), color-stop(34%,rgba(192,205,211,1)), color-stop(34%,rgba(192,206,207,1)), color-stop(35%,rgba(195,206,208,1)), color-stop(35%,rgba(195,206,208,1)), color-stop(36%,rgba(197,208,214,1)), color-stop(36%,rgba(197,208,210,1)), color-stop(38%,rgba(199,210,212,1)), color-stop(38%,rgba(201,212,214,1)), color-stop(40%,rgba(201,212,214,1)), color-stop(40%,rgba(203,214,216,1)), color-stop(43%,rgba(205,216,218,1)), color-stop(44%,rgba(205,217,215,1)), color-stop(45%,rgba(205,216,218,1)), color-stop(46%,rgba(206,218,218,1)), color-stop(53%,rgba(205,217,217,1)), color-stop(53%,rgba(203,215,215,1)), color-stop(55%,rgba(202,213,215,1)), color-stop(59%,rgba(196,207,209,1)), color-stop(59%,rgba(193,204,206,1)), color-stop(59%,rgba(194,205,207,1)), color-stop(61%,rgba(188,202,203,1)), color-stop(62%,rgba(189,200,204,1)), color-stop(62%,rgba(186,197,201,1)), color-stop(64%,rgba(185,196,200,1)), color-stop(64%,rgba(180,194,197,1)), color-stop(65%,rgba(178,192,195,1)), color-stop(65%,rgba(180,191,195,1)), color-stop(65%,rgba(181,192,198,1)), color-stop(66%,rgba(177,188,194,1)), color-stop(66%,rgba(178,189,195,1)), color-stop(67%,rgba(173,186,192,1)), color-stop(68%,rgba(171,184,190,1)), color-stop(69%,rgba(168,181,187,1)), color-stop(69%,rgba(169,182,188,1)), color-stop(69%,rgba(166,179,185,1)), color-stop(71%,rgba(164,177,183,1)), color-stop(71%,rgba(161,174,180,1)), color-stop(72%,rgba(160,173,181,1)), color-stop(73%,rgba(157,170,178,1)), color-stop(74%,rgba(154,167,175,1)), color-stop(74%,rgba(155,168,176,1)), color-stop(74%,rgba(154,167,175,1)), color-stop(74%,rgba(150,163,171,1)), color-stop(75%,rgba(151,164,173,1)), color-stop(75%,rgba(146,159,168,1)), color-stop(76%,rgba(146,158,170,1)), color-stop(76%,rgba(142,154,166,1)), color-stop(77%,rgba(142,154,166,1)), color-stop(77%,rgba(138,150,162,1)), color-stop(77%,rgba(138,152,163,1)), color-stop(78%,rgba(133,147,158,1)), color-stop(78%,rgba(135,149,160,1)), color-stop(79%,rgba(129,143,154,1)), color-stop(79%,rgba(131,145,158,1)), color-stop(79%,rgba(130,144,157,1)), color-stop(80%,rgba(127,141,154,1)), color-stop(80%,rgba(127,141,154,1)), color-stop(81%,rgba(123,137,150,1)), color-stop(81%,rgba(123,137,150,1)), color-stop(81%,rgba(120,133,149,1)), color-stop(82%,rgba(120,133,149,1)), color-stop(82%,rgba(117,131,144,1)), color-stop(83%,rgba(117,130,146,1)), color-stop(83%,rgba(113,126,142,1)), color-stop(84%,rgba(114,127,144,1)), color-stop(84%,rgba(111,124,141,1)), color-stop(85%,rgba(109,122,139,1)), color-stop(86%,rgba(106,119,136,1)), color-stop(86%,rgba(107,120,137,1)), color-stop(88%,rgba(101,114,131,1)), color-stop(88%,rgba(102,115,132,1)), color-stop(88%,rgba(100,113,130,1)), color-stop(89%,rgba(100,113,132,1)), color-stop(89%,rgba(98,111,130,1)), color-stop(91%,rgba(96,109,128,1)), color-stop(92%,rgba(94,105,125,1)), color-stop(94%,rgba(93,104,126,1)), color-stop(95%,rgba(92,103,125,1)), color-stop(95%,rgba(89,100,122,1)), color-stop(95%,rgba(93,101,124,1)), color-stop(96%,rgba(92,100,123,1)), color-stop(96%,rgba(86,94,115,1)), color-stop(97%,rgba(87,93,115,1)), color-stop(97%,rgba(79,85,107,1)), color-stop(97%,rgba(81,87,109,1)), color-stop(97%,rgba(77,84,103,1)), color-stop(97%,rgba(80,87,106,1)), color-stop(97%,rgba(78,85,104,1)), color-stop(98%,rgba(69,76,95,1)), color-stop(98%,rgba(70,77,96,1)), color-stop(98%,rgba(69,74,94,1)), color-stop(98%,rgba(72,77,96,1)), color-stop(98%,rgba(57,62,81,1)), color-stop(99%,rgba(60,65,84,1)), color-stop(99%,rgba(59,64,83,1)), color-stop(99%,rgba(58,63,82,1)), color-stop(99%,rgba(48,53,72,1)), color-stop(99%,rgba(46,51,70,1)), color-stop(100%,rgba(48,53,72,1)), color-stop(100%,rgba(46,51,70,1)));
+	background: -webkit-linear-gradient(top,  rgba(43,47,50,1) 0%,rgba(42,46,49,1) 1%,rgba(50,53,58,1) 1%,rgba(49,52,57,1) 1%,rgba(54,57,62,1) 2%,rgba(53,56,61,1) 2%,rgba(60,65,71,1) 3%,rgba(58,63,69,1) 3%,rgba(59,64,70,1) 3%,rgba(60,65,71,1) 3%,rgba(66,70,79,1) 4%,rgba(63,70,78,1) 4%,rgba(70,77,87,1) 4%,rgba(68,75,85,1) 4%,rgba(70,77,87,1) 5%,rgba(68,75,85,1) 5%,rgba(70,77,87,1) 5%,rgba(75,82,92,1) 5%,rgba(75,82,92,1) 6%,rgba(80,87,97,1) 6%,rgba(79,88,97,1) 7%,rgba(85,94,103,1) 7%,rgba(83,91,102,1) 8%,rgba(91,99,110,1) 8%,rgba(90,100,110,1) 8%,rgba(98,108,118,1) 9%,rgba(97,107,117,1) 9%,rgba(99,109,119,1) 9%,rgba(97,107,117,1) 9%,rgba(98,108,118,1) 9%,rgba(106,116,126,1) 9%,rgba(107,117,129,1) 10%,rgba(105,115,127,1) 10%,rgba(107,117,129,1) 10%,rgba(105,115,127,1) 10%,rgba(106,116,128,1) 10%,rgba(115,125,137,1) 10%,rgba(116,126,138,1) 11%,rgba(126,136,148,1) 11%,rgba(122,135,144,1) 12%,rgba(131,144,153,1) 12%,rgba(133,146,155,1) 12%,rgba(130,143,152,1) 12%,rgba(134,147,156,1) 12%,rgba(131,144,153,1) 13%,rgba(132,145,154,1) 13%,rgba(141,154,163,1) 13%,rgba(142,155,164,1) 13%,rgba(140,153,162,1) 13%,rgba(142,155,164,1) 13%,rgba(140,153,162,1) 13%,rgba(141,154,163,1) 14%,rgba(147,160,169,1) 14%,rgba(146,159,168,1) 14%,rgba(148,161,170,1) 14%,rgba(146,159,168,1) 14%,rgba(147,160,169,1) 14%,rgba(153,166,175,1) 15%,rgba(153,166,175,1) 15%,rgba(156,169,178,1) 16%,rgba(156,169,178,1) 16%,rgba(158,171,180,1) 16%,rgba(159,172,181,1) 18%,rgba(165,178,186,1) 21%,rgba(171,184,192,1) 22%,rgba(172,185,191,1) 24%,rgba(176,189,195,1) 24%,rgba(175,188,194,1) 25%,rgba(180,191,197,1) 26%,rgba(179,192,198,1) 27%,rgba(183,194,200,1) 27%,rgba(183,194,200,1) 28%,rgba(188,199,205,1) 29%,rgba(185,198,204,1) 30%,rgba(188,199,203,1) 31%,rgba(190,201,205,1) 31%,rgba(193,204,208,1) 33%,rgba(192,205,211,1) 34%,rgba(192,206,207,1) 34%,rgba(195,206,208,1) 35%,rgba(195,206,208,1) 35%,rgba(197,208,214,1) 36%,rgba(197,208,210,1) 36%,rgba(199,210,212,1) 38%,rgba(201,212,214,1) 38%,rgba(201,212,214,1) 40%,rgba(203,214,216,1) 40%,rgba(205,216,218,1) 43%,rgba(205,217,215,1) 44%,rgba(205,216,218,1) 45%,rgba(206,218,218,1) 46%,rgba(205,217,217,1) 53%,rgba(203,215,215,1) 53%,rgba(202,213,215,1) 55%,rgba(196,207,209,1) 59%,rgba(193,204,206,1) 59%,rgba(194,205,207,1) 59%,rgba(188,202,203,1) 61%,rgba(189,200,204,1) 62%,rgba(186,197,201,1) 62%,rgba(185,196,200,1) 64%,rgba(180,194,197,1) 64%,rgba(178,192,195,1) 65%,rgba(180,191,195,1) 65%,rgba(181,192,198,1) 65%,rgba(177,188,194,1) 66%,rgba(178,189,195,1) 66%,rgba(173,186,192,1) 67%,rgba(171,184,190,1) 68%,rgba(168,181,187,1) 69%,rgba(169,182,188,1) 69%,rgba(166,179,185,1) 69%,rgba(164,177,183,1) 71%,rgba(161,174,180,1) 71%,rgba(160,173,181,1) 72%,rgba(157,170,178,1) 73%,rgba(154,167,175,1) 74%,rgba(155,168,176,1) 74%,rgba(154,167,175,1) 74%,rgba(150,163,171,1) 74%,rgba(151,164,173,1) 75%,rgba(146,159,168,1) 75%,rgba(146,158,170,1) 76%,rgba(142,154,166,1) 76%,rgba(142,154,166,1) 77%,rgba(138,150,162,1) 77%,rgba(138,152,163,1) 77%,rgba(133,147,158,1) 78%,rgba(135,149,160,1) 78%,rgba(129,143,154,1) 79%,rgba(131,145,158,1) 79%,rgba(130,144,157,1) 79%,rgba(127,141,154,1) 80%,rgba(127,141,154,1) 80%,rgba(123,137,150,1) 81%,rgba(123,137,150,1) 81%,rgba(120,133,149,1) 81%,rgba(120,133,149,1) 82%,rgba(117,131,144,1) 82%,rgba(117,130,146,1) 83%,rgba(113,126,142,1) 83%,rgba(114,127,144,1) 84%,rgba(111,124,141,1) 84%,rgba(109,122,139,1) 85%,rgba(106,119,136,1) 86%,rgba(107,120,137,1) 86%,rgba(101,114,131,1) 88%,rgba(102,115,132,1) 88%,rgba(100,113,130,1) 88%,rgba(100,113,132,1) 89%,rgba(98,111,130,1) 89%,rgba(96,109,128,1) 91%,rgba(94,105,125,1) 92%,rgba(93,104,126,1) 94%,rgba(92,103,125,1) 95%,rgba(89,100,122,1) 95%,rgba(93,101,124,1) 95%,rgba(92,100,123,1) 96%,rgba(86,94,115,1) 96%,rgba(87,93,115,1) 97%,rgba(79,85,107,1) 97%,rgba(81,87,109,1) 97%,rgba(77,84,103,1) 97%,rgba(80,87,106,1) 97%,rgba(78,85,104,1) 97%,rgba(69,76,95,1) 98%,rgba(70,77,96,1) 98%,rgba(69,74,94,1) 98%,rgba(72,77,96,1) 98%,rgba(57,62,81,1) 98%,rgba(60,65,84,1) 99%,rgba(59,64,83,1) 99%,rgba(58,63,82,1) 99%,rgba(48,53,72,1) 99%,rgba(46,51,70,1) 99%,rgba(48,53,72,1) 100%,rgba(46,51,70,1) 100%);
+	background: -o-linear-gradient(top,  rgba(43,47,50,1) 0%,rgba(42,46,49,1) 1%,rgba(50,53,58,1) 1%,rgba(49,52,57,1) 1%,rgba(54,57,62,1) 2%,rgba(53,56,61,1) 2%,rgba(60,65,71,1) 3%,rgba(58,63,69,1) 3%,rgba(59,64,70,1) 3%,rgba(60,65,71,1) 3%,rgba(66,70,79,1) 4%,rgba(63,70,78,1) 4%,rgba(70,77,87,1) 4%,rgba(68,75,85,1) 4%,rgba(70,77,87,1) 5%,rgba(68,75,85,1) 5%,rgba(70,77,87,1) 5%,rgba(75,82,92,1) 5%,rgba(75,82,92,1) 6%,rgba(80,87,97,1) 6%,rgba(79,88,97,1) 7%,rgba(85,94,103,1) 7%,rgba(83,91,102,1) 8%,rgba(91,99,110,1) 8%,rgba(90,100,110,1) 8%,rgba(98,108,118,1) 9%,rgba(97,107,117,1) 9%,rgba(99,109,119,1) 9%,rgba(97,107,117,1) 9%,rgba(98,108,118,1) 9%,rgba(106,116,126,1) 9%,rgba(107,117,129,1) 10%,rgba(105,115,127,1) 10%,rgba(107,117,129,1) 10%,rgba(105,115,127,1) 10%,rgba(106,116,128,1) 10%,rgba(115,125,137,1) 10%,rgba(116,126,138,1) 11%,rgba(126,136,148,1) 11%,rgba(122,135,144,1) 12%,rgba(131,144,153,1) 12%,rgba(133,146,155,1) 12%,rgba(130,143,152,1) 12%,rgba(134,147,156,1) 12%,rgba(131,144,153,1) 13%,rgba(132,145,154,1) 13%,rgba(141,154,163,1) 13%,rgba(142,155,164,1) 13%,rgba(140,153,162,1) 13%,rgba(142,155,164,1) 13%,rgba(140,153,162,1) 13%,rgba(141,154,163,1) 14%,rgba(147,160,169,1) 14%,rgba(146,159,168,1) 14%,rgba(148,161,170,1) 14%,rgba(146,159,168,1) 14%,rgba(147,160,169,1) 14%,rgba(153,166,175,1) 15%,rgba(153,166,175,1) 15%,rgba(156,169,178,1) 16%,rgba(156,169,178,1) 16%,rgba(158,171,180,1) 16%,rgba(159,172,181,1) 18%,rgba(165,178,186,1) 21%,rgba(171,184,192,1) 22%,rgba(172,185,191,1) 24%,rgba(176,189,195,1) 24%,rgba(175,188,194,1) 25%,rgba(180,191,197,1) 26%,rgba(179,192,198,1) 27%,rgba(183,194,200,1) 27%,rgba(183,194,200,1) 28%,rgba(188,199,205,1) 29%,rgba(185,198,204,1) 30%,rgba(188,199,203,1) 31%,rgba(190,201,205,1) 31%,rgba(193,204,208,1) 33%,rgba(192,205,211,1) 34%,rgba(192,206,207,1) 34%,rgba(195,206,208,1) 35%,rgba(195,206,208,1) 35%,rgba(197,208,214,1) 36%,rgba(197,208,210,1) 36%,rgba(199,210,212,1) 38%,rgba(201,212,214,1) 38%,rgba(201,212,214,1) 40%,rgba(203,214,216,1) 40%,rgba(205,216,218,1) 43%,rgba(205,217,215,1) 44%,rgba(205,216,218,1) 45%,rgba(206,218,218,1) 46%,rgba(205,217,217,1) 53%,rgba(203,215,215,1) 53%,rgba(202,213,215,1) 55%,rgba(196,207,209,1) 59%,rgba(193,204,206,1) 59%,rgba(194,205,207,1) 59%,rgba(188,202,203,1) 61%,rgba(189,200,204,1) 62%,rgba(186,197,201,1) 62%,rgba(185,196,200,1) 64%,rgba(180,194,197,1) 64%,rgba(178,192,195,1) 65%,rgba(180,191,195,1) 65%,rgba(181,192,198,1) 65%,rgba(177,188,194,1) 66%,rgba(178,189,195,1) 66%,rgba(173,186,192,1) 67%,rgba(171,184,190,1) 68%,rgba(168,181,187,1) 69%,rgba(169,182,188,1) 69%,rgba(166,179,185,1) 69%,rgba(164,177,183,1) 71%,rgba(161,174,180,1) 71%,rgba(160,173,181,1) 72%,rgba(157,170,178,1) 73%,rgba(154,167,175,1) 74%,rgba(155,168,176,1) 74%,rgba(154,167,175,1) 74%,rgba(150,163,171,1) 74%,rgba(151,164,173,1) 75%,rgba(146,159,168,1) 75%,rgba(146,158,170,1) 76%,rgba(142,154,166,1) 76%,rgba(142,154,166,1) 77%,rgba(138,150,162,1) 77%,rgba(138,152,163,1) 77%,rgba(133,147,158,1) 78%,rgba(135,149,160,1) 78%,rgba(129,143,154,1) 79%,rgba(131,145,158,1) 79%,rgba(130,144,157,1) 79%,rgba(127,141,154,1) 80%,rgba(127,141,154,1) 80%,rgba(123,137,150,1) 81%,rgba(123,137,150,1) 81%,rgba(120,133,149,1) 81%,rgba(120,133,149,1) 82%,rgba(117,131,144,1) 82%,rgba(117,130,146,1) 83%,rgba(113,126,142,1) 83%,rgba(114,127,144,1) 84%,rgba(111,124,141,1) 84%,rgba(109,122,139,1) 85%,rgba(106,119,136,1) 86%,rgba(107,120,137,1) 86%,rgba(101,114,131,1) 88%,rgba(102,115,132,1) 88%,rgba(100,113,130,1) 88%,rgba(100,113,132,1) 89%,rgba(98,111,130,1) 89%,rgba(96,109,128,1) 91%,rgba(94,105,125,1) 92%,rgba(93,104,126,1) 94%,rgba(92,103,125,1) 95%,rgba(89,100,122,1) 95%,rgba(93,101,124,1) 95%,rgba(92,100,123,1) 96%,rgba(86,94,115,1) 96%,rgba(87,93,115,1) 97%,rgba(79,85,107,1) 97%,rgba(81,87,109,1) 97%,rgba(77,84,103,1) 97%,rgba(80,87,106,1) 97%,rgba(78,85,104,1) 97%,rgba(69,76,95,1) 98%,rgba(70,77,96,1) 98%,rgba(69,74,94,1) 98%,rgba(72,77,96,1) 98%,rgba(57,62,81,1) 98%,rgba(60,65,84,1) 99%,rgba(59,64,83,1) 99%,rgba(58,63,82,1) 99%,rgba(48,53,72,1) 99%,rgba(46,51,70,1) 99%,rgba(48,53,72,1) 100%,rgba(46,51,70,1) 100%);
+	background: -ms-linear-gradient(top,  rgba(43,47,50,1) 0%,rgba(42,46,49,1) 1%,rgba(50,53,58,1) 1%,rgba(49,52,57,1) 1%,rgba(54,57,62,1) 2%,rgba(53,56,61,1) 2%,rgba(60,65,71,1) 3%,rgba(58,63,69,1) 3%,rgba(59,64,70,1) 3%,rgba(60,65,71,1) 3%,rgba(66,70,79,1) 4%,rgba(63,70,78,1) 4%,rgba(70,77,87,1) 4%,rgba(68,75,85,1) 4%,rgba(70,77,87,1) 5%,rgba(68,75,85,1) 5%,rgba(70,77,87,1) 5%,rgba(75,82,92,1) 5%,rgba(75,82,92,1) 6%,rgba(80,87,97,1) 6%,rgba(79,88,97,1) 7%,rgba(85,94,103,1) 7%,rgba(83,91,102,1) 8%,rgba(91,99,110,1) 8%,rgba(90,100,110,1) 8%,rgba(98,108,118,1) 9%,rgba(97,107,117,1) 9%,rgba(99,109,119,1) 9%,rgba(97,107,117,1) 9%,rgba(98,108,118,1) 9%,rgba(106,116,126,1) 9%,rgba(107,117,129,1) 10%,rgba(105,115,127,1) 10%,rgba(107,117,129,1) 10%,rgba(105,115,127,1) 10%,rgba(106,116,128,1) 10%,rgba(115,125,137,1) 10%,rgba(116,126,138,1) 11%,rgba(126,136,148,1) 11%,rgba(122,135,144,1) 12%,rgba(131,144,153,1) 12%,rgba(133,146,155,1) 12%,rgba(130,143,152,1) 12%,rgba(134,147,156,1) 12%,rgba(131,144,153,1) 13%,rgba(132,145,154,1) 13%,rgba(141,154,163,1) 13%,rgba(142,155,164,1) 13%,rgba(140,153,162,1) 13%,rgba(142,155,164,1) 13%,rgba(140,153,162,1) 13%,rgba(141,154,163,1) 14%,rgba(147,160,169,1) 14%,rgba(146,159,168,1) 14%,rgba(148,161,170,1) 14%,rgba(146,159,168,1) 14%,rgba(147,160,169,1) 14%,rgba(153,166,175,1) 15%,rgba(153,166,175,1) 15%,rgba(156,169,178,1) 16%,rgba(156,169,178,1) 16%,rgba(158,171,180,1) 16%,rgba(159,172,181,1) 18%,rgba(165,178,186,1) 21%,rgba(171,184,192,1) 22%,rgba(172,185,191,1) 24%,rgba(176,189,195,1) 24%,rgba(175,188,194,1) 25%,rgba(180,191,197,1) 26%,rgba(179,192,198,1) 27%,rgba(183,194,200,1) 27%,rgba(183,194,200,1) 28%,rgba(188,199,205,1) 29%,rgba(185,198,204,1) 30%,rgba(188,199,203,1) 31%,rgba(190,201,205,1) 31%,rgba(193,204,208,1) 33%,rgba(192,205,211,1) 34%,rgba(192,206,207,1) 34%,rgba(195,206,208,1) 35%,rgba(195,206,208,1) 35%,rgba(197,208,214,1) 36%,rgba(197,208,210,1) 36%,rgba(199,210,212,1) 38%,rgba(201,212,214,1) 38%,rgba(201,212,214,1) 40%,rgba(203,214,216,1) 40%,rgba(205,216,218,1) 43%,rgba(205,217,215,1) 44%,rgba(205,216,218,1) 45%,rgba(206,218,218,1) 46%,rgba(205,217,217,1) 53%,rgba(203,215,215,1) 53%,rgba(202,213,215,1) 55%,rgba(196,207,209,1) 59%,rgba(193,204,206,1) 59%,rgba(194,205,207,1) 59%,rgba(188,202,203,1) 61%,rgba(189,200,204,1) 62%,rgba(186,197,201,1) 62%,rgba(185,196,200,1) 64%,rgba(180,194,197,1) 64%,rgba(178,192,195,1) 65%,rgba(180,191,195,1) 65%,rgba(181,192,198,1) 65%,rgba(177,188,194,1) 66%,rgba(178,189,195,1) 66%,rgba(173,186,192,1) 67%,rgba(171,184,190,1) 68%,rgba(168,181,187,1) 69%,rgba(169,182,188,1) 69%,rgba(166,179,185,1) 69%,rgba(164,177,183,1) 71%,rgba(161,174,180,1) 71%,rgba(160,173,181,1) 72%,rgba(157,170,178,1) 73%,rgba(154,167,175,1) 74%,rgba(155,168,176,1) 74%,rgba(154,167,175,1) 74%,rgba(150,163,171,1) 74%,rgba(151,164,173,1) 75%,rgba(146,159,168,1) 75%,rgba(146,158,170,1) 76%,rgba(142,154,166,1) 76%,rgba(142,154,166,1) 77%,rgba(138,150,162,1) 77%,rgba(138,152,163,1) 77%,rgba(133,147,158,1) 78%,rgba(135,149,160,1) 78%,rgba(129,143,154,1) 79%,rgba(131,145,158,1) 79%,rgba(130,144,157,1) 79%,rgba(127,141,154,1) 80%,rgba(127,141,154,1) 80%,rgba(123,137,150,1) 81%,rgba(123,137,150,1) 81%,rgba(120,133,149,1) 81%,rgba(120,133,149,1) 82%,rgba(117,131,144,1) 82%,rgba(117,130,146,1) 83%,rgba(113,126,142,1) 83%,rgba(114,127,144,1) 84%,rgba(111,124,141,1) 84%,rgba(109,122,139,1) 85%,rgba(106,119,136,1) 86%,rgba(107,120,137,1) 86%,rgba(101,114,131,1) 88%,rgba(102,115,132,1) 88%,rgba(100,113,130,1) 88%,rgba(100,113,132,1) 89%,rgba(98,111,130,1) 89%,rgba(96,109,128,1) 91%,rgba(94,105,125,1) 92%,rgba(93,104,126,1) 94%,rgba(92,103,125,1) 95%,rgba(89,100,122,1) 95%,rgba(93,101,124,1) 95%,rgba(92,100,123,1) 96%,rgba(86,94,115,1) 96%,rgba(87,93,115,1) 97%,rgba(79,85,107,1) 97%,rgba(81,87,109,1) 97%,rgba(77,84,103,1) 97%,rgba(80,87,106,1) 97%,rgba(78,85,104,1) 97%,rgba(69,76,95,1) 98%,rgba(70,77,96,1) 98%,rgba(69,74,94,1) 98%,rgba(72,77,96,1) 98%,rgba(57,62,81,1) 98%,rgba(60,65,84,1) 99%,rgba(59,64,83,1) 99%,rgba(58,63,82,1) 99%,rgba(48,53,72,1) 99%,rgba(46,51,70,1) 99%,rgba(48,53,72,1) 100%,rgba(46,51,70,1) 100%);
+	background: linear-gradient(to bottom,  rgba(43,47,50,1) 0%,rgba(42,46,49,1) 1%,rgba(50,53,58,1) 1%,rgba(49,52,57,1) 1%,rgba(54,57,62,1) 2%,rgba(53,56,61,1) 2%,rgba(60,65,71,1) 3%,rgba(58,63,69,1) 3%,rgba(59,64,70,1) 3%,rgba(60,65,71,1) 3%,rgba(66,70,79,1) 4%,rgba(63,70,78,1) 4%,rgba(70,77,87,1) 4%,rgba(68,75,85,1) 4%,rgba(70,77,87,1) 5%,rgba(68,75,85,1) 5%,rgba(70,77,87,1) 5%,rgba(75,82,92,1) 5%,rgba(75,82,92,1) 6%,rgba(80,87,97,1) 6%,rgba(79,88,97,1) 7%,rgba(85,94,103,1) 7%,rgba(83,91,102,1) 8%,rgba(91,99,110,1) 8%,rgba(90,100,110,1) 8%,rgba(98,108,118,1) 9%,rgba(97,107,117,1) 9%,rgba(99,109,119,1) 9%,rgba(97,107,117,1) 9%,rgba(98,108,118,1) 9%,rgba(106,116,126,1) 9%,rgba(107,117,129,1) 10%,rgba(105,115,127,1) 10%,rgba(107,117,129,1) 10%,rgba(105,115,127,1) 10%,rgba(106,116,128,1) 10%,rgba(115,125,137,1) 10%,rgba(116,126,138,1) 11%,rgba(126,136,148,1) 11%,rgba(122,135,144,1) 12%,rgba(131,144,153,1) 12%,rgba(133,146,155,1) 12%,rgba(130,143,152,1) 12%,rgba(134,147,156,1) 12%,rgba(131,144,153,1) 13%,rgba(132,145,154,1) 13%,rgba(141,154,163,1) 13%,rgba(142,155,164,1) 13%,rgba(140,153,162,1) 13%,rgba(142,155,164,1) 13%,rgba(140,153,162,1) 13%,rgba(141,154,163,1) 14%,rgba(147,160,169,1) 14%,rgba(146,159,168,1) 14%,rgba(148,161,170,1) 14%,rgba(146,159,168,1) 14%,rgba(147,160,169,1) 14%,rgba(153,166,175,1) 15%,rgba(153,166,175,1) 15%,rgba(156,169,178,1) 16%,rgba(156,169,178,1) 16%,rgba(158,171,180,1) 16%,rgba(159,172,181,1) 18%,rgba(165,178,186,1) 21%,rgba(171,184,192,1) 22%,rgba(172,185,191,1) 24%,rgba(176,189,195,1) 24%,rgba(175,188,194,1) 25%,rgba(180,191,197,1) 26%,rgba(179,192,198,1) 27%,rgba(183,194,200,1) 27%,rgba(183,194,200,1) 28%,rgba(188,199,205,1) 29%,rgba(185,198,204,1) 30%,rgba(188,199,203,1) 31%,rgba(190,201,205,1) 31%,rgba(193,204,208,1) 33%,rgba(192,205,211,1) 34%,rgba(192,206,207,1) 34%,rgba(195,206,208,1) 35%,rgba(195,206,208,1) 35%,rgba(197,208,214,1) 36%,rgba(197,208,210,1) 36%,rgba(199,210,212,1) 38%,rgba(201,212,214,1) 38%,rgba(201,212,214,1) 40%,rgba(203,214,216,1) 40%,rgba(205,216,218,1) 43%,rgba(205,217,215,1) 44%,rgba(205,216,218,1) 45%,rgba(206,218,218,1) 46%,rgba(205,217,217,1) 53%,rgba(203,215,215,1) 53%,rgba(202,213,215,1) 55%,rgba(196,207,209,1) 59%,rgba(193,204,206,1) 59%,rgba(194,205,207,1) 59%,rgba(188,202,203,1) 61%,rgba(189,200,204,1) 62%,rgba(186,197,201,1) 62%,rgba(185,196,200,1) 64%,rgba(180,194,197,1) 64%,rgba(178,192,195,1) 65%,rgba(180,191,195,1) 65%,rgba(181,192,198,1) 65%,rgba(177,188,194,1) 66%,rgba(178,189,195,1) 66%,rgba(173,186,192,1) 67%,rgba(171,184,190,1) 68%,rgba(168,181,187,1) 69%,rgba(169,182,188,1) 69%,rgba(166,179,185,1) 69%,rgba(164,177,183,1) 71%,rgba(161,174,180,1) 71%,rgba(160,173,181,1) 72%,rgba(157,170,178,1) 73%,rgba(154,167,175,1) 74%,rgba(155,168,176,1) 74%,rgba(154,167,175,1) 74%,rgba(150,163,171,1) 74%,rgba(151,164,173,1) 75%,rgba(146,159,168,1) 75%,rgba(146,158,170,1) 76%,rgba(142,154,166,1) 76%,rgba(142,154,166,1) 77%,rgba(138,150,162,1) 77%,rgba(138,152,163,1) 77%,rgba(133,147,158,1) 78%,rgba(135,149,160,1) 78%,rgba(129,143,154,1) 79%,rgba(131,145,158,1) 79%,rgba(130,144,157,1) 79%,rgba(127,141,154,1) 80%,rgba(127,141,154,1) 80%,rgba(123,137,150,1) 81%,rgba(123,137,150,1) 81%,rgba(120,133,149,1) 81%,rgba(120,133,149,1) 82%,rgba(117,131,144,1) 82%,rgba(117,130,146,1) 83%,rgba(113,126,142,1) 83%,rgba(114,127,144,1) 84%,rgba(111,124,141,1) 84%,rgba(109,122,139,1) 85%,rgba(106,119,136,1) 86%,rgba(107,120,137,1) 86%,rgba(101,114,131,1) 88%,rgba(102,115,132,1) 88%,rgba(100,113,130,1) 88%,rgba(100,113,132,1) 89%,rgba(98,111,130,1) 89%,rgba(96,109,128,1) 91%,rgba(94,105,125,1) 92%,rgba(93,104,126,1) 94%,rgba(92,103,125,1) 95%,rgba(89,100,122,1) 95%,rgba(93,101,124,1) 95%,rgba(92,100,123,1) 96%,rgba(86,94,115,1) 96%,rgba(87,93,115,1) 97%,rgba(79,85,107,1) 97%,rgba(81,87,109,1) 97%,rgba(77,84,103,1) 97%,rgba(80,87,106,1) 97%,rgba(78,85,104,1) 97%,rgba(69,76,95,1) 98%,rgba(70,77,96,1) 98%,rgba(69,74,94,1) 98%,rgba(72,77,96,1) 98%,rgba(57,62,81,1) 98%,rgba(60,65,84,1) 99%,rgba(59,64,83,1) 99%,rgba(58,63,82,1) 99%,rgba(48,53,72,1) 99%,rgba(46,51,70,1) 99%,rgba(48,53,72,1) 100%,rgba(46,51,70,1) 100%);
+	padding:0 3px;
+}
+.choise-box .list-holder{
+	background:url(../images/bg-list-holder.gif) repeat-y 50% 0;
+	float:left;
+	width:100%;
+}
+.choise-box .list-col{
+	float:left;
+	width:50%;
+	padding:0 4px 0 0;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.choise-box .alignright{padding:0 0 0 4px;}
+.choise-box ul{
+	list-style:none;
+	padding:0;
+	margin:-4px 0 -8px;
+	background: rgb(59,59,59);
+	background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzNiM2IzYiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjM2EzYTNhIiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iMSUiIHN0b3AtY29sb3I9IiM0MjQyNDIiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSIxJSIgc3RvcC1jb2xvcj0iIzQxNDE0MyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjElIiBzdG9wLWNvbG9yPSIjNDk0OTRiIiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iMiUiIHN0b3AtY29sb3I9IiM0OTQ5NGIiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSIyJSIgc3RvcC1jb2xvcj0iIzUzNTM1NSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjMlIiBzdG9wLWNvbG9yPSIjNTQ1NDU2IiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iMyUiIHN0b3AtY29sb3I9IiM1ZDVkNWYiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSI0JSIgc3RvcC1jb2xvcj0iIzVkNWU2MiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjQlIiBzdG9wLWNvbG9yPSIjNWI1YzYwIiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iNCUiIHN0b3AtY29sb3I9IiM2OTZhNmUiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSI0JSIgc3RvcC1jb2xvcj0iIzY3Njg2YyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjQlIiBzdG9wLWNvbG9yPSIjNjk2YTZlIiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iNSUiIHN0b3AtY29sb3I9IiM2OTY4NmUiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSI1JSIgc3RvcC1jb2xvcj0iIzczNzI3OCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjUlIiBzdG9wLWNvbG9yPSIjNzU3NDdhIiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iNSUiIHN0b3AtY29sb3I9IiM3MzcyNzgiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSI1JSIgc3RvcC1jb2xvcj0iIzc0NzU3YSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjYlIiBzdG9wLWNvbG9yPSIjN2U3Zjg0IiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iNiUiIHN0b3AtY29sb3I9IiM3ZjgwODUiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSI2JSIgc3RvcC1jb2xvcj0iIzdkN2U4MyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjYlIiBzdG9wLWNvbG9yPSIjOGI4YzkxIiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iNyUiIHN0b3AtY29sb3I9IiM4OThhOGYiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSI3JSIgc3RvcC1jb2xvcj0iIzhiOGI5MyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjclIiBzdG9wLWNvbG9yPSIjODg4ODkwIiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iNyUiIHN0b3AtY29sb3I9IiM5Nzk3OWYiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSI3JSIgc3RvcC1jb2xvcj0iIzk0OTQ5YyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjglIiBzdG9wLWNvbG9yPSIjOTU5NTlkIiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iOCUiIHN0b3AtY29sb3I9IiM5ZjlmYTciIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSI4JSIgc3RvcC1jb2xvcj0iI2ExYTFhOSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjklIiBzdG9wLWNvbG9yPSIjOWY5ZmE3IiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iOSUiIHN0b3AtY29sb3I9IiNhMGEwYTgiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSI5JSIgc3RvcC1jb2xvcj0iI2E5YTliMSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwJSIgc3RvcC1jb2xvcj0iI2FhYWFiMiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwJSIgc3RvcC1jb2xvcj0iI2E4YThiMCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwJSIgc3RvcC1jb2xvcj0iI2I0YjRiYyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwJSIgc3RvcC1jb2xvcj0iI2IyYjJiYSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjExJSIgc3RvcC1jb2xvcj0iI2IzYjNiYiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjExJSIgc3RvcC1jb2xvcj0iI2JjYmNjNCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjExJSIgc3RvcC1jb2xvcj0iI2JkYmRjNSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjExJSIgc3RvcC1jb2xvcj0iI2JiYmJjMyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjExJSIgc3RvcC1jb2xvcj0iI2JkYmRjNSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjExJSIgc3RvcC1jb2xvcj0iI2JiYmJjMyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjExJSIgc3RvcC1jb2xvcj0iI2JkYmRjNSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEyJSIgc3RvcC1jb2xvcj0iI2MzYzNjYiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEyJSIgc3RvcC1jb2xvcj0iI2MzYzNjYiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEyJSIgc3RvcC1jb2xvcj0iI2NiY2JkMyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEzJSIgc3RvcC1jb2xvcj0iI2M5YzlkMSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEzJSIgc3RvcC1jb2xvcj0iI2QxZDFkOSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjE0JSIgc3RvcC1jb2xvcj0iI2QwZDBkOCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjE0JSIgc3RvcC1jb2xvcj0iI2Q1ZDVkZCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjE3JSIgc3RvcC1jb2xvcj0iI2Q4ZDlkZSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjE4JSIgc3RvcC1jb2xvcj0iI2RjZGJlMSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjE5JSIgc3RvcC1jb2xvcj0iI2RlZGZlNCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjIwJSIgc3RvcC1jb2xvcj0iI2RlZGRlMyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjIwJSIgc3RvcC1jb2xvcj0iI2UxZTBlNSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjIxJSIgc3RvcC1jb2xvcj0iI2UyZTFlNiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjIyJSIgc3RvcC1jb2xvcj0iI2U1ZTRlOSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjIzJSIgc3RvcC1jb2xvcj0iI2U1ZTRlOSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjIzJSIgc3RvcC1jb2xvcj0iI2U3ZTZlYiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjI0JSIgc3RvcC1jb2xvcj0iI2U2ZTVlYSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjI0JSIgc3RvcC1jb2xvcj0iI2U4ZTdlYyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjI2JSIgc3RvcC1jb2xvcj0iI2U5ZThlZCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjI2JSIgc3RvcC1jb2xvcj0iI2ViZWFlZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjI3JSIgc3RvcC1jb2xvcj0iI2ViZWJlZCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjMxJSIgc3RvcC1jb2xvcj0iI2YwZjFmMyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjMxJSIgc3RvcC1jb2xvcj0iI2YzZjRmNiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjMyJSIgc3RvcC1jb2xvcj0iI2YyZjNmNSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjM0JSIgc3RvcC1jb2xvcj0iI2Y4ZjhmYSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjM2JSIgc3RvcC1jb2xvcj0iI2Y4ZjhmOCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjM5JSIgc3RvcC1jb2xvcj0iI2ZjZmVmZCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjQzJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjUyJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjU3JSIgc3RvcC1jb2xvcj0iI2ZhZmFmYSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjU4JSIgc3RvcC1jb2xvcj0iI2Y3ZjdmNyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjU4JSIgc3RvcC1jb2xvcj0iI2Y4ZjhmOCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjYwJSIgc3RvcC1jb2xvcj0iI2Y0ZjVmNyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjYxJSIgc3RvcC1jb2xvcj0iI2Y2ZjZmOCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjYxJSIgc3RvcC1jb2xvcj0iI2YzZjNmNSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjY0JSIgc3RvcC1jb2xvcj0iI2VlZWVmMCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjY1JSIgc3RvcC1jb2xvcj0iI2VkZWVmMiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjY1JSIgc3RvcC1jb2xvcj0iI2ViZWNlZSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjY4JSIgc3RvcC1jb2xvcj0iI2U4ZTllZCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjY5JSIgc3RvcC1jb2xvcj0iI2U1ZTRlOSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjcwJSIgc3RvcC1jb2xvcj0iI2U0ZTNlOCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjcwJSIgc3RvcC1jb2xvcj0iI2UyZTFlNiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjcxJSIgc3RvcC1jb2xvcj0iI2UzZTJlNyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjcxJSIgc3RvcC1jb2xvcj0iI2UxZTBlNSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjczJSIgc3RvcC1jb2xvcj0iI2RmZGVlNCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjczJSIgc3RvcC1jb2xvcj0iI2RkZGNlMiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjczJSIgc3RvcC1jb2xvcj0iI2RjZGRlMiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijc0JSIgc3RvcC1jb2xvcj0iI2RhZGJlMCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijc0JSIgc3RvcC1jb2xvcj0iI2RiZGNlMSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijc1JSIgc3RvcC1jb2xvcj0iI2Q4ZDlkZSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijc2JSIgc3RvcC1jb2xvcj0iI2Q2ZDZkZSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijc2JSIgc3RvcC1jb2xvcj0iI2Q0ZDRkYyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijc4JSIgc3RvcC1jb2xvcj0iI2QzZDNkYiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijc4JSIgc3RvcC1jb2xvcj0iI2QxZDFkOSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijc4JSIgc3RvcC1jb2xvcj0iI2QyZDJkYSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijc5JSIgc3RvcC1jb2xvcj0iI2NmY2ZkNyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjgxJSIgc3RvcC1jb2xvcj0iI2NiY2JkMyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjgyJSIgc3RvcC1jb2xvcj0iI2NiY2JkNSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjgyJSIgc3RvcC1jb2xvcj0iI2M5YzlkMyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjgzJSIgc3RvcC1jb2xvcj0iI2M5YzlkMyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjgzJSIgc3RvcC1jb2xvcj0iI2M2YzZkMCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijg0JSIgc3RvcC1jb2xvcj0iI2M3YzdkMSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijg0JSIgc3RvcC1jb2xvcj0iI2M1YzVjZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijg2JSIgc3RvcC1jb2xvcj0iI2MyYzJjYyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijg2JSIgc3RvcC1jb2xvcj0iI2JmYmZjYiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijg4JSIgc3RvcC1jb2xvcj0iI2MwYzBjYyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijg4JSIgc3RvcC1jb2xvcj0iI2JkYmRjOSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijg5JSIgc3RvcC1jb2xvcj0iI2JjYmNjOCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjkwJSIgc3RvcC1jb2xvcj0iI2I5YjljNSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk0JSIgc3RvcC1jb2xvcj0iI2IzYjVjMiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk0JSIgc3RvcC1jb2xvcj0iI2FhYWNiOSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk0JSIgc3RvcC1jb2xvcj0iI2E4YWFiNyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk0JSIgc3RvcC1jb2xvcj0iI2FhYWNiOSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk0JSIgc3RvcC1jb2xvcj0iI2E3YTliNiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk0JSIgc3RvcC1jb2xvcj0iI2FhYWNiOSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk1JSIgc3RvcC1jb2xvcj0iI2E5YWJiOCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk1JSIgc3RvcC1jb2xvcj0iIzljOWVhYiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk1JSIgc3RvcC1jb2xvcj0iIzlkOWZhZSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk1JSIgc3RvcC1jb2xvcj0iIzliOWRhYyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk1JSIgc3RvcC1jb2xvcj0iIzlkOWZhZSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk1JSIgc3RvcC1jb2xvcj0iIzljOWVhZCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk1JSIgc3RvcC1jb2xvcj0iIzhkOGVhMCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk2JSIgc3RvcC1jb2xvcj0iIzhlOTA5ZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk2JSIgc3RvcC1jb2xvcj0iIzdjN2U4ZCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk3JSIgc3RvcC1jb2xvcj0iIzdkN2Y4YyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk3JSIgc3RvcC1jb2xvcj0iIzZjNmU3YiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk4JSIgc3RvcC1jb2xvcj0iIzZjNmU3YSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk4JSIgc3RvcC1jb2xvcj0iIzVhNWM2OCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk4JSIgc3RvcC1jb2xvcj0iIzViNWQ2OSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk4JSIgc3RvcC1jb2xvcj0iIzU5NWI2NyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk4JSIgc3RvcC1jb2xvcj0iIzViNWQ2OSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk5JSIgc3RvcC1jb2xvcj0iIzU5NWM2NSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk5JSIgc3RvcC1jb2xvcj0iIzViNWU2NyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk5JSIgc3RvcC1jb2xvcj0iIzRhNGQ1NiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk5JSIgc3RvcC1jb2xvcj0iIzRkNGQ1NyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk5JSIgc3RvcC1jb2xvcj0iIzRiNGI1NSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk5JSIgc3RvcC1jb2xvcj0iIzRkNGQ1NyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMzZDNkNDciIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjM2YzZjQ5IiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzNlM2U0OCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgPC9saW5lYXJHcmFkaWVudD4KICA8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2dyYWQtdWNnZy1nZW5lcmF0ZWQpIiAvPgo8L3N2Zz4=);
+	background: -moz-linear-gradient(top,  rgba(59,59,59,1) 0%, rgba(58,58,58,1) 0%, rgba(66,66,66,1) 1%, rgba(65,65,67,1) 1%, rgba(73,73,75,1) 1%, rgba(73,73,75,1) 2%, rgba(83,83,85,1) 2%, rgba(84,84,86,1) 3%, rgba(93,93,95,1) 3%, rgba(93,94,98,1) 4%, rgba(91,92,96,1) 4%, rgba(105,106,110,1) 4%, rgba(103,104,108,1) 4%, rgba(105,106,110,1) 4%, rgba(105,104,110,1) 5%, rgba(115,114,120,1) 5%, rgba(117,116,122,1) 5%, rgba(115,114,120,1) 5%, rgba(116,117,122,1) 5%, rgba(126,127,132,1) 6%, rgba(127,128,133,1) 6%, rgba(125,126,131,1) 6%, rgba(139,140,145,1) 6%, rgba(137,138,143,1) 7%, rgba(139,139,147,1) 7%, rgba(136,136,144,1) 7%, rgba(151,151,159,1) 7%, rgba(148,148,156,1) 7%, rgba(149,149,157,1) 8%, rgba(159,159,167,1) 8%, rgba(161,161,169,1) 8%, rgba(159,159,167,1) 9%, rgba(160,160,168,1) 9%, rgba(169,169,177,1) 9%, rgba(170,170,178,1) 10%, rgba(168,168,176,1) 10%, rgba(180,180,188,1) 10%, rgba(178,178,186,1) 10%, rgba(179,179,187,1) 11%, rgba(188,188,196,1) 11%, rgba(189,189,197,1) 11%, rgba(187,187,195,1) 11%, rgba(189,189,197,1) 11%, rgba(187,187,195,1) 11%, rgba(189,189,197,1) 11%, rgba(195,195,203,1) 12%, rgba(195,195,203,1) 12%, rgba(203,203,211,1) 12%, rgba(201,201,209,1) 13%, rgba(209,209,217,1) 13%, rgba(208,208,216,1) 14%, rgba(213,213,221,1) 14%, rgba(216,217,222,1) 17%, rgba(220,219,225,1) 18%, rgba(222,223,228,1) 19%, rgba(222,221,227,1) 20%, rgba(225,224,229,1) 20%, rgba(226,225,230,1) 21%, rgba(229,228,233,1) 22%, rgba(229,228,233,1) 23%, rgba(231,230,235,1) 23%, rgba(230,229,234,1) 24%, rgba(232,231,236,1) 24%, rgba(233,232,237,1) 26%, rgba(235,234,239,1) 26%, rgba(235,235,237,1) 27%, rgba(240,241,243,1) 31%, rgba(243,244,246,1) 31%, rgba(242,243,245,1) 32%, rgba(248,248,250,1) 34%, rgba(248,248,248,1) 36%, rgba(252,254,253,1) 39%, rgba(255,255,255,1) 43%, rgba(255,255,255,1) 52%, rgba(250,250,250,1) 57%, rgba(247,247,247,1) 58%, rgba(248,248,248,1) 58%, rgba(244,245,247,1) 60%, rgba(246,246,248,1) 61%, rgba(243,243,245,1) 61%, rgba(238,238,240,1) 64%, rgba(237,238,242,1) 65%, rgba(235,236,238,1) 65%, rgba(232,233,237,1) 68%, rgba(229,228,233,1) 69%, rgba(228,227,232,1) 70%, rgba(226,225,230,1) 70%, rgba(227,226,231,1) 71%, rgba(225,224,229,1) 71%, rgba(223,222,228,1) 73%, rgba(221,220,226,1) 73%, rgba(220,221,226,1) 73%, rgba(218,219,224,1) 74%, rgba(219,220,225,1) 74%, rgba(216,217,222,1) 75%, rgba(214,214,222,1) 76%, rgba(212,212,220,1) 76%, rgba(211,211,219,1) 78%, rgba(209,209,217,1) 78%, rgba(210,210,218,1) 78%, rgba(207,207,215,1) 79%, rgba(203,203,211,1) 81%, rgba(203,203,213,1) 82%, rgba(201,201,211,1) 82%, rgba(201,201,211,1) 83%, rgba(198,198,208,1) 83%, rgba(199,199,209,1) 84%, rgba(197,197,207,1) 84%, rgba(194,194,204,1) 86%, rgba(191,191,203,1) 86%, rgba(192,192,204,1) 88%, rgba(189,189,201,1) 88%, rgba(188,188,200,1) 89%, rgba(185,185,197,1) 90%, rgba(179,181,194,1) 94%, rgba(170,172,185,1) 94%, rgba(168,170,183,1) 94%, rgba(170,172,185,1) 94%, rgba(167,169,182,1) 94%, rgba(170,172,185,1) 94%, rgba(169,171,184,1) 95%, rgba(156,158,171,1) 95%, rgba(157,159,174,1) 95%, rgba(155,157,172,1) 95%, rgba(157,159,174,1) 95%, rgba(156,158,173,1) 95%, rgba(141,142,160,1) 95%, rgba(142,144,159,1) 96%, rgba(124,126,141,1) 96%, rgba(125,127,140,1) 97%, rgba(108,110,123,1) 97%, rgba(108,110,122,1) 98%, rgba(90,92,104,1) 98%, rgba(91,93,105,1) 98%, rgba(89,91,103,1) 98%, rgba(91,93,105,1) 98%, rgba(89,92,101,1) 99%, rgba(91,94,103,1) 99%, rgba(74,77,86,1) 99%, rgba(77,77,87,1) 99%, rgba(75,75,85,1) 99%, rgba(77,77,87,1) 99%, rgba(61,61,71,1) 100%, rgba(63,63,73,1) 100%, rgba(62,62,72,1) 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(59,59,59,1)), color-stop(0%,rgba(58,58,58,1)), color-stop(1%,rgba(66,66,66,1)), color-stop(1%,rgba(65,65,67,1)), color-stop(1%,rgba(73,73,75,1)), color-stop(2%,rgba(73,73,75,1)), color-stop(2%,rgba(83,83,85,1)), color-stop(3%,rgba(84,84,86,1)), color-stop(3%,rgba(93,93,95,1)), color-stop(4%,rgba(93,94,98,1)), color-stop(4%,rgba(91,92,96,1)), color-stop(4%,rgba(105,106,110,1)), color-stop(4%,rgba(103,104,108,1)), color-stop(4%,rgba(105,106,110,1)), color-stop(5%,rgba(105,104,110,1)), color-stop(5%,rgba(115,114,120,1)), color-stop(5%,rgba(117,116,122,1)), color-stop(5%,rgba(115,114,120,1)), color-stop(5%,rgba(116,117,122,1)), color-stop(6%,rgba(126,127,132,1)), color-stop(6%,rgba(127,128,133,1)), color-stop(6%,rgba(125,126,131,1)), color-stop(6%,rgba(139,140,145,1)), color-stop(7%,rgba(137,138,143,1)), color-stop(7%,rgba(139,139,147,1)), color-stop(7%,rgba(136,136,144,1)), color-stop(7%,rgba(151,151,159,1)), color-stop(7%,rgba(148,148,156,1)), color-stop(8%,rgba(149,149,157,1)), color-stop(8%,rgba(159,159,167,1)), color-stop(8%,rgba(161,161,169,1)), color-stop(9%,rgba(159,159,167,1)), color-stop(9%,rgba(160,160,168,1)), color-stop(9%,rgba(169,169,177,1)), color-stop(10%,rgba(170,170,178,1)), color-stop(10%,rgba(168,168,176,1)), color-stop(10%,rgba(180,180,188,1)), color-stop(10%,rgba(178,178,186,1)), color-stop(11%,rgba(179,179,187,1)), color-stop(11%,rgba(188,188,196,1)), color-stop(11%,rgba(189,189,197,1)), color-stop(11%,rgba(187,187,195,1)), color-stop(11%,rgba(189,189,197,1)), color-stop(11%,rgba(187,187,195,1)), color-stop(11%,rgba(189,189,197,1)), color-stop(12%,rgba(195,195,203,1)), color-stop(12%,rgba(195,195,203,1)), color-stop(12%,rgba(203,203,211,1)), color-stop(13%,rgba(201,201,209,1)), color-stop(13%,rgba(209,209,217,1)), color-stop(14%,rgba(208,208,216,1)), color-stop(14%,rgba(213,213,221,1)), color-stop(17%,rgba(216,217,222,1)), color-stop(18%,rgba(220,219,225,1)), color-stop(19%,rgba(222,223,228,1)), color-stop(20%,rgba(222,221,227,1)), color-stop(20%,rgba(225,224,229,1)), color-stop(21%,rgba(226,225,230,1)), color-stop(22%,rgba(229,228,233,1)), color-stop(23%,rgba(229,228,233,1)), color-stop(23%,rgba(231,230,235,1)), color-stop(24%,rgba(230,229,234,1)), color-stop(24%,rgba(232,231,236,1)), color-stop(26%,rgba(233,232,237,1)), color-stop(26%,rgba(235,234,239,1)), color-stop(27%,rgba(235,235,237,1)), color-stop(31%,rgba(240,241,243,1)), color-stop(31%,rgba(243,244,246,1)), color-stop(32%,rgba(242,243,245,1)), color-stop(34%,rgba(248,248,250,1)), color-stop(36%,rgba(248,248,248,1)), color-stop(39%,rgba(252,254,253,1)), color-stop(43%,rgba(255,255,255,1)), color-stop(52%,rgba(255,255,255,1)), color-stop(57%,rgba(250,250,250,1)), color-stop(58%,rgba(247,247,247,1)), color-stop(58%,rgba(248,248,248,1)), color-stop(60%,rgba(244,245,247,1)), color-stop(61%,rgba(246,246,248,1)), color-stop(61%,rgba(243,243,245,1)), color-stop(64%,rgba(238,238,240,1)), color-stop(65%,rgba(237,238,242,1)), color-stop(65%,rgba(235,236,238,1)), color-stop(68%,rgba(232,233,237,1)), color-stop(69%,rgba(229,228,233,1)), color-stop(70%,rgba(228,227,232,1)), color-stop(70%,rgba(226,225,230,1)), color-stop(71%,rgba(227,226,231,1)), color-stop(71%,rgba(225,224,229,1)), color-stop(73%,rgba(223,222,228,1)), color-stop(73%,rgba(221,220,226,1)), color-stop(73%,rgba(220,221,226,1)), color-stop(74%,rgba(218,219,224,1)), color-stop(74%,rgba(219,220,225,1)), color-stop(75%,rgba(216,217,222,1)), color-stop(76%,rgba(214,214,222,1)), color-stop(76%,rgba(212,212,220,1)), color-stop(78%,rgba(211,211,219,1)), color-stop(78%,rgba(209,209,217,1)), color-stop(78%,rgba(210,210,218,1)), color-stop(79%,rgba(207,207,215,1)), color-stop(81%,rgba(203,203,211,1)), color-stop(82%,rgba(203,203,213,1)), color-stop(82%,rgba(201,201,211,1)), color-stop(83%,rgba(201,201,211,1)), color-stop(83%,rgba(198,198,208,1)), color-stop(84%,rgba(199,199,209,1)), color-stop(84%,rgba(197,197,207,1)), color-stop(86%,rgba(194,194,204,1)), color-stop(86%,rgba(191,191,203,1)), color-stop(88%,rgba(192,192,204,1)), color-stop(88%,rgba(189,189,201,1)), color-stop(89%,rgba(188,188,200,1)), color-stop(90%,rgba(185,185,197,1)), color-stop(94%,rgba(179,181,194,1)), color-stop(94%,rgba(170,172,185,1)), color-stop(94%,rgba(168,170,183,1)), color-stop(94%,rgba(170,172,185,1)), color-stop(94%,rgba(167,169,182,1)), color-stop(94%,rgba(170,172,185,1)), color-stop(95%,rgba(169,171,184,1)), color-stop(95%,rgba(156,158,171,1)), color-stop(95%,rgba(157,159,174,1)), color-stop(95%,rgba(155,157,172,1)), color-stop(95%,rgba(157,159,174,1)), color-stop(95%,rgba(156,158,173,1)), color-stop(95%,rgba(141,142,160,1)), color-stop(96%,rgba(142,144,159,1)), color-stop(96%,rgba(124,126,141,1)), color-stop(97%,rgba(125,127,140,1)), color-stop(97%,rgba(108,110,123,1)), color-stop(98%,rgba(108,110,122,1)), color-stop(98%,rgba(90,92,104,1)), color-stop(98%,rgba(91,93,105,1)), color-stop(98%,rgba(89,91,103,1)), color-stop(98%,rgba(91,93,105,1)), color-stop(99%,rgba(89,92,101,1)), color-stop(99%,rgba(91,94,103,1)), color-stop(99%,rgba(74,77,86,1)), color-stop(99%,rgba(77,77,87,1)), color-stop(99%,rgba(75,75,85,1)), color-stop(99%,rgba(77,77,87,1)), color-stop(100%,rgba(61,61,71,1)), color-stop(100%,rgba(63,63,73,1)), color-stop(100%,rgba(62,62,72,1)));
+	background: -webkit-linear-gradient(top,  rgba(59,59,59,1) 0%,rgba(58,58,58,1) 0%,rgba(66,66,66,1) 1%,rgba(65,65,67,1) 1%,rgba(73,73,75,1) 1%,rgba(73,73,75,1) 2%,rgba(83,83,85,1) 2%,rgba(84,84,86,1) 3%,rgba(93,93,95,1) 3%,rgba(93,94,98,1) 4%,rgba(91,92,96,1) 4%,rgba(105,106,110,1) 4%,rgba(103,104,108,1) 4%,rgba(105,106,110,1) 4%,rgba(105,104,110,1) 5%,rgba(115,114,120,1) 5%,rgba(117,116,122,1) 5%,rgba(115,114,120,1) 5%,rgba(116,117,122,1) 5%,rgba(126,127,132,1) 6%,rgba(127,128,133,1) 6%,rgba(125,126,131,1) 6%,rgba(139,140,145,1) 6%,rgba(137,138,143,1) 7%,rgba(139,139,147,1) 7%,rgba(136,136,144,1) 7%,rgba(151,151,159,1) 7%,rgba(148,148,156,1) 7%,rgba(149,149,157,1) 8%,rgba(159,159,167,1) 8%,rgba(161,161,169,1) 8%,rgba(159,159,167,1) 9%,rgba(160,160,168,1) 9%,rgba(169,169,177,1) 9%,rgba(170,170,178,1) 10%,rgba(168,168,176,1) 10%,rgba(180,180,188,1) 10%,rgba(178,178,186,1) 10%,rgba(179,179,187,1) 11%,rgba(188,188,196,1) 11%,rgba(189,189,197,1) 11%,rgba(187,187,195,1) 11%,rgba(189,189,197,1) 11%,rgba(187,187,195,1) 11%,rgba(189,189,197,1) 11%,rgba(195,195,203,1) 12%,rgba(195,195,203,1) 12%,rgba(203,203,211,1) 12%,rgba(201,201,209,1) 13%,rgba(209,209,217,1) 13%,rgba(208,208,216,1) 14%,rgba(213,213,221,1) 14%,rgba(216,217,222,1) 17%,rgba(220,219,225,1) 18%,rgba(222,223,228,1) 19%,rgba(222,221,227,1) 20%,rgba(225,224,229,1) 20%,rgba(226,225,230,1) 21%,rgba(229,228,233,1) 22%,rgba(229,228,233,1) 23%,rgba(231,230,235,1) 23%,rgba(230,229,234,1) 24%,rgba(232,231,236,1) 24%,rgba(233,232,237,1) 26%,rgba(235,234,239,1) 26%,rgba(235,235,237,1) 27%,rgba(240,241,243,1) 31%,rgba(243,244,246,1) 31%,rgba(242,243,245,1) 32%,rgba(248,248,250,1) 34%,rgba(248,248,248,1) 36%,rgba(252,254,253,1) 39%,rgba(255,255,255,1) 43%,rgba(255,255,255,1) 52%,rgba(250,250,250,1) 57%,rgba(247,247,247,1) 58%,rgba(248,248,248,1) 58%,rgba(244,245,247,1) 60%,rgba(246,246,248,1) 61%,rgba(243,243,245,1) 61%,rgba(238,238,240,1) 64%,rgba(237,238,242,1) 65%,rgba(235,236,238,1) 65%,rgba(232,233,237,1) 68%,rgba(229,228,233,1) 69%,rgba(228,227,232,1) 70%,rgba(226,225,230,1) 70%,rgba(227,226,231,1) 71%,rgba(225,224,229,1) 71%,rgba(223,222,228,1) 73%,rgba(221,220,226,1) 73%,rgba(220,221,226,1) 73%,rgba(218,219,224,1) 74%,rgba(219,220,225,1) 74%,rgba(216,217,222,1) 75%,rgba(214,214,222,1) 76%,rgba(212,212,220,1) 76%,rgba(211,211,219,1) 78%,rgba(209,209,217,1) 78%,rgba(210,210,218,1) 78%,rgba(207,207,215,1) 79%,rgba(203,203,211,1) 81%,rgba(203,203,213,1) 82%,rgba(201,201,211,1) 82%,rgba(201,201,211,1) 83%,rgba(198,198,208,1) 83%,rgba(199,199,209,1) 84%,rgba(197,197,207,1) 84%,rgba(194,194,204,1) 86%,rgba(191,191,203,1) 86%,rgba(192,192,204,1) 88%,rgba(189,189,201,1) 88%,rgba(188,188,200,1) 89%,rgba(185,185,197,1) 90%,rgba(179,181,194,1) 94%,rgba(170,172,185,1) 94%,rgba(168,170,183,1) 94%,rgba(170,172,185,1) 94%,rgba(167,169,182,1) 94%,rgba(170,172,185,1) 94%,rgba(169,171,184,1) 95%,rgba(156,158,171,1) 95%,rgba(157,159,174,1) 95%,rgba(155,157,172,1) 95%,rgba(157,159,174,1) 95%,rgba(156,158,173,1) 95%,rgba(141,142,160,1) 95%,rgba(142,144,159,1) 96%,rgba(124,126,141,1) 96%,rgba(125,127,140,1) 97%,rgba(108,110,123,1) 97%,rgba(108,110,122,1) 98%,rgba(90,92,104,1) 98%,rgba(91,93,105,1) 98%,rgba(89,91,103,1) 98%,rgba(91,93,105,1) 98%,rgba(89,92,101,1) 99%,rgba(91,94,103,1) 99%,rgba(74,77,86,1) 99%,rgba(77,77,87,1) 99%,rgba(75,75,85,1) 99%,rgba(77,77,87,1) 99%,rgba(61,61,71,1) 100%,rgba(63,63,73,1) 100%,rgba(62,62,72,1) 100%);
+	background: -o-linear-gradient(top,  rgba(59,59,59,1) 0%,rgba(58,58,58,1) 0%,rgba(66,66,66,1) 1%,rgba(65,65,67,1) 1%,rgba(73,73,75,1) 1%,rgba(73,73,75,1) 2%,rgba(83,83,85,1) 2%,rgba(84,84,86,1) 3%,rgba(93,93,95,1) 3%,rgba(93,94,98,1) 4%,rgba(91,92,96,1) 4%,rgba(105,106,110,1) 4%,rgba(103,104,108,1) 4%,rgba(105,106,110,1) 4%,rgba(105,104,110,1) 5%,rgba(115,114,120,1) 5%,rgba(117,116,122,1) 5%,rgba(115,114,120,1) 5%,rgba(116,117,122,1) 5%,rgba(126,127,132,1) 6%,rgba(127,128,133,1) 6%,rgba(125,126,131,1) 6%,rgba(139,140,145,1) 6%,rgba(137,138,143,1) 7%,rgba(139,139,147,1) 7%,rgba(136,136,144,1) 7%,rgba(151,151,159,1) 7%,rgba(148,148,156,1) 7%,rgba(149,149,157,1) 8%,rgba(159,159,167,1) 8%,rgba(161,161,169,1) 8%,rgba(159,159,167,1) 9%,rgba(160,160,168,1) 9%,rgba(169,169,177,1) 9%,rgba(170,170,178,1) 10%,rgba(168,168,176,1) 10%,rgba(180,180,188,1) 10%,rgba(178,178,186,1) 10%,rgba(179,179,187,1) 11%,rgba(188,188,196,1) 11%,rgba(189,189,197,1) 11%,rgba(187,187,195,1) 11%,rgba(189,189,197,1) 11%,rgba(187,187,195,1) 11%,rgba(189,189,197,1) 11%,rgba(195,195,203,1) 12%,rgba(195,195,203,1) 12%,rgba(203,203,211,1) 12%,rgba(201,201,209,1) 13%,rgba(209,209,217,1) 13%,rgba(208,208,216,1) 14%,rgba(213,213,221,1) 14%,rgba(216,217,222,1) 17%,rgba(220,219,225,1) 18%,rgba(222,223,228,1) 19%,rgba(222,221,227,1) 20%,rgba(225,224,229,1) 20%,rgba(226,225,230,1) 21%,rgba(229,228,233,1) 22%,rgba(229,228,233,1) 23%,rgba(231,230,235,1) 23%,rgba(230,229,234,1) 24%,rgba(232,231,236,1) 24%,rgba(233,232,237,1) 26%,rgba(235,234,239,1) 26%,rgba(235,235,237,1) 27%,rgba(240,241,243,1) 31%,rgba(243,244,246,1) 31%,rgba(242,243,245,1) 32%,rgba(248,248,250,1) 34%,rgba(248,248,248,1) 36%,rgba(252,254,253,1) 39%,rgba(255,255,255,1) 43%,rgba(255,255,255,1) 52%,rgba(250,250,250,1) 57%,rgba(247,247,247,1) 58%,rgba(248,248,248,1) 58%,rgba(244,245,247,1) 60%,rgba(246,246,248,1) 61%,rgba(243,243,245,1) 61%,rgba(238,238,240,1) 64%,rgba(237,238,242,1) 65%,rgba(235,236,238,1) 65%,rgba(232,233,237,1) 68%,rgba(229,228,233,1) 69%,rgba(228,227,232,1) 70%,rgba(226,225,230,1) 70%,rgba(227,226,231,1) 71%,rgba(225,224,229,1) 71%,rgba(223,222,228,1) 73%,rgba(221,220,226,1) 73%,rgba(220,221,226,1) 73%,rgba(218,219,224,1) 74%,rgba(219,220,225,1) 74%,rgba(216,217,222,1) 75%,rgba(214,214,222,1) 76%,rgba(212,212,220,1) 76%,rgba(211,211,219,1) 78%,rgba(209,209,217,1) 78%,rgba(210,210,218,1) 78%,rgba(207,207,215,1) 79%,rgba(203,203,211,1) 81%,rgba(203,203,213,1) 82%,rgba(201,201,211,1) 82%,rgba(201,201,211,1) 83%,rgba(198,198,208,1) 83%,rgba(199,199,209,1) 84%,rgba(197,197,207,1) 84%,rgba(194,194,204,1) 86%,rgba(191,191,203,1) 86%,rgba(192,192,204,1) 88%,rgba(189,189,201,1) 88%,rgba(188,188,200,1) 89%,rgba(185,185,197,1) 90%,rgba(179,181,194,1) 94%,rgba(170,172,185,1) 94%,rgba(168,170,183,1) 94%,rgba(170,172,185,1) 94%,rgba(167,169,182,1) 94%,rgba(170,172,185,1) 94%,rgba(169,171,184,1) 95%,rgba(156,158,171,1) 95%,rgba(157,159,174,1) 95%,rgba(155,157,172,1) 95%,rgba(157,159,174,1) 95%,rgba(156,158,173,1) 95%,rgba(141,142,160,1) 95%,rgba(142,144,159,1) 96%,rgba(124,126,141,1) 96%,rgba(125,127,140,1) 97%,rgba(108,110,123,1) 97%,rgba(108,110,122,1) 98%,rgba(90,92,104,1) 98%,rgba(91,93,105,1) 98%,rgba(89,91,103,1) 98%,rgba(91,93,105,1) 98%,rgba(89,92,101,1) 99%,rgba(91,94,103,1) 99%,rgba(74,77,86,1) 99%,rgba(77,77,87,1) 99%,rgba(75,75,85,1) 99%,rgba(77,77,87,1) 99%,rgba(61,61,71,1) 100%,rgba(63,63,73,1) 100%,rgba(62,62,72,1) 100%);
+	background: -ms-linear-gradient(top,  rgba(59,59,59,1) 0%,rgba(58,58,58,1) 0%,rgba(66,66,66,1) 1%,rgba(65,65,67,1) 1%,rgba(73,73,75,1) 1%,rgba(73,73,75,1) 2%,rgba(83,83,85,1) 2%,rgba(84,84,86,1) 3%,rgba(93,93,95,1) 3%,rgba(93,94,98,1) 4%,rgba(91,92,96,1) 4%,rgba(105,106,110,1) 4%,rgba(103,104,108,1) 4%,rgba(105,106,110,1) 4%,rgba(105,104,110,1) 5%,rgba(115,114,120,1) 5%,rgba(117,116,122,1) 5%,rgba(115,114,120,1) 5%,rgba(116,117,122,1) 5%,rgba(126,127,132,1) 6%,rgba(127,128,133,1) 6%,rgba(125,126,131,1) 6%,rgba(139,140,145,1) 6%,rgba(137,138,143,1) 7%,rgba(139,139,147,1) 7%,rgba(136,136,144,1) 7%,rgba(151,151,159,1) 7%,rgba(148,148,156,1) 7%,rgba(149,149,157,1) 8%,rgba(159,159,167,1) 8%,rgba(161,161,169,1) 8%,rgba(159,159,167,1) 9%,rgba(160,160,168,1) 9%,rgba(169,169,177,1) 9%,rgba(170,170,178,1) 10%,rgba(168,168,176,1) 10%,rgba(180,180,188,1) 10%,rgba(178,178,186,1) 10%,rgba(179,179,187,1) 11%,rgba(188,188,196,1) 11%,rgba(189,189,197,1) 11%,rgba(187,187,195,1) 11%,rgba(189,189,197,1) 11%,rgba(187,187,195,1) 11%,rgba(189,189,197,1) 11%,rgba(195,195,203,1) 12%,rgba(195,195,203,1) 12%,rgba(203,203,211,1) 12%,rgba(201,201,209,1) 13%,rgba(209,209,217,1) 13%,rgba(208,208,216,1) 14%,rgba(213,213,221,1) 14%,rgba(216,217,222,1) 17%,rgba(220,219,225,1) 18%,rgba(222,223,228,1) 19%,rgba(222,221,227,1) 20%,rgba(225,224,229,1) 20%,rgba(226,225,230,1) 21%,rgba(229,228,233,1) 22%,rgba(229,228,233,1) 23%,rgba(231,230,235,1) 23%,rgba(230,229,234,1) 24%,rgba(232,231,236,1) 24%,rgba(233,232,237,1) 26%,rgba(235,234,239,1) 26%,rgba(235,235,237,1) 27%,rgba(240,241,243,1) 31%,rgba(243,244,246,1) 31%,rgba(242,243,245,1) 32%,rgba(248,248,250,1) 34%,rgba(248,248,248,1) 36%,rgba(252,254,253,1) 39%,rgba(255,255,255,1) 43%,rgba(255,255,255,1) 52%,rgba(250,250,250,1) 57%,rgba(247,247,247,1) 58%,rgba(248,248,248,1) 58%,rgba(244,245,247,1) 60%,rgba(246,246,248,1) 61%,rgba(243,243,245,1) 61%,rgba(238,238,240,1) 64%,rgba(237,238,242,1) 65%,rgba(235,236,238,1) 65%,rgba(232,233,237,1) 68%,rgba(229,228,233,1) 69%,rgba(228,227,232,1) 70%,rgba(226,225,230,1) 70%,rgba(227,226,231,1) 71%,rgba(225,224,229,1) 71%,rgba(223,222,228,1) 73%,rgba(221,220,226,1) 73%,rgba(220,221,226,1) 73%,rgba(218,219,224,1) 74%,rgba(219,220,225,1) 74%,rgba(216,217,222,1) 75%,rgba(214,214,222,1) 76%,rgba(212,212,220,1) 76%,rgba(211,211,219,1) 78%,rgba(209,209,217,1) 78%,rgba(210,210,218,1) 78%,rgba(207,207,215,1) 79%,rgba(203,203,211,1) 81%,rgba(203,203,213,1) 82%,rgba(201,201,211,1) 82%,rgba(201,201,211,1) 83%,rgba(198,198,208,1) 83%,rgba(199,199,209,1) 84%,rgba(197,197,207,1) 84%,rgba(194,194,204,1) 86%,rgba(191,191,203,1) 86%,rgba(192,192,204,1) 88%,rgba(189,189,201,1) 88%,rgba(188,188,200,1) 89%,rgba(185,185,197,1) 90%,rgba(179,181,194,1) 94%,rgba(170,172,185,1) 94%,rgba(168,170,183,1) 94%,rgba(170,172,185,1) 94%,rgba(167,169,182,1) 94%,rgba(170,172,185,1) 94%,rgba(169,171,184,1) 95%,rgba(156,158,171,1) 95%,rgba(157,159,174,1) 95%,rgba(155,157,172,1) 95%,rgba(157,159,174,1) 95%,rgba(156,158,173,1) 95%,rgba(141,142,160,1) 95%,rgba(142,144,159,1) 96%,rgba(124,126,141,1) 96%,rgba(125,127,140,1) 97%,rgba(108,110,123,1) 97%,rgba(108,110,122,1) 98%,rgba(90,92,104,1) 98%,rgba(91,93,105,1) 98%,rgba(89,91,103,1) 98%,rgba(91,93,105,1) 98%,rgba(89,92,101,1) 99%,rgba(91,94,103,1) 99%,rgba(74,77,86,1) 99%,rgba(77,77,87,1) 99%,rgba(75,75,85,1) 99%,rgba(77,77,87,1) 99%,rgba(61,61,71,1) 100%,rgba(63,63,73,1) 100%,rgba(62,62,72,1) 100%);
+	background: linear-gradient(to bottom,  rgba(59,59,59,1) 0%,rgba(58,58,58,1) 0%,rgba(66,66,66,1) 1%,rgba(65,65,67,1) 1%,rgba(73,73,75,1) 1%,rgba(73,73,75,1) 2%,rgba(83,83,85,1) 2%,rgba(84,84,86,1) 3%,rgba(93,93,95,1) 3%,rgba(93,94,98,1) 4%,rgba(91,92,96,1) 4%,rgba(105,106,110,1) 4%,rgba(103,104,108,1) 4%,rgba(105,106,110,1) 4%,rgba(105,104,110,1) 5%,rgba(115,114,120,1) 5%,rgba(117,116,122,1) 5%,rgba(115,114,120,1) 5%,rgba(116,117,122,1) 5%,rgba(126,127,132,1) 6%,rgba(127,128,133,1) 6%,rgba(125,126,131,1) 6%,rgba(139,140,145,1) 6%,rgba(137,138,143,1) 7%,rgba(139,139,147,1) 7%,rgba(136,136,144,1) 7%,rgba(151,151,159,1) 7%,rgba(148,148,156,1) 7%,rgba(149,149,157,1) 8%,rgba(159,159,167,1) 8%,rgba(161,161,169,1) 8%,rgba(159,159,167,1) 9%,rgba(160,160,168,1) 9%,rgba(169,169,177,1) 9%,rgba(170,170,178,1) 10%,rgba(168,168,176,1) 10%,rgba(180,180,188,1) 10%,rgba(178,178,186,1) 10%,rgba(179,179,187,1) 11%,rgba(188,188,196,1) 11%,rgba(189,189,197,1) 11%,rgba(187,187,195,1) 11%,rgba(189,189,197,1) 11%,rgba(187,187,195,1) 11%,rgba(189,189,197,1) 11%,rgba(195,195,203,1) 12%,rgba(195,195,203,1) 12%,rgba(203,203,211,1) 12%,rgba(201,201,209,1) 13%,rgba(209,209,217,1) 13%,rgba(208,208,216,1) 14%,rgba(213,213,221,1) 14%,rgba(216,217,222,1) 17%,rgba(220,219,225,1) 18%,rgba(222,223,228,1) 19%,rgba(222,221,227,1) 20%,rgba(225,224,229,1) 20%,rgba(226,225,230,1) 21%,rgba(229,228,233,1) 22%,rgba(229,228,233,1) 23%,rgba(231,230,235,1) 23%,rgba(230,229,234,1) 24%,rgba(232,231,236,1) 24%,rgba(233,232,237,1) 26%,rgba(235,234,239,1) 26%,rgba(235,235,237,1) 27%,rgba(240,241,243,1) 31%,rgba(243,244,246,1) 31%,rgba(242,243,245,1) 32%,rgba(248,248,250,1) 34%,rgba(248,248,248,1) 36%,rgba(252,254,253,1) 39%,rgba(255,255,255,1) 43%,rgba(255,255,255,1) 52%,rgba(250,250,250,1) 57%,rgba(247,247,247,1) 58%,rgba(248,248,248,1) 58%,rgba(244,245,247,1) 60%,rgba(246,246,248,1) 61%,rgba(243,243,245,1) 61%,rgba(238,238,240,1) 64%,rgba(237,238,242,1) 65%,rgba(235,236,238,1) 65%,rgba(232,233,237,1) 68%,rgba(229,228,233,1) 69%,rgba(228,227,232,1) 70%,rgba(226,225,230,1) 70%,rgba(227,226,231,1) 71%,rgba(225,224,229,1) 71%,rgba(223,222,228,1) 73%,rgba(221,220,226,1) 73%,rgba(220,221,226,1) 73%,rgba(218,219,224,1) 74%,rgba(219,220,225,1) 74%,rgba(216,217,222,1) 75%,rgba(214,214,222,1) 76%,rgba(212,212,220,1) 76%,rgba(211,211,219,1) 78%,rgba(209,209,217,1) 78%,rgba(210,210,218,1) 78%,rgba(207,207,215,1) 79%,rgba(203,203,211,1) 81%,rgba(203,203,213,1) 82%,rgba(201,201,211,1) 82%,rgba(201,201,211,1) 83%,rgba(198,198,208,1) 83%,rgba(199,199,209,1) 84%,rgba(197,197,207,1) 84%,rgba(194,194,204,1) 86%,rgba(191,191,203,1) 86%,rgba(192,192,204,1) 88%,rgba(189,189,201,1) 88%,rgba(188,188,200,1) 89%,rgba(185,185,197,1) 90%,rgba(179,181,194,1) 94%,rgba(170,172,185,1) 94%,rgba(168,170,183,1) 94%,rgba(170,172,185,1) 94%,rgba(167,169,182,1) 94%,rgba(170,172,185,1) 94%,rgba(169,171,184,1) 95%,rgba(156,158,171,1) 95%,rgba(157,159,174,1) 95%,rgba(155,157,172,1) 95%,rgba(157,159,174,1) 95%,rgba(156,158,173,1) 95%,rgba(141,142,160,1) 95%,rgba(142,144,159,1) 96%,rgba(124,126,141,1) 96%,rgba(125,127,140,1) 97%,rgba(108,110,123,1) 97%,rgba(108,110,122,1) 98%,rgba(90,92,104,1) 98%,rgba(91,93,105,1) 98%,rgba(89,91,103,1) 98%,rgba(91,93,105,1) 98%,rgba(89,92,101,1) 99%,rgba(91,94,103,1) 99%,rgba(74,77,86,1) 99%,rgba(77,77,87,1) 99%,rgba(75,75,85,1) 99%,rgba(77,77,87,1) 99%,rgba(61,61,71,1) 100%,rgba(63,63,73,1) 100%,rgba(62,62,72,1) 100%);
+}
+.choise-box li{
+	margin:0 -3px -4px;
+	vertical-align:top;
+	font:bold 15px/26px Helvetica, Arial, sans-serif;
+}
+.choise-box a{
+	display:block;
+	color:#000;
+	padding:1px 21px 3px;
+}
+.choise-box a:hover,
+.choise-box .active a{
+	background:url(../images/bg-choise-link.png) repeat-x;
+	background-size:100% 100%;
+	-webkit-background-size:100% 100%;
+	-moz-background-size:100% 100%;
+	-o-background-size:100% 100%;
+}
+.list{
+	list-style:none;
+	padding:12px 0 0;
+	margin:0 -21px;
+	overflow:hidden;
+	border-bottom:1px solid #888;
+}
+.list li{
+	overflow:hidden;
+	border-top:1px solid #888;
+	padding:15px 20px;
+	font:17px/24px "Conv_Gotham-Medium", Helvetica, Arial, sans-serif;
+}
+.list .delete{
+	float:right;
+	overflow:hidden;
+	text-indent:-9999px;
+	background:url(../images/btn-delete.png) no-repeat;
+	background-size:100% 100%;
+	-webkit-background-size:100% 100%;
+	-moz-background-size:100% 100%;
+	-o-background-size:100% 100%;
+	width:20px;
+	height:21px;
+	margin:0 0 0 15px;
+}
+.list .list-link{
+	display:block;
+	overflow:hidden;
+	padding:0 0 0 35px;
+	text-align:center;
+	color:#c8c8c8;
+	background:url(../images/ico-link-list.png) no-repeat 0 50%;
+	background-size:33px 19px;
+	-webkit-background-size:33px 19px;
+	-moz-background-size:33px 19px;
+	-o-background-size:33px 19px;
+}
+.list .add-link{
+	display:block;
+	background:url(../images/btn-add.png) no-repeat 100% 50%;
+	background-size:21px 21px;
+	-webkit-background-size:21px 21px;
+	-moz-background-size:21px 21px;
+	-o-background-size:21px 21px;
+	color:#008bca;
+	padding:0 35px;
+	text-align:center;
+}
+#header .btn-back{
+	width:47px;
+	height:30px;
+	background:url(../images/btn-back.png) no-repeat;
+	background-size:100% 100%;
+	-webkit-background-size:100% 100%;
+	-moz-background-size:100% 100%;
+	-o-background-size:100% 100%;
+	text-transform:uppercase;
+	padding:8px 0 8px 3px;
+}
+#header .no-back{width:50px;}
+.presets-list{
+	list-style:none;
+	padding:10px 0 0;
+	margin:0 -21px;
+	overflow:hidden;
+	border-bottom:1px solid #343434;
+}
+.presets-list li{
+	border-top:1px solid #343434;
+	text-align:center;
+}
+.presets-list li:first-child{border-color:#686868;}
+.presets-list .opener{
+	display:block;
+	padding:14px 5px 5px;
+}
+.presets-list .title{
+	display:block;
+	color:#008bca;
+	font:17px/19px "Conv_Gotham-Medium", Helvetica, Arial, sans-serif;
+}
+.presets-list .date{
+	display:block;
+	font:10px/13px "Conv_Gotham-Medium", Helvetica, Arial, sans-serif;
+	color:#969696;
+}
+.presets-list .date .time{padding:0 0 0 5px;}
+.presets-list .box{
+	margin:8px 12px 8px;
+	background:#373737;
+	color:#969696;
+	padding:16px 5px 9px;
+}
+.presets-list .box .btn-row:after,
+.presets-list .box .small-btn-row:after
+.presets-list .box .row:after{
+	content:"";
+	display:block;
+	clear:both;
+}
+.presets-list .box .row{margin:-6px 0 0;}
+.presets-list .box .small-btn-row{padding:6px 0 14px;}
+.presets-list .box .row strong{
+	font-size:24px;
+	display:inline-block;
+	vertical-align:baseline;
+	font-family:"Conv_Gotham-Black", Helvetica, Arial, sans-serif;
+}
+.presets-list .box .row span{
+	display:inline-block;
+	vertical-align:baseline;
+	font-size:18px;
+	font-family:"Conv_Gotham-Medium", Helvetica, Arial, sans-serif;
+}
+.presets-list .box .small-btn-row a{
+	color:#fff;
+	font-size:9px;
+	line-height:11px;
+	font-family:"Conv_Gotham-Medium", Helvetica, Arial, sans-serif;
+	text-transform:uppercase;
+	background:#969696;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
+	padding:3px;
+	width:13.5%;
+	display:inline-block;
+	vertical-align:top;
+}
+.presets-list .box-holder .small-btn-row a{
+	width:31.5%;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.presets-list .box .small-btn-row .light-btn{
+	background:#dcdcdc;
+	color:#969696;
+}
+.presets-list .box .small-btn-row .dark-btn{
+	background:#505050;
+	color:#6e6e6e;
+}
+.presets-list .box .btn-row a{
+	color:#ebebeb;
+	font:bold 14px/16px "Conv_Gotham-Black", Helvetica, Arial, sans-serif;
+	padding:10px;
+	width:23%;
+	text-transform:uppercase;
+	background:#008bca;
+	display:inline-block;
+	vertical-align:top;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
+}
+.presets-list .box-holder{
+	display:inline-block;
+	vertical-align:top;
+	width:49%;
+}
+.presets-list .box .btn-row .red-btn{background:#ca0000;}
+.presets-list .box .btn-row .save-btn{
+	width:100%;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.loading-box:after{
+	content:"";
+	display:block;
+	clear:both;
+}
+.loading-box{
+	width:100%;
+	margin:0 0 31px;
+}
+.loading-box .line{
+	overflow:hidden;
+	width:100%;
+	position:relative;
+	height:63px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	background:#373737;
+}
+.loading-box .line .holder{
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	position:absolute;
+	height:63px;
+	top:0;
+	left:0;
+	background:#008bca;
+}
+.loading-page h1{margin-bottom:50px;}
+.loading-box .row{
+	float:left;
+	width:100%;
+	padding:5px 0 0;
+}
+.loading-box .row .finish,
+.loading-box .row .start{
+	float:left;
+	color:#969696;
+	font:bold 15px/17px "Conv_Gotham-Bold", Helvetica, Arial, sans-serif;
+}
+.loading-box .row .finish{
+	float:right;
+	margin:0 -15px 0 0;
+}
+.loading-box .row .info{
+	overflow:hidden;
+	text-align:center;
+	font-size:15px;
+	line-height:32px;
+	color:#969696;
+	padding:0 0 0 13px;
+}
+.loading-box .row .info .holder{margin:0;}
+.loading-box .row .info strong{
+	display:inline-block;
+	vertical-align:baseline;
+	font-size:30px;
+	font-family:"Conv_Gotham-Black", Helvetica, Arial, sans-serif;
+}
+.loading-box .row .info strong span{
+	color:#969696 !important;
+	font-family:"Conv_Gotham-Medium", Helvetica, Arial, sans-serif;
+	font-weight:normal;
+}
+.loading-box .row .info span{
+	display:inline-block;
+	vertical-align:baseline;
+	font-family:"Conv_Gotham-Medium", Helvetica, Arial, sans-serif;
+}
+.loading-page .btn-box{margin:0 0 36px;}
+.loading-page .btn-box a{margin:0;}
+.loading-page .step-nav{float:left;}
+.loading-page .step-nav .prev{float:left;}
+.loading-page .step-nav .number{
+	float:right;
+	margin:0 -22px 0 0;
+}
+
+
+
+.choice-btn-box{
+	text-align:center;
+	clear:both;
+	overflow:hidden;
+	display: inline-block;
+}
+
+.inner-page .choice-btn-box{padding:15px 0 0}
+.choice-btn-box a{
+	color:#fff;
+	text-transform:uppercase;
+	font:bold 12px/14px "Conv_Gotham-Black", Helvetica, Arial, sans-serif;
+	padding:9px 8px 11px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	background:#6e6e6e;
+	display:block;
+	float: left;
+	margin-left: 10px;
+	min-width: 100px;
+}
+.choice-btn-box a:hover{text-decoration:none;}
+.inner-page .choice-btn-box a{margin-bottom:3px;}
+.choice-btn-box .btn-blue{background:#008bca;}
