@@ -1,7 +1,6 @@
 document.addEventListener('deviceready', function() {
-                       //  window.location.hash = 'timelapse';
-                        //  alert("About to send data");
-                          send_data();
+                       window.location.hash = 'timelapse';
+                          
                           }, false);
 
 window.MobileAppRouter = Backbone.Router.extend({

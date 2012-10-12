@@ -1,17 +1,19 @@
-var send_data = function() {
+var send_data = function(model) {
+
+	//TODO: rewrite app model
 	var appModel = {
-		"rotationDegrees": 10,
-	    "rotationDirection": false,
-	    "intervalMinutes": 10,
-	    "intervalSeconds": 2,
-	    "lengthHours": 2,
-	    "lengthMinutes": 1,
-	    "shouldStopAtEnd": false
+		"rotationDegrees": model.get("degrees"),
+	    "rotationDirection": !model.get("isClockwise"),
+	    "intervalMinutes": model.get("intervalMinutes"),
+	    "intervalSeconds": model.get("intervalSeconds"),
+	    "lengthHours": model.get("totalTimeHours"),
+	    "lengthMinutes": model.get("totalTimeMinutes"),
+	    "shouldStopAtEnd": false //TODO implement in UI
 	}
 
 	// Convert to Protocol Data
 	var protocolData = new ProtocolData({model: appModel});
-  
+    
 	// Get Data Packet
 	var protocolDataArray = protocolData.toDataArray()
 	var dataPacket = new DataPacket({data: protocolDataArray });
