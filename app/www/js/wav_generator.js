@@ -32,13 +32,10 @@ var WavGenerator = Backbone.Model.extend({
         var samples = 0;
 
         /* ******** EDIT HERE *********** */
-        // Generate the sine waveform
-        for (var i = 0; i < sampleRate * seconds; i++) {
-            for (var c = 0; c < channels; c++) {
-                var v = volume * Math.sin((2 * Math.PI) * (i / sampleRate) * frequency);
+        for (var i = 0; i < packet.length; i++) {
+                var v = packet[i] : volume ? -volume; 
                 data.push(pack("v", v));
                 samples++;
-            }
         }
         
         data = data.join('');
