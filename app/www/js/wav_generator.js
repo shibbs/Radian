@@ -3,7 +3,7 @@
  * Encodes any array of 1's and 0's into highs and lows
  *
  * Example
- * var wavGenerator = new WavGenerator({data: int8Array });
+ * var wavGenerator = new WavGenerator({packet: int8Array });
  * wavGenerator.getBase64Wav();
  */
 
@@ -17,7 +17,6 @@ var WavGenerator = Backbone.Model.extend({
 
     getSoundChunk: function() {
         var packet = this.get("packet"); // Here's the packet
-
         var channels = this.get("channels");
         var sampleRate = this.get("sampleRate");
         var bitsPerSample = this.get("bitsPerSample");
@@ -33,7 +32,7 @@ var WavGenerator = Backbone.Model.extend({
 
         /* ******** EDIT HERE *********** */
         for (var i = 0; i < packet.length; i++) {
-                var v = packet[i] : volume ? -volume; 
+                var v = packet[i] ? volume : -volume; 
                 data.push(pack("v", v));
                 samples++;
         }
