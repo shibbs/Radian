@@ -60,8 +60,6 @@
 		<string>CDVSplashScreen</string>
 		<key>Battery</key>
 		<string>CDVBattery</string>
-		<key>DataTransmission</key>
-		<string>DataTransmission</string>
 	</dict>
 </dict>
 </plist>

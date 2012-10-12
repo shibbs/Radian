@@ -1167,8 +1167,10 @@ extern NSString * const NSURLIsExcludedFromBackupKey __attribute__((weak_import)
 	NSString* jsString = nil;
 	CDVFileError errCode = INVALID_MODIFICATION_ERR; 
 	int bytesWritten = 0;
-	NSData* encData = [ data dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
-	if (filePath) {
+    NSLog(@"test");
+	NSData* encData = [NSData dataFromBase64String:data];
+	
+    if (filePath) {
 		NSOutputStream* fileStream = [NSOutputStream outputStreamToFileAtPath:filePath append:shouldAppend ];
 		if (fileStream) {
 			NSUInteger len = [ encData length ];
