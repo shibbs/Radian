@@ -21,7 +21,7 @@ var send_data = function(model) {
 	// Get Transmission Packet'
 	var transmissionPacket = new TransmissionPacket({data: dataPacket.getPacket() });
  	var dataToSend = transmissionPacket.getPacket();
- 	alert("test");
+ 
  	//Generate Wav
  	var wavGenerator = new WavGenerator({packet: dataToSend });
  	var wavData = wavGenerator.getBase64Wav();
