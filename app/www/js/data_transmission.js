@@ -92,7 +92,7 @@ var DataPacket = Backbone.Model.extend({
     defaults: {
         "startFlag":  231,
         "stopFlag":   235,
-        "deadByte":   0,
+        "deadByte":   0xFF,
         "numDeadBytes": 4 //Total number of dead bytes to padd the packet with
     },
 
@@ -101,7 +101,7 @@ var DataPacket = Backbone.Model.extend({
         for (var i = data.length - 1; i >= 0; i--) {
             checkSum[0] += data[i];
         };
-        this.set('checkSum', checkSum[0]);
+        this.set('checkSum', checkSum[0]%230);
     },
 
     initialize: function() {
@@ -169,7 +169,7 @@ var DataPacket = Backbone.Model.extend({
  *  |-----------------|
  *  |      BIT_8      |
  *  |-----------------|
- *  |     STOP BIT    | 
+ *  |     END BIT     | 
  *  |-----------------|
  *          ...         <- continues for all data arrays
  *
@@ -185,14 +185,16 @@ var TransmissionPacket = Backbone.Model.extend({
     TOTAL_SEGMENT_SIZE: 10,
 
     defaults: {
-        "startBit":  1,
-        "stopBit":   0,
-        "stretchFactor":  10,
+        "startBit":  0,
+        "stopBit":   1,
+        "stretchFactor":  44,
     },
-
+                                               
+                                    
     stretchPacket: function(numArray) {
         var packet = new Uint8Array(numArray.length * this.get("stretchFactor"));
         var packet_index = 0;
+                                               
 
         for (var i = 0; i < numArray.length; i++) {
             for (var z = 0; z < this.get("stretchFactor"); z++) {
@@ -236,17 +238,17 @@ var TransmissionPacket = Backbone.Model.extend({
 
             // Start bit
             packet[packet_index++] = this.get("startBit");
-
+                                            
             // The Data
             var current_byte = data[byte_index];
-            for (var j = 7; j >= 0; j--) {
+            for (var j = 0; j <8; j++) {
                 var mask = 1 << j;
                 var bit = Number((current_byte & mask) != 0);
                 packet[packet_index++] = bit;
             };
 
             // End bit
-            packet[packet_index++] = this.get("endBit");
+            packet[packet_index++] = this.get("stopBit");
 
         };
 
@@ -260,5 +262,3 @@ var TransmissionPacket = Backbone.Model.extend({
         return this.combinePackets(stretchedPacket, invertedPacket);
     }
 });
-
-
