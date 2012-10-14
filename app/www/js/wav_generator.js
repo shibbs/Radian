@@ -11,7 +11,7 @@ var WavGenerator = Backbone.Model.extend({
 
     defaults: {
         "channels":  1,
-        "sampleRate":   2024,
+        "sampleRate":   44100,
         "bitsPerSample": 16,
     },
 
