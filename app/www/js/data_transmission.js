@@ -52,7 +52,7 @@ var ProtocolData = Backbone.Model.extend({
         var model = this.get('model');
         var data = new Int8Array(this.ordering.length);
         for (var i = this.ordering.length - 1; i >= 0; i--) {
-            data[i] = model[this.ordering[i]];
+            data[i] = this[this.ordering[i]];
         };
         return data;
     }
