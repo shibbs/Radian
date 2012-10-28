@@ -1,5 +1,6 @@
+//Check if android, if not then do device ready
 document.addEventListener('deviceready', function() {
-                       window.location.hash = 'timelapse';
+                       window.location.hash = 'home';
                           
                           }, false);
 
@@ -9,20 +10,25 @@ window.MobileAppRouter = Backbone.Router.extend({
         "": 'noop',
 		//"panorama": 'panorama', Not needed in testing
 		//"settings": 'settings', Not needed in testing
+        "home": 'home',
         "timelapse": 'timeLapse',
 		"timelapse/presets": 'timeLapsePresets',
 		"timelapse/degrees": 'timeLapseDegrees',
 		"timelapse/totaltime": 'timeLapseTotalTime',
 		"timelapse/interval": 'timeLapseInterval',
 		"timelapse/upload": 'timeLapseUpload',
-		"timelapse/upload/inprogress": 'timeLapseUploadInProgress',
 		"timelapse/countdown": 'timeLapseCountDown',
 		"timelapse/current": 'timeLapseCurrent',
+        "timelapse/completed": 'timeLapseCompleted',
 		"timelapse/queue": 'timeLapseQueue',
 		"timelapse/advanced": 'timeLapseAdvanced',
     },
 
     noop: function() {
+    },
+
+    home: function() {
+        window.views.homeView.render();
     },
 
     timeLapse: function() {
@@ -53,10 +59,6 @@ window.MobileAppRouter = Backbone.Router.extend({
         window.views.timeLapseUploadView.render();
     },
 
-	timeLapseUploadInProgress: function() {
-        window.views.timeLapseUploadInProgressView.render();
-    },
-
 	timeLapseCurrent: function() {
 		window.views.timeLapseCurrent = new window.views.TimeLapseCurrent({model: window.running_program});
         window.views.timeLapseCurrent.render();
@@ -70,9 +72,14 @@ window.MobileAppRouter = Backbone.Router.extend({
         window.views.timeLapseAdvancedView.render();
     },
 
+    timeLapseCompleted: function() {
+        window.views.timeLapseCompletedView.render();
+    },
+
 });
 
 $(document).ready(function() {
     window.mobileRouter = new MobileAppRouter();
     Backbone.history.start();
+    //window.location.hash = 'timelapse';
 });

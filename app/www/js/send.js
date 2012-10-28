@@ -30,9 +30,9 @@ var send_data = function(model) {
     
  	// Save file
  	setTimeout(function() {
-               saveBase64File(wavData, wavName, function() {
+               saveBase64File(wavData, wavName, function(path) {
                               //Play wav
-                              playSound(wavName);
+                              playSound(path);
                               //TODO update volume
                               });
                }, 1000);

@@ -1,4 +1,12 @@
 //TODO: Abstract
+_.mixin({
+    round: function(num, dec) {
+        var result = Math.round(num*Math.pow(10,dec))/Math.pow(10,dec);
+        return result;
+    }
+});
+
+//TODO: Abstract
 var generate_slot = function (name, start, finish, increment, abbreviation) {
     var data = {};
     for (var i = start; i <= finish; i += increment) {
@@ -40,6 +48,27 @@ $(document).ready(function () {
         },
     });
 
+    window.views.HomeView = window.views.BaseView.extend({
+        template: _.template($('#home_template').html()),
+
+        render: function () {
+            this.$el.empty().append(this.template(this.model.getTemplateJSON()));
+        },
+
+        events: {
+            "click #pan": "pan",
+            "click #tilt": "tilt",
+        },
+
+        pan: function() {
+            this.model.set("timeLapse", Constants.TimeLapseType.PAN);
+        },
+
+        tilt: function() {
+            this.model.set("timeLapse", Constants.TimeLapseType.TILT);
+        }
+    });
+
     window.views.TimeLapseView = window.views.BaseView.extend({
         template: _.template($('#timeLapse_template').html()),
         events: {
@@ -54,6 +83,7 @@ $(document).ready(function () {
         totalTimeLink: function () {
             window.location.hash = '#timelapse/totaltime';
         },
+
         intervalLink: function () {
             window.location.hash = '#timelapse/interval';
 
@@ -120,7 +150,7 @@ $(document).ready(function () {
             this.$('#wrapper').append(statsView.render().el);
 
             this.$('#picker').scroller({
-                theme: 'ios',
+                theme: 'android-ics',
                 display: 'inline',
                 mode: 'scroller',
                 wheels: [{
@@ -157,6 +187,15 @@ $(document).ready(function () {
             this.model.bind('change:totalTimeMinutes', this.updateTotalTimeMinutes, this);
         },
 
+        events: {
+            "click #continue": "continue",
+        },
+
+        continue: function() {
+            this.model.set("shouldContinue", !this.model.get("shouldContinue"));
+            this.$('#continue').toggleClass('highlight');
+        },
+
         updateTotalTimeHours: function () {
             this.$('#hours').html(this.model.get('totalTimeHours'));
 
@@ -177,7 +216,7 @@ $(document).ready(function () {
             var total_time_slots = [generate_slot('hours', 0, 240, 1, 'hr'), generate_slot('minutes', 0, 59, 1, 'min')];
 
             this.$('#picker').scroller({
-                theme: 'ios',
+                theme: 'android-ics',
                 display: 'inline',
                 mode: 'scroller',
                 wheels: total_time_slots,
@@ -228,7 +267,7 @@ $(document).ready(function () {
             var interval_slots = [generate_slot('minutes', 0, 360, 1, 'min'), generate_slot('seconds', 0, 59, 1, 'sec')];
 
             this.$('#picker').scroller({
-                theme: 'ios',
+                theme: 'android-ics',
                 display: 'inline',
                 mode: 'scroller',
                 wheels: interval_slots,
@@ -260,32 +299,28 @@ $(document).ready(function () {
         render: function () {
             this.$el.empty().append(this.template());
             return this;
-        }
-    });
-
-    window.views.TimeLapseUploadInProgressView = window.views.BaseView.extend({
-        template: _.template($('#timeLapseUploadInProgress_template').html()),
-
-        render: function () {
-            this.$el.empty().append(this.template());
-            window.running_program = window.app.clone();
-            this.percent = 0;
-            send_data(window.running_program);
-            //DataTransmission.send(function () {}, function () {}, [window.app.get('intervalMinutes'), window.app.get('intervalSeconds'), window.app.get('totalTimeHours'), window.app.get('totalTimeMinutes'), window.app.get('degrees')]);
-            this.advanceProgressBar();
-            return this;
         },
 
         events: {
-            'click .cancel': "cancel"
+            'click .upload': "upload"
         },
 
+        upload: function () {
+            window.running_program = window.app.clone();
+            this.percent = 0;
+            this.disableNavigation();
+            send_data(window.running_program);
+            //DataTransmission.send(function () {}, function () {}, [window.app.get('intervalMinutes'), window.app.get('intervalSeconds'), window.app.get('totalTimeHours'), window.app.get('totalTimeMinutes'), window.app.get('degrees')]);
+            this.advanceProgressBar();
+            this.updateMessage();
+        },
 
+        disableNavigation: function () {
+            this.$(".prev").attr('href',"#");
+        }, 
 
-        cancel: function () {
-            clearTimeout(window.timeLapseLoadingBarTimeout);
-            window.running_program = null;
-            //window.app.set('start_time', null);
+        updateMessage: function () {
+            this.$('.message').html("UPLOADING...");
         },
 
 
@@ -316,6 +351,7 @@ $(document).ready(function () {
             if (!this.model.get('start_time')) {
                 this.model.set('start_time', new Date());
             }
+            $('.dial').knob();
             this.advanceProgressBar();
             return this;
         },
@@ -348,13 +384,15 @@ $(document).ready(function () {
 
             hours = parseInt(timePassed / 3600) % 24;
             minutes = parseInt(timePassed / 60) % 60;
-
-            that.$('#loading').css('width', Math.round(that.percent * 100) + '%');
+            that.$('.dial').val(_.round(that.percent*100, 0)).trigger('change');
             that.$('#hours').html(hours);
             that.$('#minutes').html(minutes);
             that.$('#degrees').html(_.round(that.percent * that.model.get('degrees'), 2) + '&deg;');
-            if (that.percent <= 100) {
+            if (_.round(that.percent*100, 0) < 100) {
                 window.timeLapseCurrentLoadingBarTimeout = setTimeout(callmethod, 20 * 1000);
+            } else {
+                clearTimeout(window.timeLapseCurrentLoadingBarTimeout);
+                window.location.hash = 'timelapse/completed';
             }
         }
     });
@@ -368,6 +406,7 @@ $(document).ready(function () {
             this.count = 5;
             this.cancelled = false;
             window.timeLapseCountDownTimeout = [];
+
 
             this.countDown();
             return this;
@@ -398,7 +437,6 @@ $(document).ready(function () {
 
             if (that.count !== 0) {
                 that.count -= 1;
-                that.$('.mark').html(that.count);
                 window.timeLapseCountDownTimeout = setTimeout(callmethod, 1000);
             }
             else {
@@ -407,12 +445,41 @@ $(document).ready(function () {
         }
     });
 
+    window.views.homeView = new window.views.HomeView({
+        model: window.app
+    });
+
     window.views.TimeLapseQueueView = window.views.BaseView.extend({
         template: _.template($('#timeLapseQueue_template').html()),
     });
 
     window.views.TimeLapseAdvancedView = window.views.BaseView.extend({
         template: _.template($('#timeLapseAdvanced_template').html()),
+    });
+
+     window.views.TimeLapseCompletedView = window.views.BaseView.extend({
+        template: _.template($('#timeLapseCompleted_template').html()),
+
+        render: function () {
+            this.model = window.running_program;
+            this.$el.empty().append(this.template());
+            return this;
+        },
+
+        events: {
+            'click .newTimeLapse': "newTimeLapse",
+            'click .restartCounter': "restartCounter"
+        },
+
+        newTimeLapse: function () {
+            window.running_program = null;
+            window.location.hash = 'home';
+        },
+
+        restartCounter: function () {
+            this.model.set('start_time', new Date());
+            window.location.hash = 'timelapse/current';
+        },
     });
 
 
@@ -430,8 +497,8 @@ $(document).ready(function () {
         model: window.app
     });
     window.views.timeLapseUploadView = new window.views.TimeLapseUploadView();
-    window.views.timeLapseUploadInProgressView = new window.views.TimeLapseUploadInProgressView();
     window.views.timeLapseCountDownView = new window.views.TimeLapseCountDownView();
+    window.views.timeLapseCompletedView = new window.views.TimeLapseCompletedView();
     window.views.timeLapseQueueView = new window.views.TimeLapseQueueView();
     window.views.timeLapseAdvancedView = new window.views.TimeLapseAdvancedView();
 });

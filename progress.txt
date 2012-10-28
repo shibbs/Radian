@@ -1,0 +1,36 @@
+Completed:
+--------------------------------------------
+1 - Step 1 first time.png
+1 - Step 1 second time.png
+1 - Step 1.png
+3 - Degrees Setting.png
+4 - Interval Setting.png
+5 - Time Setting.png
+8 - Advanced.png
+11 - Step 3 - 1.png
+11 - Step 3 - 2.png
+11 - Step 3 - 3.png
+12 - Step 4 - 2.png
+
+Needs work:
+--------------------------------------------
+2 - Step 2.png
+10 - Advanced - Bramp.png
+12 - Step 4 - 1.png
+NAVIGATION
+CHANGE BACKGROUND COLOR
+
+Queue and Presets:
+--------------------------------------------
+6 - Queue.png
+7 - Presets expanded.png
+7 - Presets.png
+7 - Edit Mode - delete Android.png
+7 - Presets - Edit Mode - delete Android.png
+7 - Presets - Edit Mode - delete iOS.png
+7 - Presets - Edit Mode.png
+
+LATER STUFF:
+---------------------------------------------
+9 - Advanced - Time Delay.png
+

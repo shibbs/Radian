@@ -1,7 +1,7 @@
 var playSound = function(soundFile) {
 
     function playAudio() {
-        var my_media = new Media("documents://"+soundFile, onSuccess, onError);
+        var my_media = new Media(soundFile, onSuccess, onError);
         my_media.play();
     }
 
