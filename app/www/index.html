@@ -6,7 +6,7 @@
         <meta name = "format-detection" content = "telephone=no"/>
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width;" />
 		<link type="text/css" rel="stylesheet" href="css/all.css">
-		<link href="css/mobiscroll-2.1-beta.custom.min.css" rel="stylesheet" type="text/css" />
+		<link href="css/mobiscroll-2.0.3.custom.min.css" rel="stylesheet" type="text/css" />
 
 		<!--[if IE]>
 			<script src="js/ie-html5.js" type="text/javascript"></script>
@@ -16,11 +16,28 @@
     <body class='loading'>
 		<div id="container">
 		</div>
-
+		<div id="navigation" style="position:fixed; bottom:10px; width: 100%">
+				<nav class="step-nav inner-step" style="width:75%; margin: 0 auto">
+					<ul>
+						<li class="prev-holder" style="visibility">
+							<a href="#" class="prev"></a>
+						</li>
+						<li id="nav_numbers">
+						    <div class="number selected">1</div>
+							<div class="number">2</div>
+							<div class="number">3</div>
+							<div class="number">4</div>
+					    </li>
+						<li class="next-holder">
+							<a id="thirdstep" href="#" class="next">next</a>
+						</li>
+					</ul>
+				</nav>
+		</div>
 		<!-- Home Template -->
 		<script type="text/template" id="home_template">
 			<div id="wrapper">
-				<h1>CHOOSE A TIME-LAPSE</h1>
+				<h1>CHOOSE A <br /> TIME-LAPSE</h1>
 				<div class="btn-box">
 					<% timeLapse %>
 				   <% if (timeLapse === 0) { %>
@@ -38,15 +55,6 @@
 
 					<a href="#" class="settings-btn">y</a>
 				</div>
-				<nav class="step-nav inner-step">
-					<ul>
-						<li class="prev-holder"><a href="#timelapse" class="prev"></a></li>
-						<li><div class="number selected">1</div>
-						<div class="number">2</div>
-						<div class="number">3</div></li>
-						<li class="next-holder"><a id="thirdstep" href="#timelapse" class="next">next</a></li>
-					</ul>
-				</nav>
 			</div>
 		</script>
 		
@@ -101,15 +109,6 @@
 						<span><strong class="time"><%= frameRate %></strong> seconds</span>
 					</div>
 				</div>
-				<nav class="step-nav inner-step">
-					<ul>
-						<li class="prev-holder"><a href="#home" class="prev">prev</a></li>
-						<li><div class="number">1</div>
-						<div class="number selected">2</div>
-						<div class="number">3</div></li>
-						<li class="next-holder"><a id="thirdstep" href="#timelapse/upload" class="next">next</a></li>
-					</ul>
-				</nav>
 			</div>
 		</script>
 		
@@ -316,16 +315,6 @@
 					<div class="holder" style="width:0%"></div>
 				</div>
 			</div>
-			<div style="height: 137px"></div>
-			<nav class="step-nav inner-step">
-            <ul>
-            <li class="prev-holder"><a href="#timelapse" class="prev">prev</a></li>
-            <li><div class="number">1</div>
-            <div class="number">2</div>
-            <div class="number selected">3</div></li>
-            <li class="next-holder"><a id="thirdstep" href="#" class="next">next</a></li>
-            </ul>
-			</nav>
 		</div>
 
 		</script>
@@ -342,16 +331,6 @@
 					</div>
 				</div>
 			</div>
-			<div style="height: 137px"></div>
-			<nav class="step-nav inner-step">
-            <ul>
-            <li class="prev-holder"><a href="#" class="prev">prev</a></li>
-            <li><div class="number">1</div>
-            <div class="number">2</div>
-            <div class="number selected">3</div></li>
-            <li class="next-holder"><a id="thirdstep" href="#" class="next">next</a></li>
-            </ul>
-			</nav>
 		</div>
 
 		</script>
@@ -365,19 +344,8 @@
 			</div>
 			<div style="height: 162px"></div>
 			<div class="btn-box">
-				<a class="cancel btn-white" href="#timelapse">CANCEL</a>
+				<a class="cancel btn-white nostart" href="#timelapse">CANCEL</a>
 			</div>
-			<nav class="step-nav inner-step">
-            <ul>
-            <li class="prev-holder"><a href="#timelapse" class="prev">prev</a></li>
-            <li>
-               <div class="number">1</div>
-               <div class="number">2</div>
-               <div class="number selected">3</div>
-            </li>
-            <li class="next-holder"><a id="thirdstep" href="#" class="next">next</a></li>
-            </ul>
-			</nav>
 		</div>
 
 		</script>
@@ -388,7 +356,7 @@
 			<h1>IN PROGRESS</h1>
 			<div class="loading-box">
 				<div class="general">
-				<input type="text" class="dial" data-min="0" data-max="100" data-fgColor="#008bca" data-textColor="#FFF" data-bgColor="#282828" data-skin="tron" data-thickness="1" data-readOnly="true">
+				<input type="text" class="dial" data-min="0" data-max="100" data-fgColor="#008bca" data-textColor="#FFF" data-bgColor="#191919" data-skin="tron" data-thickness="1" data-readOnly="true" data-width="100" data-height="100">
 				</div>
 				<div class="row">
 					<span class="start">0sec<br />0&deg;</span>
@@ -406,24 +374,14 @@
 					</div>
 				</div>
 			</div>
-			<div class="general">
+			<div style="text-align:center">
 				<div class="choice-btn-box choice-btn-box-large">
 					<div class="center">
-					<a class="cancel side" href="#timelapse">RESET COUNTER</a>
-					<a class="cancel side" href="#timelapse">NEW TIMELAPSE</a>
+					<a class="cancel side restartCounter" href="#timelapse/current">RESET COUNTER</a>
+					<a class="cancel side newTimeLapse" href="#home">NEW TIMELAPSE</a>
 					</div>
 				</div>
 			</div>
-			<nav class="step-nav inner-step">
-				<ul>
-					<li class="prev-holder"><a href="#timelapse" class="prev">prev</a></li>
-					<li><div class="number">1</div>
-					<div class="number">2</div>
-					<div class="number selected">3</div></li>
-					<li class="next-holder">
-					<a id="thirdstep" href="#" class="next">next</a></li>
-				</ul>
-			</nav>
 		</div>
 		</script>
 		
@@ -453,24 +411,15 @@
 					<a href="#home" class="btn-white newTimeLapse">NEW TIME-LAPSE</a>
 					<a href="#timelapse/current" class="btn-white restartCounter">RESTART COUNTER</a>
 				</div>
-				<nav class="step-nav inner-step">
-					<ul>
-						<li class="prev-holder"><a href="#timelapse" class="prev"></a></li>
-						<li><div class="number selected">1</div>
-						<div class="number">2</div>
-						<div class="number">3</div></li>
-						<li class="next-holder"><a id="thirdstep" href="#timelapse" class="next">next</a></li>
-					</ul>
-				</nav>
 			</div>
 		</script>
         
-		<script type="text/javascript" src="cordova-2.2.0rc1.js"></script>
+		<script type="text/javascript" src="js/cordova.ios.js"></script>
 				
         <script type="text/javascript" src="js/DataTransmission.js"></script>
         <script type="text/javascript" src="js/underscore-min.js"></script>
         <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
-        <script src="js/mobiscroll-2.1-beta.custom.min.js"></script>
+        <script src="js/mobiscroll-2.0.3.custom.min.js"></script>
         <script src="js/circle-progress-bar.js"></script>
         <script type="text/javascript" src="js/backbone-min.js"></script>
 		<script type="text/javascript" src="js/models.js"></script>

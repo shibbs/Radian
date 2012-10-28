@@ -3,7 +3,7 @@ body{
 	margin:0;
 	color:#969696;
 	font:11px Helvetica, Arial, sans-serif;
-	background:#282828;
+	background:#191919;
 	min-width:310px;
 }
 img{border-style:none;}
@@ -138,7 +138,7 @@ h1{
 .inner-page .btn-box{padding:30px 0 0}
 .pan-page .btn-box{margin:0 0 43px;}
 .btn-box a{
-	color:#282828;
+	color:#191919;
 	text-transform:uppercase;
 	font:bold 20px/24px "Conv_Gotham-Black", Helvetica, Arial, sans-serif;
 	padding:18px 10px 19px;
@@ -240,12 +240,12 @@ h1{
 	text-align:center;
 	/*color:#008bca;*/
 	font:bold 15px/30px "Conv_Gotham-Black", Helvetica, Arial, sans-serif;
-	border:5px solid #282828;
+	border:5px solid transparent;
 	-webkit-border-radius: 20px;
 	border-radius: 20px;
 	float:left;
-	background:#282828;
-	margin:0 10px 0 10px;
+	/*background:#191919;*/
+	margin:0 2px 0 2px;
 }
 
 .step-nav .selected{
@@ -258,7 +258,7 @@ h1{
 	height:34px;
 	overflow:hidden;
 	text-indent:-9999px;
-	background:#282828 url(../images/btn-next.png) no-repeat;
+	background:#191919 url(../images/btn-next.png) no-repeat;
 	background-size:100% 100%;
 	-webkit-background-size:100% 100%;
 	-moz-background-size:100% 100%;
@@ -270,18 +270,18 @@ h1{
 	border:none;
 }
 .step-nav .prev{
-	background:#282828 url(../images/btn-prev.png) no-repeat;
+	background:#191919 url(../images/btn-prev.png) no-repeat;
 	background-size:100% 100%;
 	-webkit-background-size:100% 100%;
 	-moz-background-size:100% 100%;
 	-o-background-size:100% 100%;
 }
 .step-nav .prev-holder{
-	background:#282828;
+	background:#191919;
 	padding:0 5px 0 0;
 }
 .step-nav .next-holder{
-	background:#282828;
+	background:#191919;
 	padding:0 0 0 5px;
 }
 /*.step-nav ul .number{margin:0;}*/
@@ -337,15 +337,15 @@ h1{
 	box-sizing: border-box;
 	float:left;
 	background:#6e6e6e;
-	color:#282828;
+	color:#191919;
 	font:bold 11px/14px "Conv_Gotham-Black", Helvetica, Arial, sans-serif;
 	padding:8px 5px;
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
 }
 #header .no-btn{
-	background:#282828;
-	color:#282828;
+	background:#191919;
+	color:#191919;
 }
 #header .alignright{float:right;}
 #header h1{
@@ -824,7 +824,7 @@ h1{
 
 .inner-page .choice-btn-box{padding:15px 0 0}
 .choice-btn-box a{
-	color:#282828;
+	color:#191919;
 	text-transform:uppercase;
 	font:bold 12px/14px "Conv_Gotham-Black", Helvetica, Arial, sans-serif;
 	padding:9px 8px 11px;

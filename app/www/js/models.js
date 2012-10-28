@@ -78,7 +78,7 @@ var RadianApp = Backbone.Model.extend({
         if (this.get('isClockwise')) {
             return "CLOCKWISE";
         }
-        return "COUNTER<br />CLOCKWISE";
+        return "COUNTER-CLOCKWISE";
     },
     //abstract
     directionAbr: function () {
@@ -87,6 +87,10 @@ var RadianApp = Backbone.Model.extend({
         }
         return "CCW";
     },
+
+    isIOS: function () {
+      return device.platform === "iPhone";
+    }
 
 });
 

@@ -11,14 +11,15 @@ Completed:
 11 - Step 3 - 2.png
 11 - Step 3 - 3.png
 12 - Step 4 - 2.png
+CHANGE BACKGROUND COLOR
 
 Needs work:
 --------------------------------------------
 2 - Step 2.png
 10 - Advanced - Bramp.png
 12 - Step 4 - 1.png
-NAVIGATION
-CHANGE BACKGROUND COLOR
+UPDATE IMAGE ICON
+
 
 Queue and Presets:
 --------------------------------------------

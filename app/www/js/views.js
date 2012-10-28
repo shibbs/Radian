@@ -33,6 +33,19 @@ $(document).ready(function () {
         }
     });
 
+    window.views.ModalView = Backbone.View.extend({
+
+        initialize: function () {
+            this.setElement($("#container"));
+        },
+
+        render: function () {
+            window.views.navigation.hide();
+            this.$el.empty().append(this.template());
+            return this;
+        }
+    });
+
 
 
     window.views.StatsBoxView = Backbone.View.extend({
@@ -52,6 +65,15 @@ $(document).ready(function () {
         template: _.template($('#home_template').html()),
 
         render: function () {
+            window.views.navigation.selectStep(1);
+            window.views.navigation.unhide();
+            window.views.navigation.setPrevious(false);
+            if(this.model.get("timeLapse") === Constants.TimeLapseType.NONE) {
+                window.views.navigation.setNext(true);
+            } else {
+                window.views.navigation.setNext(true, "#timelapse");
+            }
+
             this.$el.empty().append(this.template(this.model.getTemplateJSON()));
         },
 
@@ -94,6 +116,11 @@ $(document).ready(function () {
 
         },
         render: function () {
+            window.views.navigation.selectStep(2);
+            window.views.navigation.unhide();
+            window.views.navigation.setNext(true, "#timelapse/upload");
+            window.views.navigation.setPrevious(true, "#home");
+
             this.$el.empty().append(this.template(this.model.getTemplateJSON()));
             // If we are currently running one don't simulate upload
             if (window.running_program) {
@@ -103,8 +130,10 @@ $(document).ready(function () {
         }
     });
 
-    window.views.TimeLapsePresetsView = window.views.BaseView.extend({
+    window.views.TimeLapsePresetsView = window.views.ModalView.extend({
         template: _.template($('#timeLapsePresets_template').html()),
+
+
     });
 
     window.views.TimeLapseDegreesView = window.views.BaseView.extend({
@@ -133,6 +162,7 @@ $(document).ready(function () {
 
 
         render: function () {
+            window.views.navigation.hide();
             var create_slot = function (start, finish, increment) {
                 var data = {};
                 for (var i = start; i <= finish; i += increment) {
@@ -141,8 +171,6 @@ $(document).ready(function () {
                 return data;
             }
 
-
-
             this.$el.empty().append(this.template(this.model.getTemplateJSON()));
             var statsView = new window.views.StatsBoxView({
                 model: this.model
@@ -150,7 +178,7 @@ $(document).ready(function () {
             this.$('#wrapper').append(statsView.render().el);
 
             this.$('#picker').scroller({
-                theme: 'android-ics',
+                theme: 'ios',
                 display: 'inline',
                 mode: 'scroller',
                 wheels: [{
@@ -207,6 +235,7 @@ $(document).ready(function () {
         },
 
         render: function () {
+            window.views.navigation.hide();
             this.$el.empty().append(this.template(this.model.getTemplateJSON()));
             var statsView = new window.views.StatsBoxView({
                 model: this.model
@@ -216,7 +245,7 @@ $(document).ready(function () {
             var total_time_slots = [generate_slot('hours', 0, 240, 1, 'hr'), generate_slot('minutes', 0, 59, 1, 'min')];
 
             this.$('#picker').scroller({
-                theme: 'android-ics',
+                theme: 'ios',
                 display: 'inline',
                 mode: 'scroller',
                 wheels: total_time_slots,
@@ -258,6 +287,7 @@ $(document).ready(function () {
         },
 
         render: function () {
+            window.views.navigation.hide();
             this.$el.empty().append(this.template(this.model.getTemplateJSON()));
             var statsView = new window.views.StatsBoxView({
                 model: this.model
@@ -267,7 +297,7 @@ $(document).ready(function () {
             var interval_slots = [generate_slot('minutes', 0, 360, 1, 'min'), generate_slot('seconds', 0, 59, 1, 'sec')];
 
             this.$('#picker').scroller({
-                theme: 'android-ics',
+                theme: 'ios',
                 display: 'inline',
                 mode: 'scroller',
                 wheels: interval_slots,
@@ -297,6 +327,10 @@ $(document).ready(function () {
         template: _.template($('#timeLapseUpload_template').html()),
 
         render: function () {
+            window.views.navigation.selectStep(3);
+            window.views.navigation.unhide();
+            window.views.navigation.setNext(true);
+            window.views.navigation.setPrevious(true, "#timelapse");
             this.$el.empty().append(this.template());
             return this;
         },
@@ -316,14 +350,12 @@ $(document).ready(function () {
         },
 
         disableNavigation: function () {
-            this.$(".prev").attr('href',"#");
+            window.views.navigation.setPrevious(true);
         }, 
 
         updateMessage: function () {
             this.$('.message').html("UPLOADING...");
         },
-
-
 
         advanceProgressBar: function () {
             var that = this;
@@ -345,11 +377,16 @@ $(document).ready(function () {
         template: _.template($('#timeLapseCurrent_template').html()),
 
         render: function () {
-            this.model = window.running_program;
+            window.views.navigation.selectStep(4);
+            window.views.navigation.unhide();
+            window.views.navigation.setNext(false);
+            window.views.navigation.setPrevious(true, "#timelapse");
+
+            this.m = window.running_program;
             this.$el.empty().append(this.template(this.model.toJSON()));
             this.percent = 0;
-            if (!this.model.get('start_time')) {
-                this.model.set('start_time', new Date());
+            if (!this.m.get('start_time')) {
+                this.m.set('start_time', new Date());
             }
             $('.dial').knob();
             this.advanceProgressBar();
@@ -357,19 +394,27 @@ $(document).ready(function () {
         },
 
         events: {
-            'click .cancel': "cancel",
-            'click .prev': "prev"
+            'click .prev': "prev",
+            'click .newTimeLapse': "newTimeLapse",
+            'click .restartCounter': "restartCounter"
+        },
 
+        newTimeLapse: function () {
+            clearTimeout(window.timeLapseCurrentLoadingBarTimeout);
+            window.running_program = null;
+            window.location.hash = 'home';
+        },
+
+        restartCounter: function () {
+            clearTimeout(window.timeLapseCurrentLoadingBarTimeout);
+            window.running_program.set('start_time', new Date());
+            this.m=window.running_program;
+            window.location.hash = 'timelapse/current';
+            this.advanceProgressBar();
         },
 
         prev: function () {
             clearTimeout(window.timeLapseCurrentLoadingBarTimeout);
-        },
-
-        cancel: function () {
-            clearTimeout(window.timeLapseCurrentLoadingBarTimeout);
-            window.running_program = null;
-            //window.app.set('start_time', null);
         },
 
 
@@ -378,8 +423,8 @@ $(document).ready(function () {
             var callmethod = function () {
                 that.advanceProgressBar()
             }
-            var totalSeconds = that.model.get('totalTimeHours') * 3600 + that.model.get('totalTimeMinutes') * 60;
-            var timePassed = ((new Date()).getTime() - that.model.get('start_time').getTime()) / 1000;
+            var totalSeconds = that.m.get('totalTimeHours') * 3600 + that.m.get('totalTimeMinutes') * 60;
+            var timePassed = ((new Date()).getTime() - that.m.get('start_time').getTime()) / 1000;
             that.percent = timePassed / totalSeconds;
 
             hours = parseInt(timePassed / 3600) % 24;
@@ -387,7 +432,7 @@ $(document).ready(function () {
             that.$('.dial').val(_.round(that.percent*100, 0)).trigger('change');
             that.$('#hours').html(hours);
             that.$('#minutes').html(minutes);
-            that.$('#degrees').html(_.round(that.percent * that.model.get('degrees'), 2) + '&deg;');
+            that.$('#degrees').html(_.round(that.percent * that.m.get('degrees'), 2) + '&deg;');
             if (_.round(that.percent*100, 0) < 100) {
                 window.timeLapseCurrentLoadingBarTimeout = setTimeout(callmethod, 20 * 1000);
             } else {
@@ -413,11 +458,11 @@ $(document).ready(function () {
         },
 
         events: {
-            'click .cancel': "cancel",
+            'click .nostart': "nostart",
             'click .prev': "prev"
         },
 
-        cancel: function () {
+        nostart: function () {
             clearTimeout(window.timeLapseCountDownTimeout);
             window.running_program = null;
             //window.app.set('start_time', null);
@@ -449,11 +494,11 @@ $(document).ready(function () {
         model: window.app
     });
 
-    window.views.TimeLapseQueueView = window.views.BaseView.extend({
+    window.views.TimeLapseQueueView = window.views.ModalView.extend({
         template: _.template($('#timeLapseQueue_template').html()),
     });
 
-    window.views.TimeLapseAdvancedView = window.views.BaseView.extend({
+    window.views.TimeLapseAdvancedView = window.views.ModalView.extend({
         template: _.template($('#timeLapseAdvanced_template').html()),
     });
 
@@ -477,11 +522,61 @@ $(document).ready(function () {
         },
 
         restartCounter: function () {
-            this.model.set('start_time', new Date());
+            window.running_program.set('start_time', new Date());
             window.location.hash = 'timelapse/current';
         },
     });
 
+
+    window.views.Navigation = Backbone.View.extend({
+        el: '#navigation',
+
+        hide: function() {
+            this.setPrevious(false);
+            this.setNext(false);
+            this.$el.css("visibility", "hidden");
+        },
+
+        unhide: function() {
+            this.$el.css("visibility", "visible");
+        },
+
+        set: function(element, isVisible, link) {
+            element.children().attr("href", "#");
+
+            if(!isVisible) {
+                element.css("visibility", "hidden");
+                return;
+            } 
+            
+            element.css("visibility", "visible");
+            
+            if(link) {
+                element.children().attr("href", link);
+            }    
+        },
+
+        setPrevious: function(isVisible, link) {
+            this.set(this.$(".prev-holder"), isVisible, link);
+        },
+
+        setNext: function(isVisible, link) {
+            this.set(this.$(".next-holder"), isVisible, link);
+        },
+
+        selectStep: function(number) {
+            var children = this.$("#nav_numbers").children();
+            for (var i = 0; i < 4; i++) {
+                if(i === number-1) {
+                    $(children[i]).addClass('selected');
+                } else {
+                    $(children[i]).removeClass('selected');
+                }
+            };
+        }
+
+    });
+    window.views.navigation = new window.views.Navigation();
 
     window.views.timeLapseView = new window.views.TimeLapseView({
         model: window.app
