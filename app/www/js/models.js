@@ -31,6 +31,8 @@ var TimeLapse = Backbone.Model.extend({
         intervalSeconds: 15,
         isClockwise: c.Direction.COUNTERCLOCKWISE, 
         shouldContinue: true,
+
+
     },
 
     getStats: function () {
@@ -94,6 +96,10 @@ var RadianApp = Backbone.Model.extend({
 
 });
 
+Constants.ExpPowerType = {
+    MINUTE : false,
+    FRAME : true,
+}
 
 var RadianApp = Backbone.Model.extend({
 
@@ -110,6 +116,16 @@ var RadianApp = Backbone.Model.extend({
         intervalSeconds: 15,
         isClockwise: false, //False is counterclockwise
         shouldContinue: false,
+
+        //TODO: ABSTRACT BULB RAMPING
+        isBulbRamping: false,
+        startShutter: "30",
+        durationHours: 2,
+        durationMinutes: 30,
+        delayHours: 0,
+        delayMinutes: 0,
+        expChange: "2",
+        expType: "f/10min" //TODO: Make constant
     },
 
     //abstract

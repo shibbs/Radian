@@ -11,7 +11,7 @@ Completed:
 11 - Step 3 - 2.png
 11 - Step 3 - 3.png
 12 - Step 4 - 2.png
-CHANGE BACKGROUND COLOR
+background color changed
 
 Needs work:
 --------------------------------------------
@@ -19,6 +19,9 @@ Needs work:
 10 - Advanced - Bramp.png
 12 - Step 4 - 1.png
 UPDATE IMAGE ICON
+NEED countdown instead
+Extra byte:
+OK, if you make that change, just go ahead and insert that byte wherever your want (probably at the end of the basic settings section), and just assign it 0 for pan and 100 for tilt, but let me know where you added it so i can account for it.
 
 
 Queue and Presets:

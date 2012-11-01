@@ -14,38 +14,16 @@
  * - no namespace pollution
  */
 
+var MAX_PACKET_VALUE = 230;
 
 /* ProtocolData
  * -------------
- * A model representing the data in form specified in the protocol.
+ * An abstract model representing the data in form specified in the protocol.
  * It takes in AppData model and applies the necessary transforms.
- *
- * Example
- * var protocolData = new ProtocolData({model: appData});
- * protocolData.toDataArray();
  */
 var ProtocolData = Backbone.Model.extend({
 
-    ordering: [
-                "rotationDegrees",
-                "rotationDirection",
-                "intervalMinutes",
-                "intervalSeconds",
-                "lengthHours",
-                "lengthMinutes",
-                "shouldStopAtEnd"
-               ],
-
-    initialize: function() {
-        var model = this.get('model');
-        this.rotationDegrees = model.rotationDegrees / 5;
-        this.rotationDirection = (model.rotationDirection) ? 1 : 0;
-        this.intervalMinutes = model.intervalMinutes;
-        this.intervalSeconds = model.intervalSeconds;
-        this.lengthHours = model.lengthHours;
-        this.lengthMinutes = model.lengthMinutes;
-        this.shouldStopAtEnd = (model.shouldStopAtEnd) ? 1 : 0;
-    },
+    ordering: [], //Must Override
 
     // Outputs data with the respect to ordering into an array of ints
     toDataArray: function() {
@@ -57,6 +35,73 @@ var ProtocolData = Backbone.Model.extend({
         return data;
     }
 
+});
+
+/* StandardTimeLapseData
+ * -------------
+ * A model representing the standard time lapse variables.
+ * It takes in AppData model and applies the necessary transforms.
+ *
+ * Example
+ * var standardTimeLapseData = new StandardTimeLapseData({model: appData});
+ * standardTimeLapseData.toDataArray();
+ */
+var StandardTimeLapseData = ProtocolData.extend({
+
+    ordering: [
+                "rotationDegrees",
+                "rotationDirection",
+                "intervalMinutes",
+                "intervalSeconds",
+                "lengthHours",
+                "lengthMinutes",
+                "shouldContinue"
+               ],
+
+    initialize: function() {
+        var model = this.get('model');
+        this.rotationDegrees = model.rotationDegrees / 5;
+        this.rotationDirection = (model.rotationDirection) ? 1 : 0;
+        this.intervalMinutes = model.intervalMinutes;
+        this.intervalSeconds = model.intervalSeconds;
+        this.lengthHours = model.lengthHours;
+        this.lengthMinutes = model.lengthMinutes;
+        this.shouldContinue = (model.shouldContinue) ? 1 : 0;
+    },
+
+});
+
+/* BulbRampingData
+ * -------------
+ * A model representing the bulb ramping data to be sent.
+ * It takes in AppData model and applies the necessary transforms.
+ *
+ * Example
+ * var bulbRampingData = new bulbRampingData({model: appData});
+ * bulbRampingData.toDataArray();
+ */
+var BulbRampingData = ProtocolData.extend({
+
+    ordering: [
+                "isBulbRamping",
+                "startShutterLSB",
+                "startShutterMSB",
+                "expPower",
+                "expIncreaseMinutes",
+                "totalTimeInMinutes",
+                "frontDelayTime"
+               ],
+
+    initialize: function() {
+        var model = this.get('model');
+        this.isBulbRamping = model.isBulbRamping;
+        this.startShutterLSB = eval(model.startShutter) % MAX_PACKET_VALUE;
+        this.startShutterMSB = eval(model.startShutter) / MAX_PACKET_VALUE;
+        this.expPower = model.expPower;
+        this.expIncreaseMinutes = model.expIncreaseMinutes;
+        this.totalTimeInMinutes = model.durationHours * 60 + model.durationMinutes;
+        this.frontDelayTime = model.delayHours * 60 + model.delayMinutes;
+    }
 });
 
 /* DataPacket
@@ -101,7 +146,7 @@ var DataPacket = Backbone.Model.extend({
         for (var i = data.length - 1; i >= 0; i--) {
             checkSum[0] += data[i];
         };
-        this.set('checkSum', checkSum[0]%230);
+        this.set('checkSum', checkSum[0]%MAX_PACKET_VALUE);
     },
 
     initialize: function() {

@@ -22,6 +22,11 @@ window.MobileAppRouter = Backbone.Router.extend({
         "timelapse/completed": 'timeLapseCompleted',
 		"timelapse/queue": 'timeLapseQueue',
 		"timelapse/advanced": 'timeLapseAdvanced',
+        "timelapse/bulbramping": 'bulbramping',
+        "timelapse/bulbramping/delay": 'bulbrampingDelay',
+        "timelapse/bulbramping/duration": 'bulbrampingDuration',
+        "timelapse/bulbramping/startshutter": 'bulbrampingStartShutter',
+        "timelapse/bulbramping/exposurechange": 'bulbrampingExposureChange',
     },
 
     noop: function() {
@@ -75,6 +80,26 @@ window.MobileAppRouter = Backbone.Router.extend({
     timeLapseCompleted: function() {
         window.views.timeLapseCompletedView.render();
     },
+
+    bulbramping: function() {
+        window.views.bulbRampingView.render();
+    },
+
+    bulbrampingDelay: function() {
+        window.views.bulbRampingDelay.render();
+    },
+
+    bulbrampingDuration: function() {
+        window.views.bulbRampingDuration.render();
+    },
+
+    bulbrampingStartShutter: function() {
+        window.views.bulbRampingStartShutter.render();
+    },
+
+    bulbrampingExposureChange: function() {
+        window.views.bulbRampingExposureChange.render();
+    }
 
 });
 
