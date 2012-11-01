@@ -147,6 +147,7 @@ var RadianApp = Backbone.Model.extend({
         var totalPhotos = Math.round((this.get('totalTimeHours') * 3600 + this.get('totalTimeMinutes') * 60) / (this.get('intervalMinutes') * 60 + this.get('intervalSeconds')));
         var degreesPerPhoto = _.round(this.get('degrees') / totalPhotos, 2);
         var frameRate = _.round(totalPhotos / 24, 1);
+        
         return {
             totalPhotos: totalPhotos,
             degreesPerPhoto: degreesPerPhoto,

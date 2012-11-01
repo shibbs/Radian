@@ -12,11 +12,13 @@ var send_data = function(model) {
 	}
 
 	// Convert to Protocol Data
-	var protocolData = new ProtocolData({model: appModel});
+	var standardTimeLapseData = new StandardTimeLapseData({model: appModel});
+	var bulbRampingData  = new bulbRampingData({model: appModel});
+
     
 	// Get Data Packet
-	var protocolDataArray = protocolData.toDataArray()
-	var dataPacket = new DataPacket({data: protocolDataArray });
+	var dataArray = combineData(standardTimeLapseData.toDataArray(), bulbRampingData.toDataArray());
+	var dataPacket = new DataPacket({data: dataArray });
 
 	// Get Transmission Packet'
 	var transmissionPacket = new TransmissionPacket({data: dataPacket.getPacket() });

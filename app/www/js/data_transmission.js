@@ -28,7 +28,7 @@ var ProtocolData = Backbone.Model.extend({
     // Outputs data with the respect to ordering into an array of ints
     toDataArray: function() {
         var model = this.get('model');
-        var data = new Int8Array(this.ordering.length);
+        var data = new Uint8Array(this.ordering.length);
         for (var i = this.ordering.length - 1; i >= 0; i--) {
             data[i] = this[this.ordering[i]];
         };
@@ -103,6 +103,26 @@ var BulbRampingData = ProtocolData.extend({
         this.frontDelayTime = model.delayHours * 60 + model.delayMinutes;
     }
 });
+
+/* Combine Data
+ * -------------
+ */
+var combineData = function() {
+    var total_length = 0;
+    for (var i=0; i<arguments.length; i++) {
+        total_length += arguments[i].length;
+    }
+
+    var data = new Uint8Array(total_length);
+    var index = 0;
+    for (var i=0; i<arguments.length; i++) {
+        var data_packet = arguments[i];
+        for (var j = 0; j < data_packet.length; j++) {
+            data[index++] = data_packet[j];
+        };
+    }
+    return data;
+}
 
 /* DataPacket
  * -------------
