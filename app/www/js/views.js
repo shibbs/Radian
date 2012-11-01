@@ -365,7 +365,7 @@ $(document).ready(function () {
             this.percent = 0;
             this.disableNavigation();
             send_data(window.running_program);
-            //DataTransmission.send(function () {}, function () {}, [window.app.get('intervalMinutes'), window.app.get('intervalSeconds'), window.app.get('totalTimeHours'), window.app.get('totalTimeMinutes'), window.app.get('degrees')]);
+            send_data(window.running_program);
             this.advanceProgressBar();
             this.updateMessage();
         },

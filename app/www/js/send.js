@@ -2,13 +2,14 @@ var send_data = function(model) {
 
 	//TODO: rewrite app model
 	var appModel = {
+		"timeLapse": model.get("timeLapse"),
 		"rotationDegrees": model.get("degrees"),
 	    "rotationDirection": !model.get("isClockwise"),
 	    "intervalMinutes": model.get("intervalMinutes"),
 	    "intervalSeconds": model.get("intervalSeconds"),
 	    "lengthHours": model.get("totalTimeHours"),
 	    "lengthMinutes": model.get("totalTimeMinutes"),
-	    "shouldStopAtEnd": model.get("shouldContinue"),
+	    "shouldContinue": model.get("shouldContinue"),
 	    "isBulbRamping": model.get("isBulbRamping"),
         "startShutter": model.get("startShutter"),
         "durationHours": model.get("durationHours"),

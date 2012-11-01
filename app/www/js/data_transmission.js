@@ -55,7 +55,8 @@ var StandardTimeLapseData = ProtocolData.extend({
                 "intervalSeconds",
                 "lengthHours",
                 "lengthMinutes",
-                "shouldContinue"
+                "shouldContinue",
+                "shouldPan",
                ],
 
     initialize: function() {
@@ -67,6 +68,7 @@ var StandardTimeLapseData = ProtocolData.extend({
         this.lengthHours = model.lengthHours;
         this.lengthMinutes = model.lengthMinutes;
         this.shouldContinue = (model.shouldContinue) ? 1 : 0;
+        this.shouldPan = (model.timeLapse === 1) ? 1 : 0;
     },
 
 });
@@ -94,13 +96,13 @@ var BulbRampingData = ProtocolData.extend({
 
     initialize: function() {
         var model = this.get('model');
-        this.isBulbRamping = model.isBulbRamping;
-        this.startShutterLSB = eval(model.startShutter) % MAX_PACKET_VALUE;
-        this.startShutterMSB = eval(model.startShutter) / MAX_PACKET_VALUE;
-        this.expPower = model.expPower;
-        this.expIncreaseMinutes = model.expIncreaseMinutes;
+        this.isBulbRamping = model.isBulbRamping ? 1 : 0;
+        this.startShutterLSB = (eval(model.startShutter)*1000) % MAX_PACKET_VALUE;
+        this.startShutterMSB = (eval(model.startShutter)*1000) / MAX_PACKET_VALUE;
+        this.expPower =  (MAX_PACKET_VALUE/2) + eval(model.expChange)*10; // The value * 10 positive/negative
+        this.expIncreaseMinutes = (MAX_PACKET_VALUE/2) - ((model.expType == "f/10min") ? 10 : -10);  // f/10 frames 125, f/10 minutes 105
         this.totalTimeInMinutes = model.durationHours * 60 + model.durationMinutes;
-        this.frontDelayTime = model.delayHours * 60 + model.delayMinutes;
+        this.frontDelayTime = (model.delayHours * 60 + model.delayMinutes)/5;
     }
 });
 
