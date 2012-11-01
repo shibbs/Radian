@@ -8,12 +8,20 @@ var send_data = function(model) {
 	    "intervalSeconds": model.get("intervalSeconds"),
 	    "lengthHours": model.get("totalTimeHours"),
 	    "lengthMinutes": model.get("totalTimeMinutes"),
-	    "shouldStopAtEnd": false //TODO implement in UI
+	    "shouldStopAtEnd": model.get("shouldContinue"),
+	    "isBulbRamping": model.get("isBulbRamping"),
+        "startShutter": model.get("startShutter"),
+        "durationHours": model.get("durationHours"),
+        "durationMinutes": model.get("durationMinutes"),
+        "delayHours": model.get("delayHours"),
+        "delayMinutes": model.get("delayMinutes"),
+        "expChange": model.get("expChange"),
+        "expType": model.get("expType"), 
 	}
 
 	// Convert to Protocol Data
 	var standardTimeLapseData = new StandardTimeLapseData({model: appModel});
-	var bulbRampingData  = new bulbRampingData({model: appModel});
+	var bulbRampingData  = new BulbRampingData({model: appModel});
 
     
 	// Get Data Packet
