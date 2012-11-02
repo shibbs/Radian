@@ -148,7 +148,7 @@ var RadianApp = Backbone.Model.extend({
         var degreesPerPhoto = _.round(this.get('degrees') / totalPhotos, 2);
         var frameRate = _.round(totalPhotos / 24, 1);
         var stepIncreaseTime = (this.get('expType') === "f/10min") ? 10 : (this.get('totalTimeHours') * 60 + this.get('totalTimeMinutes')) / (totalPhotos/10);
-        var finalShutter = eval(this.get('startShutter')) * Math.pow( eval(this.get('expChange')) * ((this.get('durationHours') * 60 + this.get('durationMinutes')) / stepIncreaseTime), 2);
+        var finalShutter = eval(this.get('startShutter')) * Math.pow(2, eval(this.get('expChange')) * ((this.get('durationHours') * 60 + this.get('durationMinutes')) / stepIncreaseTime));
         
         return {
             totalPhotos: totalPhotos,
