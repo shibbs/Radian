@@ -365,7 +365,7 @@ $(document).ready(function () {
             this.percent = 0;
             this.disableNavigation();
             send_data(window.running_program);
-            send_data(window.running_program);
+            //send_data(window.running_program);
             this.advanceProgressBar();
             this.updateMessage();
         },
