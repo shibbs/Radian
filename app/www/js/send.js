@@ -1,4 +1,9 @@
-var send_data = function(model) {
+$().ns('RadianApp.DataTransmission');
+
+RadianApp.DataTransmission.send = function(model) {
+
+	var DT = RadianApp.DataTransmission;
+	var Sound = RadianApp.Sound;
 
 	//TODO: rewrite app model
 	var appModel = {
@@ -21,31 +26,33 @@ var send_data = function(model) {
 	}
 
 	// Convert to Protocol Data
-	var standardTimeLapseData = new StandardTimeLapseData({model: appModel});
-	var bulbRampingData  = new BulbRampingData({model: appModel});
+	var standardTimeLapseData = new DT.StandardTimeLapseData({model: appModel});
+	var bulbRampingData  = new DT.BulbRampingData({model: appModel});
 
     
 	// Get Data Packet
-	var dataArray = combineData(standardTimeLapseData.toDataArray(), bulbRampingData.toDataArray());
-	var dataPacket = new DataPacket({data: dataArray });
+	var dataArray = DT.combineData(standardTimeLapseData.toDataArray(), bulbRampingData.toDataArray());
+	var dataPacket = new DT.DataPacket({data: dataArray });
 
 	// Get Transmission Packet'
-	var transmissionPacket = new TransmissionPacket({data: dataPacket.getPacket() });
+	var transmissionPacket = new DT.TransmissionPacket({data: dataPacket.getPacket() });
  	var dataToSend = transmissionPacket.getPacket();
  
  	//Generate Wav
- 	var wavGenerator = new WavGenerator({packet: dataToSend });
+ 	var wavGenerator = new Sound.WavGenerator({packet: dataToSend });
  	var wavData = wavGenerator.getBase64Wav();
 
  	var wavName = "test.wav"; //TODO abstract
     
  	// Save file
  	setTimeout(function() {
-               saveBase64File(wavData, wavName, function(path) {
-                              //Play wav
-                              playSound(path);
-                              //TODO update volume
-                              });
-               }, 1000);
+       	RadianApp.Filesystem.saveBase64File(wavData, wavName, function(path) {
+			//Play wav
+			//TODO Save Volume
+			//TODO Increase Volume
+			Sound.play(path);
+			//TODO Change Volume back
+		});
+     }, 1000);
 }
 

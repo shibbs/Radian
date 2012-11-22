@@ -1,12 +1,4 @@
 //TODO: Abstract
-_.mixin({
-    round: function(num, dec) {
-        var result = Math.round(num*Math.pow(10,dec))/Math.pow(10,dec);
-        return result;
-    }
-});
-
-//TODO: Abstract
 var generate_slot = function (name, start, finish, increment, abbreviation) {
     var data = {};
     for (var i = start; i <= finish; i += increment) {
@@ -18,10 +10,11 @@ var generate_slot = function (name, start, finish, increment, abbreviation) {
 
 }
 
+$().ns('RadianApp.Views');
 
 $(document).ready(function () {
-    window.views = {};
-    window.views.BaseView = Backbone.View.extend({
+    var Views = RadianApp.Views;
+    Views.BaseView = Backbone.View.extend({
 
         initialize: function () {
             this.setElement($("#container"));
@@ -37,14 +30,14 @@ $(document).ready(function () {
         }
     });
 
-    window.views.ModalView = Backbone.View.extend({
+    Views.ModalView = Backbone.View.extend({
 
         initialize: function () {
             this.setElement($("#container"));
         },
 
         render: function () {
-            window.views.navigation.hide();
+            Views.navigation.hide();
             if(!this.model) {
                 this.$el.empty().append(this.template());
             } else {
@@ -56,7 +49,7 @@ $(document).ready(function () {
 
 
 
-    window.views.StatsBoxView = Backbone.View.extend({
+    Views.StatsBoxView = Backbone.View.extend({
         template: _.template($('#statsBox_template').html()),
 
         initialize: function () {
@@ -69,7 +62,7 @@ $(document).ready(function () {
         },
     });
 
-    window.views.BulbRampStatsBoxView = Backbone.View.extend({
+    Views.BulbRampStatsBoxView = Backbone.View.extend({
         template: _.template($('#bulbRampStatsBox_template').html()),
 
         initialize: function () {
@@ -82,17 +75,17 @@ $(document).ready(function () {
         },
     });
 
-    window.views.HomeView = window.views.BaseView.extend({
+    Views.HomeView = Views.BaseView.extend({
         template: _.template($('#home_template').html()),
 
         render: function () {
-            window.views.navigation.selectStep(1);
-            window.views.navigation.unhide();
-            window.views.navigation.setPrevious(false);
-            if(this.model.get("timeLapse") === Constants.TimeLapseType.NONE) {
-                window.views.navigation.setNext(true);
+            Views.navigation.selectStep(1);
+            Views.navigation.unhide();
+            Views.navigation.setPrevious(false);
+            if(this.model.get("timeLapse") === RadianApp.Models.Constants.TimeLapseType.NONE) {
+                Views.navigation.setNext(true);
             } else {
-                window.views.navigation.setNext(true, "#timelapse");
+                Views.navigation.setNext(true, "#timelapse");
             }
 
             this.$el.empty().append(this.template(this.model.getTemplateJSON()));
@@ -104,15 +97,15 @@ $(document).ready(function () {
         },
 
         pan: function() {
-            this.model.set("timeLapse", Constants.TimeLapseType.PAN);
+            this.model.set("timeLapse", RadianApp.Models.Constants.TimeLapseType.PAN);
         },
 
         tilt: function() {
-            this.model.set("timeLapse", Constants.TimeLapseType.TILT);
+            this.model.set("timeLapse", RadianApp.Models.Constants.TimeLapseType.TILT);
         }
     });
 
-    window.views.TimeLapseView = window.views.BaseView.extend({
+    Views.TimeLapseView = Views.BaseView.extend({
         template: _.template($('#timeLapse_template').html()),
         events: {
             "click #degreeLink": "degreeLink",
@@ -137,10 +130,10 @@ $(document).ready(function () {
 
         },
         render: function () {
-            window.views.navigation.selectStep(2);
-            window.views.navigation.unhide();
-            window.views.navigation.setNext(true, "#timelapse/upload");
-            window.views.navigation.setPrevious(true, "#home");
+            Views.navigation.selectStep(2);
+            Views.navigation.unhide();
+            Views.navigation.setNext(true, "#timelapse/upload");
+            Views.navigation.setPrevious(true, "#home");
 
             this.$el.empty().append(this.template(this.model.getTemplateJSON()));
             // If we are currently running one don't simulate upload
@@ -151,13 +144,13 @@ $(document).ready(function () {
         }
     });
 
-    window.views.TimeLapsePresetsView = window.views.ModalView.extend({
+    Views.TimeLapsePresetsView = Views.ModalView.extend({
         template: _.template($('#timeLapsePresets_template').html()),
 
 
     });
 
-    window.views.TimeLapseDegreesView = window.views.BaseView.extend({
+    Views.TimeLapseDegreesView = Views.BaseView.extend({
         template: _.template($('#timeLapseDegrees_template').html()),
 
         initialize: function () {
@@ -183,7 +176,7 @@ $(document).ready(function () {
 
 
         render: function () {
-            window.views.navigation.hide();
+            Views.navigation.hide();
             var create_slot = function (start, finish, increment) {
                 var data = {};
                 for (var i = start; i <= finish; i += increment) {
@@ -193,7 +186,7 @@ $(document).ready(function () {
             }
 
             this.$el.empty().append(this.template(this.model.getTemplateJSON()));
-            var statsView = new window.views.StatsBoxView({
+            var statsView = new Views.StatsBoxView({
                 model: this.model
             });
             this.$('#wrapper').append(statsView.render().el);
@@ -213,9 +206,9 @@ $(document).ready(function () {
                 height: 35,
                 rows: 3,
                 onChange: function (valueText, instance) {
-                    window.app.set('isClockwise', instance.values[1] == 'CW');
+                    RadianApp.model.set('isClockwise', instance.values[1] == 'CW');
 
-                    window.app.set('degrees', Number(instance.values[0]));
+                    RadianApp.model.set('degrees', Number(instance.values[0]));
                 },
             }).scroller('setValue', [String(this.model.get('degrees')), this.model.directionAbr()], false, 0);
 
@@ -227,7 +220,7 @@ $(document).ready(function () {
 
     });
 
-    window.views.TimeLapseTotalTimeView = window.views.BaseView.extend({
+    Views.TimeLapseTotalTimeView = Views.BaseView.extend({
         template: _.template($('#timeLapseTotalTime_template').html()),
 
         initialize: function () {
@@ -256,9 +249,9 @@ $(document).ready(function () {
         },
 
         render: function () {
-            window.views.navigation.hide();
+            Views.navigation.hide();
             this.$el.empty().append(this.template(this.model.getTemplateJSON()));
-            var statsView = new window.views.StatsBoxView({
+            var statsView = new Views.StatsBoxView({
                 model: this.model
             });
             this.$('#wrapper').append(statsView.render().el);
@@ -277,14 +270,14 @@ $(document).ready(function () {
                     if (Number(instance.values[0]) === 0 && Number(instance.values[1]) == 0) {
                         $('#picker').scroller('setValue', ['0', '1'], true, 0.5);
 
-                        window.app.set('totalTimeHours', 0);
+                        RadianApp.model.set('totalTimeHours', 0);
 
-                        window.app.set('totalTimeMinutes', 1);
+                        RadianApp.model.set('totalTimeMinutes', 1);
                         return;
                     }
-                    window.app.set('totalTimeHours', Number(instance.values[0]));
+                    RadianApp.model.set('totalTimeHours', Number(instance.values[0]));
 
-                    window.app.set('totalTimeMinutes', Number(instance.values[1]));
+                    RadianApp.model.set('totalTimeMinutes', Number(instance.values[1]));
                 },
             }).scroller('setValue', [String(this.model.get('totalTimeHours')), String(this.model.get('totalTimeMinutes'))], false, 0);
 
@@ -293,7 +286,7 @@ $(document).ready(function () {
         }
     });
 
-    window.views.TimeLapseIntervalView = window.views.BaseView.extend({
+    Views.TimeLapseIntervalView = Views.BaseView.extend({
         template: _.template($('#timeLapseInterval_template').html()),
 
         initialize: function () {
@@ -308,9 +301,9 @@ $(document).ready(function () {
         },
 
         render: function () {
-            window.views.navigation.hide();
+            Views.navigation.hide();
             this.$el.empty().append(this.template(this.model.getTemplateJSON()));
-            var statsView = new window.views.StatsBoxView({
+            var statsView = new Views.StatsBoxView({
                 model: this.model
             });
             this.$('#wrapper').append(statsView.render().el);
@@ -327,14 +320,14 @@ $(document).ready(function () {
                 onChange: function (valueText, instance) {
                     if (Number(instance.values[0]) === 0 && Number(instance.values[1]) == 0) {
                         $('#picker').scroller('setValue', ['0', '1'], true, 0.5);
-                        window.app.set('intervalMinutes', 0);
+                        RadianApp.model.set('intervalMinutes', 0);
 
-                        window.app.set('intervalSeconds', 1);
+                        RadianApp.model.set('intervalSeconds', 1);
                         return;
                     }
-                    window.app.set('intervalMinutes', Number(instance.values[0]));
+                    RadianApp.model.set('intervalMinutes', Number(instance.values[0]));
 
-                    window.app.set('intervalSeconds', Number(instance.values[1]));
+                    RadianApp.model.set('intervalSeconds', Number(instance.values[1]));
                 },
             }).scroller('setValue', [String(this.model.get('intervalMinutes')), String(this.model.get('intervalSeconds'))], false, 0);
 
@@ -344,14 +337,14 @@ $(document).ready(function () {
         }
     });
 
-    window.views.TimeLapseUploadView = window.views.BaseView.extend({
+    Views.TimeLapseUploadView = Views.BaseView.extend({
         template: _.template($('#timeLapseUpload_template').html()),
 
         render: function () {
-            window.views.navigation.selectStep(3);
-            window.views.navigation.unhide();
-            window.views.navigation.setNext(true);
-            window.views.navigation.setPrevious(true, "#timelapse");
+            Views.navigation.selectStep(3);
+            Views.navigation.unhide();
+            Views.navigation.setNext(true);
+            Views.navigation.setPrevious(true, "#timelapse");
             this.$el.empty().append(this.template());
             return this;
         },
@@ -361,17 +354,17 @@ $(document).ready(function () {
         },
 
         upload: function () {
-            window.running_program = window.app.clone();
+            window.running_program = RadianApp.model.clone();
             this.percent = 0;
             this.disableNavigation();
-            send_data(window.running_program);
+            RadianApp.DataTransmission.send(window.running_program);
             //send_data(window.running_program);
             this.advanceProgressBar();
             this.updateMessage();
         },
 
         disableNavigation: function () {
-            window.views.navigation.setPrevious(true);
+            Views.navigation.setPrevious(true);
         }, 
 
         updateMessage: function () {
@@ -394,14 +387,14 @@ $(document).ready(function () {
         }
     });
 
-    window.views.TimeLapseCurrent = window.views.BaseView.extend({
+    Views.TimeLapseCurrent = Views.BaseView.extend({
         template: _.template($('#timeLapseCurrent_template').html()),
 
         render: function () {
-            window.views.navigation.selectStep(4);
-            window.views.navigation.unhide();
-            window.views.navigation.setNext(false);
-            window.views.navigation.setPrevious(true, "#timelapse");
+            Views.navigation.selectStep(4);
+            Views.navigation.unhide();
+            Views.navigation.setNext(false);
+            Views.navigation.setPrevious(true, "#timelapse");
 
             this.m = window.running_program;
             this.$el.empty().append(this.template(this.model.toJSON()));
@@ -450,11 +443,11 @@ $(document).ready(function () {
 
             hours = parseInt(timePassed / 3600) % 24;
             minutes = parseInt(timePassed / 60) % 60;
-            that.$('.dial').val(_.round(that.percent*100, 0)).trigger('change');
+            that.$('.dial').val(RadianApp.Utilities.round(that.percent*100, 0)).trigger('change');
             that.$('#hours').html(hours);
             that.$('#minutes').html(minutes);
-            that.$('#degrees').html(_.round(that.percent * that.m.get('degrees'), 2) + '&deg;');
-            if (_.round(that.percent*100, 0) < 100) {
+            that.$('#degrees').html(RadianApp.Utilities.round(that.percent * that.m.get('degrees'), 2) + '&deg;');
+            if (RadianApp.Utilities.round(that.percent*100, 0) < 100) {
                 window.timeLapseCurrentLoadingBarTimeout = setTimeout(callmethod, 20 * 1000);
             } else {
                 clearTimeout(window.timeLapseCurrentLoadingBarTimeout);
@@ -463,7 +456,7 @@ $(document).ready(function () {
         }
     });
 
-    window.views.TimeLapseCountDownView = window.views.BaseView.extend({
+    Views.TimeLapseCountDownView = Views.BaseView.extend({
         template: _.template($('#timeLapseCountDown_template').html()),
 
 
@@ -486,7 +479,7 @@ $(document).ready(function () {
         nostart: function () {
             clearTimeout(window.timeLapseCountDownTimeout);
             window.running_program = null;
-            //window.app.set('start_time', null);
+            //RadianApp.model.set('start_time', null);
         },
 
         prev: function () {
@@ -511,12 +504,12 @@ $(document).ready(function () {
         }
     });
 
-    window.views.homeView = new window.views.HomeView({
-        model: window.app
+    Views.homeView = new Views.HomeView({
+        model: RadianApp.model
     });
 
     //BULB RAMPING CODE
-    window.views.BulbRampingView = window.views.ModalView.extend({
+    Views.BulbRampingView = Views.ModalView.extend({
         template: _.template($('#bulbRamping_template').html()),
 
         events: {
@@ -528,16 +521,16 @@ $(document).ready(function () {
         },
 
                 render: function () {
-            window.views.navigation.hide();
+            Views.navigation.hide();
             this.$el.empty().append(this.template(this.model.getTemplateJSON()));
-            var statsView = new window.views.BulbRampStatsBoxView({
+            var statsView = new Views.BulbRampStatsBoxView({
                 model: this.model
             });
             this.$('#wrapper').append(statsView.render().el);
         }
     });
 
-    window.views.BulbrampingDelay = window.views.ModalView.extend({
+    Views.BulbrampingDelay = Views.ModalView.extend({
         template: _.template($('#bulbRampingDelay_template').html()),
 
          initialize: function () {
@@ -559,9 +552,9 @@ $(document).ready(function () {
 
 
         render: function () {
-            window.views.navigation.hide();
+            Views.navigation.hide();
             this.$el.empty().append(this.template(this.model.getTemplateJSON()));
-            var statsView = new window.views.BulbRampStatsBoxView({
+            var statsView = new Views.BulbRampStatsBoxView({
                 model: this.model
             });
             this.$('#wrapper').append(statsView.render().el);
@@ -576,8 +569,8 @@ $(document).ready(function () {
                 height: 35,
                 rows: 3,
                 onChange: function (valueText, instance) {
-                    window.app.set('delayHours', Number(instance.values[0]));
-                    window.app.set('delayMinutes', Number(instance.values[1]));
+                    RadianApp.model.set('delayHours', Number(instance.values[0]));
+                    RadianApp.model.set('delayMinutes', Number(instance.values[1]));
                 },
             }).scroller('setValue', [String(this.model.get('delayHours')), String(this.model.get('delayMinutes'))], false, 0);
 
@@ -586,7 +579,7 @@ $(document).ready(function () {
         }
     });
 
-    window.views.BulbrampingDuration = window.views.ModalView.extend({
+    Views.BulbrampingDuration = Views.ModalView.extend({
         template: _.template($('#bulbRampingDuration_template').html()),
 
         initialize: function () {
@@ -608,9 +601,9 @@ $(document).ready(function () {
 
 
         render: function () {
-            window.views.navigation.hide();
+            Views.navigation.hide();
             this.$el.empty().append(this.template(this.model.getTemplateJSON()));
-            var statsView = new window.views.BulbRampStatsBoxView({
+            var statsView = new Views.BulbRampStatsBoxView({
                 model: this.model
             });
             this.$('#wrapper').append(statsView.render().el);
@@ -629,14 +622,14 @@ $(document).ready(function () {
                     if (Number(instance.values[0]) === 0 && Number(instance.values[1]) == 0) {
                         $('#picker').scroller('setValue', ['0', '1'], true, 0.5);
 
-                        window.app.set('durationHours', 0);
+                        RadianApp.model.set('durationHours', 0);
 
-                        window.app.set('durationMinutes', 1);
+                        RadianApp.model.set('durationMinutes', 1);
                         return;
                     }
-                    window.app.set('durationHours', Number(instance.values[0]));
+                    RadianApp.model.set('durationHours', Number(instance.values[0]));
 
-                    window.app.set('durationMinutes', Number(instance.values[1]));
+                    RadianApp.model.set('durationMinutes', Number(instance.values[1]));
                 },
             }).scroller('setValue', [String(this.model.get('durationHours')), String(this.model.get('durationMinutes'))], false, 0);
 
@@ -645,7 +638,7 @@ $(document).ready(function () {
         }
     });
 
-    window.views.BulbrampingStartShutter = window.views.ModalView.extend({
+    Views.BulbrampingStartShutter = Views.ModalView.extend({
         template: _.template($('#bulbRampingStartShutter_template').html()),
 
                 initialize: function () {
@@ -660,9 +653,9 @@ $(document).ready(function () {
         },
 
         render: function () {
-            window.views.navigation.hide();
+            Views.navigation.hide();
             this.$el.empty().append(this.template(this.model.getTemplateJSON()));
-            var statsView = new window.views.BulbRampStatsBoxView({
+            var statsView = new Views.BulbRampStatsBoxView({
                 model: this.model
             });
             this.$('#wrapper').append(statsView.render().el);
@@ -689,7 +682,7 @@ $(document).ready(function () {
                 height: 35,
                 rows: 3,
                 onChange: function (valueText, instance) {
-                    window.app.set('startShutter', exposures[instance.values[0]]);
+                    RadianApp.model.set('startShutter', exposures[instance.values[0]]);
                 },
             }).scroller('setValue', [exposures.indexOf(this.model.get('startShutter'))], false, 0);
 
@@ -698,7 +691,7 @@ $(document).ready(function () {
         }
     });
 
-    window.views.BulbrampingExposureChange = window.views.ModalView.extend({
+    Views.BulbrampingExposureChange = Views.ModalView.extend({
         template: _.template($('#bulbRampingExpChange_template').html()),
 
         initialize: function () {
@@ -719,9 +712,9 @@ $(document).ready(function () {
 
 
         render: function () {
-            window.views.navigation.hide();
+            Views.navigation.hide();
             this.$el.empty().append(this.template(this.model.getTemplateJSON()));
-            var statsView = new window.views.BulbRampStatsBoxView({
+            var statsView = new Views.BulbRampStatsBoxView({
                 model: this.model
             });
             this.$('#wrapper').append(statsView.render().el);
@@ -743,8 +736,8 @@ $(document).ready(function () {
                 rows: 3,
                 onChange: function (valueText, instance) {
                     console.log(instance.values[1])
-                    window.app.set('expChange', exp[instance.values[0]]);
-                    window.app.set('expType', expType[instance.values[1]]);
+                    RadianApp.model.set('expChange', exp[instance.values[0]]);
+                    RadianApp.model.set('expType', expType[instance.values[1]]);
                 },
             }).scroller('setValue', [exp.indexOf(this.model.get('expChange')), expType.indexOf(this.model.get('expType'))], false, 0);
 
@@ -757,15 +750,15 @@ $(document).ready(function () {
     // ********************* END OF BULB RAMPING CODE ****************** //
 
 
-    window.views.TimeLapseQueueView = window.views.ModalView.extend({
+    Views.TimeLapseQueueView = Views.ModalView.extend({
         template: _.template($('#timeLapseQueue_template').html()),
     });
 
-    window.views.TimeLapseAdvancedView = window.views.ModalView.extend({
+    Views.TimeLapseAdvancedView = Views.ModalView.extend({
         template: _.template($('#timeLapseAdvanced_template').html()),
     });
 
-     window.views.TimeLapseCompletedView = window.views.BaseView.extend({
+     Views.TimeLapseCompletedView = Views.BaseView.extend({
         template: _.template($('#timeLapseCompleted_template').html()),
 
         render: function () {
@@ -791,7 +784,7 @@ $(document).ready(function () {
     });
 
 
-    window.views.Navigation = Backbone.View.extend({
+    Views.Navigation = Backbone.View.extend({
         el: '#navigation',
 
         hide: function() {
@@ -839,46 +832,46 @@ $(document).ready(function () {
         }
 
     });
-    window.views.navigation = new window.views.Navigation();
+    Views.navigation = new Views.Navigation();
 
-    window.views.timeLapseView = new window.views.TimeLapseView({
-        model: window.app
+    Views.timeLapseView = new Views.TimeLapseView({
+        model: RadianApp.model
     });
-    window.views.timeLapsePresetsView = new window.views.TimeLapsePresetsView();
-    window.views.timeLapseDegreesView = new window.views.TimeLapseDegreesView({
-        model: window.app
+    Views.timeLapsePresetsView = new Views.TimeLapsePresetsView();
+    Views.timeLapseDegreesView = new Views.TimeLapseDegreesView({
+        model: RadianApp.model
     });
-    window.views.timeLapseTotalTimeView = new window.views.TimeLapseTotalTimeView({
-        model: window.app
+    Views.timeLapseTotalTimeView = new Views.TimeLapseTotalTimeView({
+        model: RadianApp.model
     });
-    window.views.timeLapseIntervalView = new window.views.TimeLapseIntervalView({
-        model: window.app
+    Views.timeLapseIntervalView = new Views.TimeLapseIntervalView({
+        model: RadianApp.model
     });
-    window.views.timeLapseUploadView = new window.views.TimeLapseUploadView();
-    window.views.timeLapseCountDownView = new window.views.TimeLapseCountDownView();
-    window.views.timeLapseCompletedView = new window.views.TimeLapseCompletedView();
-    window.views.timeLapseQueueView = new window.views.TimeLapseQueueView();
-    window.views.timeLapseAdvancedView = new window.views.TimeLapseAdvancedView({
-        model: window.app
-    });
-
-    window.views.bulbRampingView =  new window.views.BulbRampingView({
-        model: window.app
+    Views.timeLapseUploadView = new Views.TimeLapseUploadView();
+    Views.timeLapseCountDownView = new Views.TimeLapseCountDownView();
+    Views.timeLapseCompletedView = new Views.TimeLapseCompletedView();
+    Views.timeLapseQueueView = new Views.TimeLapseQueueView();
+    Views.timeLapseAdvancedView = new Views.TimeLapseAdvancedView({
+        model: RadianApp.model
     });
 
-    window.views.bulbRampingDelay = new window.views.BulbrampingDelay({
-        model: window.app
+    Views.bulbRampingView =  new Views.BulbRampingView({
+        model: RadianApp.model
     });
 
-    window.views.bulbRampingDuration = new window.views.BulbrampingDuration({
-        model: window.app
+    Views.bulbRampingDelay = new Views.BulbrampingDelay({
+        model: RadianApp.model
     });
 
-    window.views.bulbRampingStartShutter = new window.views.BulbrampingStartShutter({
-        model: window.app
+    Views.bulbRampingDuration = new Views.BulbrampingDuration({
+        model: RadianApp.model
     });
 
-    window.views.bulbRampingExposureChange = new window.views.BulbrampingExposureChange({
-        model: window.app
+    Views.bulbRampingStartShutter = new Views.BulbrampingStartShutter({
+        model: RadianApp.model
+    });
+
+    Views.bulbRampingExposureChange = new Views.BulbrampingExposureChange({
+        model: RadianApp.model
     });
 });

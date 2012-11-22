@@ -1,4 +1,6 @@
-var saveBase64File = function(base64String, name, success) {
+$().ns('RadianApp.Filesystem');
+
+RadianApp.Filesystem.saveBase64File = function(base64String, name, success) {
 
     var fullPath = name;
 
@@ -21,7 +23,7 @@ var saveBase64File = function(base64String, name, success) {
     };
                            
     function fail(error) {
-        //TODO Add better error messages
+        //TODO: Add better error messages
         alert(error.code);
     }
 }

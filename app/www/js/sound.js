@@ -1,4 +1,6 @@
-var playSound = function(soundFile) {
+$().ns('RadianApp.Sound');
+
+RadianApp.Sound.play = function(soundFile) {
 
     function playAudio() {
         var my_media = new Media(soundFile, onSuccess, onError);

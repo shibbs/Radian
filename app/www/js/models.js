@@ -1,26 +1,22 @@
-//Random Util should be removed
-_.mixin({
-    round: function roundNumber(num, dec) {
-        var result = Math.round(num * Math.pow(10, dec)) / Math.pow(10, dec);
-        return result;
-    }
-});
 
-var Constants = {};
-Constants.TimeLapseType = {
+$().ns('RadianApp.Models');
+
+
+$().ns('RadianApp.Models.Constants');
+RadianApp.Models.Constants.TimeLapseType = {
     NONE : 0,
     PAN : 1,
     TILT : 2,
 
 }
-Constants.Direction = {
+RadianApp.Models.Constants.Direction = {
     CLOCKWISE : false,
     COUNTERCLOCKWISE : true,
 }
 
-var c = Constants;
+var c = RadianApp.Models.Constants;
 
-var TimeLapse = Backbone.Model.extend({
+RadianApp.Models.TimeLapse = Backbone.Model.extend({
 
     defaults: {
         timelapse: c.TimeLapseType.NONE,
@@ -37,8 +33,8 @@ var TimeLapse = Backbone.Model.extend({
 
     getStats: function () {
         var totalPhotos = Math.round((this.get('totalTimeHours') * 3600 + this.get('totalTimeMinutes') * 60) / (this.get('intervalMinutes') * 60 + this.get('intervalSeconds')));
-        var degreesPerPhoto = _.round(this.get('degrees') / totalPhotos, 2);
-        var frameRate = _.round(totalPhotos / 24, 1);
+        var degreesPerPhoto = RadianApp.Utilities.round(this.get('degrees') / totalPhotos, 2);
+        var frameRate = RadianApp.Utilities.round(totalPhotos / 24, 1);
         return {
             totalPhotos: totalPhotos,
             degreesPerPhoto: degreesPerPhoto,
@@ -59,7 +55,7 @@ var TimeLapse = Backbone.Model.extend({
 //Active TimeLapse
 //Queue (Collection of TimeLapses) (also stored in the DB)
 //Presets (Collection of TimeLapses (which are stored in the DB))
-var RadianApp = Backbone.Model.extend({
+RadianApp.Models.App = Backbone.Model.extend({
 
     initialize: function () {
 
@@ -96,12 +92,12 @@ var RadianApp = Backbone.Model.extend({
 
 });
 
-Constants.ExpPowerType = {
+RadianApp.Models.Constants.ExpPowerType = {
     MINUTE : false,
     FRAME : true,
 }
 
-var RadianApp = Backbone.Model.extend({
+RadianApp.Models.App = Backbone.Model.extend({
 
     initialize: function () {
 
@@ -145,8 +141,8 @@ var RadianApp = Backbone.Model.extend({
 
     getStats: function () {
         var totalPhotos = Math.round((this.get('totalTimeHours') * 3600 + this.get('totalTimeMinutes') * 60) / (this.get('intervalMinutes') * 60 + this.get('intervalSeconds')));
-        var degreesPerPhoto = _.round(this.get('degrees') / totalPhotos, 2);
-        var frameRate = _.round(totalPhotos / 24, 1);
+        var degreesPerPhoto = RadianApp.Utilities.round(this.get('degrees') / totalPhotos, 2);
+        var frameRate = RadianApp.Utilities.round(totalPhotos / 24, 1);
         var stepIncreaseTime = (this.get('expType') === "f/10min") ? 10 : (this.get('totalTimeHours') * 60 + this.get('totalTimeMinutes')) / (totalPhotos/10);
         var finalShutter = eval(this.get('startShutter')) * Math.pow(2, eval(this.get('expChange')) * ((this.get('durationHours') * 60 + this.get('durationMinutes')) / stepIncreaseTime));
         
@@ -156,7 +152,7 @@ var RadianApp = Backbone.Model.extend({
             frameRate: frameRate,
             direction: this.direction(),
             directionAbr: this.directionAbr(),
-            finalShutter: _.round(finalShutter, 1)
+            finalShutter: RadianApp.Utilities.round(finalShutter, 1)
         };
     },
 
@@ -170,5 +166,5 @@ var RadianApp = Backbone.Model.extend({
 
 
 $(document).ready(function () {
-    window.app = new RadianApp();
+    RadianApp.model = new RadianApp.Models.App();
 });
