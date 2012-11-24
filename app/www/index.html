@@ -16,7 +16,7 @@
     <body class='loading'>
 		<div id="container">
 		</div>
-		<div id="navigation" style="position:fixed; bottom:10px; width: 100%">
+		<div id="navigation" style="position:fixed; bottom:10px; width: 100%; z-index: 110;">
 				<nav class="step-nav inner-step" style="width:75%; margin: 0 auto">
 					<ul>
 						<li class="prev-holder" style="visibility">
@@ -114,13 +114,23 @@
 		
 		<!-- TimeLapsePresets Template -->
 		<script type="text/template" id="timeLapsePresets_template">
-			<div id="wrapper" class="inner-page">
-				<header id="header">
-					<a href="#timelapse" class="highlighted-btn">DONE</a>
-					<span class="no-btn alignright">&nbsp;</span>
+			<div id="wrapper" class="inner-page" >
+				<header id="header" style="z-index:100; position: relative; ">
+					<a href="#timelapse" class="">EDIT</a>
+					<a href="#timelapse" class="highlighted-btn alignright">DONE</a>
+
+		
 					<h1>PRESETS</h1>
 				</header>
-				<ul class="presets-list">
+								<div style="position:absolute; z-index: 80; top: 0; left:0; right:0; height: 49px; width:100%; background-color:#191919">
+				</div>
+				<div id="scrollwrapper" style="	position:absolute; z-index:1;
+	top:55px; bottom:0px; left:0;
+	width:100%;
+	overflow:auto;">
+				<div id="scroller" style=" 	width:100%;
+	padding:0;">
+				<ul class="presets-list sortable" style="position:relative; width:100%; padding:0; margin:0" >
 					<li>
 						<a href="#" class="opener">
 							<strong class="title">CURRENT</strong>
@@ -143,9 +153,10 @@
 									<span>sec</span>
 								</div>
 								<div class="small-btn-row">
-									<a href="#">SPEED</a>
-									<a href="#" class="dark-btn">BULB</a>
 									<a href="#">DELAY</a>
+									<a href="#" class="light-btn">SRAMP</a>
+									<a href="#">BRAMP</a>
+									<a href="#">HOLD</a>
 								</div>
 								<div class="btn-row">
 									<a href="#" class="save-btn">SAVE AS PRESET</a>
@@ -173,45 +184,64 @@
 					</li>
 				</ul>
 			</div>
+			</div>
+			</div>
 		</script>
 		
 		<!-- TimeLapseQueue Template -->
 		<script type="text/template" id="timeLapseQueue_template">
 			<div id="wrapper" class="inner-page">
-				<header id="header">
-					<a href="#timelapse" class="highlighted-btn">DONE</a>
-					<span class="no-btn alignright">&nbsp;</span>
+				<header id="header" style="z-index:100; position: relative; ">
+					<span class="no-btn">&nbsp;</span>
+					<a href="#timelapse" class="highlighted-btn alignright">DONE</a>
 					<h1>QUEUE</h1>
 				</header>
-				<ul class="list">
-					<li style="position:relative">
-						<div class="handle" style="
-    position: absolute;
-    width: 22%;
-    height: 80%;
-    top: 5px;
-    left: 10px;
-    cursor:
-"></div>
+				<div style="position:absolute; z-index: 80; top: 0; left:0; right:0; height: 49px; width:100%; background-color:#191919">
+				</div>
+				<div id="scrollwrapper" style="	position:absolute; z-index:1;
+	top:55px; bottom:0px; left:0;
+	width:100%;
+	overflow:auto;">
+				<div id="scroller" style=" 	width:100%;
+	padding:0;">
+				<ul class="list sortable" style="position:relative; width:100%; padding:0; margin:0" >
+					<li class="canSort">
+						<div class="handle"></div>
 						<a href="#" class="delete">delete</a>
 						<a href="#" class="list-link">DESERT</a>
 					</li>
-					<li style="position:relative">
+					<li class="canSort">
+						<div class="handle"></div>
 						<a href="#" class="delete">delete</a>
 						<a href="#" class="list-link">BEACH</a>
 					</li>
-					<li>
+					<li class="canSort">
+						<div class="handle"></div>
 						<a href="#" class="delete">delete</a>
 						<a href="#" class="list-link">CITY</a>
 					</li>
-					<li>
+					<li class="canSort">
+						<div class="handle"></div>
 						<a href="#" class="delete">delete</a>
 						<a href="#" class="list-link">SUNSET</a>
 					</li>
-					<li>
+					<li class="canSort">
+						<div class="handle"></div>
+						<a href="#" class="delete">delete</a>
+						<a href="#" class="list-link">SUNSET</a>
+					</li>
+					<li class="canSort">
+						<div class="handle"></div>
+						<a href="#" class="delete">delete</a>
+						<a href="#" class="list-link">SUNSET</a>
+					</li>
+						<li>
 						<a href="#" class="add-link">ADD PRESET TO QUEUE</a>
 					</li>
+
 				</ul>
+				</div>
+				</div>
 			</div>
 		</script>
 		
@@ -582,6 +612,9 @@
 		<script type="text/javascript" src="js/lib/cordova-2.2.0.js"></script>
         <script type="text/javascript" src="js/lib/underscore-min.js"></script>
         <script type="text/javascript" src="js/lib/jquery-1.8.2.min.js"></script>
+        <script type="text/javascript" src="js/lib/jquery-ui-1.9.1.custom.min.js"></script>
+		<script type="text/javascript" src="js/lib/jquery.touchpunch.0.2.2.js"></script>
+		<script type="text/javascript" src="js/lib/iscroll.js"></script>
         <script src="js/lib/mobiscroll-2.0.3.custom.min.js"></script>
         <script src="js/lib/circle-progress-bar.js"></script>
         <script type="text/javascript" src="js/lib/backbone-min.js"></script>

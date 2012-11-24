@@ -146,7 +146,12 @@ $(document).ready(function () {
 
     Views.TimeLapsePresetsView = Views.ModalView.extend({
         template: _.template($('#timeLapsePresets_template').html()),
-
+        render: function () {
+            Views.navigation.hide();
+            this.$el.empty().append(this.template(this.model.getTemplateJSON()));
+            var myScroll = new iScroll('scrollwrapper', {});
+            return this;
+        }
 
     });
 
@@ -752,6 +757,27 @@ $(document).ready(function () {
 
     Views.TimeLapseQueueView = Views.ModalView.extend({
         template: _.template($('#timeLapseQueue_template').html()),
+
+        render: function () {
+            Views.navigation.hide();
+            this.$el.empty().append(this.template(this.model.getTemplateJSON()));
+            var handleClass = 'handle';
+
+            $('.sortable').sortable({
+                handle: '.'+handleClass,
+                axis: "y",
+                delay: 250,
+                items: '.canSort'
+            });
+
+            var myScroll = new iScroll('scrollwrapper', {
+                userDisabled: function(e) {
+                   return e.srcElement.className===handleClass;
+                }
+            });
+            $('#scrollwrapper').css('overflow', 'visible');
+            return this;
+        }
     });
 
     Views.TimeLapseAdvancedView = Views.ModalView.extend({
@@ -837,7 +863,9 @@ $(document).ready(function () {
     Views.timeLapseView = new Views.TimeLapseView({
         model: RadianApp.model
     });
-    Views.timeLapsePresetsView = new Views.TimeLapsePresetsView();
+    Views.timeLapsePresetsView = new Views.TimeLapsePresetsView({
+        model: RadianApp.model
+    });
     Views.timeLapseDegreesView = new Views.TimeLapseDegreesView({
         model: RadianApp.model
     });
@@ -850,7 +878,9 @@ $(document).ready(function () {
     Views.timeLapseUploadView = new Views.TimeLapseUploadView();
     Views.timeLapseCountDownView = new Views.TimeLapseCountDownView();
     Views.timeLapseCompletedView = new Views.TimeLapseCompletedView();
-    Views.timeLapseQueueView = new Views.TimeLapseQueueView();
+    Views.timeLapseQueueView = new Views.TimeLapseQueueView({
+        model: RadianApp.model
+    });
     Views.timeLapseAdvancedView = new Views.TimeLapseAdvancedView({
         model: RadianApp.model
     });

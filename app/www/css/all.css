@@ -564,6 +564,7 @@ h1{
 .list li{
 	overflow:hidden;
 	border-top:1px solid #888;
+	border-bottom:1px solid #888;
 	padding:15px 20px;
 	font:17px/24px "Conv_Gotham-Medium", Helvetica, Arial, sans-serif;
 }
@@ -600,8 +601,9 @@ h1{
 	-moz-background-size:21px 21px;
 	-o-background-size:21px 21px;
 	color:#008bca;
-	padding:0 35px;
+	padding:0 28px;
 	text-align:center;
+	font-size:15px/21px "Conv_Gotham-Medium", Helvetica, Arial, sans-serif;
 }
 #header .btn-back{
 	width:47px;
@@ -670,14 +672,11 @@ h1{
 	font-family:"Conv_Gotham-Medium", Helvetica, Arial, sans-serif;
 }
 .presets-list .box .small-btn-row a{
-	color:#fff;
-	font-size:9px;
-	line-height:11px;
+	color:#191919;
+	font-size:12px;
+	line-height:14px;
 	font-family:"Conv_Gotham-Medium", Helvetica, Arial, sans-serif;
 	text-transform:uppercase;
-	background:#969696;
-	-webkit-border-radius: 2px;
-	border-radius: 2px;
 	padding:3px;
 	width:13.5%;
 	display:inline-block;
@@ -689,18 +688,18 @@ h1{
 }
 
 .presets-list .box-holder .small-btn-row a{
-	width:31.5%;
+	width:23.5%;
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 }
 .presets-list .box .small-btn-row .light-btn{
-	background:#dcdcdc;
-	color:#969696;
+
+	color:#008bca;
 }
 .presets-list .box .small-btn-row .dark-btn{
-	background:#505050;
-	color:#6e6e6e;
+
+	color:#191919;
 }
 .presets-list .box .btn-row a{
 	color:#ebebeb;
@@ -720,7 +719,7 @@ h1{
 .presets-list .box-holder{
 	display:inline-block;
 	vertical-align:top;
-	width:49%;
+	width:75%;
 }
 .presets-list .box .btn-row .red-btn{background:#ca0000;}
 .presets-list .box .btn-row .save-btn{
@@ -840,7 +839,42 @@ h1{
 .inner-page .choice-btn-box a{margin-bottom:3px;}
 .choice-btn-box .btn-blue{color:#fff; background:#008bca;}
 
+.handle {
+    position: absolute;
+    width: 22%;
+    height: 80%;
+    top: 5px;
+    left: 10px;
+    cursor: pointer
+}
 
+.canSort {
+	position:relative;
+}
+
+.navCover {
+	position:absolute; 
+	z-index: 80; 
+	top: 0; 
+	left:0; 
+	right:0; 
+	height: 49px; 
+	width:100%; 
+	background-color:#191919;
+}
+.scrollwrapper {
+	position:absolute; z-index:1;
+	top:120px; bottom:0px; left:0;
+	width:100%;
+	overflow:auto;
+}
+.scroller {
+	width:100%;
+	padding:0;
+}
+.sortable {
+	
+}
 
 
 /*
