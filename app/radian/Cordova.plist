@@ -5,7 +5,7 @@
 	<key>KeyboardDisplayRequiresUserAction</key>
 	<true/>
 	<key>SuppressesIncrementalRendering</key>
-	<true/>
+	<false/>
 	<key>UIWebViewBounce</key>
 	<false/>
 	<key>TopActivityIndicator</key>
