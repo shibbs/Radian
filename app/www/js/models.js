@@ -139,8 +139,9 @@ $(document).ready(function () {
         },
 
         loadTimeLapse: function(timeLapse) {
-            this.visibleTimeLapse = null;
-            this.visibleTimeLapse = timeLapse.clone();
+            this.visibleTimeLapse.set(timeLapse.toJSON());
+            // = null;
+            //this.visibleTimeLapse = timeLapse.clone();
         },
 
         runTimeLapse: function(timeLapse) {
