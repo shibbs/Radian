@@ -26,7 +26,7 @@
 						    <div class="number selected">1</div>
 							<div class="number">2</div>
 							<div class="number">3</div>
-							<div class="number">4</div>
+							<div class="number" id="4">4</div>
 					    </li>
 						<li class="next-holder">
 							<a id="thirdstep" href="#" class="next">next</a>
@@ -57,7 +57,9 @@
 				</div>
 			</div>
 		</script>
-		
+
+
+
 		<!-- TimeLapse Template -->
 		<script type="text/template" id="timeLapse_template">
 		    <div id="wrapper" class="inner-page">
@@ -116,8 +118,8 @@
 		<script type="text/template" id="timeLapsePresets_template">
 			<div id="wrapper" class="inner-page" >
 				<header id="header" style="z-index:100; position: relative; ">
-					<a href="#timelapse" class="">EDIT</a>
-					<a href="#timelapse" class="highlighted-btn alignright">DONE</a>
+					<a href="#" id="edit">EDIT</a>
+					<a href="#timelapse" class="highlighted-btn alignright" id="done">DONE</a>
 
 		
 					<h1>PRESETS</h1>
@@ -130,64 +132,63 @@
 	overflow:auto;">
 				<div id="scroller" style=" 	width:100%;
 	padding:0;">
-				<ul class="presets-list sortable" style="position:relative; width:100%; padding:0; margin:0" >
-					<li>
-						<a href="#" class="opener">
-							<strong class="title">CURRENT</strong>
-							<em class="date">08/26/12</em>
-						</a>
-						<div class="box">
-							<div class="box-holder">
-								<div class="row">
-									<strong class="mark">360</strong>
-									<span>CW</span>
-								</div>
-								<div class="row">
-									<strong class="mark">2</strong>
-									<span>hr</span>
-									<strong class="mark">00</strong>
-									<span>min</span>
-								</div>
-								<div class="row">
-									<strong class="mark">15</strong>
-									<span>sec</span>
-								</div>
-								<div class="small-btn-row">
-									<a href="#">DELAY</a>
-									<a href="#" class="light-btn">SRAMP</a>
-									<a href="#">BRAMP</a>
-									<a href="#">HOLD</a>
-								</div>
-								<div class="btn-row">
-									<a href="#" class="save-btn">SAVE AS PRESET</a>
-								</div>
-							</div>
-						</div>
-					</li>
-					<li>
-						<a href="#" class="opener">
-							<strong class="title">DESERT</strong>
-							<em class="date">08/26/12 <span class="time">8:00 PM</span></em>
-						</a>
-					</li>
-					<li>
-						<a href="#" class="opener">
-							<strong class="title">BEACH</strong>
-							<em class="date">08/26/12 <span class="time">8:00 PM</span></em>
-						</a>
-					</li>
-					<li>
-						<a href="#" class="opener">
-							<strong class="title">CITY</strong>
-							<em class="date">08/26/12 <span class="time">8:00 PM</span></em>
-						</a>
-					</li>
+				<ul id="list" class="presets-list sortable" style="position:relative; width:100%; padding:0; margin:0" >
+
 				</ul>
 			</div>
 			</div>
 			</div>
 		</script>
-		
+
+		<!-- TimeLapsePresetItem Template -->
+		<script type="text/template" id="timeLapsePresetItem_template">
+							<li>
+						<a href="#" class="opener">
+							<strong class="title"><%= name %></strong>
+							<em class="date"><%= dateCreated %></em>
+							<span class="delete"></span>
+						</a>
+
+						<div class="box hide">
+							<div class="box-holder">
+								<div class="row">
+									<strong class="mark"><%= degrees %></strong>
+									<span><%= directionAbr %></span>
+								</div>
+								<div class="row">
+		  							<% if (totalTimeHours !== 0) { %>
+		                                <strong class="mark"><%= totalTimeHours %></strong>
+									<span>hr</span>
+		                                 <% } %>
+									<strong class="mark"><%= totalTimeMinutes %></strong>
+									<span>min</span>
+								</div>
+								<div class="row">
+            						<% if (intervalMinutes !== 0) { %>
+
+									<strong class="mark"><%= intervalMinutes %></strong>
+                                            
+									<span>min</span>
+                					<% } %>
+									<strong class="mark"><%= intervalSeconds %></strong>
+									<span>sec</span>
+								</div>
+								<div class="small-btn-row">
+									<a <% if (isTimeDelay) { %> class="light-btn" <% } %> href="#">DELAY</a>
+									<a href="#" <% if (false) { %> class="light-btn" <% } %> >SRAMP</a>
+									<a href="#" <% if (isBulbRamping) { %> class="light-btn" <% } %> >BRAMP</a>
+									<a href="#" <% if (false) { %> class="light-btn" <% } %> >HOLD</a>
+								</div>
+								<div class="btn-row">
+									<a href="#" class="save-btn norm">LOAD PRESET</a>
+								</div>
+							</div>
+						</div>
+					</li>
+		</script>
+
+
+
 		<!-- TimeLapseQueue Template -->
 		<script type="text/template" id="timeLapseQueue_template">
 			<div id="wrapper" class="inner-page">
@@ -424,7 +425,7 @@
 					<h1>ADVANCED</h1>
 				</header>
 				<div class="btn-box">
-					<a href="#" class="btn">TIME DELAY</a>
+					<a href="#timelapse/timedelay" class="btn  <% if (isTimeDelay) { %>btn-blue <% } %>">TIME DELAY</a>
 					<a href="#" class="btn">SPEED RAMPING</a>
 					<a href="#timelapse/bulbramping" class="btn  <% if (isBulbRamping) { %>btn-blue <% } %>">BULB RAMPING</a>
 					<a href="#" class="btn">HDR</a>
@@ -595,6 +596,29 @@
 			</div>
 		</script>
 
+		<!-- TimeLapseTimeDelay Template -->
+		<script type="text/template" id="timeLapseTimeDelay_template">
+		    <div id="wrapper" class="inner-page">
+				<header id="header">
+					<a href="#timelapse/advanced" class="btn-back">back</a>
+					<span class="no-btn no-back alignright">&nbsp;</span>
+					<h1>TIME DELAY</h1>
+				</header>
+				<div class="block-info">
+				    <span class="text">WAIT</span>
+					<div class="row">					
+						<strong id="timeDelayHours" class="mark"><%= timeDelayHours %></strong>
+						<span>hr</span>
+						<strong id="timeDelayMinutes" class="mark"><%= timeDelayMinutes %></strong>
+						<span>min</span> 
+					</div>
+					<span class="text">BEFORE STARTING</span>
+				</div>
+			</div>
+            <div id="picker">
+			</div>
+		</script>
+
 		<!-- The Bulb Ramp Box Template -->
 		<script type="text/template" id="bulbRampStatsBox_template">
 		<div class="total-box">
@@ -631,12 +655,19 @@
         </script>
 
         <!-- Load Scripts  -->
+        <script type="text/javascript" src="js/configuration.js"></script>
+        <script type="text/javascript" src="js/constants.js"></script>
         <script type="text/javascript" src="js/utilities.js"></script>	
-
-        <script type="text/javascript" src="js/router.js"></script>
+        
         <script type="text/javascript" src="js/models.js"></script>
-        <script type="text/javascript" src="js/views.js"></script> 
+        
+       
+        <script type="text/javascript" src="js/router.js"></script>
         <script type="text/javascript" src="js/radian.js"></script>
+
+         <script type="text/javascript" src="js/views.js"></script> 
+
+        
         
 		<script type="text/javascript" src="js/data_transmission.js"></script>
 		<script type="text/javascript" src="js/wav_generator.js"></script>

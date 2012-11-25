@@ -13,7 +13,9 @@ var generate_slot = function (name, start, finish, increment, abbreviation) {
 $().ns('RadianApp.Views');
 
 $(document).ready(function () {
+    var C = RadianApp.Constants;
     var Views = RadianApp.Views;
+
     Views.BaseView = Backbone.View.extend({
 
         initialize: function () {
@@ -24,7 +26,7 @@ $(document).ready(function () {
             if(!this.model) {
                 this.$el.empty().append(this.template());
             } else {
-                this.$el.empty().append(this.template(this.model.getTemplateJSON()));
+                this.$el.empty().append(this.template(RadianApp.app.visibleTimeLapse.getTemplateJSON()));
             }  
             return this;
         }
@@ -41,7 +43,7 @@ $(document).ready(function () {
             if(!this.model) {
                 this.$el.empty().append(this.template());
             } else {
-                this.$el.empty().append(this.template(this.model.getTemplateJSON()));
+                this.$el.empty().append(this.template(RadianApp.app.visibleTimeLapse.getTemplateJSON()));
             }  
             return this;
         }
@@ -53,11 +55,11 @@ $(document).ready(function () {
         template: _.template($('#statsBox_template').html()),
 
         initialize: function () {
-            this.model.bind('change', this.render, this); //TODO make more granular
+            RadianApp.app.visibleTimeLapse.bind('change', this.render, this); //TODO make more granular
         },
 
         render: function () {
-            this.$el.empty().append(this.template(this.model.getStats()));
+            this.$el.empty().append(this.template(RadianApp.app.visibleTimeLapse.getStats()));
             return this;
         },
     });
@@ -66,11 +68,11 @@ $(document).ready(function () {
         template: _.template($('#bulbRampStatsBox_template').html()),
 
         initialize: function () {
-            this.model.bind('change', this.render, this); //TODO make more granular
+            RadianApp.app.visibleTimeLapse.bind('change', this.render, this); //TODO make more granular
         },
 
         render: function () {
-            this.$el.empty().append(this.template(this.model.getStats()));
+            this.$el.empty().append(this.template(RadianApp.app.visibleTimeLapse.getStats()));
             return this;
         },
     });
@@ -82,13 +84,13 @@ $(document).ready(function () {
             Views.navigation.selectStep(1);
             Views.navigation.unhide();
             Views.navigation.setPrevious(false);
-            if(this.model.get("timeLapse") === RadianApp.Models.Constants.TimeLapseType.NONE) {
+            if(this.model.get("timeLapse") === RadianApp.Constants.TimeLapseType.NONE) {
                 Views.navigation.setNext(true);
             } else {
                 Views.navigation.setNext(true, "#timelapse");
             }
 
-            this.$el.empty().append(this.template(this.model.getTemplateJSON()));
+            this.$el.empty().append(this.template(RadianApp.app.visibleTimeLapse.getTemplateJSON()));
         },
 
         events: {
@@ -97,11 +99,11 @@ $(document).ready(function () {
         },
 
         pan: function() {
-            this.model.set("timeLapse", RadianApp.Models.Constants.TimeLapseType.PAN);
+            RadianApp.app.visibleTimeLapse.set("timeLapse", RadianApp.Constants.TimeLapseType.PAN);
         },
 
         tilt: function() {
-            this.model.set("timeLapse", RadianApp.Models.Constants.TimeLapseType.TILT);
+            RadianApp.app.visibleTimeLapse.set("timeLapse", RadianApp.Constants.TimeLapseType.TILT);
         }
     });
 
@@ -135,43 +137,187 @@ $(document).ready(function () {
             Views.navigation.setNext(true, "#timelapse/upload");
             Views.navigation.setPrevious(true, "#home");
 
-            this.$el.empty().append(this.template(this.model.getTemplateJSON()));
+            this.$el.empty().append(this.template(RadianApp.app.visibleTimeLapse.getTemplateJSON()));
             // If we are currently running one don't simulate upload
-            if (window.running_program) {
-                $('#thirdstep').attr('href', '#timelapse/current');
+            //$('#thirdstep').attr('href', '#timelapse/current');
+            return this;
+        }
+    });
+
+    var vent = _.extend({}, Backbone.Events);
+    
+
+    Views.TimeLapsePresetItemView = Backbone.View.extend({
+        tag: 'li',
+        template: _.template($('#timeLapsePresetItem_template').html()),
+        events: {
+            "click .btn-row": "mainAction",
+            "click .delete": "deleteEvent",
+            "click": "toggleShow",    
+        },
+
+        endEvent: function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+        },
+
+        eventCurrent: function(e) {
+            RadianApp.app.saveTimeLapseAsPreset(RadianApp.app.visibleTimeLapse);
+            this.endEvent(e);
+        },
+
+        loadEvent: function(e) {
+            RadianApp.app.loadTimeLapse(this.model);
+            window.location.hash = '#home';
+            this.endEvent(e);
+        },
+
+
+        deleteEvent: function(e) {
+            var that = this;
+            navigator.notification.confirm(
+            'Would you like to delete the preset?',  // message
+            function(i) {
+                if(i===1) return;
+                RadianApp.app.removeTimeLapseFromPresets(that.model);
+                that.remove();
+                that.unbind();
+                var scroller = that.scroller;
+                setTimeout(function() { scroller.refresh()}, 0); 
+            },// callback to invoke with index of button pressed
+            'Delete Preset',            // title
+            'No,Yes'          // buttonLabels
+            );
+            this.endEvent(e);
+        },
+
+        initialize: function(model, scroller, current) {
+            this.model = model;
+            this.current = current ? current : false;
+            this.scroller = scroller;
+            this.mainAction = current ? this.eventCurrent : this.mainAction;
+            vent.on('presets:editmode', this.enterEditMode, this);
+            vent.on('presets:leaveeditmode', this.leaveEditMode, this);
+            this.open = current ? current : false;
+        },
+
+        mainAction: function(e) {
+            if(this.deleteMode) {
+                this.deleteEvent(e);
+            } else {
+                this.loadEvent(e);
+            }
+            e.preventDefault();
+            e.stopImmediatePropagation();
+        },
+
+        toggleShow: function() {
+            this.$('.box').toggleClass('hide');
+            this.open = !this.open;
+            if(this.open && this.deleteMode) {
+                this.$('.opener .delete').addClass('hide');
+            } else if (!this.open && this.deleteMode) {
+                this.$('.opener .delete').removeClass('hide');
+            }
+            var scroller = this.scroller;
+            setTimeout(function() { scroller.refresh()}, 0); 
+        },
+        render: function() {
+            var elem = this.template(this.model.getTemplateJSON());
+            this.$el.empty().append(elem);
+            this.$('.opener .delete').addClass('hide');
+            if(this.current) {
+                this.$('.box').removeClass('hide');
+                this.$('.box').addClass('show');
+                this.$('.save-btn').html('SAVE AS PRESET');
             }
             return this;
+        },
+
+        enterEditMode: function() {
+            if(this.current) return;
+            this.deleteMode = true;
+            this.$('.save-btn').html('DELETE');
+            this.$('.save-btn').removeClass('norm');
+            this.$('.save-btn').addClass('delete');
+            if(!this.open) this.$('.opener .delete').removeClass('hide');
+        },
+
+        leaveEditMode: function() {
+            if(this.current) return;
+            this.deleteMode = false;
+            this.$('.save-btn').html('LOAD PRESET');
+            this.$('.save-btn').removeClass('delete');
+            this.$('.save-btn').addClass('norm');
+            this.$('.opener .delete').addClass('hide');
         }
     });
 
-    Views.TimeLapsePresetsView = Views.ModalView.extend({
+    Views.TimeLapsePresetsView = Views.BaseView.extend({
         template: _.template($('#timeLapsePresets_template').html()),
+
+        events: {
+            "click #edit": "editMode",
+        },
+
+        editMode: function(e) {
+            if(this.isEditing) {
+                this.$('#edit').html('EDIT');
+                this.$('#edit').removeClass('highlighted-btn');
+                this.$('#done').css('visibility', 'visible');
+                vent.trigger('presets:leaveeditmode', "");
+                this.isEditing = false;
+            } else {
+                this.$('#edit').html('DONE');
+                this.$('#edit').addClass('highlighted-btn');
+                this.$('#done').css('visibility', 'hidden');
+                vent.trigger('presets:editmode', "");
+                this.isEditing = true;
+            }
+            e.preventDefault();
+            e.stopImmediatePropagation();
+        },
+
         render: function () {
             Views.navigation.hide();
-            this.$el.empty().append(this.template(this.model.getTemplateJSON()));
-            var myScroll = new iScroll('scrollwrapper', {});
+            this.$el.empty().append(this.template());
+            var scroller = new iScroll('scrollwrapper', {});
+            RadianApp.app.visibleTimeLapse.set('dateCreated', RadianApp.Utilities.formatDate(new Date()));
+            var currentView = new Views.TimeLapsePresetItemView(RadianApp.app.visibleTimeLapse, scroller, true);
+            this.$('#list').append(currentView.render().$el);
+            var models = RadianApp.app.presets.models;
+
+            for (var i = 0; i < models.length; i++) {
+                var temp = new Views.TimeLapsePresetItemView(models[i], scroller);
+                
+                this.$('#list').append(temp.render().$el);
+            };
+            
+            setTimeout(function() { scroller.refresh()}, 0); 
             return this;
         }
 
     });
+
+
 
     Views.TimeLapseDegreesView = Views.BaseView.extend({
         template: _.template($('#timeLapseDegrees_template').html()),
 
         initialize: function () {
             this.setElement($("#container"));
-            this.model.bind('change:degrees', this.updateDegrees, this);
-            this.model.bind('change:isClockwise', this.updateDirection, this);
+            RadianApp.app.visibleTimeLapse.bind('change:degrees', this.updateDegrees, this);
+            RadianApp.app.visibleTimeLapse.bind('change:isClockwise', this.updateDirection, this);
         },
         updateDegrees: function () {
-            this.$('#wrapper #degrees').html(this.model.get('degrees') + '&deg;');
+            this.$('#wrapper #degrees').html(RadianApp.app.visibleTimeLapse.get('degrees') + '&deg;');
 
 
 
         },
 
         updateDirection: function () {
-            this.$('#direction').html(this.model.direction());
+            this.$('#direction').html(C.DirectionCanonical(RadianApp.app.visibleTimeLapse.get('isClockwise')));
 
 
 
@@ -190,7 +336,7 @@ $(document).ready(function () {
                 return data;
             }
 
-            this.$el.empty().append(this.template(this.model.getTemplateJSON()));
+            this.$el.empty().append(this.template(RadianApp.app.visibleTimeLapse.getTemplateJSON()));
             var statsView = new Views.StatsBoxView({
                 model: this.model
             });
@@ -211,11 +357,11 @@ $(document).ready(function () {
                 height: 35,
                 rows: 3,
                 onChange: function (valueText, instance) {
-                    RadianApp.model.set('isClockwise', instance.values[1] == 'CW');
+                    RadianApp.app.visibleTimeLapse.set('isClockwise', instance.values[1] == 'CW');
 
-                    RadianApp.model.set('degrees', Number(instance.values[0]));
+                    RadianApp.app.visibleTimeLapse.set('degrees', Number(instance.values[0]));
                 },
-            }).scroller('setValue', [String(this.model.get('degrees')), this.model.directionAbr()], false, 0);
+            }).scroller('setValue', [String(RadianApp.app.visibleTimeLapse.get('degrees')), C.DirectionAbbr(RadianApp.app.visibleTimeLapse.get('isClockwise'))], false, 0);
 
 
 
@@ -230,8 +376,8 @@ $(document).ready(function () {
 
         initialize: function () {
             this.setElement($("#container"));
-            this.model.bind('change:totalTimeHours', this.updateTotalTimeHours, this);
-            this.model.bind('change:totalTimeMinutes', this.updateTotalTimeMinutes, this);
+            RadianApp.app.visibleTimeLapse.bind('change:totalTimeHours', this.updateTotalTimeHours, this);
+            RadianApp.app.visibleTimeLapse.bind('change:totalTimeMinutes', this.updateTotalTimeMinutes, this);
         },
 
         events: {
@@ -239,23 +385,23 @@ $(document).ready(function () {
         },
 
         continue: function() {
-            this.model.set("shouldContinue", !this.model.get("shouldContinue"));
+            RadianApp.app.visibleTimeLapse.set("shouldContinue", !RadianApp.app.visibleTimeLapse.get("shouldContinue"));
             this.$('#continue').toggleClass('highlight');
         },
 
         updateTotalTimeHours: function () {
-            this.$('#hours').html(this.model.get('totalTimeHours'));
+            this.$('#hours').html(RadianApp.app.visibleTimeLapse.get('totalTimeHours'));
 
         },
 
         updateTotalTimeMinutes: function () {
-            this.$('#totalTimeMinutes').html(this.model.get('totalTimeMinutes'));
+            this.$('#totalTimeMinutes').html(RadianApp.app.visibleTimeLapse.get('totalTimeMinutes'));
 
         },
 
         render: function () {
             Views.navigation.hide();
-            this.$el.empty().append(this.template(this.model.getTemplateJSON()));
+            this.$el.empty().append(this.template(RadianApp.app.visibleTimeLapse.getTemplateJSON()));
             var statsView = new Views.StatsBoxView({
                 model: this.model
             });
@@ -275,16 +421,16 @@ $(document).ready(function () {
                     if (Number(instance.values[0]) === 0 && Number(instance.values[1]) == 0) {
                         $('#picker').scroller('setValue', ['0', '1'], true, 0.5);
 
-                        RadianApp.model.set('totalTimeHours', 0);
+                        RadianApp.app.visibleTimeLapse.set('totalTimeHours', 0);
 
-                        RadianApp.model.set('totalTimeMinutes', 1);
+                        RadianApp.app.visibleTimeLapse.set('totalTimeMinutes', 1);
                         return;
                     }
-                    RadianApp.model.set('totalTimeHours', Number(instance.values[0]));
+                    RadianApp.app.visibleTimeLapse.set('totalTimeHours', Number(instance.values[0]));
 
-                    RadianApp.model.set('totalTimeMinutes', Number(instance.values[1]));
+                    RadianApp.app.visibleTimeLapse.set('totalTimeMinutes', Number(instance.values[1]));
                 },
-            }).scroller('setValue', [String(this.model.get('totalTimeHours')), String(this.model.get('totalTimeMinutes'))], false, 0);
+            }).scroller('setValue', [String(RadianApp.app.visibleTimeLapse.get('totalTimeHours')), String(RadianApp.app.visibleTimeLapse.get('totalTimeMinutes'))], false, 0);
 
 
             return this;
@@ -296,20 +442,20 @@ $(document).ready(function () {
 
         initialize: function () {
             this.setElement($("#container"));
-            this.model.bind('change', this.updateInterval, this);
+            RadianApp.app.visibleTimeLapse.bind('change', this.updateInterval, this);
         },
 
         updateInterval: function () {
-            this.$('#intervalMinutes').html(this.model.get('intervalMinutes'));
-            this.$('#intervalSeconds').html(this.model.get('intervalSeconds'));
+            this.$('#intervalMinutes').html(RadianApp.app.visibleTimeLapse.get('intervalMinutes'));
+            this.$('#intervalSeconds').html(RadianApp.app.visibleTimeLapse.get('intervalSeconds'));
 
         },
 
         render: function () {
             Views.navigation.hide();
-            this.$el.empty().append(this.template(this.model.getTemplateJSON()));
+            this.$el.empty().append(this.template(RadianApp.app.visibleTimeLapse.getTemplateJSON()));
             var statsView = new Views.StatsBoxView({
-                model: this.model
+                model: RadianApp.app.visibleTimeLapse
             });
             this.$('#wrapper').append(statsView.render().el);
 
@@ -325,16 +471,16 @@ $(document).ready(function () {
                 onChange: function (valueText, instance) {
                     if (Number(instance.values[0]) === 0 && Number(instance.values[1]) == 0) {
                         $('#picker').scroller('setValue', ['0', '1'], true, 0.5);
-                        RadianApp.model.set('intervalMinutes', 0);
+                        RadianApp.app.visibleTimeLapse.set('intervalMinutes', 0);
 
-                        RadianApp.model.set('intervalSeconds', 1);
+                        RadianApp.app.visibleTimeLapse.set('intervalSeconds', 1);
                         return;
                     }
-                    RadianApp.model.set('intervalMinutes', Number(instance.values[0]));
+                    RadianApp.app.visibleTimeLapse.set('intervalMinutes', Number(instance.values[0]));
 
-                    RadianApp.model.set('intervalSeconds', Number(instance.values[1]));
+                    RadianApp.app.visibleTimeLapse.set('intervalSeconds', Number(instance.values[1]));
                 },
-            }).scroller('setValue', [String(this.model.get('intervalMinutes')), String(this.model.get('intervalSeconds'))], false, 0);
+            }).scroller('setValue', [String(RadianApp.app.visibleTimeLapse.get('intervalMinutes')), String(RadianApp.app.visibleTimeLapse.get('intervalSeconds'))], false, 0);
 
 
 
@@ -348,7 +494,11 @@ $(document).ready(function () {
         render: function () {
             Views.navigation.selectStep(3);
             Views.navigation.unhide();
-            Views.navigation.setNext(true);
+            if(RadianApp.app.runningTimeLapse) {
+                Views.navigation.setNext(true, "#timelapse/current");
+            } else {
+                Views.navigation.setNext(false);
+            }
             Views.navigation.setPrevious(true, "#timelapse");
             this.$el.empty().append(this.template());
             return this;
@@ -359,11 +509,9 @@ $(document).ready(function () {
         },
 
         upload: function () {
-            window.running_program = RadianApp.model.clone();
             this.percent = 0;
             this.disableNavigation();
-            RadianApp.DataTransmission.send(window.running_program);
-            //send_data(window.running_program);
+            RadianApp.app.runTimeLapse(RadianApp.app.visibleTimeLapse);
             this.advanceProgressBar();
             this.updateMessage();
         },
@@ -388,6 +536,7 @@ $(document).ready(function () {
             }
             else {
                 window.location.hash = 'timelapse/countdown';
+                that.percent = 0;
             }
         }
     });
@@ -399,14 +548,11 @@ $(document).ready(function () {
             Views.navigation.selectStep(4);
             Views.navigation.unhide();
             Views.navigation.setNext(false);
-            Views.navigation.setPrevious(true, "#timelapse");
+            Views.navigation.setPrevious(true, "#timelapse/upload");
 
-            this.m = window.running_program;
-            this.$el.empty().append(this.template(this.model.toJSON()));
+            RadianApp.app.runningTimeLapse;
+            this.$el.empty().append(this.template(RadianApp.app.runningTimeLapse.toJSON()));
             this.percent = 0;
-            if (!this.m.get('start_time')) {
-                this.m.set('start_time', new Date());
-            }
             $('.dial').knob();
             this.advanceProgressBar();
             return this;
@@ -420,14 +566,13 @@ $(document).ready(function () {
 
         newTimeLapse: function () {
             clearTimeout(window.timeLapseCurrentLoadingBarTimeout);
-            window.running_program = null;
+            RadianApp.app.cancelRunningTimeLapse();
             window.location.hash = 'home';
         },
 
         restartCounter: function () {
             clearTimeout(window.timeLapseCurrentLoadingBarTimeout);
-            window.running_program.set('start_time', new Date());
-            this.m=window.running_program;
+            RadianApp.app.resetStartTime();
             window.location.hash = 'timelapse/current';
             this.advanceProgressBar();
         },
@@ -442,16 +587,16 @@ $(document).ready(function () {
             var callmethod = function () {
                 that.advanceProgressBar()
             }
-            var totalSeconds = that.m.get('totalTimeHours') * 3600 + that.m.get('totalTimeMinutes') * 60;
-            var timePassed = ((new Date()).getTime() - that.m.get('start_time').getTime()) / 1000;
+            var totalSeconds = RadianApp.app.runningTimeLapse.get('totalTimeHours') * 3600 + RadianApp.app.runningTimeLapse.get('totalTimeMinutes') * 60;
+            var timePassed = ((new Date()).getTime() - RadianApp.app.sentTime.getTime()) / 1000;
             that.percent = timePassed / totalSeconds;
 
             hours = parseInt(timePassed / 3600) % 24;
             minutes = parseInt(timePassed / 60) % 60;
             that.$('.dial').val(RadianApp.Utilities.round(that.percent*100, 0)).trigger('change');
-            that.$('#hours').html(hours);
-            that.$('#minutes').html(minutes);
-            that.$('#degrees').html(RadianApp.Utilities.round(that.percent * that.m.get('degrees'), 2) + '&deg;');
+            that.$('#hours').html(RadianApp.Utilities.round(hours, 0));
+            that.$('#minutes').html(RadianApp.Utilities.round(minutes, 0));
+            that.$('#degrees').html(RadianApp.Utilities.round(that.percent * RadianApp.app.runningTimeLapse.get('degrees'), 2) + '&deg;');
             if (RadianApp.Utilities.round(that.percent*100, 0) < 100) {
                 window.timeLapseCurrentLoadingBarTimeout = setTimeout(callmethod, 20 * 1000);
             } else {
@@ -483,8 +628,7 @@ $(document).ready(function () {
 
         nostart: function () {
             clearTimeout(window.timeLapseCountDownTimeout);
-            window.running_program = null;
-            //RadianApp.model.set('start_time', null);
+            RadianApp.app.cancelRunningTimeLapse();
         },
 
         prev: function () {
@@ -510,7 +654,7 @@ $(document).ready(function () {
     });
 
     Views.homeView = new Views.HomeView({
-        model: RadianApp.model
+        model: RadianApp.app
     });
 
     //BULB RAMPING CODE
@@ -522,12 +666,12 @@ $(document).ready(function () {
 
 
         toggleOn: function() {
-            this.model.set("isBulbRamping", !this.model.get("isBulbRamping"));
+            RadianApp.app.visibleTimeLapse.set("isBulbRamping", !RadianApp.app.visibleTimeLapse.get("isBulbRamping"));
         },
 
                 render: function () {
             Views.navigation.hide();
-            this.$el.empty().append(this.template(this.model.getTemplateJSON()));
+            this.$el.empty().append(this.template(RadianApp.app.visibleTimeLapse.getTemplateJSON()));
             var statsView = new Views.BulbRampStatsBoxView({
                 model: this.model
             });
@@ -540,25 +684,25 @@ $(document).ready(function () {
 
          initialize: function () {
             this.setElement($("#container"));
-            this.model.bind('change:delayHours', this.updateDelayHours, this);
-            this.model.bind('change:delayMinutes', this.updateDelayMinutes, this);
+            RadianApp.app.visibleTimeLapse.bind('change:delayHours', this.updateDelayHours, this);
+            RadianApp.app.visibleTimeLapse.bind('change:delayMinutes', this.updateDelayMinutes, this);
         },
 
 
         updateDelayHours: function () {
-            this.$('#delayHours').html(this.model.get('delayHours'));
+            this.$('#delayHours').html(RadianApp.app.visibleTimeLapse.get('delayHours'));
 
         },
 
         updateDelayMinutes: function () {
-            this.$('#delayMinutes').html(this.model.get('delayMinutes'));
+            this.$('#delayMinutes').html(RadianApp.app.visibleTimeLapse.get('delayMinutes'));
 
         },
 
 
         render: function () {
             Views.navigation.hide();
-            this.$el.empty().append(this.template(this.model.getTemplateJSON()));
+            this.$el.empty().append(this.template(RadianApp.app.visibleTimeLapse.getTemplateJSON()));
             var statsView = new Views.BulbRampStatsBoxView({
                 model: this.model
             });
@@ -574,10 +718,10 @@ $(document).ready(function () {
                 height: 35,
                 rows: 3,
                 onChange: function (valueText, instance) {
-                    RadianApp.model.set('delayHours', Number(instance.values[0]));
-                    RadianApp.model.set('delayMinutes', Number(instance.values[1]));
+                    RadianApp.app.visibleTimeLapse.set('delayHours', Number(instance.values[0]));
+                    RadianApp.app.visibleTimeLapse.set('delayMinutes', Number(instance.values[1]));
                 },
-            }).scroller('setValue', [String(this.model.get('delayHours')), String(this.model.get('delayMinutes'))], false, 0);
+            }).scroller('setValue', [String(RadianApp.app.visibleTimeLapse.get('delayHours')), String(RadianApp.app.visibleTimeLapse.get('delayMinutes'))], false, 0);
 
 
             return this;
@@ -589,25 +733,25 @@ $(document).ready(function () {
 
         initialize: function () {
             this.setElement($("#container"));
-            this.model.bind('change:durationHours', this.updateDurationHours, this);
-            this.model.bind('change:durationMinutes', this.updateDurationMinutes, this);
+            RadianApp.app.visibleTimeLapse.bind('change:durationHours', this.updateDurationHours, this);
+            RadianApp.app.visibleTimeLapse.bind('change:durationMinutes', this.updateDurationMinutes, this);
         },
 
 
         updateDurationHours: function () {
-            this.$('#durationHours').html(this.model.get('durationHours'));
+            this.$('#durationHours').html(RadianApp.app.visibleTimeLapse.get('durationHours'));
 
         },
 
         updateDurationMinutes: function () {
-            this.$('#durationMinutes').html(this.model.get('durationMinutes'));
+            this.$('#durationMinutes').html(RadianApp.app.visibleTimeLapse.get('durationMinutes'));
 
         },
 
 
         render: function () {
             Views.navigation.hide();
-            this.$el.empty().append(this.template(this.model.getTemplateJSON()));
+            this.$el.empty().append(this.template(RadianApp.app.visibleTimeLapse.getTemplateJSON()));
             var statsView = new Views.BulbRampStatsBoxView({
                 model: this.model
             });
@@ -627,16 +771,16 @@ $(document).ready(function () {
                     if (Number(instance.values[0]) === 0 && Number(instance.values[1]) == 0) {
                         $('#picker').scroller('setValue', ['0', '1'], true, 0.5);
 
-                        RadianApp.model.set('durationHours', 0);
+                        RadianApp.app.visibleTimeLapse.set('durationHours', 0);
 
-                        RadianApp.model.set('durationMinutes', 1);
+                        RadianApp.app.visibleTimeLapse.set('durationMinutes', 1);
                         return;
                     }
-                    RadianApp.model.set('durationHours', Number(instance.values[0]));
+                    RadianApp.app.visibleTimeLapse.set('durationHours', Number(instance.values[0]));
 
-                    RadianApp.model.set('durationMinutes', Number(instance.values[1]));
+                    RadianApp.app.visibleTimeLapse.set('durationMinutes', Number(instance.values[1]));
                 },
-            }).scroller('setValue', [String(this.model.get('durationHours')), String(this.model.get('durationMinutes'))], false, 0);
+            }).scroller('setValue', [String(RadianApp.app.visibleTimeLapse.get('durationHours')), String(RadianApp.app.visibleTimeLapse.get('durationMinutes'))], false, 0);
 
 
             return this;
@@ -648,18 +792,18 @@ $(document).ready(function () {
 
                 initialize: function () {
             this.setElement($("#container"));
-            this.model.bind('change:startShutter', this.updateStartShutter, this);
+            RadianApp.app.visibleTimeLapse.bind('change:startShutter', this.updateStartShutter, this);
         },
 
 
         updateStartShutter: function () {
-            this.$('#startShutter').html(this.model.get('startShutter'));
+            this.$('#startShutter').html(RadianApp.app.visibleTimeLapse.get('startShutter'));
 
         },
 
         render: function () {
             Views.navigation.hide();
-            this.$el.empty().append(this.template(this.model.getTemplateJSON()));
+            this.$el.empty().append(this.template(RadianApp.app.visibleTimeLapse.getTemplateJSON()));
             var statsView = new Views.BulbRampStatsBoxView({
                 model: this.model
             });
@@ -687,9 +831,9 @@ $(document).ready(function () {
                 height: 35,
                 rows: 3,
                 onChange: function (valueText, instance) {
-                    RadianApp.model.set('startShutter', exposures[instance.values[0]]);
+                    RadianApp.app.visibleTimeLapse.set('startShutter', exposures[instance.values[0]]);
                 },
-            }).scroller('setValue', [exposures.indexOf(this.model.get('startShutter'))], false, 0);
+            }).scroller('setValue', [exposures.indexOf(RadianApp.app.visibleTimeLapse.get('startShutter'))], false, 0);
 
 
             return this;
@@ -701,24 +845,24 @@ $(document).ready(function () {
 
         initialize: function () {
             this.setElement($("#container"));
-            this.model.bind('change:expChange', this.updateExpChange, this);
-            this.model.bind('change:expType', this.updateExpType, this);
+            RadianApp.app.visibleTimeLapse.bind('change:expChange', this.updateExpChange, this);
+            RadianApp.app.visibleTimeLapse.bind('change:expType', this.updateExpType, this);
         },
 
 
         updateExpChange: function () {
-            this.$('#expChange').html(this.model.get('expChange'));
+            this.$('#expChange').html(RadianApp.app.visibleTimeLapse.get('expChange'));
         },
 
 
         updateExpType: function () {
-            this.$('#expType').html(this.model.get('expType'));
+            this.$('#expType').html(RadianApp.app.visibleTimeLapse.get('expType'));
         },
 
 
         render: function () {
             Views.navigation.hide();
-            this.$el.empty().append(this.template(this.model.getTemplateJSON()));
+            this.$el.empty().append(this.template(RadianApp.app.visibleTimeLapse.getTemplateJSON()));
             var statsView = new Views.BulbRampStatsBoxView({
                 model: this.model
             });
@@ -741,26 +885,96 @@ $(document).ready(function () {
                 rows: 3,
                 onChange: function (valueText, instance) {
                     console.log(instance.values[1])
-                    RadianApp.model.set('expChange', exp[instance.values[0]]);
-                    RadianApp.model.set('expType', expType[instance.values[1]]);
+                    RadianApp.app.visibleTimeLapse.set('expChange', exp[instance.values[0]]);
+                    RadianApp.app.visibleTimeLapse.set('expType', expType[instance.values[1]]);
                 },
-            }).scroller('setValue', [exp.indexOf(this.model.get('expChange')), expType.indexOf(this.model.get('expType'))], false, 0);
+            }).scroller('setValue', [exp.indexOf(RadianApp.app.visibleTimeLapse.get('expChange')), expType.indexOf(RadianApp.app.visibleTimeLapse.get('expType'))], false, 0);
 
-            console.log(this.model.get('expType'));
-            console.log(expType.indexOf(this.model.get('expType')));
+            console.log(RadianApp.app.visibleTimeLapse.get('expType'));
+            console.log(expType.indexOf(RadianApp.app.visibleTimeLapse.get('expType')));
             return this;
         }
     });
 
+
+
     // ********************* END OF BULB RAMPING CODE ****************** //
 
 
+    Views.TimeLapseTimeDelay = Views.BaseView.extend({
+        template: _.template($('#timeLapseTimeDelay_template').html()),
+
+        initialize: function () {
+            this.setElement($("#container"));
+            RadianApp.app.visibleTimeLapse.bind('change:timeDelayHours', this.updateTimeDelayHours, this);
+            RadianApp.app.visibleTimeLapse.bind('change:timeDelayMinutes', this.updateTimeDelayMinutes, this);
+        },
+
+        updateTimeDelayHours: function () {
+            this.$('#timeDelayHours').html(RadianApp.app.visibleTimeLapse.get('timeDelayHours'));
+
+        },
+
+        updateTimeDelayMinutes: function () {
+            this.$('#timeDelayMinutes').html(RadianApp.app.visibleTimeLapse.get('timeDelayMinutes'));
+
+        },
+
+        render: function () {
+            Views.navigation.hide();
+            this.$el.empty().append(this.template(RadianApp.app.visibleTimeLapse.getTemplateJSON()));
+            var statsView = new Views.StatsBoxView({
+                model: this.model
+            });
+            this.$('#wrapper').append(statsView.render().el);
+
+            var total_time_slots = [generate_slot('hours', 0, 240, 1, 'hr'), generate_slot('minutes', 0, 59, 1, 'min')];
+
+            this.$('#picker').scroller({
+                theme: 'ios',
+                display: 'inline',
+                mode: 'scroller',
+                wheels: total_time_slots,
+                height: 35,
+                rows: 3,
+                onChange: function (valueText, instance) {
+                    RadianApp.app.visibleTimeLapse.set('timeDelayHours', Number(instance.values[0]));
+                    RadianApp.app.visibleTimeLapse.set('timeDelayMinutes', Number(instance.values[1]));
+                    if(Number(instance.values[0])==0 && Number(instance.values[1]) == 0) {
+                        RadianApp.app.visibleTimeLapse.set('isTimeDelay', false);
+                    } else {
+                        RadianApp.app.visibleTimeLapse.set('isTimeDelay', true);
+                    }
+                },
+            }).scroller('setValue', [String(RadianApp.app.visibleTimeLapse.get('timeDelayHours')), String(RadianApp.app.visibleTimeLapse.get('timeDelayMinutes'))], false, 0);
+
+            return this;
+        }
+    });
+/*
+    Views.TimeLapseQueueItemView = Backbone.Views.extend({
+
+        tagName:  "li",
+        template: _.template($('#item-template').html()),
+        events: {
+            "click a.destroy" : "clear"
+        },
+
+        render: function() {
+            this.$el.html(this.template(RadianApp.app.visibleTimeLapsetoJSON()));
+            this.$el.toggleClass('done', RadianApp.app.visibleTimeLapse.get('done'));
+            this.input = this.$('.edit');
+            return this;
+        },
+
+    });
+*/
     Views.TimeLapseQueueView = Views.ModalView.extend({
         template: _.template($('#timeLapseQueue_template').html()),
 
         render: function () {
             Views.navigation.hide();
-            this.$el.empty().append(this.template(this.model.getTemplateJSON()));
+            this.$el.empty().append(this.template(RadianApp.app.visibleTimeLapse.getTemplateJSON()));
             var handleClass = 'handle';
 
             $('.sortable').sortable({
@@ -780,6 +994,8 @@ $(document).ready(function () {
         }
     });
 
+
+
     Views.TimeLapseAdvancedView = Views.ModalView.extend({
         template: _.template($('#timeLapseAdvanced_template').html()),
     });
@@ -788,7 +1004,7 @@ $(document).ready(function () {
         template: _.template($('#timeLapseCompleted_template').html()),
 
         render: function () {
-            this.model = window.running_program;
+            this.model = RadianApp.app.runningTimeLapse;
             this.$el.empty().append(this.template());
             return this;
         },
@@ -799,12 +1015,12 @@ $(document).ready(function () {
         },
 
         newTimeLapse: function () {
-            window.running_program = null;
+            RadianApp.app.cancelRunningTimeLapse();
             window.location.hash = 'home';
         },
 
         restartCounter: function () {
-            window.running_program.set('start_time', new Date());
+            RadianApp.app.resetStartTime();
             window.location.hash = 'timelapse/current';
         },
     });
@@ -855,53 +1071,75 @@ $(document).ready(function () {
                     $(children[i]).removeClass('selected');
                 }
             };
+            if(RadianApp.app.runningTimeLapse) {
+                this.highlight();
+            } else {
+                this.removeHighlight();
+            }
+        },
+
+        highlight: function() {
+            $('#4').addClass('highlight');
+        },
+
+        removeHighlight: function() {
+            $('#4').removeClass('highlight');
         }
 
     });
     Views.navigation = new Views.Navigation();
 
     Views.timeLapseView = new Views.TimeLapseView({
-        model: RadianApp.model
+        model: RadianApp.app
     });
-    Views.timeLapsePresetsView = new Views.TimeLapsePresetsView({
-        model: RadianApp.model
-    });
+    Views.timeLapsePresetsView = new Views.TimeLapsePresetsView();
     Views.timeLapseDegreesView = new Views.TimeLapseDegreesView({
-        model: RadianApp.model
+        model: RadianApp.app
     });
     Views.timeLapseTotalTimeView = new Views.TimeLapseTotalTimeView({
-        model: RadianApp.model
+        model: RadianApp.app
     });
     Views.timeLapseIntervalView = new Views.TimeLapseIntervalView({
-        model: RadianApp.model
+        model: RadianApp.app
     });
     Views.timeLapseUploadView = new Views.TimeLapseUploadView();
     Views.timeLapseCountDownView = new Views.TimeLapseCountDownView();
     Views.timeLapseCompletedView = new Views.TimeLapseCompletedView();
     Views.timeLapseQueueView = new Views.TimeLapseQueueView({
-        model: RadianApp.model
+        model: RadianApp.app
     });
     Views.timeLapseAdvancedView = new Views.TimeLapseAdvancedView({
-        model: RadianApp.model
+        model: RadianApp.app
     });
 
     Views.bulbRampingView =  new Views.BulbRampingView({
-        model: RadianApp.model
+        model: RadianApp.app
     });
 
     Views.bulbRampingDelay = new Views.BulbrampingDelay({
-        model: RadianApp.model
+        model: RadianApp.app
     });
 
     Views.bulbRampingDuration = new Views.BulbrampingDuration({
-        model: RadianApp.model
+        model: RadianApp.app
     });
 
     Views.bulbRampingStartShutter = new Views.BulbrampingStartShutter({
-        model: RadianApp.model
+        model: RadianApp.app
     });
 
     Views.bulbRampingExposureChange = new Views.BulbrampingExposureChange({
-        model: RadianApp.model
+        model: RadianApp.app
     });
+
+    Views.timeLapseTimeDelayView = new Views.TimeLapseTimeDelay({
+        model: RadianApp.app
+    });
+
+            //Launch the router
+        RadianApp.router= new RadianApp.Router();
+        Backbone.history.start();
+
+        //Launch the home page
+        window.location.hash = 'home';
 });
