@@ -136,7 +136,7 @@ $(document).ready(function () {
             window.localStorage.setItem("queue", JSON.stringify(this.queue));
         },
 
-        removePresetToQueue: function(timeLapse) {
+        removePresetFromQueue: function(timeLapse) {
             this.queue.remove(timeLapse);
             timeLapse = null;
             window.localStorage.setItem("queue", JSON.stringify(this.queue));
@@ -172,6 +172,7 @@ $(document).ready(function () {
             if(!this.runningTimeLapse) console.log('ERROR: No running TimeLapse Running');
             this.runningTimeLapse = null;
             this.sentTime = null;
+            this.queue.reset();
         }
 
     });

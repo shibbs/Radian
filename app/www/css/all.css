@@ -12,6 +12,11 @@ a{
 	color:#000;
 }
 a:hover{text-decoration:none;}
+a {-webkit-touch-callout: none;}
+body {
+	-webkit-tap-highlight-color:rgba(0,0,0,0);
+	-webkit-user-select: none;
+}
 input,
 textarea,
 select{
@@ -154,7 +159,7 @@ h1{
 .btn-box a:hover{text-decoration:none;}
 .inner-page .btn-box a{margin-bottom:22px;}
 .btn-box .btn-blue{color: #fff;background:#008bca;}
-.highlight {color: #008bca;}
+.highlight {color: #008bca !important;}
 .highlight-bg {background-color: #008bca !important;}
 .btn-box .btn-white{color: #fff;}
 .btn-box .settings-btn{
@@ -571,7 +576,7 @@ h1{
 	float:right;
 	overflow:hidden;
 	text-indent:-9999px;
-	background:url(../images/btn-delete.png) no-repeat;
+	background:url(../images/PresetCheckMarkHighRes.png) no-repeat;
 	background-size:100% 100%;
 	-webkit-background-size:100% 100%;
 	-moz-background-size:100% 100%;
@@ -619,6 +624,7 @@ span.delete{
 	-webkit-background-size:33px 19px;
 	-moz-background-size:33px 19px;
 	-o-background-size:33px 19px;
+	text-transform: uppercase;
 }
 
 .list .add-link{

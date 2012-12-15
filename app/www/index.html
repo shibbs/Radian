@@ -207,38 +207,8 @@
 	overflow:auto;">
 				<div id="scroller" style=" 	width:100%;
 	padding:0;">
-				<ul class="list sortable" style="position:relative; width:100%; padding:0; margin:0" >
-					<li class="canSort">
-						<div class="handle"></div>
-						<a href="#" class="delete">delete</a>
-						<a href="#" class="list-link">DESERT</a>
-					</li>
-					<li class="canSort">
-						<div class="handle"></div>
-						<a href="#" class="delete">delete</a>
-						<a href="#" class="list-link">BEACH</a>
-					</li>
-					<li class="canSort">
-						<div class="handle"></div>
-						<a href="#" class="delete">delete</a>
-						<a href="#" class="list-link">CITY</a>
-					</li>
-					<li class="canSort">
-						<div class="handle"></div>
-						<a href="#" class="delete">delete</a>
-						<a href="#" class="list-link">SUNSET</a>
-					</li>
-					<li class="canSort">
-						<div class="handle"></div>
-						<a href="#" class="delete">delete</a>
-						<a href="#" class="list-link">SUNSET</a>
-					</li>
-					<li class="canSort">
-						<div class="handle"></div>
-						<a href="#" class="delete">delete</a>
-						<a href="#" class="list-link">SUNSET</a>
-					</li>
-						<li id="addPresets">
+				<ul id="list" class="list sortable" style="position:relative; width:100%; padding:0; margin:0" >
+					<li id="addPresets">
 						<a href="#" class="add-link">ADD PRESET TO QUEUE</a>
 					</li>
 
@@ -248,11 +218,29 @@
 			</div>
 		</script>
 
+		<!-- TimeLapseQueueItem Template -->
+		<script type="text/template" id="timeLapseQueueItem_template">
+	
+				<div class="handle"></div>
+				<a href="#" class="delete">delete</a>
+				<a href="#" class="list-link"><%= name %></a>
+
+		</script>
+
+		<!-- TimeLapseQueueAddItem Template -->
+		<script type="text/template" id="timeLapseQueueAddItem_template">
+			<li class="row">
+				<a href="#" class="check">check</a>
+				<a href="#" class="list-link-add"><%= name %></a>
+			</li>
+		</script>
+
+
 				<!-- TimeLapseQueue Template -->
 		<script type="text/template" id="timeLapseQueueAdd_template">
 			<div id="wrapper" class="inner-page">
 				<header id="header" style="z-index:100; position: relative; ">
-					<a href="#timelapse/queue" class="btn-back"></a>
+					<a id="save" href="#timelapse/queue" class="btn-back"></a>
 					<span class="no-btn no-back alignright">&nbsp;</span>
 					<h1>ADD PRESETS</h1>
 				</header>
@@ -264,15 +252,7 @@
 	overflow:auto;">
 				<div id="scroller" style=" 	width:100%;
 	padding:0;">
-				<ul class="list sortable" style="position:relative; width:100%; padding:0; margin:0" >
-					<li>
-						<a href="#" class="check">check</a>
-						<a href="#" class="list-link-add">DESERT</a>
-					</li>
-					<li>
-						<a href="#" class="check">check</a>
-						<a href="#" class="list-link-add">BEACH</a>
-					</li>
+				<ul id="list" class="list sortable" style="position:relative; width:100%; padding:0; margin:0" >
 				</ul>
 				</div>
 				</div>

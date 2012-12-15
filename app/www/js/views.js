@@ -248,7 +248,7 @@ $(document).ready(function () {
         },
 
         saveNewPreset: function() {
-            var name = $('#presetName').val();
+            var name = $('#presetName').val().toUpperCase();
             if (name.length === 0) return;
             
             var newTimeLapse = RadianApp.app.saveTimeLapseAsPreset(RadianApp.app.visibleTimeLapse, name);
@@ -356,26 +356,58 @@ $(document).ready(function () {
     });
 
 
-
-
-    /*
-    Views.TimeLapseQueueItemView = Backbone.Views.extend({
-
-        tagName:  "li",
-        template: _.template($('#item-template').html()),
+    Views.TimeLapseQueueItemView = Backbone.View.extend({
+        tagName: 'li',
+        className:'canSort',
+        template: _.template($('#timeLapseQueueItem_template').html()),
+        
         events: {
-            "click a.destroy" : "clear"
+            "click .delete": "deleteEvent", 
+            "click .canSort": "updateIndex", 
+        },
+
+        updateIndex: function(me) {
+            return function () {
+
+            }
+        },
+
+        deleteEvent: function(e) {
+            var that = this;
+            navigator.notification.confirm(
+            'Would you like to delete this from the queue?',  // message
+            function(i) {
+                if(i===1) return;
+                RadianApp.app.removePresetFromQueue(that.model);
+                that.remove();
+                that.unbind();
+                var scroller = that.scroller;
+                setTimeout(function() { scroller.refresh()}, 0); 
+            },// callback to invoke with index of button pressed
+            'Delete',            // title
+            'No,Yes'          // buttonLabels
+            );
+            e.preventDefault();
+            e.stopImmediatePropagation();
+        },
+
+        initialize: function(model) {
+            this.model = model;
+            var me = this;
+            vent.on('queues:updateIndex', me.updateIndex(me));
         },
 
         render: function() {
-            this.$el.html(this.template(RadianApp.app.visibleTimeLapsetoJSON()));
-            this.$el.toggleClass('done', RadianApp.app.visibleTimeLapse.get('done'));
-            this.input = this.$('.edit');
+            var elem = this.template({name: this.model.get('name')});
+            this.$el.empty().append(elem);
             return this;
         },
 
     });
-*/
+
+
+
+
     Views.TimeLapseQueueView = Views.ModalView.extend({
         template: _.template($('#timeLapseQueue_template').html()),
 
@@ -383,20 +415,23 @@ $(document).ready(function () {
             'click #addPresets': 'navigateToAddView'
         },
 
-        addPresets: function(presets) {
-            for (var i = 0; i < presets.length; i++) {
-                presets[i]
-            };
-        },
+
 
         navigateToAddView: function(e) {
             e.preventDefault();
             window.location.hash = '#timelapse/queue/add';
-            var addView = new Views.TimeLapseQueueAddView({
-                callback: this.addPresets
-            });
+            var addView = new Views.TimeLapseQueueAddView();
             addView.render();
         },
+
+        insertNewQueue: function (model) {
+            var me = this;
+            var temp = new Views.TimeLapseQueueItemView(model);
+            this.$('#list').prepend(temp.render().$el);
+            var scroller = this.scroller;
+            setTimeout(function() { scroller.refresh()}, 0);
+        },
+
 
         render: function () {
             Views.navigation.hide();
@@ -407,17 +442,73 @@ $(document).ready(function () {
                 handle: '.'+handleClass,
                 axis: "y",
                 delay: 250,
-                items: '.canSort'
+                items: '.canSort',
+                stop: function( event, ui ) { 
+                    var list = $('#list > li[order]');
+                    var models = RadianApp.app.queue.models;
+                    for (var i = 0; i < models.length; i++) {
+                        var model = models[i];
+                        model.set('order', Number(list.index($('#list > li[order='+(model.get('order'))+']')))+1);
+                    };
+                    RadianApp.app.queue.sort();
+                },
             });
 
-            var myScroll = new iScroll('scrollwrapper', {
+            var scroller = new iScroll('scrollwrapper', {
                 userDisabled: function(e) {
                    return e.srcElement.className===handleClass;
                 }
             });
+            this.scroller = scroller;
             $('#scrollwrapper').css('overflow', 'visible');
+
+            var models = RadianApp.app.queue.models;
+
+            for (var i = models.length -1; i >= 0; i--) {
+                this.insertNewQueue(models[i]);
+            };
+            
+            setTimeout(function() { scroller.refresh()}, 0); 
+
             return this;
         }
+    });
+
+
+     Views.TimeLapseQueueAddItemView = Backbone.View.extend({
+        tag: 'li',
+        template: _.template($('#timeLapseQueueAddItem_template').html()),
+        
+        events: {
+            "click .row": "selectModel", 
+        },
+
+
+        selectModel: function() {
+            this.selected = !this.selected;
+            if(this.selected) {
+                this.$('.check').css('visibility', 'visible');
+                this.$('.list-link-add').addClass('highlight');
+                this.collection.add(this.model);
+            } else {
+                this.$('.check').css('visibility', 'hidden');
+                this.$('.list-link-add').removeClass('highlight');
+                this.collection.remove(this.model);
+            }
+        },
+
+        initialize: function(model, collection) {
+            this.model = model;
+            this.collection = collection;
+        },
+
+        render: function() {
+            var elem = this.template({name: this.model.get('name')});
+            var me = this;
+            this.$el.empty().append(elem);
+            return this;
+        },
+
     });
 
 
@@ -425,12 +516,31 @@ $(document).ready(function () {
         template: _.template($('#timeLapseQueueAdd_template').html()),
 
         events: {
-            '#save': 'save'
+            'click #save': 'save'
         },
 
         save: function() {
-            //get saved presets by looping over views and asking for models
-            this.callback();
+            this.collection.forEach(function(timelapse) {
+                RadianApp.app.addPresetToQueue(timelapse);
+            });
+            this.collection.reset();
+        },
+
+        collection: new (Backbone.Collection.extend({
+            model: RadianApp.Models.TimeLapse,
+
+            comparator: function(timeLapse) {
+             return -timeLapse.get('order');
+            }
+
+        }))(),
+
+        insertNewPreset: function (model) {
+            var me = this;
+            var temp = new Views.TimeLapseQueueAddItemView(model, this.collection);
+            this.$('#list').append(temp.render().$el);
+            var scroller = this.scroller;
+            setTimeout(function() { scroller.refresh()}, 0);
         },
 
         render: function () {
@@ -442,12 +552,9 @@ $(document).ready(function () {
             var models = RadianApp.app.presets.models;
 
             for (var i = models.length -1; i >= 0; i--) {
-              //  this.insertNewPreset(models[i]);
+                this.insertNewPreset(models[i]);
             };
             
-            setTimeout(function() { scroller.refresh()}, 0); 
-            return this;
-
             setTimeout(function() { scroller.refresh()}, 0); 
             return this;
         }

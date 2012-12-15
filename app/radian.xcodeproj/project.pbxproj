@@ -45,6 +45,10 @@
 		5C8CA4EF1679955300366C7F /* ScreenOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C8CA4EE1679955300366C7F /* ScreenOrientation.m */; };
 		5C8CA4F11679A52E00366C7F /* screenOrientation.js in Sources */ = {isa = PBXBuildFile; fileRef = 5C8CA4F01679A52E00366C7F /* screenOrientation.js */; };
 		5C8CA4F31679E5BC00366C7F /* RadianIcon_114%402x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C8CA4F21679E5BC00366C7F /* RadianIcon_114%402x.png */; };
+		5C9BDC34167D30FC0084CA9B /* image.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C9BDC33167D30FC0084CA9B /* image.png */; };
+		5C9BDC36167D31340084CA9B /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C9BDC35167D31340084CA9B /* icon.png */; };
+		5C9BDC38167D31510084CA9B /* RadianIcon_114%402x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C9BDC37167D31510084CA9B /* RadianIcon_114%402x.png */; };
+		5C9BDC3A167D316B0084CA9B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C9BDC39167D316B0084CA9B /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,6 +106,10 @@
 		5C8CA4EE1679955300366C7F /* ScreenOrientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenOrientation.m; sourceTree = "<group>"; };
 		5C8CA4F01679A52E00366C7F /* screenOrientation.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = screenOrientation.js; path = www/js/lib/screenOrientation.js; sourceTree = "<group>"; };
 		5C8CA4F21679E5BC00366C7F /* RadianIcon_114%402x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RadianIcon_114%402x.png"; sourceTree = "<group>"; };
+		5C9BDC33167D30FC0084CA9B /* image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image.png; sourceTree = "<group>"; };
+		5C9BDC35167D31340084CA9B /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		5C9BDC37167D31510084CA9B /* RadianIcon_114%402x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RadianIcon_114%402x.png"; sourceTree = "<group>"; };
+		5C9BDC39167D316B0084CA9B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* radian-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "radian-Info.plist"; path = "../radian-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -171,6 +179,10 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				5C9BDC39167D316B0084CA9B /* Default-568h@2x.png */,
+				5C9BDC37167D31510084CA9B /* RadianIcon_114%402x.png */,
+				5C9BDC35167D31340084CA9B /* icon.png */,
+				5C9BDC33167D30FC0084CA9B /* image.png */,
 				5C8CA4F21679E5BC00366C7F /* RadianIcon_114%402x.png */,
 				5C8CA4F01679A52E00366C7F /* screenOrientation.js */,
 				5C3DFDC6164F05B900496E3B /* CordovaLib.xcodeproj */,
@@ -382,6 +394,10 @@
 				3088BBC1154F3926009F9C59 /* Default@2x~iphone.png in Resources */,
 				3088BBC2154F3926009F9C59 /* Default~iphone.png in Resources */,
 				5C8CA4F31679E5BC00366C7F /* RadianIcon_114%402x.png in Resources */,
+				5C9BDC34167D30FC0084CA9B /* image.png in Resources */,
+				5C9BDC36167D31340084CA9B /* icon.png in Resources */,
+				5C9BDC38167D31510084CA9B /* RadianIcon_114%402x.png in Resources */,
+				5C9BDC3A167D316B0084CA9B /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
