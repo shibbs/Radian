@@ -1,7 +1,11 @@
 //Check if android, if not then do device ready
 document.addEventListener('deviceready', function() {
-                       window.location.hash = 'home';
-                          
+                        try {
+                            RadianApp.isIOS = device.platform === "iPhone";
+                        } catch(exception) {
+
+                        }
+                        window.location.hash = 'home';
                           }, false);
 
 window.MobileAppRouter = Backbone.Router.extend({

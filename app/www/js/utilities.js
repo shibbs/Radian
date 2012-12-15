@@ -6,12 +6,15 @@ RadianApp.Utilities.round = function roundNumber(num, dec) {
 };
 
 RadianApp.Utilities.formatDate = function(d) {
-    date = d.getDate();
+    var date = d.getDate();
     date = date < 10 ? "0"+date : date;
-    mon = d.getMonth()+1;
+    var mon = d.getMonth()+1;
     mon = mon < 10 ? "0"+mon : mon;
-    year = d.getFullYear()
-    return (mon+"/"+date+"/"+year);
+    var year = d.getFullYear();
+    var hour = d.getHours()%12;
+    var minutes = d.getMinutes();
+    var ampm = d.getHours()/12 > 1 ? "PM" : "AM";
+    return (mon+"/"+date+"/"+year+" "+hour+":"+minutes+" "+ampm);
 }
 
 // Base 64 encoding function, for browsers that do not support btoa()

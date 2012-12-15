@@ -17,7 +17,9 @@ $(document).ready(function () {
     		"timelapse/current": 'timeLapseCurrent',
             "timelapse/completed": 'timeLapseCompleted',
     		"timelapse/queue": 'timeLapseQueue',
+            //"timelapse/queue/add": 'timeLapseQueueAdd',
     		"timelapse/advanced": 'timeLapseAdvanced',
+            "timelapse/speedramping": 'speedRamping',
             "timelapse/bulbramping": 'bulbramping',
             "timelapse/bulbramping/delay": 'bulbrampingDelay',
             "timelapse/bulbramping/duration": 'bulbrampingDuration',
@@ -70,12 +72,20 @@ $(document).ready(function () {
             RadianApp.Views.timeLapseQueueView.render();
         },
 
+        timeLapseQueueAdd: function() {
+            RadianApp.Views.timeLapseQueueAddView.render();
+        },
+
     	timeLapseAdvanced: function() {
             RadianApp.Views.timeLapseAdvancedView.render();
         },
 
         timeLapseCompleted: function() {
             RadianApp.Views.timeLapseCompletedView.render();
+        },
+
+        speedRamping: function() {
+            RadianApp.Views.speedRampingView.render();
         },
 
         bulbramping: function() {

@@ -12,6 +12,7 @@ $(document).ready(function () {
 
         defaults: {
             name: "CURRENT",
+            current: true,
             dateCreated: RadianApp.Utilities.formatDate(new Date()),
             timeLapse: C.TimeLapseType.NONE,
             degrees: 120,
@@ -31,6 +32,12 @@ $(document).ready(function () {
             delayMinutes: 0,
             expChange: "2",
             expType: "f/10min", //TODO: Make constant
+
+            //SPEED RAMPING
+            isSpeedRamping: false,
+            speedRampingPoints: [],
+            speedRampingCurved: false,
+            
 
             //Advanced
             isTimeDelay: false,
@@ -84,7 +91,7 @@ $(document).ready(function () {
     M.Presets = Backbone.Collection.extend({
         model: M.TimeLapse,
         nextOrder: function() {
-            if (!this.length) return 1;
+            if (!this.length) return 0;
             return this.last().get('order') + 1;
         },
 
@@ -106,9 +113,14 @@ $(document).ready(function () {
             };
         },
 
-        saveTimeLapseAsPreset: function(timeLapse) {
-            this.presets.add(timeLapse.clone());
+        saveTimeLapseAsPreset: function(timeLapse, name) {
+            var newTimeLapse = timeLapse.clone();
+            newTimeLapse.set('order', this.presets.nextOrder());
+            newTimeLapse.set('name', name);
+            newTimeLapse.set('current', false);
+            this.presets.add(newTimeLapse);
             window.localStorage.setItem("presets", JSON.stringify(this.presets));
+            return newTimeLapse;
         },
 
         removeTimeLapseFromPresets: function(timeLapse) {
@@ -118,7 +130,9 @@ $(document).ready(function () {
         },
 
         addPresetToQueue: function(timeLapse) {
-            this.queue.add(timeLapse.clone());
+            var newTimeLapse = timeLapse.clone();
+            newTimeLapse.set('order', this.queue.nextOrder());
+            this.queue.add(newTimeLapse);
             window.localStorage.setItem("queue", JSON.stringify(this.queue));
         },
 

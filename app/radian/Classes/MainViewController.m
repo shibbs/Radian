@@ -29,6 +29,8 @@
 
 @implementation MainViewController
 
+@synthesize allowedOrientations;
+
 - (id)initWithNibName:(NSString*)nibNameOrNil bundle:(NSBundle*)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -66,6 +68,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.allowedOrientations =  [NSMutableArray array];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -79,7 +82,18 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
-    return [super shouldAutorotateToInterfaceOrientation:interfaceOrientation];
+    //return [super shouldAutorotateToInterfaceOrientation:interfaceOrientation];
+    return [allowedOrientations containsObject:[NSNumber numberWithInt:interfaceOrientation]];
+}
+
+-(BOOL)shouldAutorotate
+{
+    return YES;
+}
+
+-(NSUInteger)supportedInterfaceOrientations
+{
+    return 0;
 }
 
 /* Comment out the block below to over-ride */
@@ -154,5 +168,7 @@
     return [super webView:theWebView shouldStartLoadWithRequest:request navigationType:navigationType];
 }
 */
+
+
 
 @end

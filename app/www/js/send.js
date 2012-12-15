@@ -23,15 +23,27 @@ RadianApp.DataTransmission.send = function(model) {
         "delayMinutes": model.get("delayMinutes"),
         "expChange": model.get("expChange"),
         "expType": model.get("expType"), 
+
+        //Time Delay
+        "timeDelayHours": model.get("timeDelayHours"),
+        "timeDelayMinutes": model.get("timeDelayMinutes"),
+
+        //Speed ramping stuff
+        "isSpeedRamping": model.get("isSpeedRamping"),
+        "speedRampingPoints": model.get("speedRampingPoints"),
+        "speedRampingCurved": model.get("speedRampingCurved")
 	}
 
 	// Convert to Protocol Data
 	var standardTimeLapseData = new DT.StandardTimeLapseData({model: appModel});
 	var bulbRampingData  = new DT.BulbRampingData({model: appModel});
+	var speedRampingData  = new DT.SpeedRampingData({model: appModel});
 
     
 	// Get Data Packet
-	var dataArray = DT.combineData(standardTimeLapseData.toDataArray(), bulbRampingData.toDataArray());
+	var dataArray = DT.combineData(standardTimeLapseData.toDataArray(), 
+									bulbRampingData.toDataArray(),
+									speedRampingData.toDataArray());
 	var dataPacket = new DT.DataPacket({data: dataArray });
 
 	// Get Transmission Packet'

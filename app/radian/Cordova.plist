@@ -66,6 +66,8 @@
 		<string>CDVBattery</string>
 		<key>Globalization</key>
 		<string>CDVGlobalization</string>
+		<key>ScreenOrientation</key>
+		<string>ScreenOrientation</string>
 	</dict>
 </dict>
 </plist>

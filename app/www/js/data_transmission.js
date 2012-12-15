@@ -66,6 +66,8 @@ $(function(){
                     "lengthMinutes",
                     "shouldContinue",
                     "shouldPan",
+                    "timeDelayHours",
+                    "timeDelayMinutes"
                    ],
 
         initialize: function() {
@@ -78,6 +80,8 @@ $(function(){
             this.lengthMinutes = model.lengthMinutes;
             this.shouldContinue = (model.shouldContinue) ? 1 : 0;
             this.shouldPan = (model.timeLapse === 1) ? 1 : 0;
+            this.timeDelayHours = model.timeDelayHours;
+            this.timeDelayMinutes = model.timeDelayMinutes;
         },
 
     });
@@ -113,6 +117,72 @@ $(function(){
             this.totalTimeInMinutes = model.durationHours * 60 + model.durationMinutes;
             this.frontDelayTime = (model.delayHours * 60 + model.delayMinutes)/5;
         }
+    });
+
+    /* SpeedRampingData
+     * -------------
+       * -------------
+     * A model representing the speed ramping data to be sent.
+     * It takes in a TimeLapse model and applies the necessary transforms.
+     *
+     * Points = array of points (all custum points and end point)
+     * Byte 0: Size of Packet (2 bytes per point + 2 preamble btyes)
+     *         | (2*points.length) + 2
+     * Byte 1: shouldUseMonotonicCubicSpline
+     *         | 0 = linear, 1 = monotonic cubic spline interpolation
+     * Byte 2: Degrees (y-axis of the graph) in 5 minute increments signed
+     *         | MaxVal/2 + (value /5) 
+     * Byte 3: Time Value (x-axis of graph) in 5 minute increments
+     *          This is cumulative so it's the difference between points
+     *         | 0-MAXVALUE
+     * Example
+     * var speedRampingData = new SpeedRampingData({model: appData});
+     * speedRampingData.toDataArray();
+     */
+    DT.SpeedRampingData = DT.ProtocolData.extend({
+
+        toDataArray: function() {
+            var model = this.get('model');
+            var PREAMBLE_LENGTH = 2;
+            var CONST_PACKET_SIZE = 6 * 2 + PREAMBLE_LENGTH;
+
+            var data = new Uint8Array(CONST_PACKET_SIZE);
+
+            //Return an empty packet if not speed ramping
+            if(!model.isSpeedRamping) return data;
+
+            var points = model.speedRampingPoints;
+
+            //Add end point per protocol spec
+            var totalTime = model.totalTimeHours * 60 + model.totalTimeMinutes;
+            points.push([totalTime, model.degrees]);
+
+            var packetLength = points.length * 2 + PREAMBLE_LENGTH;
+
+            
+            data[0] = packetLength; // Byte 0
+            data[1] = model.speedRampingCurved;
+
+            var prevTimeValue = 0;
+            var prevDegree = 0;
+            var dataIndex = PREAMBLE_LENGTH;
+            for (var i = 0; i < points.length; i++) { 
+                //Setup the angle byte (even byte)
+                var degree = points[i][1]/5;
+                data[dataIndex++] = (degree - prevDegree);
+                prevDegree = degree;
+
+                //Setup the time byte (odd byte)
+                var timeValue = points[i][0]/5;
+                data[dataIndex++] = timeValue - prevTimeValue;
+                prevTimeValue = timeValue;
+            };
+            for (var i = 0; i < data.length; i++) {
+                console.log(data[i]);
+            };
+            return data;
+        }
+
     });
 
     /* Combine Data

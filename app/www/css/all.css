@@ -38,41 +38,25 @@ nav,
 figure{display:block;}
 @font-face {
 	font-family: 'Conv_Gotham-Black';
-	src: url('../fonts/Gotham-Black.eot');
-	src: local('☺'),
-	url('../fonts/Gotham-Black.woff') format('woff'),
-	url('../fonts/Gotham-Black.ttf') format('truetype'),
-	url('../fonts/Gotham-Black.svg') format('svg');
+	src: url('../fonts/Gotham-Black.ttf');
 	font-weight: normal;
 	font-style: normal;
 }
 @font-face {
 	font-family: 'Conv_Gotham-Bold';
-	src: url('../fonts/Gotham-Bold.eot');
-	src: local('☺'),
-	url('../fonts/Gotham-Bold.woff') format('woff'),
-	url('../fonts/Gotham-Bold.ttf') format('truetype'),
-	url('../fonts/Gotham-Bold.svg') format('svg');
+	src: url('../fonts/Gotham-Bold.ttf');
 	font-weight: normal;
 	font-style: normal;
 }
 @font-face {
 	font-family: 'Conv_Gotham-Book';
-	src: url('../fonts/Gotham-Book.eot');
-	src: local('☺'),
-	url('../fonts/Gotham-Book.woff') format('woff'),
-	url('../fonts/Gotham-Book.ttf') format('truetype'),
-	url('../fonts/Gotham-Book.svg') format('svg');
+	src: url('../fonts/Gotham-Book.ttf');
 	font-weight: normal;
 	font-style: normal;
 }
 @font-face {
 	font-family: 'Conv_Gotham-Medium';
-	src: url('../fonts/Gotham-Medium.eot');
-	src: local('☺'),
-	url('../fonts/Gotham-Medium.woff') format('woff'),
-	url('../fonts/Gotham-Medium.ttf') format('truetype'),
-	url('../fonts/Gotham-Medium.svg') format('svg');
+	src: url('../fonts/Gotham-Medium.ttf');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -137,7 +121,7 @@ h1{
 }
 .inner-page .btn-box{padding:30px 0 0}
 .pan-page .btn-box{margin:0 0 43px;}
-.btn-box a{
+.btn-box a, .btn-box .btn {
 	color:#191919;
 	text-transform:uppercase;
 	font:bold 20px/24px "Conv_Gotham-Black", Helvetica, Arial, sans-serif;
@@ -171,6 +155,7 @@ h1{
 .inner-page .btn-box a{margin-bottom:22px;}
 .btn-box .btn-blue{color: #fff;background:#008bca;}
 .highlight {color: #008bca;}
+.highlight-bg {background-color: #008bca !important;}
 .btn-box .btn-white{color: #fff;}
 .btn-box .settings-btn{
 	display:inline-block;
@@ -582,6 +567,21 @@ h1{
 	margin:0 0 0 15px;
 }
 
+.list .check{
+	float:right;
+	overflow:hidden;
+	text-indent:-9999px;
+	background:url(../images/btn-delete.png) no-repeat;
+	background-size:100% 100%;
+	-webkit-background-size:100% 100%;
+	-moz-background-size:100% 100%;
+	-o-background-size:100% 100%;
+	width:20px;
+	height:21px;
+	margin:0 0 0 15px;
+	visibility: hidden;
+}
+
 span.delete{
 	position: absolute;
 	overflow:hidden;
@@ -610,6 +610,17 @@ span.delete{
 	-moz-background-size:33px 19px;
 	-o-background-size:33px 19px;
 }
+.list .list-link-add {
+	display:block;
+	overflow:hidden;
+	padding:0 0 0 35px;
+	text-align:center;
+	color:#c8c8c8;
+	-webkit-background-size:33px 19px;
+	-moz-background-size:33px 19px;
+	-o-background-size:33px 19px;
+}
+
 .list .add-link{
 	display:block;
 	background:url(../images/btn-add.png) no-repeat 100% 50%;
@@ -623,15 +634,15 @@ span.delete{
 	font-size:15px/21px "Conv_Gotham-Medium", Helvetica, Arial, sans-serif;
 }
 #header .btn-back{
-	width:47px;
-	height:30px;
-	background:url(../images/btn-back.png) no-repeat;
+	width:22px;
+	height:22px;
+	background:url(../images/BackArrow.png) no-repeat;
 	background-size:100% 100%;
 	-webkit-background-size:100% 100%;
 	-moz-background-size:100% 100%;
 	-o-background-size:100% 100%;
 	text-transform:uppercase;
-	padding:8px 0 8px 3px;
+	margin:6px 12px 8px 3px;
 }
 #header .no-back{width:50px;}
 .presets-list{
@@ -910,8 +921,95 @@ span.delete{
 	background:#008bca;
 }
 
+/* Modal Styling */
+#simplemodal-overlay {background-color: #000; margin: 0; padding: 0;}
+#simplemodal-container {background-color:rgb(200,200,200); padding: 33px 17px 33px 17px; border-radius: 5px;}
+#simplemodal-container input {
+	margin: 0 auto;
+	display: block;
+	width: 205px;
+height: 30px;
+border-radius: 5px;
+color: black;
+line-height: 20px;
+text-transform: uppercase;
+font: 20px/24px Helvetica, Arial, sans-serif;
+}
+.minibox {
+	padding-top: 15px;
+	height: 30px;
+	margin: 0 auto;
+	width: 235px;
+}
+.minibox > div {
+	float: left;
+	margin-right: 5%;
+	width: 47.5%;
+	height: 30px;
 
+	color:#fff;
+	text-transform:uppercase;
+	font:bold 20px/24px "Conv_Gotham-Black", Helvetica, Arial, sans-serif;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	background:#6e6e6e;
+	text-align: center;
+	line-height: 30px;
+}
 
+.minibox > div:last-of-type {
+	margin-right: 0%;
+	color: #fff;
+	background-color: #008bca;
+}
+
+/* Speedramping */
+      /* cubic splines */
+      .cubic_spline { position: relative; left: 80px; font-size: 0.95em; -webkit-user-select: none; }
+      .cubic_spline canvas { border-left: 1px solid #008bca; border-bottom: 1px solid #008bca;}
+      .cubic_spline_xlabel, .cubic_spline_ylabel { position: absolute; }
+      .cubic_spline_ylabel { color:#c8c8c8; width: 50px; left: -65px; text-align: right; }
+      .cubic_spline_xlabel { color:#c8c8c8; width: 150px; text-align: center; }
+      .cubic_spline_xaxis_label { color:#c8c8c8; position: relative; top: 2em; text-align: center; }
+      .cubic_spline_yaxis_label {
+        color:#c8c8c8;
+        position: absolute; left: -160px; width: 200px; text-align: center;
+        -moz-transform:    rotate(-90deg);
+        -webkit-transform: rotate(-90deg);
+        -o-transform:      rotate(-90deg);
+        -ms-transform:     rotate(-90deg);
+        transform:         rotate(-90deg);
+        filter:     progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+        -ms-filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+        zoom: 1;
+      }
+      .cubic_spline_handle {position: absolute; cursor: move; font-size: 1px; background: #c8c8c8; -webkit-user-select: none; border: 5px transparent; }
+      .cubic_spline_message, .cubic_spline_popup { border: 1px solid #fff; background: #fbc60f; font-size: 0.9em; line-height: 1.2; padding: 3px 9px; }
+
+      .button {
+        float: left;
+        font-size: 30px;
+        margin-left: 30px;
+        color: #666;
+        font-weight: bold;
+        cursor: pointer;
+        margin-bottom: 40px;
+      }
+      .clear {
+        clear: both;
+      }
+      #page {
+      	padding-bottom: 15px;
+      }
+      #chart_monotonic {
+      	position:relative;
+      	left: 35px;
+      	top: 0px;
+      }
+
+.step-nav .dimmed {
+	:#fff url(../images/btn-next.png) no-repeat !important;
+}
 /*
 
 Holo
@@ -1161,7 +1259,7 @@ select.holo-spinner option { height: 32px; border-top: 1px #444 solid; }
 	.holo-fixed-tabs { width: auto; }
 }
 
-@media screen and (min-height: 45em) and (min-width: 45em) { /*720px*/
+@media screen and (min-height: 45em) and (min-width: 45em) { /*720px*/s
 /*	.holo-content { margin-top: 48px; }*/
 	body { padding-top: 48px; }
 }

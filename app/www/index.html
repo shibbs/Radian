@@ -37,7 +37,7 @@
 		<!-- Home Template -->
 		<script type="text/template" id="home_template">
 			<div id="wrapper">
-				<h1>CHOOSE A <br /> TIME-LAPSE</h1>
+				<h1 style="font: bold 18px/27px "Conv_Gotham-Bold", Helvetica, Arial, sans-serif">CHOOSE A <br />TIME-LAPSE</h1>
 				<div class="btn-box">
 					<% timeLapse %>
 				   <% if (timeLapse === 0) { %>
@@ -144,7 +144,9 @@
 		<script type="text/template" id="timeLapsePresetItem_template">
 							<li>
 						<a href="#" class="opener">
-							<strong class="title"><%= name %></strong>
+							<strong class="title"><% if (current) { %>
+								CURRENT
+								 <% } else { %><%= name %><% } %></strong>
 							<em class="date"><%= dateCreated %></em>
 							<span class="delete"></span>
 						</a>
@@ -175,7 +177,7 @@
 								</div>
 								<div class="small-btn-row">
 									<a <% if (isTimeDelay) { %> class="light-btn" <% } %> href="#">DELAY</a>
-									<a href="#" <% if (false) { %> class="light-btn" <% } %> >SRAMP</a>
+									<a href="#" <% if (isSpeedRamping) { %> class="light-btn" <% } %> >SRAMP</a>
 									<a href="#" <% if (isBulbRamping) { %> class="light-btn" <% } %> >BRAMP</a>
 									<a href="#" <% if (false) { %> class="light-btn" <% } %> >HOLD</a>
 								</div>
@@ -200,7 +202,7 @@
 				<div style="position:absolute; z-index: 80; top: 0; left:0; right:0; height: 49px; width:100%; background-color:#191919">
 				</div>
 				<div id="scrollwrapper" style="	position:absolute; z-index:1;
-	top:55px; bottom:0px; left:0;
+	top:65px; bottom:0px; left:0;
 	width:100%;
 	overflow:auto;">
 				<div id="scroller" style=" 	width:100%;
@@ -236,10 +238,41 @@
 						<a href="#" class="delete">delete</a>
 						<a href="#" class="list-link">SUNSET</a>
 					</li>
-						<li>
+						<li id="addPresets">
 						<a href="#" class="add-link">ADD PRESET TO QUEUE</a>
 					</li>
 
+				</ul>
+				</div>
+				</div>
+			</div>
+		</script>
+
+				<!-- TimeLapseQueue Template -->
+		<script type="text/template" id="timeLapseQueueAdd_template">
+			<div id="wrapper" class="inner-page">
+				<header id="header" style="z-index:100; position: relative; ">
+					<a href="#timelapse/queue" class="btn-back"></a>
+					<span class="no-btn no-back alignright">&nbsp;</span>
+					<h1>ADD PRESETS</h1>
+				</header>
+				<div style="position:absolute; z-index: 80; top: 0; left:0; right:0; height: 49px; width:100%; background-color:#191919">
+				</div>
+				<div id="scrollwrapper" style="	position:absolute; z-index:1;
+	top:65px; bottom:0px; left:0;
+	width:100%;
+	overflow:auto;">
+				<div id="scroller" style=" 	width:100%;
+	padding:0;">
+				<ul class="list sortable" style="position:relative; width:100%; padding:0; margin:0" >
+					<li>
+						<a href="#" class="check">check</a>
+						<a href="#" class="list-link-add">DESERT</a>
+					</li>
+					<li>
+						<a href="#" class="check">check</a>
+						<a href="#" class="list-link-add">BEACH</a>
+					</li>
 				</ul>
 				</div>
 				</div>
@@ -250,7 +283,7 @@
 		<script type="text/template" id="timeLapseDegrees_template">
 		    <div id="wrapper" class="inner-page">
 				<header id="header">
-					<a href="#timelapse" class="btn-back">back</a>
+					<a href="#timelapse" class="btn-back"></a>
 					<span class="no-btn no-back alignright">&nbsp;</span>
 					<h1>DEGREES</h1>
 				</header>
@@ -272,7 +305,7 @@
 		<script type="text/template" id="timeLapseTotalTime_template">
 		    <div id="wrapper" class="inner-page">
 				<header id="header">
-					<a href="#timelapse" class="btn-back">back</a>
+					<a href="#timelapse" class="btn-back"></a>
 					<span class="no-btn no-back alignright">&nbsp;</span>
 					<h1>DURATION</h1>
 				</header>
@@ -306,7 +339,7 @@
 		<script type="text/template" id="timeLapseInterval_template">
 			<div id="wrapper" class="inner-page">
 				<header id="header">
-					<a href="#timelapse" class="btn-back">back</a>
+					<a href="#timelapse" class="btn-back"></a>
 					<span class="no-btn no-back alignright">&nbsp;</span>
 					<h1>INTERVAL</h1>
 				</header>
@@ -420,15 +453,15 @@
 		<script type="text/template" id="timeLapseAdvanced_template">
 		    <div id="wrapper" class="inner-page">
 				<header id="header">
-					<a href="#timelapse" class="btn-back">back</a>
+					<a href="#timelapse" class="btn-back"></a>
 					<span class="no-btn no-back alignright">&nbsp;</span>
 					<h1>ADVANCED</h1>
 				</header>
 				<div class="btn-box">
 					<a href="#timelapse/timedelay" class="btn  <% if (isTimeDelay) { %>btn-blue <% } %>">TIME DELAY</a>
-					<a href="#" class="btn">SPEED RAMPING</a>
+					<a href="#timelapse/speedramping" class="btn <% if (isSpeedRamping) { %>btn-blue <% } %>">SPEED RAMPING</a>
 					<a href="#timelapse/bulbramping" class="btn  <% if (isBulbRamping) { %>btn-blue <% } %>">BULB RAMPING</a>
-					<a href="#" class="btn">HDR</a>
+					<a href="#" class="btn">HOLD</a>
 				</div>
 			</div>
 		</script>
@@ -446,13 +479,43 @@
 		</script>
 
 
+		<!-- SpeedRamping Template -->
+		<script type="text/template" id="speedRamping_template">
+			<div id="wrapper" class="inner-page speedramping">
+				        <header id="header">
+				                    <div style="position:relative;   ">
+				            <div style="display: table;
+				    margin: 0 auto; height: 0" >
+				             <a href="#" id="linear" style="width:100px; margin-right: 10px;" >LINEAR</a>
+				             <a href="#" id="cubic" style="width:100px">CURVE</a>
+				            </div>
+				            <div style="position:relative; top:-32px">
+				            <a href="#timelapse/advanced" class="btn-back" id="back"></a>
+				          <a href="#" id="reset" class="alignright">RESET</a>
+				            </div>
+				          </div>
+			
+				        </header>
+				        <div id="page" style="cursor: default; position:relative;">
+
+
+				          <div id="chart_monotonic" class="cubic_spline">
+				          <canvas width="400" height="192" id="chart"></canvas>
+				          </div>
+				        </div>
+
+				      </div>
+			</div>
+		</script>
+
+
 
 
 		<!-- Bulb Ramping Template -->
 		<script type="text/template" id="bulbRamping_template">
 		    <div id="wrapper" class="inner-page">
 				<header id="header">
-					<a href="#timelapse/advanced" class="btn-back">back</a>
+					<a href="#timelapse/advanced" class="btn-back"></a>
 					<span class="no-btn no-back alignright">&nbsp;</span>
 					<h1>BULB RAMP</h1>
 				</header>
@@ -471,7 +534,7 @@
 		</div>
 				</div>
 
-				<ul class="inform-list" style="position:relative; padding-bottom: 12px">
+				<ul class="inform-list" style="position:relative; top: -3px; padding-bottom: 4px">
 					<li id="delayLink">
 						<a href="#timelapse/bulbramping/delay">DELAY</a>
 						<div class="holder">
@@ -516,7 +579,7 @@
 		<script type="text/template" id="bulbRampingDelay_template">
 		    <div id="wrapper" class="inner-page bulbramping">
 				<header id="header">
-					<a href="#timelapse/bulbramping" class="btn-back">back</a>
+					<a href="#timelapse/bulbramping" class="btn-back"></a>
 					<span class="no-btn no-back alignright">&nbsp;</span>
 					<h1>DELAY</h1>
 				</header>
@@ -538,7 +601,7 @@
 		<script type="text/template" id="bulbRampingDuration_template">
 		    <div id="wrapper" class="inner-page bulbramping">
 				<header id="header">
-					<a href="#timelapse/bulbramping" class="btn-back">back</a>
+					<a href="#timelapse/bulbramping" class="btn-back"></a>
 					<span class="no-btn no-back alignright">&nbsp;</span>
 					<h1>DURATION</h1>
 				</header>
@@ -560,7 +623,7 @@
 		<script type="text/template" id="bulbRampingStartShutter_template">
 		    <div id="wrapper" class="inner-page bulbramping">
 				<header id="header">
-					<a href="#timelapse/bulbramping" class="btn-back">back</a>
+					<a href="#timelapse/bulbramping" class="btn-back"></a>
 					<span class="no-btn no-back alignright">&nbsp;</span>
 					<h1>INITIAL EXPOSURE</h1>
 				</header>
@@ -580,7 +643,7 @@
 		<script type="text/template" id="bulbRampingExpChange_template">
 		    <div id="wrapper" class="inner-page bulbramping">
 				<header id="header">
-					<a href="#timelapse/bulbramping" class="btn-back">back</a>
+					<a href="#timelapse/bulbramping" class="btn-back"></a>
 					<span class="no-btn no-back alignright">&nbsp;</span>
 					<h1>EXP CHANGE</h1>
 				</header>
@@ -600,7 +663,7 @@
 		<script type="text/template" id="timeLapseTimeDelay_template">
 		    <div id="wrapper" class="inner-page">
 				<header id="header">
-					<a href="#timelapse/advanced" class="btn-back">back</a>
+					<a href="#timelapse/advanced" class="btn-back"></a>
 					<span class="no-btn no-back alignright">&nbsp;</span>
 					<h1>TIME DELAY</h1>
 				</header>
@@ -635,14 +698,22 @@
         <!-- Load Libs -->
 		<script type="text/javascript" src="js/lib/cordova-2.2.0.js"></script>
         <script type="text/javascript" src="js/lib/underscore-min.js"></script>
-        <script type="text/javascript" src="js/lib/jquery-1.8.2.min.js"></script>
+        <script type="text/javascript" src="js/lib/jquery-1.8.2.min.js"></script> 
         <script type="text/javascript" src="js/lib/jquery-ui-1.9.1.custom.min.js"></script>
+        
 		<script type="text/javascript" src="js/lib/jquery.touchpunch.0.2.2.js"></script>
 		<script type="text/javascript" src="js/lib/iscroll.js"></script>
         <script src="js/lib/mobiscroll-2.0.3.custom.min.js"></script>
         <script src="js/lib/circle-progress-bar.js"></script>
+         <!-- <script src="js/lib/boot.min.js"></script>-->
+        <script src="js/lib/hammer.js"></script>
+        <script src="js/lib/jquery.hammer.js"></script>
+        <script type="text/javascript" src="js/lib/jquery.simplemodal.1.4.3.min.js"></script>
         <script type="text/javascript" src="js/lib/backbone-min.js"></script>
         <script>
+
+
+
         	// Namespacing Plugin for JQuery
 			(function( $ ){
 			  	$.fn.ns = function(namespace){
@@ -653,6 +724,10 @@
 				};
 			})( jQuery );
         </script>
+
+        <!-- Load Plugins  -->
+        <script type="text/javascript" src="js/lib/screenOrientation.js"></script>
+
 
         <!-- Load Scripts  -->
         <script type="text/javascript" src="js/configuration.js"></script>
@@ -674,5 +749,6 @@
 		<script type="text/javascript" src="js/file_system.js"></script>
 		<script type="text/javascript" src="js/sound.js"></script>
 		<script type="text/javascript" src="js/send.js"></script>
+		<script type="text/javascript" src="js/cubic_spline_chart.js"></script>
     </body>
 </html>
