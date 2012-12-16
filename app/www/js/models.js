@@ -37,6 +37,9 @@ $(document).ready(function () {
             isSpeedRamping: false,
             speedRampingPoints: [],
             speedRampingCurved: false,
+
+            //Hold
+            hold: ".25", //default
             
 
             //Advanced
@@ -48,7 +51,7 @@ $(document).ready(function () {
         getStats: function () {
             var totalPhotos = Math.round((this.get('totalTimeHours') * 3600 + this.get('totalTimeMinutes') * 60) / (this.get('intervalMinutes') * 60 + this.get('intervalSeconds')));
             var degreesPerPhoto = RadianApp.Utilities.round(this.get('degrees') / totalPhotos, 2);
-            var frameRate = RadianApp.Utilities.round(totalPhotos / 24, 1);
+            var frameRate = RadianApp.Utilities.round(totalPhotos / RadianApp.app.get('fps'), 1);
             var stepIncreaseTime = (this.get('expType') === "f/10min") ? 10 : (this.get('totalTimeHours') * 60 + this.get('totalTimeMinutes')) / (totalPhotos/10);
             var finalShutter = eval(this.get('startShutter')) * Math.pow(2, eval(this.get('expChange')) * ((this.get('durationHours') * 60 + this.get('durationMinutes')) / stepIncreaseTime));
             
@@ -58,7 +61,8 @@ $(document).ready(function () {
                 frameRate: frameRate,
                 direction: C.DirectionCanonical(this.get('isClockwise')),
                 directionAbr: C.DirectionAbbr(this.get('isClockwise')),
-                finalShutter: RadianApp.Utilities.round(finalShutter, 1)
+                finalShutter: RadianApp.Utilities.round(finalShutter, 1),
+                fps: RadianApp.app.get('fps'),
             };
         },
 
@@ -113,6 +117,16 @@ $(document).ready(function () {
             };
         },
 
+        loadFPS: function() {
+            var value = window.localStorage.getItem("fps");
+            if(!value) return 24;
+            return Number(value);
+        },
+
+        setFPS: function(fps) {
+            window.localStorage.setItem("fps", String(fps));
+        },
+
         saveTimeLapseAsPreset: function(timeLapse, name) {
             var newTimeLapse = timeLapse.clone();
             newTimeLapse.set('order', this.presets.nextOrder());
@@ -150,6 +164,7 @@ $(document).ready(function () {
             this.presets = new M.Presets();
             this.loadCollection(this.presets, "presets");
             this.loadCollection(this.queue, "queue");
+            this.set('fps', this.loadFPS());
         },
 
         loadTimeLapse: function(timeLapse) {

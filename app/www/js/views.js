@@ -107,6 +107,46 @@ $(document).ready(function () {
         }
     });
 
+    Views.SettingsView = Views.ModalView.extend({
+        template: _.template($('#settings_template').html()),
+
+        events: {
+            "click #fps": "fps",
+            "click #about": "about",
+            "click #use": "use",
+        },
+
+        render: function() {
+            var elem = this.template(RadianApp.app.visibleTimeLapse.getTemplateJSON());
+            this.$el.empty().append(elem);
+            return this;
+        },
+
+        fps: function () {
+            window.location.hash = '#settings/framerate';
+        },
+
+        about: function () {
+            window.location.hash = '#settings/about';
+        },
+
+        use: function () {
+            window.location.hash = '#settings/use';
+
+        },
+
+    });
+
+    Views.SettingsAboutView = Views.ModalView.extend({
+        template: _.template($('#settingsAbout_template').html()),
+
+    });
+
+    Views.SettingsUseView = Views.ModalView.extend({
+        template: _.template($('#settingsUse_template').html()),
+
+    });
+
     Views.TimeLapseView = Views.BaseView.extend({
         template: _.template($('#timeLapse_template').html()),
         events: {
@@ -114,6 +154,7 @@ $(document).ready(function () {
             "click #totalTimeLink": "totalTimeLink",
             "click #intervalLink": "intervalLink",
         },
+
         degreeLink: function () {
             window.location.hash = '#timelapse/degrees';
         },
@@ -862,7 +903,7 @@ $(document).ready(function () {
             that.$('.dial').val(RadianApp.Utilities.round(that.percent*100, 0)).trigger('change');
             that.$('#hours').html(RadianApp.Utilities.round(hours, 0));
             that.$('#minutes').html(RadianApp.Utilities.round(minutes, 0));
-            that.$('#degrees').html(RadianApp.Utilities.round(that.percent * RadianApp.app.runningTimeLapse.get('degrees'), 2) + '&deg;');
+            that.$('#degreesCurrent').html(RadianApp.Utilities.round(that.percent * RadianApp.app.runningTimeLapse.get('degrees'), 2) + '&deg;');
             if (RadianApp.Utilities.round(that.percent*100, 0) < 100) {
                 window.timeLapseCurrentLoadingBarTimeout = setTimeout(callmethod, 20 * 1000);
             } else {
@@ -924,7 +965,6 @@ $(document).ready(function () {
     });
 
     //SPEED RAMPING CODE
-
     Views.SpeedRampingView = Views.ModalView.extend({
         template: _.template($('#speedRamping_template').html()),
 
@@ -1090,7 +1130,6 @@ $(document).ready(function () {
 
         },
 
-
         render: function () {
             Views.navigation.hide();
             this.$el.empty().append(this.template(RadianApp.app.visibleTimeLapse.getTemplateJSON()));
@@ -1177,6 +1216,7 @@ $(document).ready(function () {
                 },
             }).scroller('setValue', [exposures.indexOf(RadianApp.app.visibleTimeLapse.get('startShutter'))], false, 0);
 
+            $('.ios .dwwl').css('min-width', '270px');
 
             return this;
         }
@@ -1293,6 +1333,85 @@ $(document).ready(function () {
             return this;
         }
     });
+
+    Views.TimeLapseHoldView = Views.ModalView.extend({
+        template: _.template($('#timeLapseHold_template').html()),
+
+        initialize: function () {
+            this.setElement($("#container"));
+            RadianApp.app.visibleTimeLapse.bind('change:hold', this.updateHold, this);
+        },
+
+
+        updateHold: function () {
+            this.$('#hold').html(RadianApp.app.visibleTimeLapse.get('hold'));
+        },
+
+        render: function () {
+            Views.navigation.hide();
+            this.$el.empty().append(this.template(RadianApp.app.visibleTimeLapse.getTemplateJSON()));
+
+            var exp = [".25", ".5", "2"];
+            var wheel = {};
+            for (var i = 0; i < exp.length; i++) { 
+                wheel[i] =  exp[i] + " s";
+            }
+            var slots = [{"s": wheel}];
+            this.$('#picker').scroller({
+                theme: 'ios',
+                display: 'inline',
+                mode: 'scroller',
+                wheels: slots,
+                height: 35,
+                rows: 3,
+                onChange: function (valueText, instance) {
+                    RadianApp.app.visibleTimeLapse.set('hold', exp[instance.values[0]]);
+                },
+            }).scroller('setValue', [exp.indexOf(RadianApp.app.visibleTimeLapse.get('hold'))], false, 0);
+            $('.ios .dwwl').css('min-width', '270px');
+            return this;
+        }
+    });
+
+    Views.SettingsFrameRateView = Views.ModalView.extend({
+        template: _.template($('#settingsFrameRate_template').html()),
+
+        initialize: function () {
+            this.setElement($("#container"));
+            RadianApp.app.bind('change:fps', this.updateFps, this);
+        },
+
+        updateFps: function () {
+            this.$('#fps').html(RadianApp.app.get('fps'));
+        },
+
+        render: function () {
+            Views.navigation.hide();
+            this.$el.empty().append(this.template(RadianApp.app.visibleTimeLapse.getTemplateJSON()));
+
+            var exp = ["24","25","30","48","50","60","72","120", "300"];
+            var wheel = {};
+            for (var i = 0; i < exp.length; i++) { 
+                wheel[i] =  exp[i];
+            }
+            var slots = [{"s": wheel}];
+            this.$('#picker').scroller({
+                theme: 'ios',
+                display: 'inline',
+                mode: 'scroller',
+                wheels: slots,
+                height: 35,
+                rows: 3,
+                onChange: function (valueText, instance) {
+                    RadianApp.app.set('fps', exp[instance.values[0]]);
+                },
+            }).scroller('setValue', [exp.indexOf( String(RadianApp.app.get('fps')) )], false, 0);
+            $('.ios .dwwl').css('min-width', '270px');
+            return this;
+        }
+    });
+
+
 
 
 

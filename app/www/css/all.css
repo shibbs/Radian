@@ -451,7 +451,7 @@ h1{
 }
 .block-info{
 	text-align:center;
-	padding:73px 0 38px;
+	padding:45px 0 5px;
 }
 
 .general {
@@ -464,8 +464,12 @@ h1{
 	text-transform:uppercase;
 	color:#979797;
 	font:15px/19px "Conv_Gotham-Bold", Helvetica, Arial, sans-serif;
+
 }
-.block-info .row{color:#c8c8c8;}
+.block-info .text {
+	padding-bottom: 10px;
+}
+.block-info .row{color:#c8c8c8; padding-bottom: 5px;}
 .choise-box{
 	position:absolute;
 	bottom:0;
@@ -1016,6 +1020,50 @@ font: 20px/24px Helvetica, Arial, sans-serif;
 .step-nav .dimmed {
 	:#fff url(../images/btn-next.png) no-repeat !important;
 }
+
+/* Hold */
+.textBox {
+	border-top: 1px solid rgb(106, 106, 106);
+    text-align: center;
+    font-family:"Conv_Gotham-Black", Helvetica, Arial, sans-serif;
+    font-weight: thin;
+    padding-top: 5px;
+    width: 212px;
+    margin: 0 auto;
+    font-size: 12px;
+}
+.textBox ul {
+    padding: 0;
+    list-style: none;
+}
+
+/* Settings */
+.extraList {
+    font-family:"Conv_Gotham-Book", Helvetica, Arial, sans-serif;
+    padding-top: 20px;
+    width: 190px;
+    padding-left: 45px;
+    list-style: none;
+}
+
+.extraList li {
+	margin-bottom: 40px;
+}
+
+.extraList .mainHeading {
+	color: #fff;
+	height: 20px;
+	font-size: 18px;
+	margin-bottom: 2px;
+	
+}
+.extraList .subHeader {
+	color: #6e6e6e;
+	font-size: 12px;
+}
+
+
+
 /*
 
 Holo

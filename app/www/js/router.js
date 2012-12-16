@@ -5,7 +5,10 @@ $(document).ready(function () {
     	
         routes: {
             "": 'noop',
-    		//"settings": 'settings', Not needed in testing
+    		"settings": 'settings', 
+            "settings/framerate": 'settingsFrameRate',
+            "settings/about": 'settingsAbout',
+            "settings/use": 'settingsUse',
             "home": 'home',
             "timelapse": 'timeLapse',
     		"timelapse/presets": 'timeLapsePresets',
@@ -26,6 +29,7 @@ $(document).ready(function () {
             "timelapse/bulbramping/startshutter": 'bulbrampingStartShutter',
             "timelapse/bulbramping/exposurechange": 'bulbrampingExposureChange',
             "timelapse/timedelay": 'timeLapseTimeDelay',
+            "timelapse/hold": 'timeLapseHold',
         },
 
         noop: function() {
@@ -33,6 +37,26 @@ $(document).ready(function () {
 
         home: function() {
             RadianApp.Views.homeView.render();
+        },
+
+        settings: function() {
+            var settingsView = new RadianApp.Views.SettingsView();
+            settingsView.render();
+        },
+
+        settingsFrameRate: function() {
+            var view = new RadianApp.Views.SettingsFrameRateView();
+            view.render();
+        },
+        
+        settingsAbout: function() {
+            var view = new RadianApp.Views.SettingsAboutView();
+            view.render();
+        },
+
+        settingsUse: function() {
+            var view = new RadianApp.Views.SettingsUseView();
+            view.render();
         },
 
         timeLapse: function() {
@@ -110,6 +134,11 @@ $(document).ready(function () {
 
         timeLapseTimeDelay: function() {
             RadianApp.Views.timeLapseTimeDelayView.render();
+        },
+
+        timeLapseHold: function() {
+            var timeLapseHoldView = new RadianApp.Views.TimeLapseHoldView();
+            timeLapseHoldView.render();
         },
 
     });

@@ -53,11 +53,85 @@
 						<a href="#timelapse" id="tilt" class="btn-blue">TILT</a>
                     <% } %>
 
-					<a href="#" class="settings-btn">y</a>
+					<a href="#settings" class="settings-btn">y</a>
 				</div>
 			</div>
 		</script>
 
+		<!-- TimeLapseSettings Template -->
+		<script type="text/template" id="settings_template">
+		    <div id="wrapper" class="inner-page">
+				<header id="header">
+					<a href="#home" class="btn-back"></a>
+					<span class="no-btn no-back alignright">&nbsp;</span>
+					<h1>SETTINGS</h1>
+				</header>
+				<ul class="extraList">
+					<li id="fps">
+						<div class="mainHeading">FRAME RATE</div>
+						<div class="subHeader">CURRENT: <%= fps %> fps</div>
+					</li>
+					<li id="about">
+						<div class="mainHeading">ABOUT RADIAN</div>
+						<div class="subHeader">LEARN MORE</div>
+					</li>
+					<li id="use">
+						<div class="mainHeading">USING RADIAN</div>
+						<div class="subHeader">Using the app and Radian</div>
+					</li>
+				</ul>
+			</div>
+		</script>
+
+		<!-- TimeLapseSettingsFrameRate Template -->
+		<script type="text/template" id="settingsFrameRate_template">
+		    <div id="wrapper" class="inner-page">
+				<header id="header">
+					<a href="#settings" class="btn-back"></a>
+					<span class="no-btn no-back alignright">&nbsp;</span>
+					<h1>FRAMES PER SECOND</h1>
+				</header>
+				<div class="block-info" style="padding-bottom:20px">
+					<span class="text">TIME-LAPSE WILL BE COMPILED AT</span>
+					<div class="row">
+						<strong id="fps" class="mark"><%= fps %></strong>
+						<span>fps</span>
+					</div>
+					<span class="text"></span>
+				</div>
+			</div>
+			<div id="picker">
+			</div>
+		</script>
+
+
+		<!-- TimeLapseSettingsAbout Template -->
+		<script type="text/template" id="settingsAbout_template">
+		    <div id="wrapper" class="inner-page">
+				<header id="header">
+					<a href="#settings" class="btn-back"></a>
+					<span class="no-btn no-back alignright">&nbsp;</span>
+					<h1>ABOUT</h1>
+				</header>
+				<div>
+					??????????
+				</div>
+			</div>
+		</script>
+
+		<!-- TimeLapseSettingsUse Template -->
+		<script type="text/template" id="settingsUse_template">
+		    <div id="wrapper" class="inner-page">
+				<header id="header">
+					<a href="#settings" class="btn-back"></a>
+					<span class="no-btn no-back alignright">&nbsp;</span>
+					<h1>HOW TO USE</h1>
+				</header>
+				<div>
+					??????????
+				</div>
+			</div>
+		</script>
 
 
 		<!-- TimeLapse Template -->
@@ -179,7 +253,7 @@
 									<a <% if (isTimeDelay) { %> class="light-btn" <% } %> href="#">DELAY</a>
 									<a href="#" <% if (isSpeedRamping) { %> class="light-btn" <% } %> >SRAMP</a>
 									<a href="#" <% if (isBulbRamping) { %> class="light-btn" <% } %> >BRAMP</a>
-									<a href="#" <% if (false) { %> class="light-btn" <% } %> >HOLD</a>
+									<a href="#" <% if (hold!=='.25') {  %> class="light-btn" <% } %> >HOLD</a>
 								</div>
 								<div class="btn-row">
 									<a href="#" class="save-btn norm">LOAD PRESET</a>
@@ -413,7 +487,7 @@
 							<span>min</span>
 						</div>
 						<div class="holder">
-							<strong id="degrees" class="mark">0</strong>
+							<strong id="degreesCurrent" class="mark">0</strong>
 						</div>
 					</div>
 				</div>
@@ -441,7 +515,7 @@
 					<a href="#timelapse/timedelay" class="btn  <% if (isTimeDelay) { %>btn-blue <% } %>">TIME DELAY</a>
 					<a href="#timelapse/speedramping" class="btn <% if (isSpeedRamping) { %>btn-blue <% } %>">SPEED RAMPING</a>
 					<a href="#timelapse/bulbramping" class="btn  <% if (isBulbRamping) { %>btn-blue <% } %>">BULB RAMPING</a>
-					<a href="#" class="btn">HOLD</a>
+					<a href="#timelapse/hold" class="btn  <% if (hold!=='.25') { %>btn-blue <% } %>">HOLD</a>
 				</div>
 			</div>
 		</script>
@@ -671,6 +745,34 @@
 				<span><strong class="time"><%= frameRate %></strong> seconds</span>
 			</div>
 		</div>
+		</script>
+
+		<!-- TimeLapseHold Template -->
+		<script type="text/template" id="timeLapseHold_template">
+		    <div id="wrapper" class="inner-page">
+				<header id="header">
+					<a href="#timelapse/advanced" class="btn-back"></a>
+					<span class="no-btn no-back alignright">&nbsp;</span>
+					<h1>HOLD</h1>
+				</header>
+				<div class="block-info" style="padding-bottom:20px">
+					<span class="text">PRESS THE SHUTTER FOR</span>
+					<div class="row">
+						<strong id="hold" class="mark"><%= hold %></strong>
+						<span>SEC</span>
+					</div>
+					<span class="text">EVERY PHOTO</span>
+				</div>
+				<div class="textBox">
+					<ul>
+						<li>.25s is the default.</li>
+						<li>.5s is for IR triggering.</li>
+						<li>2s is for HDR bracketing.</li>
+					</ul>
+				</div>
+			</div>
+			<div id="picker">
+			</div>
 		</script>
 
  

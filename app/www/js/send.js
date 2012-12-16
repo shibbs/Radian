@@ -20,6 +20,7 @@ RadianApp.DataTransmission.prepareTimeLapsePacket = function(model) {
         "durationMinutes": model.get("durationMinutes"),
         "delayHours": model.get("delayHours"),
         "delayMinutes": model.get("delayMinutes"),
+        "hold": model.get("hold"),
         "expChange": model.get("expChange"),
         "expType": model.get("expType"), 
 

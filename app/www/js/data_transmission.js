@@ -67,7 +67,8 @@ $(function(){
                     "shouldContinue",
                     "shouldPan",
                     "timeDelayHours",
-                    "timeDelayMinutes"
+                    "timeDelayMinutes",
+                    "hold"
                    ],
 
         initialize: function() {
@@ -82,6 +83,7 @@ $(function(){
             this.shouldPan = (model.timeLapse === 1) ? 1 : 0;
             this.timeDelayHours = model.timeDelayHours;
             this.timeDelayMinutes = model.timeDelayMinutes;
+            this.hold = model.hold;
         },
 
     });
