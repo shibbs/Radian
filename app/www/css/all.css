@@ -1040,26 +1040,29 @@ font: 20px/24px Helvetica, Arial, sans-serif;
 /* Settings */
 .extraList {
     font-family:"Conv_Gotham-Book", Helvetica, Arial, sans-serif;
-    padding-top: 20px;
-    width: 190px;
-    padding-left: 45px;
+    padding-top: 25px;
+    width: 220px;
+    padding-left: 32px;
     list-style: none;
 }
 
 .extraList li {
 	margin-bottom: 40px;
+	background: url(../images/arrow-inform-list.png) no-repeat 100% 0;
+	-webkit-background-size: 10px 14px;
+	background-position: 210px 5px;
 }
 
 .extraList .mainHeading {
 	color: #fff;
 	height: 20px;
-	font-size: 18px;
-	margin-bottom: 2px;
+	font-size: 19px;
+	margin-bottom: 3px;
 	
 }
 .extraList .subHeader {
 	color: #6e6e6e;
-	font-size: 12px;
+	font-size: 13px;
 }
 
 
