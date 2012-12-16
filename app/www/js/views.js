@@ -117,6 +117,7 @@ $(document).ready(function () {
         },
 
         render: function() {
+            Views.navigation.hide();
             var elem = this.template(RadianApp.app.visibleTimeLapse.getTemplateJSON());
             this.$el.empty().append(elem);
             return this;
