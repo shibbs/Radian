@@ -1,11 +1,10 @@
 $().ns('RadianApp.DataTransmission');
 
-RadianApp.DataTransmission.send = function(model) {
+RadianApp.DataTransmission.prepareTimeLapsePacket = function(model) {
 
 	var DT = RadianApp.DataTransmission;
 	var Sound = RadianApp.Sound;
 
-	//TODO: rewrite app model
 	var appModel = {
 		"timeLapse": model.get("timeLapse"),
 		"rotationDegrees": model.get("degrees"),
@@ -44,7 +43,27 @@ RadianApp.DataTransmission.send = function(model) {
 	var dataArray = DT.combineData(standardTimeLapseData.toDataArray(), 
 									bulbRampingData.toDataArray(),
 									speedRampingData.toDataArray());
-	var dataPacket = new DT.DataPacket({data: dataArray });
+	return dataArray;
+}
+
+RadianApp.DataTransmission.send = function(model) {
+
+	var DT = RadianApp.DataTransmission;
+	var Sound = RadianApp.Sound;
+
+	var dataArray = [];
+
+	if(RadianApp.app.queue.length === 0) {
+		//No queue so procede as normal
+		dataArray.push(DT.prepareTimeLapsePacket(model));
+	} else {
+		//Queue so loop through
+		for (var i = 0; i < RadianApp.app.queue.length; i++) {
+			dataArray.push( DT.prepareTimeLapsePacket( RadianApp.app.queue.at(i) ) );
+		};
+	}
+
+	var dataPacket = new DT.DataPacket({dataArray: dataArray});
 
 	// Get Transmission Packet'
 	var transmissionPacket = new DT.TransmissionPacket({data: dataPacket.getPacket() });

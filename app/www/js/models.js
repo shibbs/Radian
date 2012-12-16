@@ -56,8 +56,8 @@ $(document).ready(function () {
                 totalPhotos: totalPhotos,
                 degreesPerPhoto: degreesPerPhoto,
                 frameRate: frameRate,
-                direction: C.DirectionCanonical(this.isClockwise),
-                directionAbr: C.DirectionAbbr(this.isClockwise),
+                direction: C.DirectionCanonical(this.get('isClockwise')),
+                directionAbr: C.DirectionAbbr(this.get('isClockwise')),
                 finalShutter: RadianApp.Utilities.round(finalShutter, 1)
             };
         },

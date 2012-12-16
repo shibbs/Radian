@@ -212,9 +212,11 @@ $(function(){
      *   _________________
      *  | (4) DEAD BYTES  | 
      *  |-----------------|
-     *  |    START FLAG   |
+     *  | # DATA PACKETS  |
      *  |-----------------|
-     *  |     THE DATA    |
+     *  |  DATA PACKET #1 |
+     *  |-----------------|
+     *  | DATA PACKET ETC | <- multiple data packets
      *  |-----------------|
      *  |     CHECKSUM    |
      *  |-----------------|
@@ -233,7 +235,7 @@ $(function(){
      * dataPacket.getPacket();
      */
     DT.DataPacket = Backbone.Model.extend({
-        TOTAL_EXTRA_BYTES: 3,
+        TOTAL_EXTRA_BYTES: 4, //startFlag, stopFlag, deadByte, and numDataPackets
 
         defaults: {
             "startFlag":  231,
@@ -242,21 +244,34 @@ $(function(){
             "numDeadBytes": 4 //Total number of dead bytes to padd the packet with
         },
 
-        setChecksum: function(data) {
+        setChecksum: function(dataArray) {
             var checkSum = new Uint8Array(1); // Hackery to get unsigned int
-            for (var i = data.length - 1; i >= 0; i--) {
-                checkSum[0] += data[i];
+            
+            for (var i = dataArray.length - 1; i >= 0; i--) {
+                var data = dataArray[i];
+
+                for (var j = data.length - 1; j >= 0; j--) {
+                    checkSum[0] += data[j];
+                };
             };
+
             this.set('checkSum', checkSum[0]%MAX_PACKET_VALUE);
         },
 
         initialize: function() {
-            this.setChecksum(this.get('data'));
+            this.setChecksum(this.get('dataArray'));
         },
 
         getPacket: function() {
-            var data = this.get('data');
-            var size = 2 * this.get("numDeadBytes") + this.TOTAL_EXTRA_BYTES + data.length;
+            var dataArray = this.get('dataArray');
+
+            // Get the total data size
+            var totalSize = 0;
+            for (var i = dataArray.length - 1; i >= 0; i--) {
+                totalSize += dataArray[i].length;
+            };
+
+            var size = 2 * this.get("numDeadBytes") + this.TOTAL_EXTRA_BYTES + totalSize;
             var packet = new Uint8Array(size);
 
             var i = 0;
@@ -269,11 +284,18 @@ $(function(){
             // Start Flag
             packet[i++] = this.get("startFlag");
 
-            // The Data
-            var ending_index = data.length + i;
-            var j = 0;
-            for (; i < ending_index; i++) {
-                packet[i] = data[j++];
+            // Number of Data Packets
+            packet[i++] = dataArray.length;
+
+            // The Data Packets
+            for (var z = 0; z < dataArray.length; z++) {
+                var data = dataArray[z];
+
+                var ending_index = data.length + i;
+                var j = 0;
+                for (; i < ending_index; i++) {
+                    packet[i] = data[j++];
+                };
             };
 
             // Checksum
@@ -286,6 +308,12 @@ $(function(){
             for (; i < this.get("numDeadBytes"); i++) {
                 packet[i] = this.get("deadByte");
             };
+            console.log('Outputting packet')
+            var packetString = ''
+            for (var i = 0; i < packet.length; i++) {
+                packetString += packet[i] + ' ';
+            };
+            console.log(packetString);
             return packet;
         }
     });
