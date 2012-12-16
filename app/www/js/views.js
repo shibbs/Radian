@@ -235,7 +235,8 @@ $(document).ready(function () {
             e.stopImmediatePropagation();
         },
 
-        toggleShow: function() {
+        toggleShow: function(e) {
+            this.endEvent(e);
             this.$('.box').toggleClass('hide');
             this.open = !this.open;
             if(this.open && this.deleteMode) {
@@ -245,6 +246,7 @@ $(document).ready(function () {
             }
             var scroller = this.scroller;
             setTimeout(function() { scroller.refresh()}, 0); 
+
         },
 
         saveNewPreset: function() {
@@ -997,10 +999,13 @@ $(document).ready(function () {
         template: _.template($('#bulbRamping_template').html()),
 
         events: {
-            'click #isBulbRamping': "toggleOn",        },
+            'click #isBulbRamping': "toggleOn",        
+        },
 
 
-        toggleOn: function() {
+        toggleOn: function(e) {
+            e.stopImmediatePropagation();
+            //e.preventDefault();
             RadianApp.app.visibleTimeLapse.set("isBulbRamping", !RadianApp.app.visibleTimeLapse.get("isBulbRamping"));
         },
 
