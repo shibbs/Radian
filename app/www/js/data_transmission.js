@@ -257,6 +257,9 @@ $(function(){
                 };
             };
 
+            //Add in size of array
+            checkSum[0] += dataArray.length;
+
             this.set('checkSum', checkSum[0]%MAX_PACKET_VALUE);
         },
 
