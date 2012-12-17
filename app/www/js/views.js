@@ -862,6 +862,7 @@ $(document).ready(function () {
         template: _.template($('#timeLapseUpload_template').html()),
 
         render: function () {
+            this.running = false;
             Views.navigation.selectStep(3);
             Views.navigation.unhide();
             if(RadianApp.app.runningTimeLapses.length > 0) {
@@ -871,6 +872,7 @@ $(document).ready(function () {
             }
             Views.navigation.setPrevious(true, "#timelapse");
             this.$el.empty().append(this.template());
+
             return this;
         },
 
@@ -879,11 +881,14 @@ $(document).ready(function () {
         },
 
         upload: function () {
-            this.percent = 0;
-            this.disableNavigation();
-            RadianApp.app.runTimeLapse(RadianApp.app.visibleTimeLapse);
-            this.advanceProgressBar();
-            this.updateMessage();
+            if(!this.running) {
+                this.running = true;
+                this.percent = 0;
+                this.disableNavigation();
+                RadianApp.app.runTimeLapse(RadianApp.app.visibleTimeLapse);
+                this.advanceProgressBar();
+                this.updateMessage();
+            }
         },
 
         disableNavigation: function () {

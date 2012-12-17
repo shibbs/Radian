@@ -161,6 +161,7 @@ $(document).ready(function () {
             this.runningTimeLapses = [];
             this.runningTimeLapseIndex = null;
             this.sentTime = null;
+            this.soundPlaying = false;
             this.queue = new M.Queue();
             this.presets = new M.Presets();
             this.loadCollection(this.presets, "presets");

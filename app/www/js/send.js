@@ -72,13 +72,18 @@ RadianApp.DataTransmission.send = function(models) {
     
  	// Save file
  	setTimeout(function() {
-       	RadianApp.Filesystem.saveBase64File(wavData, wavName, function(path) {
-			//Play wav
-			//TODO Save Volume
-			//TODO Increase Volume
-			Sound.play(path);
-			//TODO Change Volume back
-		});
+ 		if(!RadianApp.app.soundPlaying) {
+            RadianApp.app.soundPlaying = true;
+	       	RadianApp.Filesystem.saveBase64File(wavData, wavName, function(path) {
+				//Play wav
+				//TODO Save Volume
+				//TODO Increase Volume
+				Sound.play(path, function() {
+					RadianApp.app.soundPlaying = false;
+				});
+				//TODO Change Volume back
+			});
+		}
      }, 1000);
 }
 
