@@ -96,6 +96,10 @@ $(document).ready(function () {
         events: {
             "click #pan": "pan",
             "click #tilt": "tilt",
+            "touchstart #pan": "panStart",
+            "touchstart #tilt": "tiltStart",
+            "touchend #pan": "panEnd",
+            "touchend #tilt": "tiltEnd",
         },
 
         pan: function() {
@@ -104,7 +108,25 @@ $(document).ready(function () {
 
         tilt: function() {
             RadianApp.app.visibleTimeLapse.set("timeLapse", RadianApp.Constants.TimeLapseType.TILT);
-        }
+        },
+
+        panStart: function() {
+           // this.$('#tilt').removeClass('btn-blue');
+        },
+
+        tiltStart: function() {
+           // this.$('#pan').removeClass('btn-blue');
+        },
+
+        panEnd: function() {
+          // this.$('#tilt').addClass('btn-blue');
+        },
+
+        tiltEnd: function() {
+          // this.$('#pan').addClass('btn-blue');
+        },
+
+
     });
 
     Views.SettingsView = Views.ModalView.extend({
@@ -148,8 +170,25 @@ $(document).ready(function () {
 
     });
 
+    Views.TimeLapseQueueHomeView = Backbone.View.extend({
+        tagName: 'li',
+        className: '',
+        template: _.template($('#timeLapseQueueItemHome_template').html()),
+        initialize: function(model) {
+            this.model = model;
+        },
+        render: function() {
+            var elem = this.template(this.model.getTemplateJSON());
+            this.$el.empty().append(elem);
+            return this;
+        },
+
+    });
+
+
     Views.TimeLapseView = Views.BaseView.extend({
         template: _.template($('#timeLapse_template').html()),
+        qtemplate: _.template($('#timeLapse_Queue_template').html()),
         events: {
             "click #degreeLink": "degreeLink",
             "click #totalTimeLink": "totalTimeLink",
@@ -173,13 +212,33 @@ $(document).ready(function () {
             window.location.hash = '#timelapse/advanced';
 
         },
+
+        insertQueue: function (model) {
+            var me = this;
+            var temp = new Views.TimeLapseQueueHomeView(model);
+            this.$('#list').append(temp.render().$el);
+            var scroller = this.scroller;
+            setTimeout(function() { scroller.refresh()}, 0);
+        },
+
         render: function () {
             Views.navigation.selectStep(2);
             Views.navigation.unhide();
             Views.navigation.setNext(true, "#timelapse/upload");
             Views.navigation.setPrevious(true, "#home");
 
-            this.$el.empty().append(this.template(RadianApp.app.visibleTimeLapse.getTemplateJSON()));
+            if(RadianApp.app.queue.length > 0) {
+                this.$el.empty().append(this.qtemplate(RadianApp.app.visibleTimeLapse.getTemplateJSON()));
+                var scroller = new iScroll('scrollwrapper', {});
+                this.scroller = scroller;
+                var models = RadianApp.app.queue.models;
+                for (var i = 0; i < models.length; i++) {
+                    this.insertQueue(models[i]);
+                };
+                setTimeout(function() { scroller.refresh()}, 0);  
+            } else {
+                this.$el.empty().append(this.template(RadianApp.app.visibleTimeLapse.getTemplateJSON()));
+            }
             // If we are currently running one don't simulate upload
             //$('#thirdstep').attr('href', '#timelapse/current');
             return this;
@@ -187,6 +246,8 @@ $(document).ready(function () {
     });
 
     var vent = _.extend({}, Backbone.Events);
+
+
     
 
     Views.TimeLapsePresetItemView = Backbone.View.extend({
@@ -365,6 +426,7 @@ $(document).ready(function () {
             }
             e.preventDefault();
             e.stopImmediatePropagation();
+            this.$('#edit').removeClass('tappable-active');
         },
 
         insertNewPreset: function (model, insert) {
@@ -802,7 +864,7 @@ $(document).ready(function () {
         render: function () {
             Views.navigation.selectStep(3);
             Views.navigation.unhide();
-            if(RadianApp.app.runningTimeLapse) {
+            if(RadianApp.app.runningTimeLapses.length > 0) {
                 Views.navigation.setNext(true, "#timelapse/current");
             } else {
                 Views.navigation.setNext(false);
@@ -857,9 +919,8 @@ $(document).ready(function () {
             Views.navigation.unhide();
             Views.navigation.setNext(false);
             Views.navigation.setPrevious(true, "#timelapse/upload");
-
-            RadianApp.app.runningTimeLapse;
-            this.$el.empty().append(this.template(RadianApp.app.runningTimeLapse.toJSON()));
+            var runningTimeLapse = RadianApp.app.getRunningTimeLapse();
+            this.$el.empty().append(this.template(runningTimeLapse.toJSON()));
             this.percent = 0;
             $('.dial').knob();
             this.advanceProgressBar();
@@ -874,7 +935,7 @@ $(document).ready(function () {
 
         newTimeLapse: function () {
             clearTimeout(window.timeLapseCurrentLoadingBarTimeout);
-            RadianApp.app.cancelRunningTimeLapse();
+            RadianApp.app.cancelRunningTimeLapses();
             window.location.hash = 'home';
         },
 
@@ -891,11 +952,12 @@ $(document).ready(function () {
 
 
         advanceProgressBar: function () {
+            var runningTimeLapse = RadianApp.app.getRunningTimeLapse();
             var that = this;
             var callmethod = function () {
                 that.advanceProgressBar()
             }
-            var totalSeconds = RadianApp.app.runningTimeLapse.get('totalTimeHours') * 3600 + RadianApp.app.runningTimeLapse.get('totalTimeMinutes') * 60;
+            var totalSeconds = runningTimeLapse.get('totalTimeHours') * 3600 + runningTimeLapse.get('totalTimeMinutes') * 60;
             var timePassed = ((new Date()).getTime() - RadianApp.app.sentTime.getTime()) / 1000;
             that.percent = timePassed / totalSeconds;
 
@@ -904,12 +966,20 @@ $(document).ready(function () {
             that.$('.dial').val(RadianApp.Utilities.round(that.percent*100, 0)).trigger('change');
             that.$('#hours').html(RadianApp.Utilities.round(hours, 0));
             that.$('#minutes').html(RadianApp.Utilities.round(minutes, 0));
-            that.$('#degreesCurrent').html(RadianApp.Utilities.round(that.percent * RadianApp.app.runningTimeLapse.get('degrees'), 2) + '&deg;');
+            that.$('#degreesCurrent').html(RadianApp.Utilities.round(that.percent * runningTimeLapse.get('degrees'), 2) + '&deg;');
             if (RadianApp.Utilities.round(that.percent*100, 0) < 100) {
                 window.timeLapseCurrentLoadingBarTimeout = setTimeout(callmethod, 20 * 1000);
             } else {
                 clearTimeout(window.timeLapseCurrentLoadingBarTimeout);
-                window.location.hash = 'timelapse/completed';
+                //Try to advance the running time lapse
+                if(RadianApp.app.advanceRunningTimeLapse()) {
+                    //TODO keep track of global time
+                    window.location.hash = 'test';
+                    RadianApp.app.startTime = new Date();
+                    window.location.hash = 'timelapse/current'
+                } else {
+                    window.location.hash = 'timelapse/completed';
+                } 
             }
         }
     });
@@ -936,7 +1006,7 @@ $(document).ready(function () {
 
         nostart: function () {
             clearTimeout(window.timeLapseCountDownTimeout);
-            RadianApp.app.cancelRunningTimeLapse();
+            RadianApp.app.cancelRunningTimeLapses();
         },
 
         prev: function () {
@@ -1424,7 +1494,6 @@ $(document).ready(function () {
         template: _.template($('#timeLapseCompleted_template').html()),
 
         render: function () {
-            this.model = RadianApp.app.runningTimeLapse;
             this.$el.empty().append(this.template());
             return this;
         },
@@ -1435,7 +1504,7 @@ $(document).ready(function () {
         },
 
         newTimeLapse: function () {
-            RadianApp.app.cancelRunningTimeLapse();
+            RadianApp.app.cancelRunningTimeLapses();
             window.location.hash = 'home';
         },
 
@@ -1507,7 +1576,7 @@ $(document).ready(function () {
                     $(children[i]).removeClass('selected');
                 }
             };
-            if(RadianApp.app.runningTimeLapse) {
+            if(RadianApp.app.runningTimeLapses.length > 0) {
                 this.highlight();
             } else {
                 this.removeHighlight();

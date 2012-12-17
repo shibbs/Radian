@@ -158,7 +158,8 @@ $(document).ready(function () {
 
         initialize: function () {
             this.visibleTimeLapse = new M.TimeLapse();
-            this.runningTimeLapse = null;
+            this.runningTimeLapses = [];
+            this.runningTimeLapseIndex = null;
             this.sentTime = null;
             this.queue = new M.Queue();
             this.presets = new M.Presets();
@@ -174,18 +175,38 @@ $(document).ready(function () {
         },
 
         runTimeLapse: function(timeLapse) {
-            this.runningTimeLapse = timeLapse.clone();
+            if(this.queue.length > 0) {
+                this.runningTimeLapses = this.queue.models;
+            } else {
+                this.runningTimeLapses = [timeLapse.clone()];
+            }
+            this.runningTimeLapseIndex = 0;
             this.sentTime = new Date();
-            RadianApp.DataTransmission.send(this.runningTimeLapse);
+            RadianApp.DataTransmission.send(this.runningTimeLapses);
+        },
+
+        advanceRunningTimeLapse: function() {
+            if(this.runningTimeLapseIndex + 1 < this.runningTimeLapses.length) {
+                this.runningTimeLapseIndex++;
+                this.sentTime = new Date();
+                return true;
+            } 
+            return false;
         },
 
         resetStartTime: function() {
+            this.runningTimeLapseIndex = 0;
             this.sentTime = new Date();
         },
 
-        cancelRunningTimeLapse: function() {
-            if(!this.runningTimeLapse) console.log('ERROR: No running TimeLapse Running');
-            this.runningTimeLapse = null;
+        getRunningTimeLapse: function() {
+            return this.runningTimeLapses[this.runningTimeLapseIndex];
+        },
+
+        cancelRunningTimeLapses: function() {
+            if(!this.runningTimeLapses) console.log('ERROR: No running TimeLapse Running');
+            this.runningTimeLapseIndex = 0;
+            this.runningTimeLapses = [];
             this.sentTime = null;
             this.queue.reset();
         }

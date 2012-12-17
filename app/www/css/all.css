@@ -16,6 +16,7 @@ a {-webkit-touch-callout: none;}
 body {
 	-webkit-tap-highlight-color:rgba(0,0,0,0);
 	-webkit-user-select: none;
+	/* -webkit-transform: translate3d(0,0,0); */
 }
 input,
 textarea,
@@ -64,6 +65,14 @@ figure{display:block;}
 	src: url('../fonts/Gotham-Medium.ttf');
 	font-weight: normal;
 	font-style: normal;
+}
+div#preloaded-images {
+   position: absolute;
+   overflow: hidden;
+   left: -9999px; 
+   top: -9999px;
+   height: 1px;
+   width: 1px;
 }
 .center-page{
 	display:table;
@@ -162,6 +171,8 @@ h1{
 .highlight {color: #008bca !important;}
 .highlight-bg {background-color: #008bca !important;}
 .btn-box .btn-white{color: #fff;}
+.btn-box .tappable-active {background:#008bca !important;}
+
 .btn-box .settings-btn{
 	display:inline-block;
 	vertical-align:top;
@@ -333,6 +344,11 @@ h1{
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
 }
+#header .tappable-active {
+	background:#008bca !important;
+	color:#fff !important;
+}
+
 #header .no-btn{
 	background:#191919;
 	color:#191919;
@@ -754,6 +770,7 @@ span.delete{
 }
 #header .highlighted-btn {
 	background-color:#008bca;
+	color: #fff;
 }
 .presets-list .box-holder{
 	display:inline-block;
@@ -1063,8 +1080,33 @@ font: 20px/24px Helvetica, Arial, sans-serif;
 .extraList .subHeader {
 	color: #6e6e6e;
 	font-size: 13px;
+
 }
 
+
+/* Queue */
+#secondaryList {
+	
+}
+
+#secondaryHeader {
+	margin: 20px auto;
+	text-align: center;
+	font: bold 20px/20px "Conv_Gotham-Bold", Helvetica, Arial, sans-serif;
+}
+.queue-list {
+	font-family:"Conv_Gotham-Medium", Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	list-style: none;
+
+}
+.queue-list li {
+	padding-bottom: 5px;
+}
+
+.queue-list a {
+	color:#6e6e6e;
+}
 
 
 /*

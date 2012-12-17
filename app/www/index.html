@@ -56,6 +56,26 @@
 					<a href="#settings" class="settings-btn">y</a>
 				</div>
 			</div>
+			<div id="preloaded-images">
+			   <img src="./images/ico-photo.png" width="1" height="1" />
+			   <img src="./images/ico-photo-info.png" width="1" height="1" />
+			   <img src="./images/ico-time.png" width="1" height="1" />
+	   			<div style="font-family: 'Conv_Gotham-Black'; color:#191919;">
+					abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890/&deg;
+				</div>
+					<div style="font-family: 'Conv_Gotham-Bold';color:#191919;">
+					abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890/&deg;
+				</div>
+				<div style="font-family: 'Conv_Gotham-Book';color:#191919;">
+					abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890/&deg;
+				</div>
+				<div style="font-family: 'Conv_Gotham-Medium';color:#191919;">
+					abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890/&deg;
+				</div>
+				<div style="font-family: 'Conv_Gotham-Medium';color:#191919;">
+					abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890/&deg;
+				</div>
+			</div>
 		</script>
 
 		<!-- TimeLapseSettings Template -->
@@ -187,12 +207,41 @@
 				</div>
 			</div>
 		</script>
+
+		<!-- TimeLapseQueueItem Template -->
+		<script type="text/template" id="timeLapseQueueItemHome_template">
+				<a href="#"><%= name %></a>
+		</script>
+
+		<!-- TimeLapse Template - Queues -->
+		<script type="text/template" id="timeLapse_Queue_template">
+		    <div id="wrapper" class="inner-page">
+				<header id="header">
+					<a href="#timelapse/presets">PRESETS</a>
+					<a href="#timelapse/queue" class="alignright">QUEUE</a>
+					<h1>RADIAN</h1>
+				</header>
+				<div id="secondaryList" style="height: 300px;">
+				<div id="secondaryHeader">QUEUE</div>
+								<div id="scrollwrapper" style="position:absolute; z-index:1;
+     bottom:75px; top: 90px;
+	width:290px;
+	overflow:auto;">
+						<div id="scroller" style=" 	width:100%;
+			padding:0;">
+							<ul id="list" class="queue-list list needsclick" style="position:relative; width:100%; padding:0; margin:0" >
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</script>
 		
 		<!-- TimeLapsePresets Template -->
 		<script type="text/template" id="timeLapsePresets_template">
 			<div id="wrapper" class="inner-page" >
-				<header id="header" style="z-index:100; position: relative; ">
-					<a href="#" id="edit">EDIT</a>
+				<header id="header" style="z-index:100; position: relative; " class="needsclick">
+					<a href="#" id="edit" class="needsclick">EDIT</a>
 					<a href="#timelapse" class="highlighted-btn alignright" id="done">DONE</a>
 
 		
@@ -250,10 +299,10 @@
 									<span>sec</span>
 								</div>
 								<div class="small-btn-row">
-									<a <% if (isTimeDelay) { %> class="light-btn" <% } %> href="#">DELAY</a>
-									<a href="#" <% if (isSpeedRamping) { %> class="light-btn" <% } %> >SRAMP</a>
-									<a href="#" <% if (isBulbRamping) { %> class="light-btn" <% } %> >BRAMP</a>
-									<a href="#" <% if (hold!=='.25') {  %> class="light-btn" <% } %> >HOLD</a>
+									 <% if (isTimeDelay) { %> <a class="light-btn" href="#">DELAY</a> <% } %>
+									<% if (isSpeedRamping) { %><a href="#"  class="light-btn">SRAMP</a><% } %>
+									<% if (isBulbRamping) { %> <a href="#" class="light-btn">BRAMP</a><% } %>
+									<% if (hold!=='.25') {  %><a href="#" class="light-btn">HOLD</a><% } %>
 								</div>
 								<div class="btn-row">
 									<a href="#" class="save-btn norm">LOAD PRESET</a>
@@ -808,6 +857,26 @@
 				    }, window);
 				};
 			})( jQuery );
+
+			    var self = this;
+    // Check of browser supports touch events...
+    if (document.documentElement.hasOwnProperty('ontouchstart')) {
+        // ... if yes: register touch event listener to change the "selected" state of the item
+        $('body').on('touchstart', 'a', function(event) {
+            $(event.target).addClass('tappable-active');
+        });
+        $('body').on('touchend', 'a', function(event) {
+            $(event.target).removeClass('tappable-active');
+        });
+    } else {
+        // ... if not: register mouse events instead
+        $('body').on('mousedown', 'a', function(event) {
+            $(event.target).addClass('tappable-active');
+        });
+        $('body').on('mouseup', 'a', function(event) {
+            $(event.target).removeClass('tappable-active');
+        });
+    }
         </script>
 
         <!-- Load Plugins  -->

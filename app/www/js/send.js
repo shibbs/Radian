@@ -47,22 +47,16 @@ RadianApp.DataTransmission.prepareTimeLapsePacket = function(model) {
 	return dataArray;
 }
 
-RadianApp.DataTransmission.send = function(model) {
+RadianApp.DataTransmission.send = function(models) {
 
 	var DT = RadianApp.DataTransmission;
 	var Sound = RadianApp.Sound;
 
 	var dataArray = [];
 
-	if(RadianApp.app.queue.length === 0) {
-		//No queue so procede as normal
-		dataArray.push(DT.prepareTimeLapsePacket(model));
-	} else {
-		//Queue so loop through
-		for (var i = 0; i < RadianApp.app.queue.length; i++) {
-			dataArray.push( DT.prepareTimeLapsePacket( RadianApp.app.queue.at(i) ) );
-		};
-	}
+	for (var i = 0; i < models.length; i++) {
+		dataArray.push( DT.prepareTimeLapsePacket( models[i] ) );
+	};
 
 	var dataPacket = new DT.DataPacket({dataArray: dataArray});
 
