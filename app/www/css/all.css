@@ -772,6 +772,10 @@ span.delete{
 	background-color:#008bca;
 	color: #fff;
 }
+
+.highlighted-btn {
+	background-color:#008bca !important;
+}
 .presets-list .box-holder{
 	display:inline-block;
 	vertical-align:top;
@@ -950,11 +954,11 @@ span.delete{
 
 /* Modal Styling */
 #simplemodal-overlay {background-color: #000; margin: 0; padding: 0;}
-#simplemodal-container {background-color:rgb(200,200,200); padding: 33px 17px 33px 17px; border-radius: 5px;}
+#simplemodal-container {background-color:rgb(200,200,200); padding: 20px 17px 10px 17px; border-radius: 5px;}
 #simplemodal-container input {
 	margin: 0 auto;
 	display: block;
-	width: 205px;
+	width: 225px;
 height: 30px;
 border-radius: 5px;
 color: black;
@@ -966,7 +970,8 @@ font: 20px/24px Helvetica, Arial, sans-serif;
 	padding-top: 15px;
 	height: 30px;
 	margin: 0 auto;
-	width: 235px;
+	width: 239px;
+	padding-bottom: 15px;
 }
 .minibox > div {
 	float: left;
@@ -976,7 +981,7 @@ font: 20px/24px Helvetica, Arial, sans-serif;
 
 	color:#fff;
 	text-transform:uppercase;
-	font:bold 20px/24px "Conv_Gotham-Black", Helvetica, Arial, sans-serif;
+	font:bold 18px/20px "Conv_Gotham-Book", Helvetica, Arial, sans-serif;
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
 	background:#6e6e6e;
@@ -988,6 +993,30 @@ font: 20px/24px Helvetica, Arial, sans-serif;
 	margin-right: 0%;
 	color: #fff;
 	background-color: #008bca;
+}
+
+.cancelBox {
+	padding-top: 10px;
+	height: 30px;
+	margin: 0 auto;
+	width: 235px;
+}
+.cancelBox > div {
+	position:relative;
+	top: -2px;
+	margin: 0 auto;
+	width: 100px;
+	height: 30px;
+	color:#fff;
+		text-align: center;
+	text-transform:uppercase;
+	font:bold 17px/20px "Conv_Gotham-Book", Helvetica, Arial, sans-serif;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	background-color:#008bca;
+	text-align: center;
+	line-height: 32px;
+	cursor: pointer;
 }
 
 /* Speedramping */

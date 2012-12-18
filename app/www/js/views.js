@@ -287,7 +287,6 @@ $(document).ready(function () {
                                             },100);
                                         },
                             });
-
             
             this.endEvent(e);
         },
@@ -712,6 +711,14 @@ $(document).ready(function () {
             });
             this.$('#wrapper').append(statsView.render().el);
 
+            var getSettings = function() {
+                return [String(RadianApp.app.visibleTimeLapse.get('degrees')), C.DirectionAbbr(RadianApp.app.visibleTimeLapse.get('isClockwise'))];
+            };
+            var error= {
+                error: function () {
+                    $('#picker').scroller('setValue', getSettings(), true, 0.5);
+                }
+            };
             this.$('#picker').scroller({
                 theme: 'ios',
                 display: 'inline',
@@ -727,11 +734,10 @@ $(document).ready(function () {
                 height: 35,
                 rows: 3,
                 onChange: function (valueText, instance) {
-                    RadianApp.app.visibleTimeLapse.set('isClockwise', instance.values[1] == 'CW');
-
-                    RadianApp.app.visibleTimeLapse.set('degrees', Number(instance.values[0]));
+                    RadianApp.app.visibleTimeLapse.set({'isClockwise': instance.values[1] == 'CW'} , error);
+                    RadianApp.app.visibleTimeLapse.set({'degrees': Number(instance.values[0])}, error);
                 },
-            }).scroller('setValue', [String(RadianApp.app.visibleTimeLapse.get('degrees')), C.DirectionAbbr(RadianApp.app.visibleTimeLapse.get('isClockwise'))], false, 0);
+            }).scroller('setValue', getSettings(), false, 0);
 
 
 
@@ -779,6 +785,15 @@ $(document).ready(function () {
 
             var total_time_slots = [generate_slot('hours', 0, 240, 1, 'hr'), generate_slot('minutes', 0, 59, 1, 'min')];
 
+            var getSettings = function() {
+                return [String(RadianApp.app.visibleTimeLapse.get('totalTimeHours')), String(RadianApp.app.visibleTimeLapse.get('totalTimeMinutes'))];
+            };
+            var error= {
+                error: function () {
+                    $('#picker').scroller('setValue', getSettings(), true, 0.5);
+                }
+            };
+
             this.$('#picker').scroller({
                 theme: 'ios',
                 display: 'inline',
@@ -790,17 +805,14 @@ $(document).ready(function () {
 
                     if (Number(instance.values[0]) === 0 && Number(instance.values[1]) == 0) {
                         $('#picker').scroller('setValue', ['0', '1'], true, 0.5);
-
-                        RadianApp.app.visibleTimeLapse.set('totalTimeHours', 0);
-
-                        RadianApp.app.visibleTimeLapse.set('totalTimeMinutes', 1);
+                        RadianApp.app.visibleTimeLapse.set({'totalTimeMinutes': 1} , error);
+                        RadianApp.app.visibleTimeLapse.set({'totalTimeHours': 0}, error);   
                         return;
                     }
-                    RadianApp.app.visibleTimeLapse.set('totalTimeHours', Number(instance.values[0]));
-
-                    RadianApp.app.visibleTimeLapse.set('totalTimeMinutes', Number(instance.values[1]));
+                    RadianApp.app.visibleTimeLapse.set({'totalTimeHours': Number(instance.values[0])}, error);
+                    RadianApp.app.visibleTimeLapse.set({'totalTimeMinutes': Number(instance.values[1])}, error);
                 },
-            }).scroller('setValue', [String(RadianApp.app.visibleTimeLapse.get('totalTimeHours')), String(RadianApp.app.visibleTimeLapse.get('totalTimeMinutes'))], false, 0);
+            }).scroller('setValue', getSettings(), false, 0);
 
 
             return this;
@@ -831,6 +843,14 @@ $(document).ready(function () {
 
             var interval_slots = [generate_slot('minutes', 0, 360, 1, 'min'), generate_slot('seconds', 0, 59, 1, 'sec')];
 
+            var getSettings = function() {
+                return [String(RadianApp.app.visibleTimeLapse.get('intervalMinutes')), String(RadianApp.app.visibleTimeLapse.get('intervalSeconds'))];
+            };
+            var error= {
+                error: function () {
+                    $('#picker').scroller('setValue', getSettings(), true, 0.5);
+                }
+            };
             this.$('#picker').scroller({
                 theme: 'ios',
                 display: 'inline',
@@ -841,16 +861,16 @@ $(document).ready(function () {
                 onChange: function (valueText, instance) {
                     if (Number(instance.values[0]) === 0 && Number(instance.values[1]) == 0) {
                         $('#picker').scroller('setValue', ['0', '1'], true, 0.5);
-                        RadianApp.app.visibleTimeLapse.set('intervalMinutes', 0);
+                        RadianApp.app.visibleTimeLapse.set({'intervalMinutes':0}, error);
 
-                        RadianApp.app.visibleTimeLapse.set('intervalSeconds', 1);
+                        RadianApp.app.visibleTimeLapse.set({'intervalSeconds':1}, error);
                         return;
                     }
-                    RadianApp.app.visibleTimeLapse.set('intervalMinutes', Number(instance.values[0]));
+                    RadianApp.app.visibleTimeLapse.set({'intervalMinutes': Number(instance.values[0])}, error);
 
-                    RadianApp.app.visibleTimeLapse.set('intervalSeconds', Number(instance.values[1]));
+                    RadianApp.app.visibleTimeLapse.set({'intervalSeconds': Number(instance.values[1])}, error);
                 },
-            }).scroller('setValue', [String(RadianApp.app.visibleTimeLapse.get('intervalMinutes')), String(RadianApp.app.visibleTimeLapse.get('intervalSeconds'))], false, 0);
+            }).scroller('setValue', getSettings(), false, 0);
 
 
 
@@ -1121,8 +1141,9 @@ $(document).ready(function () {
 
         toggleOn: function(e) {
             e.stopImmediatePropagation();
-            //e.preventDefault();
+            e.preventDefault();
             RadianApp.app.visibleTimeLapse.set("isBulbRamping", !RadianApp.app.visibleTimeLapse.get("isBulbRamping"));
+            this.$('#unchecked').prop("checked", RadianApp.app.visibleTimeLapse.get("isBulbRamping"));
         },
 
                 render: function () {
@@ -1168,6 +1189,15 @@ $(document).ready(function () {
 
             var total_time_slots = [generate_slot('hours', 0, 2, 1, 'hr'), generate_slot('minutes', 0, 59, 5, 'min')];
 
+            var getSettings = function() {
+                return [String(RadianApp.app.visibleTimeLapse.get('delayHours')), String(RadianApp.app.visibleTimeLapse.get('delayMinutes'))]
+            };
+            var error= {
+                error: function () {
+                    $('#picker').scroller('setValue', getSettings(), true, 0.5);
+                }
+            };
+
             this.$('#picker').scroller({
                 theme: 'ios',
                 display: 'inline',
@@ -1176,10 +1206,10 @@ $(document).ready(function () {
                 height: 35,
                 rows: 3,
                 onChange: function (valueText, instance) {
-                    RadianApp.app.visibleTimeLapse.set('delayHours', Number(instance.values[0]));
-                    RadianApp.app.visibleTimeLapse.set('delayMinutes', Number(instance.values[1]));
+                    RadianApp.app.visibleTimeLapse.set({'delayHours': Number(instance.values[0])}, error);
+                    RadianApp.app.visibleTimeLapse.set({'delayMinutes': Number(instance.values[1])}, error);
                 },
-            }).scroller('setValue', [String(RadianApp.app.visibleTimeLapse.get('delayHours')), String(RadianApp.app.visibleTimeLapse.get('delayMinutes'))], false, 0);
+            }).scroller('setValue', getSettings(), false, 0);
 
 
             return this;
@@ -1216,6 +1246,16 @@ $(document).ready(function () {
 
             var total_time_slots = [generate_slot('hours', 0, 3, 1, 'hr'), generate_slot('minutes', 0, 59, 1, 'min')];
 
+
+            var getSettings = function() {
+                return [String(RadianApp.app.visibleTimeLapse.get('durationHours')), String(RadianApp.app.visibleTimeLapse.get('durationMinutes'))];
+            };
+            var error= {
+                error: function () {
+                    $('#picker').scroller('setValue', getSettings(), true, 0.5);
+                }
+            };
+
             this.$('#picker').scroller({
                 theme: 'ios',
                 display: 'inline',
@@ -1227,17 +1267,14 @@ $(document).ready(function () {
 
                     if (Number(instance.values[0]) === 0 && Number(instance.values[1]) == 0) {
                         $('#picker').scroller('setValue', ['0', '1'], true, 0.5);
-
-                        RadianApp.app.visibleTimeLapse.set('durationHours', 0);
-
-                        RadianApp.app.visibleTimeLapse.set('durationMinutes', 1);
+                        RadianApp.app.visibleTimeLapse.set({'durationMinutes': 1});
+                        RadianApp.app.visibleTimeLapse.set({'durationHours': 0});
                         return;
                     }
-                    RadianApp.app.visibleTimeLapse.set('durationHours', Number(instance.values[0]));
-
-                    RadianApp.app.visibleTimeLapse.set('durationMinutes', Number(instance.values[1]));
+                    RadianApp.app.visibleTimeLapse.set({'durationHours': Number(instance.values[0])}, error);
+                    RadianApp.app.visibleTimeLapse.set({'durationMinutes': Number(instance.values[1])}, error);
                 },
-            }).scroller('setValue', [String(RadianApp.app.visibleTimeLapse.get('durationHours')), String(RadianApp.app.visibleTimeLapse.get('durationMinutes'))], false, 0);
+            }).scroller('setValue', getSettings(), false, 0);
 
 
             return this;
@@ -1271,7 +1308,7 @@ $(document).ready(function () {
                 for(var i=4; i<=60; i++) {
                     temp_array.push(String(i));
                 }
-                return ["1/100", "1/80", "1/60", "1/50", "1/40", "1/30", "1/25", "1/20", "1/15", "1/13", "1/10", "1/8", "1/6", "1/5", "1/4", ".3", ".4", ".5", ".6", ".7", ".8", ".9", "1", "1.3", "1.6", "2", "3.2"].concat(temp_array)
+                return ["1/30", "1/25", "1/20", "1/15", "1/13", "1/10", "1/8", "1/6", "1/5", "1/4", ".3", ".4", ".5", ".6", ".7", ".8", ".9", "1", "1.3", "1.6", "2", "3.2"].concat(temp_array)
             }()
             var wheel = {};
             for (var i = 0; i < exposures.length; i++) { 
@@ -1279,6 +1316,15 @@ $(document).ready(function () {
             }
 
             var total_time_slots = [{'s': wheel}];
+
+            var getSettings = function() {
+                return [exposures.indexOf(RadianApp.app.visibleTimeLapse.get('startShutter'))];
+            };
+            var error= {
+                error: function () {
+                    $('#picker').scroller('setValue', getSettings(), true, 0.5);
+                }
+            };
 
             this.$('#picker').scroller({
                 theme: 'ios',
@@ -1288,9 +1334,9 @@ $(document).ready(function () {
                 height: 35,
                 rows: 3,
                 onChange: function (valueText, instance) {
-                    RadianApp.app.visibleTimeLapse.set('startShutter', exposures[instance.values[0]]);
+                    RadianApp.app.visibleTimeLapse.set({'startShutter': exposures[instance.values[0]]}, error);
                 },
-            }).scroller('setValue', [exposures.indexOf(RadianApp.app.visibleTimeLapse.get('startShutter'))], false, 0);
+            }).scroller('setValue', getSettings(), false, 0);
 
             $('.ios .dwwl').css('min-width', '270px');
 
@@ -1334,6 +1380,15 @@ $(document).ready(function () {
             var expType = ["f/10min", "f/10frames"]
             var total_time_slots = [{"s": wheel}, {"type": {0:"f/10min", 1: "f/10frames"}}];
 
+            var getSettings = function() {
+                return [exp.indexOf(RadianApp.app.visibleTimeLapse.get('expChange')), expType.indexOf(RadianApp.app.visibleTimeLapse.get('expType'))];
+            };
+            var error= {
+                error: function () {
+                    $('#picker').scroller('setValue', getSettings(), true, 0.5);
+                }
+            };
+
             this.$('#picker').scroller({
                 theme: 'ios',
                 display: 'inline',
@@ -1343,10 +1398,10 @@ $(document).ready(function () {
                 rows: 3,
                 onChange: function (valueText, instance) {
                     console.log(instance.values[1])
-                    RadianApp.app.visibleTimeLapse.set('expChange', exp[instance.values[0]]);
-                    RadianApp.app.visibleTimeLapse.set('expType', expType[instance.values[1]]);
+                    RadianApp.app.visibleTimeLapse.set({'expChange': exp[instance.values[0]]}, error);
+                    RadianApp.app.visibleTimeLapse.set({'expType': expType[instance.values[1]]}, error);
                 },
-            }).scroller('setValue', [exp.indexOf(RadianApp.app.visibleTimeLapse.get('expChange')), expType.indexOf(RadianApp.app.visibleTimeLapse.get('expType'))], false, 0);
+            }).scroller('setValue', getSettings(), false, 0);
 
             console.log(RadianApp.app.visibleTimeLapse.get('expType'));
             console.log(expType.indexOf(RadianApp.app.visibleTimeLapse.get('expType')));
@@ -1388,6 +1443,15 @@ $(document).ready(function () {
 
             var total_time_slots = [generate_slot('hours', 0, 240, 1, 'hr'), generate_slot('minutes', 0, 59, 1, 'min')];
 
+            var getSettings = function() {
+                return [String(RadianApp.app.visibleTimeLapse.get('timeDelayHours')), String(RadianApp.app.visibleTimeLapse.get('timeDelayMinutes'))];
+            };
+            var error= {
+                error: function () {
+                    $('#picker').scroller('setValue', getSettings(), true, 0.5);
+                }
+            };
+
             this.$('#picker').scroller({
                 theme: 'ios',
                 display: 'inline',
@@ -1396,15 +1460,15 @@ $(document).ready(function () {
                 height: 35,
                 rows: 3,
                 onChange: function (valueText, instance) {
-                    RadianApp.app.visibleTimeLapse.set('timeDelayHours', Number(instance.values[0]));
-                    RadianApp.app.visibleTimeLapse.set('timeDelayMinutes', Number(instance.values[1]));
+                    RadianApp.app.visibleTimeLapse.set({'timeDelayHours': Number(instance.values[0])}, error);
+                    RadianApp.app.visibleTimeLapse.set({'timeDelayMinutes': Number(instance.values[1])}, error);
                     if(Number(instance.values[0])==0 && Number(instance.values[1]) == 0) {
-                        RadianApp.app.visibleTimeLapse.set('isTimeDelay', false);
+                        RadianApp.app.visibleTimeLapse.set({'isTimeDelay': false}, error);
                     } else {
-                        RadianApp.app.visibleTimeLapse.set('isTimeDelay', true);
+                        RadianApp.app.visibleTimeLapse.set({'isTimeDelay': true}, error);
                     }
                 },
-            }).scroller('setValue', [String(RadianApp.app.visibleTimeLapse.get('timeDelayHours')), String(RadianApp.app.visibleTimeLapse.get('timeDelayMinutes'))], false, 0);
+            }).scroller('setValue', getSettings(), false, 0);
 
             return this;
         }
@@ -1427,12 +1491,22 @@ $(document).ready(function () {
             Views.navigation.hide();
             this.$el.empty().append(this.template(RadianApp.app.visibleTimeLapse.getTemplateJSON()));
 
-            var exp = [".25", ".5", "2"];
+            var exp = [".25", ".5", "1", "2", "3", "4", "5"];
             var wheel = {};
             for (var i = 0; i < exp.length; i++) { 
                 wheel[i] =  exp[i] + " s";
             }
             var slots = [{"s": wheel}];
+
+            var getSettings = function() {
+                return [exp.indexOf(RadianApp.app.visibleTimeLapse.get('hold'))];
+            };
+            var error= {
+                error: function () {
+                    $('#picker').scroller('setValue', getSettings(), true, 0.5);
+                }
+            };
+
             this.$('#picker').scroller({
                 theme: 'ios',
                 display: 'inline',
@@ -1441,9 +1515,9 @@ $(document).ready(function () {
                 height: 35,
                 rows: 3,
                 onChange: function (valueText, instance) {
-                    RadianApp.app.visibleTimeLapse.set('hold', exp[instance.values[0]]);
+                    RadianApp.app.visibleTimeLapse.set({'hold': exp[instance.values[0]]}, error);
                 },
-            }).scroller('setValue', [exp.indexOf(RadianApp.app.visibleTimeLapse.get('hold'))], false, 0);
+            }).scroller('setValue', getSettings(), false, 0);
             $('.ios .dwwl').css('min-width', '270px');
             return this;
         }
@@ -1465,12 +1539,23 @@ $(document).ready(function () {
             Views.navigation.hide();
             this.$el.empty().append(this.template(RadianApp.app.visibleTimeLapse.getTemplateJSON()));
 
-            var exp = ["24","25","30","48","50","60","72","120", "300"];
+            var exp = ["5", "10", "11", "12", "13", "14", "15", "20", "24", "25", "30", "45", "50", "60"];
             var wheel = {};
             for (var i = 0; i < exp.length; i++) { 
                 wheel[i] =  exp[i];
             }
             var slots = [{"s": wheel}];
+
+
+            var getSettings = function() {
+                return [exp.indexOf( String(RadianApp.app.get('fps')) )];
+            };
+            var error= {
+                error: function () {
+                    $('#picker').scroller('setValue', getSettings(), true, 0.5);
+                }
+            };
+
             this.$('#picker').scroller({
                 theme: 'ios',
                 display: 'inline',
@@ -1479,9 +1564,9 @@ $(document).ready(function () {
                 height: 35,
                 rows: 3,
                 onChange: function (valueText, instance) {
-                    RadianApp.app.set('fps', exp[instance.values[0]]);
+                    RadianApp.app.set({'fps': exp[instance.values[0]]}, error);
                 },
-            }).scroller('setValue', [exp.indexOf( String(RadianApp.app.get('fps')) )], false, 0);
+            }).scroller('setValue', getSettings(), false, 0);
             $('.ios .dwwl').css('min-width', '270px');
             return this;
         }

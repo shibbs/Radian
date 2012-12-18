@@ -15,19 +15,19 @@ $(document).ready(function () {
             current: true,
             dateCreated: RadianApp.Utilities.formatDate(new Date()),
             timeLapse: C.TimeLapseType.NONE,
-            degrees: 120,
-            totalTimeHours: 2,
-            totalTimeMinutes: 30,
+            degrees: 45,
+            totalTimeHours: 1,
+            totalTimeMinutes: 0,
             intervalMinutes: 0,
-            intervalSeconds: 15,
+            intervalSeconds: 10,
             isClockwise: false, //False is counterclockwise
             shouldContinue: false,
 
             //BULB RAMPING
             isBulbRamping: false,
-            startShutter: "30",
-            durationHours: 2,
-            durationMinutes: 30,
+            startShutter: "1/25",
+            durationHours: 0,
+            durationMinutes: 45,
             delayHours: 0,
             delayMinutes: 0,
             expChange: "2",
@@ -66,6 +66,24 @@ $(document).ready(function () {
             };
         },
 
+        getTotalPhotos: function(attrs) {
+            return Math.round((attrs.totalTimeHours * 3600 + attrs.totalTimeMinutes * 60) / 
+                              (attrs.intervalMinutes * 60 + attrs.intervalSeconds));
+        },
+
+        getDegreesPerPhoto: function(attrs) {
+            var totalPhotos = this.getTotalPhotos(attrs);
+            return RadianApp.Utilities.round(attrs.degrees / totalPhotos, 2);
+        },
+
+        getStepIncreaseTime: function(attrs) {
+            return (attrs.expType === "f/10min") ? 10 : (attrs.totalTimeHours * 60 + attrs.totalTimeMinutes) / (this.getTotalPhotos(attrs)/10);
+        },
+
+        getFinalShutter: function(attrs) {
+            return eval(attrs.startShutter) * Math.pow(2, eval(attrs.expChange) * (attrs.durationHours * 60 + attrs.durationMinutes) / this.getStepIncreaseTime(attrs));
+        },
+
         getTemplateJSON: function () {
             return _.extend(
             this.toJSON(),
@@ -74,6 +92,68 @@ $(document).ready(function () {
 
         parse: function(json) {
             alert('worked');
+        },
+
+        validate: function(attrs) {
+            var intervalTotalSeconds = attrs.intervalSeconds + attrs.intervalMinutes * 60;
+            var durationTotalSeconds = attrs.totalTimeMinutes * 60 + attrs.totalTimeHours * 60 * 60;
+            var degreesPerPhoto = this.getDegreesPerPhoto(attrs);
+            var finalExposure = this.getFinalShutter(attrs);
+            var delayTotalSeconds = attrs.delayMinutes * 60 + attrs.delayHours * 60 * 60;
+            var brampDurationTotalSeconds = attrs.durationMinutes * 60 + attrs.durationHours * 60 * 60;
+
+            var error = {};
+
+            /* Radian cannot exceed 5 degrees per second. If user selects an interval in 
+                which (degrees per photo/interval) > 5, a message should appear          */
+            if(degreesPerPhoto / intervalTotalSeconds > 5) {
+                error.message = "Radian cannot move this fast!";
+            }
+
+            //Interval must never be longer than total time, but can be equal to it.
+            if(intervalTotalSeconds > durationTotalSeconds) {
+                error.message = "Your interval cannot be longer than the total duration of your time-lapse!";
+            }
+            
+            /* If user has chosen a non-zero number for degrees to move, and has 
+               chosen a hold time that is more than 30% of the time-lapse interval */
+            if(attrs.degrees > 0 && intervalTotalSeconds <= 3 && Number(attrs.hold) >= intervalTotalSeconds*.3) {
+                error.message = "If your time-lapse interval is 3 seconds or less, your hold time can not exceed 30% of the interval!"; 
+            }
+
+            /* If user has chosen a non-zero number for degrees to move, interval is
+               4 seconds or longer, and has chosen a hold time that is greater than 
+               (Interval - 2 seconds). */
+            if(attrs.degrees > 0 && intervalTotalSeconds >= 4 && Number(attrs.hold) > intervalTotalSeconds -2) {
+                error.message = "If your time-lapse interval is 4 seconds or more, your hold time can be at most 2 seconds less than your interval. Otherwise Radian will move while you are still shooting!"; 
+            }
+
+            /* If user has chosen to move Radian 0 degrees, HOLD time can not equal 
+               or exceed interval */
+            if(attrs.degrees == 0 && Number(attrs.hold) >= intervalTotalSeconds) {
+                error.message = "Your hold time cannot equal or exceed your time-lapse interval!";
+            }
+
+            /* Final exposure can at most = interval - 2 seconds */
+            if(attrs.isBulbRamping && finalExposure > intervalTotalSeconds - 2) {
+                error.message = "Your final exposure can be at most 2 seconds less than your interval, otherwise Radian will move while you are still shooting";
+            }
+
+            /* If infinity is set, then user can set whatever delay and duration they want, 
+               as long as final exp is 2 seconds less than interval. */
+            if(attrs.isBulbRamping && !attrs.shouldContinue && (delayTotalSeconds + brampDurationTotalSeconds) >= durationTotalSeconds) {
+                error.message = "Delay + Bramp time cannot be longer than the total duration of your time-lapse!";
+            }
+
+            if(error.message) {
+                 $.modal("<div style='width: 256px; font-family:\"Conv_Gotham-Medium\", Helvetica, Arial, sans-serif; font-size: 13.5px; color: rgb(30,30,30)'> \
+                        <div>"+ error.message +"</div> \
+                        <div class='cancelBox'> \
+                            <div id='cancelAddNewPreset' class='simplemodal-close'>OK</div> \
+                        </div> \
+                        </div>", {  position: ['160px', '15px'] });
+                 return true;
+            }
         }
     });
 
