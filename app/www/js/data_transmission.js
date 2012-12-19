@@ -415,8 +415,7 @@ $(function(){
             var packet_index = 0;
             for (var byte_index = 0; byte_index < data.length; byte_index++) {
 
-                // Start bit
-                packet[packet_index++] = this.get("startBit");
+                var current_byte = data[byte_index];
 
                 // Start bit
                 if(current_byte === 0xFF) { //TODO abstract dead bit
@@ -425,9 +424,8 @@ $(function(){
                 } else {   
                     packet[packet_index++] = this.get("startBit");
                 }
-                                                
+
                 // The Data
-                var current_byte = data[byte_index];
                 for (var j = 0; j <8; j++) {
                     var mask = 1 << j;
                     var bit = Number((current_byte & mask) != 0);
