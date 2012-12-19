@@ -417,6 +417,14 @@ $(function(){
 
                 // Start bit
                 packet[packet_index++] = this.get("startBit");
+
+                // Start bit
+                if(current_byte === 0xFF) { //TODO abstract dead bit
+                    //If the startbit is part of the dead bit area then keep the endbit
+                    packet[packet_index++] = this.get("stopBit");
+                } else {   
+                    packet[packet_index++] = this.get("startBit");
+                }
                                                 
                 // The Data
                 var current_byte = data[byte_index];
@@ -427,12 +435,7 @@ $(function(){
                 };
 
                 // End bit
-                if(current_byte === 0xFF) { //TODO abstract dead bit
-                    //If the endbit is part of the dead bit area then add the startbit
-                    packet[packet_index++] = this.get("startBit");
-                } else {
-                    packet[packet_index++] = this.get("stopBit");
-                }
+                packet[packet_index++] = this.get("stopBit");
             };
 
             return packet;
