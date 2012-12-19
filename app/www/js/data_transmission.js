@@ -427,8 +427,12 @@ $(function(){
                 };
 
                 // End bit
-                packet[packet_index++] = this.get("stopBit");
-
+                if(current_byte === 0xFF) { //TODO abstract dead bit
+                    //If the endbit is part of the dead bit area then add the startbit
+                    packet[packet_index++] = this.get("startBit");
+                } else {
+                    packet[packet_index++] = this.get("stopBit");
+                }
             };
 
             return packet;

@@ -17,6 +17,14 @@ RadianApp.Utilities.formatDate = function(d) {
     return (mon+"/"+date+"/"+year+" "+hour+":"+minutes+" "+ampm);
 }
 
+RadianApp.Utilities.copyNestedArray = function(array) {
+    var newArray = []
+    for (var i = 0; i < array.length; i++) {
+        newArray.push(array[i].slice(0));
+    };
+    return newArray;
+}
+
 // Base 64 encoding function, for browsers that do not support btoa()
 // by Tyler Akins (http://rumkin.com), available in the public domain
 if (!window.btoa) {

@@ -30,7 +30,7 @@ RadianApp.DataTransmission.prepareTimeLapsePacket = function(model) {
 
         //Speed ramping stuff
         "isSpeedRamping": model.get("isSpeedRamping"),
-        "speedRampingPoints": model.get("speedRampingPoints"),
+        "speedRampingPoints": RadianApp.Utilities.copyNestedArray(model.get("speedRampingPoints")),
         "speedRampingCurved": model.get("speedRampingCurved")
 	}
 
