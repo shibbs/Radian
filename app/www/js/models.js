@@ -30,7 +30,7 @@ $(document).ready(function () {
             durationMinutes: 45,
             delayHours: 0,
             delayMinutes: 0,
-            expChange: "2",
+            expChange: "0",
             expType: "f/10min", //TODO: Make constant
 
             //SPEED RAMPING

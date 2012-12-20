@@ -4,7 +4,7 @@ body{
 	color:#969696;
 	font:11px Helvetica, Arial, sans-serif;
 	background:#191919;
-	min-width:310px;
+	min-width:320px;
 }
 img{border-style:none;}
 a{
@@ -236,11 +236,16 @@ h1{
 	width:100%;
 }
 .step-nav .number{
-	width:30px;
-	height:30px;
+	width:25px;
+	height:25px;
 	text-align:center;
 	/*color:#008bca;*/
-	font:bold 15px/30px "Conv_Gotham-Black", Helvetica, Arial, sans-serif;
+	font-family: Conv_Gotham-Medium, Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: bold;
+	line-height: 27px;
 	border:5px solid transparent;
 	-webkit-border-radius: 20px;
 	border-radius: 20px;
@@ -410,8 +415,8 @@ h1{
 	font-family:"Conv_Gotham-Medium", Helvetica, Arial, sans-serif;
 }
 .block-info strong{
-	font-size:50px;
-	line-height:54px;
+	font-size:49px;
+	line-height:49px;
 }
 .block-info span{
 	font-size:30px;
@@ -420,12 +425,12 @@ h1{
 .mark{color:#008bca;}
 .total-box{
 	border-top:1px solid #6a6a6a;
-	width:73.11%;
+	width:76%;
 	margin:0 auto 15px;
 	font:14px/19px "", Helvetica, Arial, sans-serif;
 	color:#969696;
 	text-align:center;
-	padding:15px 0 0;
+	padding:13px 0 0;
 }
 .total-box .holder{
 	display:inline-block;
@@ -467,7 +472,7 @@ h1{
 }
 .block-info{
 	text-align:center;
-	padding:45px 0 5px;
+	padding:32px 0 5px;
 }
 
 .general {
@@ -483,9 +488,10 @@ h1{
 
 }
 .block-info .text {
-	padding-bottom: 10px;
+	padding-bottom: 0px;
 }
 .block-info .row{color:#c8c8c8; padding-bottom: 5px;}
+.block-info .row span {color: rgb(255, 255, 255)};
 .choise-box{
 	position:absolute;
 	bottom:0;
@@ -668,7 +674,7 @@ span.delete{
 	-moz-background-size:100% 100%;
 	-o-background-size:100% 100%;
 	text-transform:uppercase;
-	margin:6px 12px 8px 3px;
+	margin: 6px 18px 9px 7px;
 }
 #header .no-back{width:50px;}
 .presets-list{
@@ -1088,27 +1094,26 @@ font: 20px/24px Helvetica, Arial, sans-serif;
     font-family:"Conv_Gotham-Book", Helvetica, Arial, sans-serif;
     padding-top: 25px;
     width: 220px;
-    padding-left: 32px;
+    padding-left: 55px;
     list-style: none;
 }
 
 .extraList li {
-	margin-bottom: 40px;
+	margin-bottom: 49px;
 	background: url(../images/arrow-inform-list.png) no-repeat 100% 0;
 	-webkit-background-size: 10px 14px;
-	background-position: 210px 5px;
+	background-position: 186px 3px;
 }
 
 .extraList .mainHeading {
 	color: #fff;
 	height: 20px;
-	font-size: 19px;
-	margin-bottom: 3px;
+	font-size: 18px;
 	
 }
 .extraList .subHeader {
 	color: #6e6e6e;
-	font-size: 13px;
+	font-size: 12px;
 
 }
 

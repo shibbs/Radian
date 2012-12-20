@@ -762,7 +762,11 @@ $(document).ready(function () {
 
         continue: function() {
             RadianApp.app.visibleTimeLapse.set("shouldContinue", !RadianApp.app.visibleTimeLapse.get("shouldContinue"));
-            this.$('#continue').toggleClass('highlight');
+            if(RadianApp.app.visibleTimeLapse.get("shouldContinue")) {
+                this.$('#continue').addClass('highlight');
+            } else {
+                this.$('#continue').removeClass('highlight');
+            }
         },
 
         updateTotalTimeHours: function () {
