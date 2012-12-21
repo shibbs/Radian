@@ -53,15 +53,17 @@ $(document).ready(function () {
             var degreesPerPhoto = RadianApp.Utilities.round(this.get('degrees') / totalPhotos, 2);
             var frameRate = RadianApp.Utilities.round(totalPhotos / RadianApp.app.get('fps'), 1);
             var stepIncreaseTime = (this.get('expType') === "f/10min") ? 10 : (this.get('totalTimeHours') * 60 + this.get('totalTimeMinutes')) / (totalPhotos/10);
-            var finalShutter = eval(this.get('startShutter')) * Math.pow(2, eval(this.get('expChange')) * ((this.get('durationHours') * 60 + this.get('durationMinutes')) / stepIncreaseTime));
-            
+            var finalShutter = RadianApp.Utilities.round(eval(this.get('startShutter')) * Math.pow(2, eval(this.get('expChange')) * ((this.get('durationHours') * 60 + this.get('durationMinutes')) / stepIncreaseTime)), 2);
+            if(finalShutter > 100000) {
+                finalShutter = RadianApp.Utilities.round(finalShutter.toPrecision(3), 2).toExponential(2);
+            }
             return {
                 totalPhotos: totalPhotos,
                 degreesPerPhoto: degreesPerPhoto,
                 frameRate: frameRate,
                 direction: C.DirectionCanonical(this.get('isClockwise')),
                 directionAbr: C.DirectionAbbr(this.get('isClockwise')),
-                finalShutter: RadianApp.Utilities.round(finalShutter, 1),
+                finalShutter: finalShutter,
                 fps: RadianApp.app.get('fps'),
             };
         },
@@ -146,13 +148,8 @@ $(document).ready(function () {
             }
 
             if(error.message) {
-                 $.modal("<div style='width: 256px; font-family:\"Conv_Gotham-Medium\", Helvetica, Arial, sans-serif; font-size: 13.5px; color: rgb(30,30,30)'> \
-                        <div>"+ error.message +"</div> \
-                        <div class='cancelBox'> \
-                            <div id='cancelAddNewPreset' class='simplemodal-close'>OK</div> \
-                        </div> \
-                        </div>", {  position: ['160px', '15px'] });
-                 return true;
+                RadianApp.Utilities.errorModal(error.message);
+                return true;
             }
         }
     });
