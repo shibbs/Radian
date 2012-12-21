@@ -1,20 +1,32 @@
 $().ns('RadianApp.Utilities');
 
 RadianApp.Utilities.round = function roundNumber(num, dec) {
-    var result = Math.round(num * Math.pow(10, dec)) / Math.pow(10, dec);
+    var result = Math.round(Number(num) * Math.pow(10, dec)) / Math.pow(10, dec);
     return result;
 };
 
-RadianApp.Utilities.formatDate = function(d) {
+RadianApp.Utilities.formatDate = function(d, onlyDate) {
     var date = d.getDate();
     date = date < 10 ? "0"+date : date;
     var mon = d.getMonth()+1;
     mon = mon < 10 ? "0"+mon : mon;
     var year = d.getFullYear();
     var hour = d.getHours()%12;
+    if(hour === 0) hour = 12;
     var minutes = d.getMinutes();
+    if(minutes < 10) minutes = '0' + minutes;
     var ampm = d.getHours()/12 > 1 ? "PM" : "AM";
+    if(onlyDate) return (mon+"/"+date+"/"+year);
     return (mon+"/"+date+"/"+year+" "+hour+":"+minutes+" "+ampm);
+}
+
+RadianApp.Utilities.errorModal = function(errorMessage) {
+     $.modal("<div style='width: 256px; font-family:\"Conv_Gotham-Medium\", Helvetica, Arial, sans-serif; font-size: 13.5px; color: rgb(30,30,30)'> \
+        <div>"+ errorMessage +"</div> \
+        <div class='cancelBox'> \
+            <div id='cancelAddNewPreset' class='simplemodal-close'>OK</div> \
+        </div> \
+        </div>", {  position: ['160px', '15px'] });
 }
 
 RadianApp.Utilities.copyNestedArray = function(array) {

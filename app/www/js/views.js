@@ -285,7 +285,7 @@ $(document).ready(function () {
                                             setTimeout(function(){
                                                 $("#presetName").focus();
                                             },100);
-                                        },
+                                        }
                             });
             
             this.endEvent(e);
@@ -338,7 +338,7 @@ $(document).ready(function () {
         },
 
         toggleShow: function(e) {
-            this.endEvent(e);
+            if(e) this.endEvent(e);
             this.$('.box').toggleClass('hide');
             this.open = !this.open;
             if(this.open && this.deleteMode) {
@@ -433,6 +433,7 @@ $(document).ready(function () {
             var temp = new Views.TimeLapsePresetItemView(model, this.scroller, false, me);
             if(insert) { //Should be inserting at beginning or end
                 this.$("#list > div:nth-child(1)").after(temp.render().$el);
+                temp.toggleShow();
             } else {
                 this.$('#list').append(temp.render().$el);
             }
@@ -446,7 +447,10 @@ $(document).ready(function () {
             var scroller = new iScroll('scrollwrapper', {});
             this.scroller = scroller;
             RadianApp.app.visibleTimeLapse.set('dateCreated', RadianApp.Utilities.formatDate(new Date()));
-            var currentView = new Views.TimeLapsePresetItemView(RadianApp.app.visibleTimeLapse, scroller, true, this);
+            var temp = RadianApp.app.visibleTimeLapse.clone();
+            temp.set('current', true);
+            temp.set('dateCreated', RadianApp.Utilities.formatDate(new Date(), true));
+            var currentView = new Views.TimeLapsePresetItemView(temp, scroller, true, this);
             this.$('#list').append(currentView.render().$el);
             var models = RadianApp.app.presets.models;
 
@@ -524,6 +528,10 @@ $(document).ready(function () {
 
         navigateToAddView: function(e) {
             e.preventDefault();
+            if(RadianApp.app.queue.length >= 4) {
+                RadianApp.Utilities.errorModal('You may only have four presets in the queue.')
+                return;
+            }
             window.location.hash = '#timelapse/queue/add';
             var addView = new Views.TimeLapseQueueAddView();
             addView.render();
@@ -590,6 +598,10 @@ $(document).ready(function () {
 
 
         selectModel: function() {
+            if(!this.selected && (RadianApp.app.queue.length + this.collection.length) >= 4) {
+                RadianApp.Utilities.errorModal('You may only have four presets in the queue.')
+                return;
+            }
             this.selected = !this.selected;
             if(this.selected) {
                 this.$('.check').css('visibility', 'visible');
@@ -1582,6 +1594,31 @@ $(document).ready(function () {
 
     Views.TimeLapseAdvancedView = Views.ModalView.extend({
         template: _.template($('#timeLapseAdvanced_template').html()),
+
+        events: {
+            'click #timedelay': 'timedelay',
+            'click #speedramping': 'speedramping',
+            'click #bulbramping': 'bulbramping',
+            'click #hold': 'hold'
+        },
+
+        timedelay: function() {
+            window.location.hash = 'timelapse/timedelay';
+        },
+
+        speedramping: function() {
+            window.location.hash = 'timelapse/speedramping';
+        },
+
+        bulbramping: function() {
+            window.location.hash = 'timelapse/bulbramping';
+        },
+        
+        hold: function() {
+            window.location.hash = 'timelapse/hold';
+        },
+
+
     });
 
      Views.TimeLapseCompletedView = Views.BaseView.extend({
@@ -1613,6 +1650,7 @@ $(document).ready(function () {
         el: '#navigation',
 
         hide: function() {
+            this.isModal = true;
             if(this.landscape && RadianApp.isIOS)  {
                 navigator.screenOrientation.set('portrait', function(){}, function(){});
             }
@@ -1622,6 +1660,7 @@ $(document).ready(function () {
         },
 
         unhide: function() {
+            this.isModal = false;
             this.$el.css("visibility", "visible");
         },
 
