@@ -3,13 +3,13 @@ body{
 	margin:0;
 	color:#969696;
 	font:11px Helvetica, Arial, sans-serif;
-	background:#191919;
+	background:rgb(30,30,30);
 	min-width:320px;
 }
 img{border-style:none;}
 a{
 	text-decoration:none;
-	color:#000;
+	color:#000
 }
 a:hover{text-decoration:none;}
 a {-webkit-touch-callout: none;}
@@ -136,7 +136,7 @@ h1{
 .inner-page .btn-box{padding:30px 0 0}
 .pan-page .btn-box{margin:0 0 43px;}
 .btn-box a, .btn-box .btn {
-	color:#191919;
+	color:rgb(30,30,30);
 	text-transform:uppercase;
 	font:bold 20px/24px "Conv_Gotham-Black", Helvetica, Arial, sans-serif;
 	padding:18px 10px 19px;
@@ -268,7 +268,7 @@ h1{
 	-webkit-border-radius: 20px;
 	border-radius: 20px;
 	float:left;
-	/*background:#191919;*/
+	/*background:rgb(30,30,30);*/
 	margin:0 2px 0 2px;
 }
 
@@ -282,7 +282,7 @@ h1{
 	height:34px;
 	overflow:hidden;
 	text-indent:-9999px;
-	background:#191919 url(../images/btn-next.png) no-repeat;
+	background:rgb(30,30,30) url(../images/btn-next.png) no-repeat;
 	background-size:100% 100%;
 	-webkit-background-size:100% 100%;
 	-moz-background-size:100% 100%;
@@ -294,18 +294,18 @@ h1{
 	border:none;
 }
 .step-nav .prev{
-	background:#191919 url(../images/btn-prev.png) no-repeat;
+	background:rgb(30,30,30) url(../images/btn-prev.png) no-repeat;
 	background-size:100% 100%;
 	-webkit-background-size:100% 100%;
 	-moz-background-size:100% 100%;
 	-o-background-size:100% 100%;
 }
 .step-nav .prev-holder{
-	background:#191919;
+	background:rgb(30,30,30);
 	padding:0 5px 0 0;
 }
 .step-nav .next-holder{
-	background:#191919;
+	background:rgb(30,30,30);
 	padding:0 0 0 5px;
 }
 /*.step-nav ul .number{margin:0;}*/
@@ -361,20 +361,20 @@ h1{
 	box-sizing: border-box;
 	float:left;
 	background:#6e6e6e;
-	color:#191919;
+	color:rgb(30,30,30);
 	font:bold 11px/14px "Conv_Gotham-Black", Helvetica, Arial, sans-serif;
 	padding:8px 5px;
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
 }
-#header .tappable-active {
+#header a.tappable-active {
 	background:#008bca !important;
 	color:#fff !important;
 }
 
 #header .no-btn{
-	background:#191919;
-	color:#191919;
+	background:rgb(30,30,30);
+	color:rgb(30,30,30);
 }
 #header .alignright{float:right;}
 #header h1{
@@ -760,7 +760,7 @@ span.delete{
 	position: relative;
 }
 .presets-list .box .small-btn-row a{
-	color:#191919;
+	color:rgb(30,30,30);
 	font-size:12px;
 	line-height:14px;
 	font-family:"Conv_Gotham-Medium", Helvetica, Arial, sans-serif;
@@ -787,7 +787,7 @@ span.delete{
 }
 .presets-list .box .small-btn-row .dark-btn{
 
-	color:#191919;
+	color:rgb(30,30,30);
 }
 .presets-list .btn-row {
 	width: 76%;
@@ -920,7 +920,7 @@ span.delete{
 
 .inner-page .choice-btn-box{padding:15px 0 0}
 .choice-btn-box a{
-	color:#191919;
+	color:rgb(30,30,30);
 	text-transform:uppercase;
 	font:bold 12px/14px "Conv_Gotham-Black", Helvetica, Arial, sans-serif;
 	padding:9px 8px 11px;
@@ -957,7 +957,7 @@ span.delete{
 	right:0; 
 	height: 49px; 
 	width:100%; 
-	background-color:#191919;
+	background-color:rgb(30,30,30);
 }
 .scrollwrapper {
 	position:absolute; z-index:1;
@@ -1669,4 +1669,222 @@ select.holo-spinner option { height: 32px; border-top: 1px #444 solid; }
 }
 
 
+/* NEW NAV */
+#topNav {
+	height: 55px;
+	position: absolute;
+	width: 320px;
+	top: 0px;
+}
+
+#topNav .title {
+	text-align: center;
+	line-height: 65px;
+	font-size: 18px;
+	font-family: "Conv_Gotham-Medium";
+	color: rgb(110, 110, 110);
+}
+
+#topNav [class$="Area"] {
+	position: absolute;
+	top: 0px;
+	width: 95px;
+	height: 55px;
+}
+
+#topNav .leftArea {
+	left: 0;
+}
+
+#topNav .rightArea {
+	right: 0;
+}
+
+#topNav .btn {
+	color:rgb(40,40,40);
+	text-transform:uppercase;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	background:#6e6e6e;
+	display:block;
+	width: 66px;
+	height: 31px;
+	position: absolute;
+	text-align: center;
+	line-height: 31px;
+	font-family: "Conv_Gotham-Black";
+	top: 14px;
+}
+
+#topNav .btn.tappable-active {
+	background-color: rgb(0, 139, 202);
+	color:#fff;
+}
+
+
+#topNav .leftArea .btn {
+	left: 22px;
+}
+
+#topNav .rightArea .btn {
+	right: 22px;
+}
+
+.newStyleBox {
+	margin-top:69px;
+	text-align: center;
+}
+
+.newStyleBox .miniTitle {
+	font-family: "Conv_Gotham-Book";
+	color: rgb(110, 110, 110);
+}
+.newStyleBox .row {
+	padding-bottom: 2px;
+}
+.newStyleBox .row .display {
+	margin: 3px auto;
+}
+
+.newStyleBox .row .valueContainer {
+	display: inline;
+	position: relative;
+}
+
+.newStyleBox .row .valueContainer > div {
+	display: inline;
+}
+
+.newStyleBox .display > div:first-child {
+	right: -2px;
+}
+
+.newStyleBox .display > div:last-child {
+	left: -2px;
+}
+
+.newStyleBox .row .valueContainer .value {
+	font-size: 38px;
+	font-family: "Conv_Gotham-Black";
+	position: relative;
+	right: -2px;
+	color: rgb(0, 139, 202);
+}
+
+.newStyleBox .row .valueContainer .value .degree {
+	position: absolute;
+	color: rgb(180, 180, 180);
+	font-size: 18px;
+	top: -2px;
+	font-family: "Conv_Gotham-Book";
+	right: -6px;
+}
+
+.newStyleBox .row .valueContainer .unit {
+	font-size: 18px;
+	font-family: "Conv_Gotham-Medium";
+	color: #fff;
+	position:relative;
+	left: -2px;
+	text-transform: lowercase;
+}
+
+.centeredBox {
+	text-align: center;
+	margin-top: 14px;
+}
+
+.centeredBox .advancedbtn {
+	color:rgb(40,40,40);
+	text-transform:uppercase;
+	border-radius: 5px;
+	background:#6e6e6e;
+	width: 88px;
+	height: 31px;
+	text-align: center;
+	line-height: 31px;
+	margin: 0 auto;
+	font-family: "Conv_Gotham-Black";
+}
+
+.centeredBox .advancedbtn.tappable-active {
+	background-color: rgb(0, 139, 202);
+	color:#fff;
+}
+
+.advancedSettings {
+	padding-top: 25px;
+	margin: 0 auto;
+	width: 193px;
+	text-align: center;
+}
+
+.advancedSettings > div {
+	font-family: "Conv_Gotham-Book";
+	color: rgb(0, 139, 202);
+	display: inline-block;
+	margin-right: 6px;
+	text-transform: uppercase;
+}
+
+.advancedSettings > div:last-child {
+	margin-right: 0px;
+}
+
+.stats {
+	width: 218px;
+	height: 30px;
+	margin: 8px auto;
+	border-top: solid 1px rgb(150, 150, 150);
+}
+
+.stats .photos {
+	background:url(../images/ico-photo.png) no-repeat;
+background-size: 16px 16px;
+display: inline-block;
+width: 16px;
+height: 16px;
+margin-right: 5px;
+position: relative;
+top: 2px;
+}
+
+.stats .degrees {
+	background:url(../images/ico-photo-info.png) no-repeat;
+background-size: 16px 16px;
+display: inline-block;
+width: 16px;
+height: 16px;
+margin-right: 5px;
+position: relative;
+top: 2px;
+}
+
+.stats .duration {
+	background:url(../images/ico-time.png) no-repeat;
+background-size: 16px 16px;
+display: inline-block;
+width: 16px;
+height: 16px;
+margin-right: 5px;
+position: relative;
+top: 2px;
+}
+
+.stats > div {
+	font-family: "Conv_Gotham-Black";
+	display: inline-block;
+	padding-left: 3px;
+	width: 67px;
+	text-align: center;
+	font-size: 14px;
+	line-height: 39px;
+}
+
+.stats > div > div {
+	display: inline-block;
+}
+.advancedSettings > div:first-child {
+	padding-left: 0px;
+}
 

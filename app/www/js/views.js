@@ -193,6 +193,9 @@ $(document).ready(function () {
             "click #degreeLink": "degreeLink",
             "click #totalTimeLink": "totalTimeLink",
             "click #intervalLink": "intervalLink",
+            "click #presetsLink": "presetsLink",
+            "click #queueLink": "queueLink",
+            "click #advancedLink": "advancedLink",
         },
 
         degreeLink: function () {
@@ -205,6 +208,16 @@ $(document).ready(function () {
 
         intervalLink: function () {
             window.location.hash = '#timelapse/interval';
+
+        },
+
+        presetsLink: function () {
+            window.location.hash = '#timelapse/presets';
+
+        },
+
+        queueLink: function () {
+            window.location.hash = '#timelapse/queue';
 
         },
 
