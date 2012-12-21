@@ -443,7 +443,8 @@ $(function(){
             var packet = this.calculatePacket();
             var stretchedPacket = this.stretchPacket(packet);
             var invertedPacket = this.invertPacket(stretchedPacket);
-            return this.combinePackets(stretchedPacket, invertedPacket);
+            var completePacket = this.combinePackets(stretchedPacket, invertedPacket);
+            return this.combinePackets(completePacket, completePacket);
         }
     });
 

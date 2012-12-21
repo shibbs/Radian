@@ -171,13 +171,16 @@ h1{
 .highlight {color: #008bca !important;}
 .highlight-bg {background-color: #008bca !important;}
 .btn-box .btn-white{color: #fff;}
-.btn-box .tappable-active {background:#008bca !important;}
+
+.btn-box a.tappable-active {
+	background-color: #008bca !important;
+}
 
 .btn-box .settings-btn{
 	display:inline-block;
 	vertical-align:top;
 	padding:0;
-	background:url(../images/btn-settings.png) no-repeat;
+	background:url(../images/SettingsIcon.png) no-repeat;
 	width:25px;
 	height:25px;
 	overflow:hidden;
@@ -187,6 +190,21 @@ h1{
 	-webkit-border-radius: 0;
 	border-radius: 0;
 	background-size:100% 100%;
+	-webkit-background-size:100% 100%;
+	-moz-background-size:100% 100%;
+	-o-background-size:100% 100%;
+}
+.btn-box a.settings-btn.tappable-active {
+	background:url(../images/SettingsIcon_selected.png) no-repeat !important;
+	display:inline-block;
+	vertical-align:top;
+	padding:0;
+	width:25px;
+	height:25px;
+	margin:-9px 0 0;
+	-webkit-border-radius: 0;
+	border-radius: 0;
+	background-size:100% 100% !important;
 	-webkit-background-size:100% 100%;
 	-moz-background-size:100% 100%;
 	-o-background-size:100% 100%;
@@ -369,7 +387,7 @@ h1{
 }
 .inform-list{
 	list-style:none;
-	padding:26px 0 21px;
+	padding:14px 0 21px;
 	margin:0;
 	overflow:hidden;
 	line-height:42px;
@@ -407,6 +425,8 @@ h1{
 	font-family:"Conv_Gotham-Black", Helvetica, Arial, sans-serif;
 	display:inline-block;
 	vertical-align:baseline;
+	position: relative;
+	left: 5px;
 }
 .block-info span,
 .inform-list .holder span{
@@ -575,12 +595,11 @@ h1{
 	padding:12px 0 0;
 	margin:0 -21px;
 	overflow:hidden;
-	border-bottom:1px solid #888;
+	border-bottom:1px solid rgb(70,70,70);
 }
 .list li{
 	overflow:hidden;
-	border-top:1px solid #888;
-	border-bottom:1px solid #888;
+	border-top:1px solid rgb(70,70,70);
 	padding:15px 20px;
 	font:17px/24px "Conv_Gotham-Medium", Helvetica, Arial, sans-serif;
 }
@@ -589,13 +608,15 @@ h1{
 	overflow:hidden;
 	text-indent:-9999px;
 	background:url(../images/btn-delete.png) no-repeat;
-	background-size:100% 100%;
-	-webkit-background-size:100% 100%;
-	-moz-background-size:100% 100%;
-	-o-background-size:100% 100%;
-	width:20px;
+	background-size:20px 21px;
+
+	width:31px;
 	height:21px;
 	margin:0 0 0 15px;
+	width: 30px;
+height: 30px;
+right: 10px;
+position: absolute;
 }
 
 .list .check{
@@ -632,7 +653,7 @@ span.delete{
 .list .list-link{
 	display:block;
 	overflow:hidden;
-	padding:0 0 0 35px;
+	padding:0 0 0 0;
 	text-align:center;
 	color:#c8c8c8;
 	background:url(../images/ico-link-list.png) no-repeat 0 50%;
@@ -676,19 +697,23 @@ span.delete{
 	text-transform:uppercase;
 	margin: 6px 18px 9px 7px;
 }
+#header .btn-back.tappable-active{
+	background:url(../images/BackArrow_Selected.png) no-repeat !important;
+	background-size:100% 100% !important;
+}
 #header .no-back{width:50px;}
 .presets-list{
 	list-style:none;
 	padding:10px 0 0;
 	margin:0 -21px;
 	overflow:hidden;
-	border-bottom:1px solid #343434;
+	border-bottom:1px solid rgb(70,70,70);
 }
 .presets-list li{
-	border-top:1px solid #343434;
+	border-top:1px solid rgb(70,70,70);
 	text-align:center;
 }
-.presets-list li:first-child{border-color:#686868;}
+.presets-list li:first-child{border-color:rgb(70,70,70);}
 .presets-list .opener{
 	display:block;
 	padding:14px 5px 5px;
@@ -707,7 +732,7 @@ span.delete{
 .presets-list .date .time{padding:0 0 0 5px;}
 .presets-list .box{
 	margin:8px 12px 8px;
-	background:#373737;
+	background:rgb(40, 40, 40);;
 	color:#969696;
 	padding:16px 5px 9px;
 }
@@ -731,6 +756,8 @@ span.delete{
 	vertical-align:baseline;
 	font-size:18px;
 	font-family:"Conv_Gotham-Medium", Helvetica, Arial, sans-serif;
+	left: -4px;
+	position: relative;
 }
 .presets-list .box .small-btn-row a{
 	color:#191919;
@@ -762,10 +789,14 @@ span.delete{
 
 	color:#191919;
 }
+.presets-list .btn-row {
+	width: 76%;
+	margin: 0 auto;
+}
 .presets-list .box .btn-row a{
 	color:#ebebeb;
-	font:bold 14px/16px "Conv_Gotham-Black", Helvetica, Arial, sans-serif;
-	padding:10px;
+	font:bold 15px/17px "Conv_Gotham-Black", Helvetica, Arial, sans-serif;
+	padding: 8px 0px 8px 0px;
 	width:23%;
 	text-transform:uppercase;
 	
@@ -940,6 +971,9 @@ span.delete{
 }
 .sortable {
 	
+}
+.ui-sortable-helper {
+	border-bottom: 1px solid rgb(70, 70, 70);
 }
 
 .show {

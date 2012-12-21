@@ -208,6 +208,7 @@ FastClick.prototype.sendClick = function(targetElement, event) {
  */
 FastClick.prototype.onTouchStart = function(event) {
 	'use strict';
+	$(event.target).addClass('tappable-active');
 	var touch = event.targetTouches[0];
 
 	this.trackingClick = true;
@@ -302,12 +303,14 @@ FastClick.prototype.onTouchEnd = function(event) {
 	var forElement, trackingClickStart, targetElement = this.targetElement;
 
 	if (!this.trackingClick) {
+		$(event.target).removeClass('tappable-active');
 		return true;
 	}
 
 	// Prevent phantom clicks on fast double-tap (issue #36)
 	if ((event.timeStamp - this.lastClickTime) < 200) {
 		this.cancelNextClick = true;
+		$(event.target).removeClass('tappable-active');
 		return true;
 	}
 
@@ -322,6 +325,7 @@ FastClick.prototype.onTouchEnd = function(event) {
 		if (forElement) {
 			targetElement.focus();
 			if (this.deviceIsAndroid) {
+				$(event.target).removeClass('tappable-active');
 				return false;
 			}
 
@@ -330,7 +334,7 @@ FastClick.prototype.onTouchEnd = function(event) {
 				event.preventDefault();
 				this.sendClick(forElement, event);
 			}
-
+			$(event.target).removeClass('tappable-active');
 			return false;
 		}
 	} else if (this.needsFocus(targetElement)) {
@@ -349,6 +353,7 @@ FastClick.prototype.onTouchEnd = function(event) {
 			event.preventDefault();
 		}
 
+		$(event.target).removeClass('tappable-active');
 		return false;
 	}
 
@@ -358,8 +363,11 @@ FastClick.prototype.onTouchEnd = function(event) {
 		this.targetElement = null;
 		event.preventDefault();
 		this.sendClick(targetElement, event);
+	} else {
+		$(event.target).removeClass('tappable-active');
 	}
 
+	
 	return false;
 };
 
