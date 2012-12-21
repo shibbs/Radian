@@ -46,7 +46,7 @@ SplineChart = Backbone.Model.extend({
     this.color = color;
     this.splineFunc = splineFunc;
     this.handleSize = 14;
-    if (this.iOS) this.handleSize *= 1.5;
+    if (this.iOS) this.handleSize *= 1.6;
     this.questions = [];
     this.ys = [];
     this.handles = [];
@@ -419,7 +419,7 @@ SplineChart = Backbone.Model.extend({
     var chart = $('#chart');
     var results = chart[0].relMouseCoords(e);
     x = results.x;
-    y = chart.height() - results.y+25;
+    y = chart.height() - results.y;
 
 
     x /= me.xfactor;
@@ -500,7 +500,7 @@ SplineChart = Backbone.Model.extend({
   addNewPoint: function(x, y, notFromClick) {
     this.customized = true;
     var i = 0;
-    if(!notFromClick) { y -= 25; }
+    //if(!notFromClick) { y -= 25; }
     for (var i = 0; i < this.questions.length; i++) {
       var nextX = parseFloat(this.questions[i].answer());
       if(nextX == x) {

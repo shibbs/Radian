@@ -169,7 +169,7 @@ h1{
 .inner-page .btn-box a{margin-bottom:22px;}
 .btn-box .btn-blue{color: #fff;background:#008bca;}
 .highlight {color: #008bca !important;}
-.highlight-bg {background-color: #008bca !important;}
+.highlight-bg {background-color: #008bca !important; color:#fff !important;}
 .btn-box .btn-white{color: #fff;}
 
 .btn-box a.tappable-active {
@@ -1888,3 +1888,118 @@ top: 2px;
 	padding-left: 0px;
 }
 
+
+
+/* NEW NAV */
+#horizontalNav {
+	height: 75px;
+	position: absolute;
+	width: 100%;
+	top: -20px;
+	z-index: 20;
+}
+
+#horizontalNav .rightArea .btn.reset {
+	left: 14px;
+	top: 29px;
+}
+
+#horizontalNav .leftArea, #horizontalNav .rightArea {
+	position: absolute;
+	top: 0px;
+	width: 95px;
+	height: 55px;
+}
+
+#horizontalNav .leftArea .backarrow {
+	width:22px;
+	height:22px;
+	background:url(../images/BackArrow.png) no-repeat;
+	background-size: 100%;
+	position: relative;
+	top: 32px;
+	left: 12px;
+}
+
+#horizontalNav .leftArea .backarrow.tappable-active {
+	background:url(../images/BackArrow_Selected.png) no-repeat !important;
+	background-size:100% 100% !important;
+}
+
+#horizontalNav .middleArea {
+	margin: 29px auto;
+	width: 254px;
+	height: 31px;
+}
+
+#horizontalNav .middleArea > div {
+	display: inline-block;
+}
+
+#horizontalNav .middleArea .text {
+	line-height: 14px;
+	font-size: 14px;
+	font-family: "Conv_Gotham-Medium";
+	color: rgb(180, 180, 180);
+	margin-right:9px;
+}
+
+#horizontalNav  .middleArea .btn {
+	color:rgb(40,40,40);
+	text-transform:uppercase;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	background:#6e6e6e;
+	width: 102px;
+	height: 31px;
+	position: relative;
+	text-align: center;
+	line-height: 31px;
+	font-family: "Conv_Gotham-Black";
+	top: 0px;
+}
+
+#horizontalNav .middleArea>div:nth-of-type(2) {
+	margin-right: 4px;
+}
+
+
+
+
+#horizontalNav  .leftArea {
+	left: 0;
+}
+
+#horizontalNav  .rightArea {
+	right: 0;
+}
+
+#horizontalNav  .btn {
+	color:rgb(40,40,40);
+	text-transform:uppercase;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	background:#6e6e6e;
+	display:block;
+	width: 66px;
+	height: 31px;
+	position: absolute;
+	text-align: center;
+	line-height: 31px;
+	font-family: "Conv_Gotham-Black";
+	top: 14px;
+}
+
+#horizontalNav .btn.tappable-active {
+	background-color: rgb(0, 139, 202);
+	color:#fff;
+}
+
+
+#horizontalNav  .leftArea .btn {
+	left: 22px;
+}
+
+#horizontalNav .rightArea .btn {
+	right: 22px;
+}

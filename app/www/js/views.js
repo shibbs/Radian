@@ -1097,40 +1097,51 @@ $(document).ready(function () {
             'click #linear': "linear",
             'click #cubic': "curve",
             'click #reset': 'reset',
-            'click #back': 'save',     
+            'click #previous': 'save',     
         },
 
         save: function() {
+
             var points = ChartMonotonic.getPoints();
             if(!points) {
                 RadianApp.app.visibleTimeLapse.set('isSpeedRamping', false);
                 RadianApp.app.visibleTimeLapse.set('speedRampingPoints', []);
                 RadianApp.app.visibleTimeLapse.set('speedRampingCurved', false);
+                $('#container').css('width', '320');
+                window.location.hash = 'timelapse/advanced';
                 return;
             }
             RadianApp.app.visibleTimeLapse.set('isSpeedRamping', true);
             RadianApp.app.visibleTimeLapse.set('speedRampingPoints', points);
             RadianApp.app.visibleTimeLapse.set('speedRampingCurved', !ChartMonotonic.isLinear());
+            $('#container').css('width', '320');
+            window.location.hash = 'timelapse/advanced';
         },
 
         reset: function() {
             this.linear();
             ChartMonotonic.setPoints();
+            this.$('#reset').removeClass('tappable-active');
         },
 
         linear: function() {
             ChartMonotonic.setLinear(true);
             this.$('#linear').addClass('highlight-bg');
             this.$('#cubic').removeClass('highlight-bg');
+            this.$('#cubic').removeClass('tappable-active');
+            this.$('#linear').removeClass('tappable-active');
         },
 
         curve: function() {
             ChartMonotonic.setLinear(false);
             this.$('#linear').removeClass('highlight-bg');
             this.$('#cubic').addClass('highlight-bg');
+            this.$('#cubic').removeClass('tappable-active');
+            this.$('#linear').removeClass('tappable-active');
         },
 
         render: function () {
+            $('#container').css('width', '480');
             Views.navigation.hide();
             if(RadianApp.isIOS) {
                 Views.navigation.setLandscape();
