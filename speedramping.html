@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+    <head>
+		<title>radian | Speed Ramping Demo</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name = "format-detection" content = "telephone=no"/>
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width;" />
+		<style>
+				html{}
+				body{
+					margin:0;
+					color:#969696;
+					font:11px Helvetica, Arial, sans-serif;
+					background:rgb(30,30,30);
+					min-width:320px;
+					font-weight: bold;
+					position: relative;
+										width: 480px;
+					height: 320px;
+				}
+		      .cubic_spline { position: relative; left: 80px; font-size: 0.95em; -webkit-user-select: none; }
+		      .cubic_spline canvas { border-left: 1px solid #008bca; border-bottom: 1px solid #008bca;}
+		      .cubic_spline_xlabel, .cubic_spline_ylabel { position: absolute; }
+		      .cubic_spline_ylabel { color:#c8c8c8; width: 50px; left: -65px; text-align: right; }
+		      .cubic_spline_xlabel { color:#c8c8c8; width: 150px; text-align: center; }
+		      .cubic_spline_xaxis_label { color:#c8c8c8; position: relative; top: 2em; text-align: center; }
+		      .cubic_spline_yaxis_label {
+		        color:#c8c8c8;
+		        position: absolute; left: -160px; width: 200px; text-align: center;
+		        -moz-transform:    rotate(-90deg);
+		        -webkit-transform: rotate(-90deg);
+		        -o-transform:      rotate(-90deg);
+		        -ms-transform:     rotate(-90deg);
+		        transform:         rotate(-90deg);
+		        filter:     progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+		        -ms-filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+		        zoom: 1;
+		      }
+		      .cubic_spline_handle {position: absolute; cursor: move; font-size: 1px; background: #c8c8c8; -webkit-user-select: none; border: 5px transparent; }
+		      .cubic_spline_message, .cubic_spline_popup { border: 1px solid #fff; background: #fbc60f; font-size: 0.9em; line-height: 1.2; padding: 3px 9px; }
+
+		      .button {
+		        float: left;
+		        font-size: 30px;
+		        margin-left: 30px;
+		        color: #666;
+		        font-weight: bold;
+		        cursor: pointer;
+		        margin-bottom: 40px;
+		      }
+		      .clear {
+		        clear: both;
+		      }
+		      #page {
+		      	padding-bottom: 15px;
+		      }
+		      #chart_monotonic {
+		      	position:relative;
+		      	left: 35px;
+		      	top: 0px;
+		      }
+
+			/* NEW NAV */
+			#horizontalNav {
+				height: 75px;
+				position: absolute;
+				width: 100%;
+				top: -20px;
+				z-index: 20;
+			}
+
+			#horizontalNav .rightArea .btn.reset {
+				left: 14px;
+				top: 29px;
+			}
+
+			#horizontalNav .leftArea, #horizontalNav .rightArea {
+				position: absolute;
+				top: 0px;
+				width: 95px;
+				height: 55px;
+			}
+
+			#horizontalNav .leftArea .backarrow {
+				width:22px;
+				height:22px;
+				background:url(../images/BackArrow.png) no-repeat;
+				background-size: 100%;
+				position: relative;
+				top: 32px;
+				left: 12px;
+			}
+
+			#horizontalNav .leftArea .backarrow.tappable-active {
+				background:url(../images/BackArrow_Selected.png) no-repeat !important;
+				background-size:100% 100% !important;
+			}
+
+			#horizontalNav .middleArea {
+				margin: 29px auto;
+				width: 254px;
+				height: 31px;
+			}
+
+			#horizontalNav .middleArea > div {
+				display: inline-block;
+			}
+
+			#horizontalNav .middleArea .text {
+				line-height: 14px;
+				font-size: 14px;
+				font-family: "Conv_Gotham-Medium", helvetica;
+				color: rgb(180, 180, 180);
+				margin-right:9px;
+			}
+
+			#horizontalNav  .middleArea .btn {
+				color:rgb(40,40,40);
+				text-transform:uppercase;
+				-webkit-border-radius: 5px;
+				border-radius: 5px;
+				background:#6e6e6e;
+				width: 102px;
+				height: 31px;
+				position: relative;
+				text-align: center;
+				line-height: 31px;
+				font-family: "Conv_Gotham-Black";
+				top: 0px;
+			}
+
+			#horizontalNav .middleArea>div:nth-of-type(2) {
+				margin-right: 4px;
+			}
+
+
+
+
+			#horizontalNav  .leftArea {
+				left: 0;
+			}
+
+			#horizontalNav  .rightArea {
+				right: 0;
+			}
+
+			#horizontalNav  .btn {
+				color:rgb(40,40,40);
+				text-transform:uppercase;
+				-webkit-border-radius: 5px;
+				border-radius: 5px;
+				background:#6e6e6e;
+				display:block;
+				width: 66px;
+				height: 31px;
+				position: absolute;
+				text-align: center;
+				line-height: 31px;
+				font-family: "Conv_Gotham-Black", helvetica;
+				top: 14px;
+			}
+
+			#horizontalNav .btn.tappable-active {
+				background-color: rgb(0, 139, 202);
+				color:#fff;
+			}
+
+
+			#horizontalNav  .leftArea .btn {
+				left: 22px;
+			}
+
+			#horizontalNav .rightArea .btn {
+				right: 22px;
+			}
+			.highlight {background-color: #008bca !important; color:#fff !important;}
+		</style>
+    </head>
+    <body>
+			<div style='width: 480px; height: 320px;'>
+				        <div id='horizontalNav'>
+				        	<div id='previous' class='leftArea'></div>
+				        	<div id='reset' class='rightArea'><div class='btn reset'>RESET</div></div>
+				        	<div class='middleArea'>
+				        		<div class='text'>FIT</div>
+				        		<div id='linear' class='btn highlight'>LINEAR</div>
+				        		<div id='cubic' class='btn'>CURVE</div>
+				        	</div>
+				        </div>
+
+
+				        <div id="page" style="cursor: default; position: absolute;
+												padding-top: 16px;
+												margin-top: 50px;
+												overflow: hidden;
+												width: 480px;
+												height: 210px;">
+				          <div id="chart_monotonic" class="cubic_spline">
+				          	<canvas width="415" height="205" id="chart"></canvas>
+				          </div>
+				        </div>
+
+			</div>
+
+		<script type="text/javascript" src="js/lib/underscore-min.js"></script>
+        <script type="text/javascript" src="js/lib/jquery-1.8.2.min.js"></script> 
+        <script type="text/javascript" src="js/lib/jquery-ui-1.9.1.custom.min.js"></script>
+        <script type="text/javascript" src="js/lib/jquery.touchpunch.0.2.2.js"></script>
+        <script type="text/javascript" src="js/lib/backbone-min.js"></script>
+		<script type="text/javascript" src="js/cubic_spline_chart.js"></script>
+		<script>
+		    ChartMonotonic = new SplineChart('chart_monotonic', 'Time (minutes)', 'Degrees', '#008bca', function(xs, ys) {
+                return new MonotonicCubicSpline(xs, ys);
+            }, 100, 360);
+		    ChartMonotonic.setPoints();
+		    $('#reset').click(function() {
+		    	ChartMonotonic.setPoints();
+		    	ChartMonotonic.setLinear(true);
+		    	$('#linear').addClass('highlight');
+  				$('#cubic').removeClass('highlight');
+		    })
+  			$('#linear').click(function() {
+  				ChartMonotonic.setLinear(true);
+  				$('#linear').addClass('highlight');
+  				$('#cubic').removeClass('highlight');
+  			});
+  			$('#cubic').click(function() {
+  				ChartMonotonic.setLinear(false);
+  				$('#linear').removeClass('highlight');
+  				$('#cubic').addClass('highlight');	
+  			});
+		</script>
+	</body>
