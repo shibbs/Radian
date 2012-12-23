@@ -1683,6 +1683,7 @@ select.holo-spinner option { height: 32px; border-top: 1px #444 solid; }
 	font-size: 18px;
 	font-family: "Conv_Gotham-Medium";
 	color: rgb(110, 110, 110);
+	text-transform: uppercase;
 }
 
 #topNav [class$="Area"] {
@@ -2002,4 +2003,17 @@ top: 2px;
 
 #horizontalNav .rightArea .btn {
 	right: 22px;
+}
+
+.infoBox .text {
+	font-family: "Conv_Gotham-Book";
+}
+
+.infoBox .text span {
+	color: rgb(0, 139, 202);
+	font-family: "Conv_Gotham-Black";
+}
+
+.btn-box .cancel.tappable-active {
+	background-color: #008bca !important; color:#fff !important;
 }

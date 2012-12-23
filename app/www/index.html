@@ -11,19 +11,22 @@
 		<!--[if IE]>
 			<script src="js/ie-html5.js" type="text/javascript"></script>
 		
-background-size: 480px 320px;
-<div style='height: 20px'></div> 
 background: url("./current.png") no-repeat;
+background-size: 320px 480px;
+z-index: 100;
+position: absolute;
+top: 0;
+left: 0;
+	<div style='height: 20px'></div> 
 		<![endif]-->
 
     </head>
     <body class='loading' style='
 
-z-index: 100;
-position: absolute;
-top: 0;
-left: 0;'>
-		
+
+
+'>
+	
 		<div id="container">
 		</div>
 		<div id="navigation" style="position:fixed; bottom:14px; width: 100%; z-index: 110;">
@@ -48,13 +51,17 @@ left: 0;'>
 		<script type="text/template" id="timeLapse_template">
 			<div>
 				<div id="topNav">
-					<div class="title">RADIAN</div>
+					<div class="title"><%= name %></div>
 					<div class='leftArea' id='presetsLink'><div class='btn'>PRESETS</div></div>
 					<div class='rightArea' id='queueLink'><div class='btn'>QUEUE</div></div>
 				</div>
 				<div class='newStyleBox'>
 					<div class='row' id='degreeLink'>
-						<div class='miniTitle'>PAN</div>
+						<div class='miniTitle'>														<% if (timeLapse === 1) { %>
+										PAN
+									 <% } else { %>
+									 	TILT
+									 <% } %></div>
 						<div>
 							<div class='display'>
 								<div class='valueContainer'>
@@ -585,10 +592,43 @@ margin: 0 auto;color: rgb(110, 110, 110);'>THIS WILL CONTINUE THE TIME-LAPSE IND
 		
 		<!-- TimeLapseUpload Template -->
 		<script type="text/template" id="timeLapseUpload_template">
-		<div id="wrapper" class="loading-page">
-			<div style="height: 35px"></div>
-			<h1>ARE YOU READY?</h1>
-			<div class="btn-box">
+		<div>
+			<div class='infoBox' style='margin: 0 auto; width: 225px;' >
+				<div class='title' style='text-align: center;
+font-size: 18px;
+color: white;
+font-family: "Conv_Gotham-Bold"; position:relative; margin-top: 26px'>ARE YOU READY?</div>
+				<div style='position:relative;'>
+					<div class='text' style='font-size: 11.5px;
+font-family: "Conv_Gotham-Book";
+line-height: 12px;
+margin-top: 5px;'>
+						Radian will <span>tilt <%= actualDegrees %>°</span> in<span>
+									<% if (totalTimeHours !== 0) { %> <%= totalTimeHours %> hr<% } %> <%= totalTimeMinutes %> min</span> and 
+						take a photo every <span>
+									<% if (durationMinutes !== 0) { %> <%= durationHours %> hr<% } %> <%= intervalSeconds %> sec</span><span style='color:#fff'>.</span> 
+					</div>
+					<div class='info' style='position: absolute;
+width: 20px;
+height: 20px;
+background-color: rgba(182, 182, 182, 0.39);
+right: -15px;
+top: 0px;'></div>
+				</div>
+			</div>
+			<img src='' style='width: 202px;
+margin: 29px auto 18px auto;
+height: 177px;
+display: block;' />
+			<div style='text-align: center;
+font-size: 12px;
+font-family: "Conv_Gotham-Bold";
+color: rgb(110, 110, 110);'>
+			Make sure Radian is on and connected
+			</div>
+			
+			<div class="btn-box" style='width: 280px;
+margin: 12px auto 0 auto;'>
 				<div id="timelapse" class="progress-btn upload needsclick">
 					<div class="message">UPLOAD</div>
 					<div class="holder" style="width:0%"></div>
@@ -616,14 +656,34 @@ margin: 0 auto;color: rgb(110, 110, 110);'>THIS WILL CONTINUE THE TIME-LAPSE IND
 		
 		<!-- TimeLapseCountDown Template -->
 		<script type="text/template" id="timeLapseCountDown_template">
-		<div id="wrapper" class="loading-page">
-			<h1>READY TO GO!</h1>
-			<div class="general">
-				<div class="text">YOUR TIME  LAPSE WILL START IN A FEW MOMENTS</div>
+		<div>
+			<div class='infoBox' style='margin: 0 auto; width: 219px;' >
+				<div class='title' style='text-align: center;
+font-size: 18px;
+color: white;
+font-family: "Conv_Gotham-Bold"; position:relative; margin-top: 26px'>READY TO GO!</div>
+							<div style='text-align: center;
+font-size: 12px;
+font-family: "Conv_Gotham-Bold";
+color: rgb(110, 110, 110); margin-top: 12px;'>
+			Your time-lapse will start in:
+				</div>
 			</div>
-			<div style="height: 162px"></div>
-			<div class="btn-box">
-				<a class="cancel btn-white nostart" href="#timelapse">CANCEL</a>
+			<div id='countdown' class='count' style='font-size: 36px;
+font-family: "Conv_Gotham-Medium";
+text-align: center;
+margin-top: 8px; color:#008bca'>5</div>
+			<img src='' style='width: 202px;
+margin: 10px auto 18px auto;
+height: 177px;
+display: block;' />
+			<div class="btn-box" style='width: 108px;
+margin: 31px auto 0 auto;
+height: 42px;'>
+				<a class="cancel btn nostart" href="#timelapse" style='font-size: 12px;
+line-height: 42px;
+height: 42px;
+padding: 0; color:#fff'>CANCEL</a>
 			</div>
 		</div>
 
@@ -773,40 +833,6 @@ height: 210px;">
 
 			</div>
 		</script>
-
-
-		<!-- SpeedRamping Template -->
-		<script type="text/template" id="!speedRamping_template">
-			<div id="wrapper" class="inner-page speedramping">
-				        <header id="header">
-				                    <div style="position:relative;   ">
-				            <div style="display: table;
-				    margin: 0 auto; height: 0" >
-				             <a href="#" id="linear" style="width:100px; margin-right: 10px;" >LINEAR</a>
-				             <a href="#" id="cubic" style="width:100px">CURVE</a>
-				            </div>
-				            <div style="position:relative; top:-32px; ">
-				            	<a href="#timelapse/advanced" class="btn-back" id="back"></a>
-				          		<a href="#" id="reset" class="alignright" style='position:relative; top:2px; height: 30px;'>RESET</a>
-				            </div>
-				          </div>
-			
-				        </header>
-				        <div class='horizontalHeader'>
-				        </div>
-				        <div id="page" style="cursor: default; position:relative;">
-
-
-				          <div id="chart_monotonic" class="cubic_spline">
-				          <canvas width="400" height="192" id="chart"></canvas>
-				          </div>
-				        </div>
-
-				      </div>
-			</div>
-		</script>
-
-
 
 
 		<!-- Bulb Ramping Template -->

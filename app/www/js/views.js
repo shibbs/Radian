@@ -920,7 +920,7 @@ $(document).ready(function () {
                 Views.navigation.setNext(false);
             }
             Views.navigation.setPrevious(true, "#timelapse");
-            this.$el.empty().append(this.template());
+            this.$el.empty().append(this.template(RadianApp.app.visibleTimeLapse.getTemplateJSON()));
 
             return this;
         },
@@ -1077,6 +1077,8 @@ $(document).ready(function () {
 
             if (that.count !== 0) {
                 that.count -= 1;
+                that.$('#countdown').html(that.count);
+
                 window.timeLapseCountDownTimeout = setTimeout(callmethod, 1000);
             }
             else {
@@ -1122,6 +1124,7 @@ $(document).ready(function () {
             this.linear();
             ChartMonotonic.setPoints();
             this.$('#reset').removeClass('tappable-active');
+            this.$('.reset').removeClass('tappable-active');
         },
 
         linear: function() {

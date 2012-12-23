@@ -11,7 +11,7 @@ $(document).ready(function () {
         },
 
         defaults: {
-            name: "CURRENT",
+            name: "RADIAN",
             current: true,
             dateCreated: RadianApp.Utilities.formatDate(new Date()),
             timeLapse: C.TimeLapseType.NONE,
@@ -65,6 +65,7 @@ $(document).ready(function () {
                 directionAbr: C.DirectionAbbr(this.get('isClockwise')),
                 finalShutter: finalShutter,
                 fps: RadianApp.app.get('fps'),
+                actualDegrees: this.calculateActualDegrees(totalPhotos),
             };
         },
 
@@ -94,6 +95,18 @@ $(document).ready(function () {
 
         parse: function(json) {
             alert('worked');
+        },
+
+        calculateActualDegrees: function(totalPhotos) {
+            var STEPS_PER_DEGREE = 57.7;
+            var totalDegrees = this.get('degrees'); //INSERT
+            var totalTimeSeconds = (this.get('totalTimeHours') * 3600 + this.get('totalTimeMinutes') * 60); //INSERT
+
+            var degreesPerSecond = totalDegrees / totalTimeSeconds; 
+            var degreesPerShot = degreesPerSecond * this.get('intervalSeconds'); //get degrees to move per shot
+            var desiredSteps = STEPS_PER_DEGREE * degreesPerShot; 
+            var NumStepsPerShot = Math.round(desiredSteps); 
+            return Math.round(NumStepsPerShot / STEPS_PER_DEGREE * totalPhotos);   
         },
 
         validate: function(attrs) {
@@ -248,6 +261,11 @@ $(document).ready(function () {
 
         loadTimeLapse: function(timeLapse) {
             this.visibleTimeLapse.set(timeLapse.toJSON());
+            var nameChange = function() {
+                this.visibleTimeLapse.off("change", nameChange, this)
+                this.visibleTimeLapse.set("name", 'RADIAN');
+            };
+            this.visibleTimeLapse.on("change", nameChange, this);
             // = null;
             //this.visibleTimeLapse = timeLapse.clone();
         },
