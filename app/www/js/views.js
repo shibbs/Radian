@@ -1070,7 +1070,7 @@ $(document).ready(function () {
             var callmethod = function () {
                 that.advanceProgressBar()
             }
-            var timePassed = ((new Date()).getTime() - RadianApp.app.sentTime.getTime()) / 1000;
+            var timePassed = ((new Date()).getTime() - RadianApp.app.sentTime.getTime()) / 1000; //offset for wait
             that.updateValues(timePassed);
 
             if (RadianApp.Utilities.round(that.percent*100, 0) < 100) {
@@ -1096,7 +1096,7 @@ $(document).ready(function () {
 
         render: function () {
             this.$el.empty().append(this.template());
-            this.count = 5;
+            this.count = 6;
             this.cancelled = false;
             window.timeLapseCountDownTimeout = [];
 
@@ -1127,7 +1127,7 @@ $(document).ready(function () {
                 that.countDown()
             }
 
-            if (that.count !== 0) {
+            if (that.count !== 1) {
                 that.count -= 1;
                 that.$('#countdown').html(that.count);
 
