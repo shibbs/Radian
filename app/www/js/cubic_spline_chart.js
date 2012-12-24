@@ -277,7 +277,17 @@ SplineChart = Backbone.Model.extend({
       } else {
          xLab = me.xLabs[i];
       }
-      xLab.html(x);
+      var hours = Math.floor(Number(x) / 60);
+      var minutes = Math.round((Number(x) - (hours * 60)));
+      if(minutes < 10) {
+        minutes = '0'+ minutes;
+      }
+      var newXLabel = '';
+      if(hours) {
+        newXLabel += hours+"h";
+      }
+      newXLabel+=minutes+'m'
+      xLab.html(newXLabel);
       xLab.css({left: (pxX - 75) + 'px', top: (height + 9) + 'px', visibility: 'visible'});
       
       // horizontal (y) lines
@@ -291,7 +301,7 @@ SplineChart = Backbone.Model.extend({
       } else {
         yLab = me.yLabs[i];
       }
-      yLab.html(y);
+      yLab.html(y+'&deg');
       yLab.css({top: ((height - pxY) - 10) + 'px', visibility: 'visible'});
     }, function(x, y, pxX, pxY, i) { 
 
@@ -412,6 +422,10 @@ SplineChart = Backbone.Model.extend({
   },
   add: function(e) {
     e.stopPropagation();
+    if(this.handles.length > 5) {
+      RadianApp.Utilities.errorModal('Radian only supports up to six key frames.');
+      return;
+    }
     e = e.originalEvent;
     var me = this, doc = $(document);
     var x = e.clientX || e.changedTouches[0].clientX;

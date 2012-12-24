@@ -10,23 +10,19 @@
 
 		<!--[if IE]>
 			<script src="js/ie-html5.js" type="text/javascript"></script>
-		
-background: url("./current.png") no-repeat;
+		background: url("./current.png") no-repeat;
 background-size: 320px 480px;
 z-index: 100;
 position: absolute;
 top: 0;
 left: 0;
 	<div style='height: 20px'></div> 
+	
 		<![endif]-->
 
     </head>
-    <body class='loading' style='
+    <body class='loading' style=''>
 
-
-
-'>
-	
 		<div id="container">
 		</div>
 		<div id="navigation" style="position:fixed; bottom:14px; width: 100%; z-index: 110;">
@@ -39,7 +35,7 @@ left: 0;
 						    <div class="number selected">1</div>
 							<div class="number">2</div>
 							<div class="number">3</div>
-							<div class="number" id="4">4</div>
+							<div class="number" id="4"> </div>
 					    </li>
 						<li class="next-holder">
 							<a id="thirdstep" href="#" class="next">next</a>
@@ -95,7 +91,7 @@ left: 0;
 								<% if (intervalMinutes !== 0) { %>
 									<div class='valueContainer first'>
 										<div class='value'><%= intervalMinutes %></div>
-										<div class='unit'>hr</div>
+										<div class='unit'>min</div>
 									</div>
 								<% } %>
 								<div class='valueContainer last'>
@@ -311,7 +307,50 @@ font: 18px/20px 'Conv_Gotham-Medium', Helvetica, Arial, sans-serif !important; m
 
 		<!-- TimeLapseQueueItem Template -->
 		<script type="text/template" id="timeLapseQueueItemHome_template">
-				<a href="#"><%= name %></a>
+					<a href="#" class="opener">
+							<strong class="title"><% if (current) { %>
+								CURRENT
+								 <% } else { %><%= name %><% } %></strong>
+							<em class="date"><%= dateCreated %></em>
+						</a>
+
+						<div class="box hide" style='padding-bottom:0px'>
+							<div class="box-holder">
+								<div class="row">
+									<span style='margin-bottom: 5px;
+left: 0px;font-weight: bold;'>
+									<% if (timeLapse === 1) { %>
+										PAN
+									 <% } else { %>
+									 	TILT
+									 <% } %>
+									</span>
+								</div>
+								<div class="row">
+									<strong class="mark"><%= degrees %></strong>
+									<span><%= directionAbr %></span>
+								</div>
+								<div class="row">
+		  							<% if (totalTimeHours !== 0) { %>
+		                                <strong class="mark"><%= totalTimeHours %></strong>
+		                                 <span>hr</span>
+		                                 <% } %><strong class="mark"><%= totalTimeMinutes %></strong>
+									<span>min</span>
+								</div>
+								<div class="row">
+            						<% if (intervalMinutes !== 0) { %>
+            						<strong class="mark"><%= intervalMinutes %></strong>
+									<span>min</span><% } %><strong class="mark"><%= intervalSeconds %></strong>
+									<span>sec</span>
+								</div>
+								<div class="small-btn-row">
+									 <% if (isTimeDelay) { %> <a class="light-btn" href="#">DELAY</a> <% } %>
+									<% if (isSpeedRamping) { %><a href="#"  class="light-btn">SRAMP</a><% } %>
+									<% if (isBulbRamping) { %> <a href="#" class="light-btn">BRAMP</a><% } %>
+									<% if (hold!=='.25') {  %><a href="#" class="light-btn">HOLD</a><% } %>
+								</div>
+							</div>
+						</div>
 		</script>
 
 		<!-- TimeLapse Template - Queues -->
@@ -325,12 +364,12 @@ font: 18px/20px 'Conv_Gotham-Medium', Helvetica, Arial, sans-serif !important; m
 				<div id="secondaryList" style="height: 300px;">
 				<div id="secondaryHeader">QUEUE</div>
 								<div id="scrollwrapper" style="position:absolute; z-index:1;
-     bottom:75px; top: 120px;
+     bottom:75px; top: 89px;
 	width:290px;
 	overflow:auto;">
 						<div id="scroller" style=" 	width:100%;
 			padding:0;">
-							<ul id="list" class="queue-list list needsclick" style="position:relative; width:100%; padding:0; margin:0" >
+							<ul id="list" class="presets-list list needsclick" style="position:relative; width:100%; padding:0; margin:0" >
 							</ul>
 						</div>
 					</div>
@@ -534,7 +573,10 @@ left: 0px;font-weight: bold;'>
 line-height: 15PX;
 font-family: 'Conv_Gotham-Book';
 color: rgb(110, 110, 110);
-padding-top: 3px;" id="continue" <% if (shouldContinue) { %>class="highlight"<% } %>>&infin;</span>
+width:36px;
+margin: 0 auto;
+height: 23px; 	background:url(./images/infinity.png) no-repeat;
+	background-size:36px 18px;" id="continue" <% if (shouldContinue) { %>class="highlight"<% } %>></span>
 					</div>
 					<div style="height: 6px;"></div>
 					<div style='width: 200px;
@@ -606,7 +648,7 @@ margin-top: 5px;'>
 						Radian will <span>tilt <%= actualDegrees %>°</span> in<span>
 									<% if (totalTimeHours !== 0) { %> <%= totalTimeHours %> hr<% } %> <%= totalTimeMinutes %> min</span> and 
 						take a photo every <span>
-									<% if (durationMinutes !== 0) { %> <%= durationHours %> hr<% } %> <%= intervalSeconds %> sec</span><span style='color:#fff'>.</span> 
+									<% if (intervalMinutes !== 0) { %> <%= intervalMinutes %> min<% } %> <%= intervalSeconds %> sec</span><span style='color:#fff'>.</span> 
 					</div>
 					<div class='info' style='position: absolute;
 width: 20px;
@@ -691,34 +733,41 @@ padding: 0; color:#fff'>CANCEL</a>
 		
 		<!-- TimeLapseCurrent Template -->
 		<script type="text/template" id="timeLapseCurrent_template">
-		<div id="wrapper" class="loading-page">
-			<h1>IN PROGRESS</h1>
+		<div>
+			<div style='margin: 30px 0 52px;
+color: white;
+text-align: center;
+font: bold 16px/11px "Conv_Gotham-Bold", Helvetica, Arial, sans-serif;'>IN PROGRESS</div>
 			<div class="loading-box">
 				<div class="general">
-				<input type="text" class="dial" data-min="0" data-max="100" data-fgColor="#008bca" data-textColor="#FFF" data-bgColor="rgb(30,30,30)" data-skin="tron" data-thickness="1" data-readOnly="true" data-width="100" data-height="100">
-				</div>
-				<div class="row">
-					<span class="start">0sec<br />0&deg;</span>
-					<span class="finish"><%= totalTimeHours %>hr<%= totalTimeMinutes %>m<br /><%= degrees %>&deg;</span>
-					<div class="info">
-						<div class="holder">
-							<strong id="hours" class="mark">0</strong>
-							<span>hr</span>
-							<strong id="minutes" class="mark">0</strong>
-							<span>min</span>
-						</div>
-						<div class="holder">
-							<strong id="degreesCurrent" class="mark">0</strong>
-						</div>
-					</div>
+				<input type="text" class="dial" data-textSize='14px' data-min="0" data-max="100" data-fgColor="#008bca" data-textColor="#FFF" data-bgColor="#1c4557" data-skin="tron" data-thickness="1" data-readOnly="true" data-width="110" data-height="110">
 				</div>
 			</div>
-			<div style="text-align:center">
-				<div class="choice-btn-box choice-btn-box-large">
-					<div class="center">
+			<div class="final-box">
+				<div class="holder">
+
+<table border="0" bordercolor="" style="background-color:" width="100%" cellpadding="0" cellspacing="0">
+	<tr>
+		<td><div class='photo'></div></td>
+		<td><strong id="photosProgress">368</strong> <span>/ <span  id="photosTotal"><%= totalPhotos %></span></span></td>
+	</tr>
+	<tr>
+		<td><div class='photo-info'></div></td>
+		<td><strong id="degreesProgress">180.0</strong><strong>&deg;</strong><span id="degreesTotal">/<%= actualDegrees %>&deg;</span></td>
+	</tr>
+	<tr>
+		<td><div class='time'></div></td>
+		<td><strong id="timeProgressHour">1</strong><strong>:</strong><strong id="timeProgressMinute">23</strong> <span id="timeTotal">/<%= totalTimeHours %>:<%= totalTimeMinutes %></span></td>
+	</tr>
+</table>
+
+	
+				</div>
+			</div>
+			<div>
+				<div class="choiceBox">
 					<a class="cancel side restartCounter" href="#timelapse/current">RESET COUNTER</a>
 					<a class="cancel side newTimeLapse" href="#home">NEW TIMELAPSE</a>
-					</div>
 				</div>
 			</div>
 		</div>

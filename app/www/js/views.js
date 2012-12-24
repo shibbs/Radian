@@ -172,15 +172,41 @@ $(document).ready(function () {
 
     Views.TimeLapseQueueHomeView = Backbone.View.extend({
         tagName: 'li',
-        className: '',
+        className: 'step2QueueItem',
+
+        events: {
+            "click": "toggleShow",    
+        },
+
         template: _.template($('#timeLapseQueueItemHome_template').html()),
-        initialize: function(model) {
+
+        endEvent: function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+        },
+
+        initialize: function(model, scroller) {
             this.model = model;
+            this.scroller = scroller;
         },
         render: function() {
             var elem = this.template(this.model.getTemplateJSON());
             this.$el.empty().append(elem);
             return this;
+        },
+
+        toggleShow: function(e) {
+            if(e) this.endEvent(e);
+            this.$('.box').toggleClass('hide');
+            this.open = !this.open;
+            if(this.open && this.deleteMode) {
+                this.$('.opener .delete').addClass('hide');
+            } else if (!this.open && this.deleteMode) {
+                this.$('.opener .delete').removeClass('hide');
+            }
+            var scroller = this.scroller;
+            setTimeout(function() { scroller.refresh()}, 0); 
+
         },
 
     });
@@ -228,9 +254,9 @@ $(document).ready(function () {
 
         insertQueue: function (model) {
             var me = this;
-            var temp = new Views.TimeLapseQueueHomeView(model);
-            this.$('#list').append(temp.render().$el);
             var scroller = this.scroller;
+            var temp = new Views.TimeLapseQueueHomeView(model, scroller);
+            this.$('#list').append(temp.render().$el);
             setTimeout(function() { scroller.refresh()}, 0);
         },
 
@@ -974,8 +1000,14 @@ $(document).ready(function () {
             Views.navigation.setNext(false);
             Views.navigation.setPrevious(true, "#timelapse/upload");
             var runningTimeLapse = RadianApp.app.getRunningTimeLapse();
-            this.$el.empty().append(this.template(runningTimeLapse.toJSON()));
+            var templateJSON = RadianApp.app.visibleTimeLapse.getTemplateJSON();
+            if(templateJSON.totalTimeMinutes < 10) {
+                templateJSON.totalTimeMinutes = '0'+templateJSON.totalTimeMinutes;
+            }
+            this.$el.empty().append( this.template(templateJSON));
             this.percent = 0;
+            var totalTime = runningTimeLapse.get('totalTimeHours') * 3600 + runningTimeLapse.get('totalTimeMinutes') * 60;
+            this.interval = this.getInterval(totalTime);
             $('.dial').knob();
             this.advanceProgressBar();
             return this;
@@ -1004,6 +1036,33 @@ $(document).ready(function () {
             clearTimeout(window.timeLapseCurrentLoadingBarTimeout);
         },
 
+        updateValues: function(secondsPassed) {
+            var runningTimeLapse = RadianApp.app.getRunningTimeLapse();
+            var totalSeconds = runningTimeLapse.get('totalTimeHours') * 3600 + runningTimeLapse.get('totalTimeMinutes') * 60;
+            this.percent = secondsPassed / totalSeconds;
+            var progress = runningTimeLapse.calculateProgress(secondsPassed);
+
+            this.$('.dial').val(RadianApp.Utilities.round(this.percent*100, 0)).trigger('change');
+            this.$('#photosProgress').html(progress.photosProgress);
+            this.$('#degreesProgress').html(progress.degreesProgress);
+            this.$('#timeProgressHour').html(progress.timeHoursProgress);
+            if(progress.timeMinutesProgress < 10) {
+                progress.timeMinutesProgress = '0'+progress.timeMinutesProgress;
+            }
+            this.$('#timeProgressMinute').html(progress.timeMinutesProgress);
+        },
+
+        getInterval: function (totalTime) {
+            var minInterval = 500; //500ms
+            var maxInterval = 10000;
+            var suggestedInterval = totalTime;
+            if(suggestedInterval < minInterval) {
+                suggestedInterval = minInterval;
+            } else if(suggestedInterval > maxInterval) {
+                suggestedInterval = maxInterval;
+            }
+            return suggestedInterval;
+        },
 
         advanceProgressBar: function () {
             var runningTimeLapse = RadianApp.app.getRunningTimeLapse();
@@ -1011,18 +1070,11 @@ $(document).ready(function () {
             var callmethod = function () {
                 that.advanceProgressBar()
             }
-            var totalSeconds = runningTimeLapse.get('totalTimeHours') * 3600 + runningTimeLapse.get('totalTimeMinutes') * 60;
             var timePassed = ((new Date()).getTime() - RadianApp.app.sentTime.getTime()) / 1000;
-            that.percent = timePassed / totalSeconds;
+            that.updateValues(timePassed);
 
-            hours = parseInt(timePassed / 3600) % 24;
-            minutes = parseInt(timePassed / 60) % 60;
-            that.$('.dial').val(RadianApp.Utilities.round(that.percent*100, 0)).trigger('change');
-            that.$('#hours').html(RadianApp.Utilities.round(hours, 0));
-            that.$('#minutes').html(RadianApp.Utilities.round(minutes, 0));
-            that.$('#degreesCurrent').html(RadianApp.Utilities.round(that.percent * runningTimeLapse.get('degrees'), 2) + '&deg;');
             if (RadianApp.Utilities.round(that.percent*100, 0) < 100) {
-                window.timeLapseCurrentLoadingBarTimeout = setTimeout(callmethod, 20 * 1000);
+                window.timeLapseCurrentLoadingBarTimeout = setTimeout(callmethod, that.interval);
             } else {
                 clearTimeout(window.timeLapseCurrentLoadingBarTimeout);
                 //Try to advance the running time lapse

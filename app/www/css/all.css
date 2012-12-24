@@ -478,17 +478,17 @@ h1{
 }
 .total-box .photo-info{
 	background:url(../images/ico-photo-info.png) no-repeat;
-	background-size:16px 16px;
-	-webkit-background-size:16px 16px;
-	-moz-background-size:16px 16px;
-	-o-background-size:16px 16px;
+	background-size:18px 18px;
+	-webkit-background-size:18px 18px;
+	-moz-background-size:18px 18px;
+	-o-background-size:18px 18px;
 }
 .total-box .time{
 	background:url(../images/ico-time.png) no-repeat;
-	background-size:16px 16px;
-	-webkit-background-size:16px 16px;
-	-moz-background-size:16px 16px;
-	-o-background-size:16px 16px;
+	background-size:19px 19px;
+	-webkit-background-size:19px 19px;
+	-moz-background-size:19px 19px;
+	-o-background-size:19px 19px;
 }
 .block-info{
 	text-align:center;
@@ -590,6 +590,7 @@ h1{
 	-moz-background-size:100% 100%;
 	-o-background-size:100% 100%;
 }
+
 .list{
 	list-style:none;
 	padding:12px 0 0;
@@ -607,7 +608,7 @@ h1{
 	float:right;
 	overflow:hidden;
 	text-indent:-9999px;
-	background:url(../images/btn-delete.png) no-repeat;
+	background:url(../images/btn-delete_darker.png) no-repeat;
 	background-size:20px 21px;
 
 	width:31px;
@@ -638,7 +639,7 @@ span.delete{
 	position: absolute;
 	overflow:hidden;
 	text-indent:-9999px;
-	background:url(../images/btn-delete.png) no-repeat;
+	background:url(../images/btn-delete_darker.png) no-repeat;
 	background-size:100% 100%;
 	-webkit-background-size:100% 100%;
 	-moz-background-size:100% 100%;
@@ -698,7 +699,7 @@ span.delete{
 	margin: 6px 18px 9px 7px;
 }
 #header .btn-back.tappable-active{
-	background:url(../images/BackArrow_Selected.png) no-repeat !important;
+	background:url(../images/BackArrow_selected.png) no-repeat !important;
 	background-size:100% 100% !important;
 }
 #header .no-back{width:50px;}
@@ -832,7 +833,7 @@ span.delete{
 }
 .loading-box{
 	width:100%;
-	margin:0 0 31px;
+	margin:0 0 19px;
 }
 .loading-box .line{
 	overflow:hidden;
@@ -1158,7 +1159,7 @@ font: 20px/24px Helvetica, Arial, sans-serif;
 }
 
 #secondaryHeader {
-	margin: 20px auto;
+	margin: 14px auto;
 	text-align: center;
 	font: bold 20px/20px "Conv_Gotham-Bold", Helvetica, Arial, sans-serif;
 }
@@ -1852,24 +1853,24 @@ top: 2px;
 
 .stats .degrees {
 	background:url(../images/ico-photo-info.png) no-repeat;
-background-size: 16px 16px;
+background-size: 18px 18px;
 display: inline-block;
-width: 16px;
-height: 16px;
+width: 18px;
+height: 18px;
 margin-right: 5px;
 position: relative;
-top: 2px;
+top: 4px;
 }
 
 .stats .duration {
 	background:url(../images/ico-time.png) no-repeat;
-background-size: 16px 16px;
+background-size: 19px 19px;
 display: inline-block;
-width: 16px;
-height: 16px;
+width: 19px;
+height: 19px;
 margin-right: 5px;
 position: relative;
-top: 2px;
+top: 4px;
 }
 
 .stats > div {
@@ -2016,4 +2017,110 @@ top: 2px;
 
 .btn-box .cancel.tappable-active {
 	background-color: #008bca !important; color:#fff !important;
+}
+
+.list li.step2QueueItem {
+	padding: 0px;
+	margin: 0 auto;
+	display: inline-block;
+	width: 100%;
+}
+#continue.highlight {
+	background:url(../images/infinity_highlight.png) no-repeat !important;
+	background-size:36px 18px !important;
+}
+
+#nav_numbers > div:last-child{
+	background: url('../images/RadianIcon.png') no-repeat !important;
+	background-size: 15.5px 15.5px !important;
+	background-position: 4px 5px !important;
+}
+
+#nav_numbers > div.highlight:last-child{
+	background: url('../images/RadianIcon_highlighted.png') no-repeat !important;
+	background-size: 15.5px 15.5px !important;
+	background-position: 4px 5px !important;
+}
+
+.choiceBox {
+	margin-top:27px;
+	text-align: center;
+}
+
+.choiceBox > a {
+	display: inline-block;
+	margin-right: 13px;
+	color: rgb(40, 40, 40);
+	text-transform: uppercase;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	background: rgb(110, 110, 110);
+	width: 115px;
+	height: 31px;
+	text-align: center;
+	line-height: 31px;
+	font-family: "Conv_Gotham-Black";
+	top: 14px;
+}
+.choiceBox > a:last-child {
+	margin-right: 0px;
+}
+
+.dial {
+	font-size:14px !important;
+}
+
+.final-box {
+	width: 208px;
+	margin: 0px auto 10px auto;
+	border-top: solid 1px rgb(150, 150, 150);
+	padding-top: 23px;
+}
+
+.final-box div {
+	margin: 0 auto;
+	display: table;
+	font-size: 12px;
+	line-height: 26px;
+	color: rgb(110, 110, 110);
+	font-family: "Conv_Gotham-book";
+}
+.final-box strong{
+	font-weight:bold;
+	padding:0 0 0 0px;
+	margin:0;
+	font-family:"Conv_Gotham-Black", Helvetica, Arial, sans-serif;
+	display:inline-block;
+	vertical-align:top;
+	font-size: 19px;
+	color: rgb(200, 200, 200);
+}
+table {
+	border-spacing: 0px;
+}
+.final-box span{
+	position: relative;
+	left: -4px;
+}
+
+.final-box .photo{
+	background: url(../images/ico-photo.png) no-repeat;
+	background-size: 17px 17px;
+	background-position: 2px 1px;
+	width: 30px;
+	height: 19px;
+}
+.final-box .photo-info{
+	background: url(../images/ico-photo-info.png) no-repeat;
+	background-size: 18px 18px;
+	background-position: 2px 0px;
+	width: 30px;
+	height: 19px;
+}
+.final-box .time{
+	background:url(../images/ico-time.png) no-repeat;
+	background-size:19px 19px;
+	background-position: 0px 0px;
+	width: 30px;
+	height: 19px;
 }

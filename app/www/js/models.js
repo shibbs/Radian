@@ -109,6 +109,24 @@ $(document).ready(function () {
             return Math.round(NumStepsPerShot / STEPS_PER_DEGREE * totalPhotos);   
         },
 
+        calculateProgress: function(seconds) {
+            var totalPhotos = Math.floor(seconds / (this.get('intervalMinutes') * 60 + this.get('intervalSeconds')));
+            
+            var totalTimeSeconds = (this.get('totalTimeHours') * 3600 + this.get('totalTimeMinutes') * 60);
+            var percent = seconds/totalTimeSeconds;
+            var degreesProgress = this.calculateActualDegrees(Math.floor(totalTimeSeconds / (this.get('intervalMinutes') * 60 + this.get('intervalSeconds')))) * percent;
+            degreesProgress = RadianApp.Utilities.round(degreesProgress, 1);
+            timeHoursProgress = Math.floor(seconds / 3600);
+            timeMinutesProgress = Math.floor((seconds - Math.round(seconds / 3600) * 3600) / 60);
+            return {
+                photosProgress: totalPhotos,
+                degreesProgress: degreesProgress,  
+                timeMinutesProgress: timeMinutesProgress,
+                timeHoursProgress: timeHoursProgress,
+            }
+
+        },
+
         validate: function(attrs) {
             var intervalTotalSeconds = attrs.intervalSeconds + attrs.intervalMinutes * 60;
             var durationTotalSeconds = attrs.totalTimeMinutes * 60 + attrs.totalTimeHours * 60 * 60;

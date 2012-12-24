@@ -402,7 +402,7 @@
         this.extend = function () {
             this.o = $.extend(
                 {
-                    bgColor : this.$.data('bgcolor') || '#EEEEEE',
+                    bgColor : this.$.data('bgcolor') || '#1c4557',
                     textColor : this.$.data('textcolor') || '#EEEEEE',
                     angleOffset : this.$.data('angleoffset') || 0,
                     angleArc : this.$.data('anglearc') || 360,
