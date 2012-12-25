@@ -366,7 +366,7 @@ $(function(){
         defaults: {
             "startBit":  0,
             "stopBit":   1,
-            "stretchFactor":  44,
+            "stretchFactor":  9,
         },
                                                    
                                         
