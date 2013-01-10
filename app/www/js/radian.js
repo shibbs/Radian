@@ -7,7 +7,6 @@ $(document).ready(function() {
 // Create a new RadianApp
 RadianApp.app = new RadianApp.Models.App();
 
-
 });
 
 //document.addEventListener('deviceready', function() {

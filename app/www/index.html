@@ -1146,7 +1146,17 @@ width: 300px;">
 
         <!-- Load Libs -->
         <script>
+
+        		// EXTREME DEBUGGING
+        		window.onerror = function(error, url, line) {
+					document.getElementsByTagName('body')[0].innerHTML = 'JS ERROR :( <br /> Message: '+ error + '<br /> URL: ' + url + '<br /> Line Number: ' + line;
+    				return false;
+				};	
+
 			(function () {
+			
+
+
 				isDroid = navigator.userAgent.match(/Android/); //polluting global, TODO: wrap under radianapp
 
 				var loadScript = function(src) {
@@ -1193,6 +1203,21 @@ width: 300px;">
 				    }, window);
 				};
 			})( jQuery );
+
+			//Setup optimal array for perf
+			(function() {
+				try {
+					var array = new Uint8Array(10);
+				} catch(e) {
+					Uint8Array = function (length) {
+						var array = [];
+						for (var i = 0; i < length; i++) {
+							array.push(0);
+						};
+						return array
+					}
+				}
+			})();
 
 /*
 			$("body").hammer({

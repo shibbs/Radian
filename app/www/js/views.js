@@ -15,8 +15,7 @@ $().ns('RadianApp.Views');
 $(document).ready(function () {
     var C = RadianApp.Constants;
     var Views = RadianApp.Views;
-    var isAndroid = RadianApp.Utilities.isAndroid();
-    var scrollTheme = isAndroid ? 'android-ics' : 'ios';
+    var scrollTheme = isDroid ? 'android-ics' : 'ios';
 
     Views.BaseView = Backbone.View.extend({
 
