@@ -17,7 +17,7 @@ $(function(){
 
         defaults: {
             "channels":  1,
-            "sampleRate":   220500,
+            "sampleRate":   44100,
             "bitsPerSample": 16,
         },
 

@@ -15,6 +15,7 @@ $().ns('RadianApp.Views');
 $(document).ready(function () {
     var C = RadianApp.Constants;
     var Views = RadianApp.Views;
+    var scrollTheme = isDroid ? 'android-ics' : 'ios';
 
     Views.BaseView = Backbone.View.extend({
 
@@ -86,6 +87,7 @@ $(document).ready(function () {
             Views.navigation.setPrevious(false);
             if(RadianApp.app.visibleTimeLapse.get("timeLapse") === RadianApp.Constants.TimeLapseType.NONE) {
                 Views.navigation.setNext(true);
+                $('.next').addClass('inactive-right');
             } else {
                 Views.navigation.setNext(true, "#timelapse");
             }
@@ -104,10 +106,16 @@ $(document).ready(function () {
 
         pan: function() {
             RadianApp.app.visibleTimeLapse.set("timeLapse", RadianApp.Constants.TimeLapseType.PAN);
+            $('.next').removeClass('inactive-right');
+            window.location.hash = '#timelapse';
+            return false;
         },
 
         tilt: function() {
             RadianApp.app.visibleTimeLapse.set("timeLapse", RadianApp.Constants.TimeLapseType.TILT);
+            $('.next').removeClass('inactive-right');
+            window.location.hash = '#timelapse';
+            return false;
         },
 
         panStart: function() {
@@ -226,10 +234,12 @@ $(document).ready(function () {
 
         degreeLink: function () {
             window.location.hash = '#timelapse/degrees';
+            return false;
         },
 
         totalTimeLink: function () {
             window.location.hash = '#timelapse/totaltime';
+            return false;
         },
 
         intervalLink: function () {
@@ -239,16 +249,19 @@ $(document).ready(function () {
 
         presetsLink: function () {
             window.location.hash = '#timelapse/presets';
+            return false;
 
         },
 
         queueLink: function () {
             window.location.hash = '#timelapse/queue';
+            return false;
 
         },
 
         advancedLink: function () {
             window.location.hash = '#timelapse/advanced';
+            return false;
 
         },
 
@@ -305,16 +318,19 @@ $(document).ready(function () {
 
         eventCurrent: function(e) {
             var me = this;
+            var isSaved = false;
             $.modal("<div> \
                         <input id='presetName' autofocus placeholder='Preset Name'> \
                         <div class='minibox'> \
                             <div id='cancelAddNewPreset' class='btn btn-white simplemodal-close'>CANCEL</div> \
                             <div id='addNewPreset' class='btn highlighted-btn'>SAVE</div> \
                         </div> \
-                    </div>", {  position: ['25%', '9%'],
+                    </div>", {  position: ['50%', '50%'],
                                 onShow: function() { 
-
+                                                $('#simplemodal-container').css('margin-left', '-140px');
+                                                $('#simplemodal-container').css('margin-top', '-70px');
                                                 $('#addNewPreset').hammer().bind("tap", function(event){
+                                                    isSaved = true;
                                                     event.preventDefault();
                                                 event.stopImmediatePropagation();
                                                 me.saveNewPreset();
@@ -324,7 +340,21 @@ $(document).ready(function () {
                                             setTimeout(function(){
                                                 $("#presetName").focus();
                                             },100);
-                                        }
+                                        },
+                                onClose: function() {
+                                    $.modal.close();
+                                    if(isSaved) {
+                                        $.modal("<div class='alert'>PRESET SAVED</div>", {
+                                            opacity: 80,
+                                            position: ['50%', '50%'],
+                                            containerId: 'simplemodal-container-simple'
+                                        });
+                                        setTimeout(function(){
+                                            $.modal.close();
+                                        },600);
+                                    }
+
+                                }
                             });
             
             this.endEvent(e);
@@ -530,7 +560,7 @@ $(document).ready(function () {
                 that.remove();
                 that.unbind();
                 var scroller = that.scroller;
-                setTimeout(function() { scroller.refresh()}, 0); 
+                setTimeout(function() { if(scroller) scroller.refresh()}, 0); 
             },// callback to invoke with index of button pressed
             'Delete',            // title
             'No,Yes'          // buttonLabels
@@ -603,6 +633,7 @@ $(document).ready(function () {
                         model.set('order', Number(list.index($('#list > li[order='+(model.get('order'))+']')))+1);
                     };
                     RadianApp.app.queue.sort();
+                    RadianApp.app.saveQueue();
                 },
             });
 
@@ -771,7 +802,7 @@ $(document).ready(function () {
                 }
             };
             this.$('#picker').scroller({
-                theme: 'ios',
+                theme: scrollTheme,
                 display: 'inline',
                 mode: 'scroller',
                 wheels: [{
@@ -850,7 +881,7 @@ $(document).ready(function () {
             };
 
             this.$('#picker').scroller({
-                theme: 'ios',
+                theme: scrollTheme,
                 display: 'inline',
                 mode: 'scroller',
                 wheels: total_time_slots,
@@ -907,7 +938,7 @@ $(document).ready(function () {
                 }
             };
             this.$('#picker').scroller({
-                theme: 'ios',
+                theme: scrollTheme,
                 display: 'inline',
                 mode: 'scroller',
                 wheels: interval_slots,
@@ -999,12 +1030,14 @@ $(document).ready(function () {
             Views.navigation.unhide();
             Views.navigation.setNext(false);
             Views.navigation.setPrevious(true, "#timelapse/upload");
+            var that = this;
+            $('.prev-holder').click(function() {
+                that.prev();
+            });
+            this.wait = 5;
+            this.updateTimeInterval();
             var runningTimeLapse = RadianApp.app.getRunningTimeLapse();
-            var templateJSON = RadianApp.app.visibleTimeLapse.getTemplateJSON();
-            if(templateJSON.totalTimeMinutes < 10) {
-                templateJSON.totalTimeMinutes = '0'+templateJSON.totalTimeMinutes;
-            }
-            this.$el.empty().append( this.template(templateJSON));
+            this.$el.empty().append( this.template(this.getJSON()));
             this.percent = 0;
             var totalTime = runningTimeLapse.get('totalTimeHours') * 3600 + runningTimeLapse.get('totalTimeMinutes') * 60;
             this.interval = this.getInterval(totalTime);
@@ -1013,8 +1046,41 @@ $(document).ready(function () {
             return this;
         },
 
+        updateTimeInterval: function() {
+            var runningTimeLapse = RadianApp.app.getRunningTimeLapse();
+            var totalTime = runningTimeLapse.get('totalTimeHours') * 3600 + runningTimeLapse.get('totalTimeMinutes') * 60;
+            var elapsedTime = ((new Date()).getTime() - RadianApp.app.sentTime.getTime()) / 1000;
+            if(elapsedTime > totalTime) {
+                var amountOver = elapsedTime - totalTime;
+                if(amountOver < 5) {
+                    this.wait = Math.round(5-amountOver);
+                } else {
+                    var timeWhenWouldHaveStarted = (amountOver - 5) * 1000;
+                    RadianApp.app.advanceRunningTimeLapse();
+                    RadianApp.app.sentTime = new Date((new Date()).getTime() - timeWhenWouldHaveStarted);
+                    this.updateTimeInterval();
+                }
+            }
+        },
+
+        getJSON: function() {
+            var runningTimeLapse = RadianApp.app.getRunningTimeLapse();
+            var templateJSON = runningTimeLapse.getTemplateJSON();
+            if(templateJSON.totalTimeMinutes < 10) {
+                templateJSON.totalTimeMinutes = '0'+templateJSON.totalTimeMinutes;
+            }
+            
+            templateJSON.index = RadianApp.app.runningTimeLapseIndex + 1;
+            templateJSON.size = RadianApp.app.getNumTimeLapses();
+            templateJSON.isQueue = RadianApp.app.isQueue;
+            templateJSON.isNext = templateJSON.size!==0 && templateJSON.index !== templateJSON.size;
+            if(templateJSON.isNext) templateJSON.nextName = RadianApp.app.runningTimeLapses[templateJSON.index].get('name');
+            //console.log(templateJSON);
+            return templateJSON;
+        },
+
         events: {
-            'click .prev': "prev",
+            'click .prev-holder': "prev",
             'click .newTimeLapse': "newTimeLapse",
             'click .restartCounter': "restartCounter"
         },
@@ -1028,11 +1094,11 @@ $(document).ready(function () {
         restartCounter: function () {
             clearTimeout(window.timeLapseCurrentLoadingBarTimeout);
             RadianApp.app.resetStartTime();
-            window.location.hash = 'timelapse/current';
+            this.render();
             this.advanceProgressBar();
         },
 
-        prev: function () {
+        prev: function (e) {
             clearTimeout(window.timeLapseCurrentLoadingBarTimeout);
         },
 
@@ -1080,9 +1146,18 @@ $(document).ready(function () {
                 //Try to advance the running time lapse
                 if(RadianApp.app.advanceRunningTimeLapse()) {
                     //TODO keep track of global time
-                    window.location.hash = 'test';
-                    RadianApp.app.startTime = new Date();
-                    window.location.hash = 'timelapse/current'
+                    $.modal("<div class='alert'>NEXT TIME-LAPSE STARTING IN</div><div id='countDown' style='font-size: 36px;font-family: \"Conv_Gotham-Medium\";text-align: center;margin-top: 8px; color:#008bca'>"+this.wait+"</div>", {
+                        position: ['50%', '50%'],
+                        containerId: 'simplemodal-container-simple',
+                    });
+                    var that = this;
+                    RadianApp.Utilities.countDown(this.wait, function(count) {
+                        $('#countDown').html(count);
+                    }, function() {
+                        that.render();
+                        $.modal.close();
+                        RadianApp.app.startTime = new Date();
+                    });
                 } else {
                     window.location.hash = 'timelapse/completed';
                 } 
@@ -1161,14 +1236,14 @@ $(document).ready(function () {
                 RadianApp.app.visibleTimeLapse.set('isSpeedRamping', false);
                 RadianApp.app.visibleTimeLapse.set('speedRampingPoints', []);
                 RadianApp.app.visibleTimeLapse.set('speedRampingCurved', false);
-                $('#container').css('width', '320');
+                
                 window.location.hash = 'timelapse/advanced';
                 return;
             }
             RadianApp.app.visibleTimeLapse.set('isSpeedRamping', true);
             RadianApp.app.visibleTimeLapse.set('speedRampingPoints', points);
             RadianApp.app.visibleTimeLapse.set('speedRampingCurved', !ChartMonotonic.isLinear());
-            $('#container').css('width', '320');
+
             window.location.hash = 'timelapse/advanced';
         },
 
@@ -1196,7 +1271,6 @@ $(document).ready(function () {
         },
 
         render: function () {
-            $('#container').css('width', '480');
             Views.navigation.hide();
             if(RadianApp.isIOS) {
                 Views.navigation.setLandscape();
@@ -1247,7 +1321,7 @@ $(document).ready(function () {
             var statsView = new Views.BulbRampStatsBoxView({
                 model: this.model
             });
-            this.$('#wrapper').append(statsView.render().el);
+            this.$('#secondary').append(statsView.render().el);
         }
     });
                   
@@ -1294,7 +1368,7 @@ $(document).ready(function () {
             };
 
             this.$('#picker').scroller({
-                theme: 'ios',
+                theme: scrollTheme,
                 display: 'inline',
                 mode: 'scroller',
                 wheels: total_time_slots,
@@ -1352,7 +1426,7 @@ $(document).ready(function () {
             };
 
             this.$('#picker').scroller({
-                theme: 'ios',
+                theme: scrollTheme,
                 display: 'inline',
                 mode: 'scroller',
                 wheels: total_time_slots,
@@ -1422,7 +1496,7 @@ $(document).ready(function () {
             };
 
             this.$('#picker').scroller({
-                theme: 'ios',
+                theme: scrollTheme,
                 display: 'inline',
                 mode: 'scroller',
                 wheels: total_time_slots,
@@ -1485,21 +1559,21 @@ $(document).ready(function () {
             };
 
             this.$('#picker').scroller({
-                theme: 'ios',
+                theme: scrollTheme,
                 display: 'inline',
                 mode: 'scroller',
                 wheels: total_time_slots,
                 height: 35,
                 rows: 3,
                 onChange: function (valueText, instance) {
-                    console.log(instance.values[1])
+                    //console.log(instance.values[1])
                     RadianApp.app.visibleTimeLapse.set({'expChange': exp[instance.values[0]]}, error);
                     RadianApp.app.visibleTimeLapse.set({'expType': expType[instance.values[1]]}, error);
                 },
             }).scroller('setValue', getSettings(), false, 0);
 
-            console.log(RadianApp.app.visibleTimeLapse.get('expType'));
-            console.log(expType.indexOf(RadianApp.app.visibleTimeLapse.get('expType')));
+            //console.log(RadianApp.app.visibleTimeLapse.get('expType'));
+            //console.log(expType.indexOf(RadianApp.app.visibleTimeLapse.get('expType')));
             return this;
         }
     });
@@ -1548,7 +1622,7 @@ $(document).ready(function () {
             };
 
             this.$('#picker').scroller({
-                theme: 'ios',
+                theme: scrollTheme,
                 display: 'inline',
                 mode: 'scroller',
                 wheels: total_time_slots,
@@ -1603,7 +1677,7 @@ $(document).ready(function () {
             };
 
             this.$('#picker').scroller({
-                theme: 'ios',
+                theme: scrollTheme,
                 display: 'inline',
                 mode: 'scroller',
                 wheels: slots,
@@ -1652,7 +1726,7 @@ $(document).ready(function () {
             };
 
             this.$('#picker').scroller({
-                theme: 'ios',
+                theme: scrollTheme,
                 display: 'inline',
                 mode: 'scroller',
                 wheels: slots,
