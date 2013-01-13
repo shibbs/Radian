@@ -104,17 +104,21 @@ $(document).ready(function () {
             "touchend #tilt": "tiltEnd",
         },
 
-        pan: function() {
+        pan: function(e) {
             RadianApp.app.visibleTimeLapse.set("timeLapse", RadianApp.Constants.TimeLapseType.PAN);
             $('.next').removeClass('inactive-right');
             window.location.hash = '#timelapse';
+            e.stopImmediatePropagation();
+            e.preventDefault();
             return false;
         },
 
-        tilt: function() {
+        tilt: function(e) {
             RadianApp.app.visibleTimeLapse.set("timeLapse", RadianApp.Constants.TimeLapseType.TILT);
             $('.next').removeClass('inactive-right');
             window.location.hash = '#timelapse';
+            e.stopImmediatePropagation();
+            e.preventDefault();
             return false;
         },
 

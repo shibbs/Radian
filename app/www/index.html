@@ -423,7 +423,7 @@ right: 0;">
 		<script type="text/template" id="timeLapsePresets_template">
 			<div id="wrapper" class="inner-page" >
 				<header id="header" style="z-index:100; position: relative; " class="needsclick">
-					<a href="#" id="edit" class="needsclick">EDIT</a>
+					<a href="#" id="edit">EDIT</a>
 					<a href="#timelapse" class="highlighted-btn alignright" id="done">DONE</a>
 
 		
@@ -714,7 +714,7 @@ color: rgb(110, 110, 110);'>
 			
 			<div class="btn-box" style='width: 280px;
 margin: 12px auto 0 auto;'>
-				<div id="timelapse" class="progress-btn upload needsclick">
+				<div id="timelapse" class="progress-btn upload">
 					<div class="message">UPLOAD</div>
 					<div class="holder" style="width:0%"></div>
 				</div>
@@ -1181,6 +1181,8 @@ width: 300px;">
 			</div>
 		</script>
 
+		<div id="ghostBuster" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:9999;display:none;"></div>
+
  
 
         <!-- Load Libs -->
@@ -1227,11 +1229,11 @@ width: 300px;">
         <script type='application/javascript' src='js/lib/fastclick.js'></script>
         <script>
         	
-    		if(!isDroid) {
+    		//if(!isDroid) {
 				window.addEventListener('load', function() {
     				new FastClick(document.body);
 				}, false);
-    		}
+    		//}
 
         	// Namespacing Plugin for JQuery
 			(function( $ ){
