@@ -82,8 +82,13 @@ $(document).ready(function () {
         template: _.template($('#home_template').html()),
 
         render: function () {
-            Views.navigation.selectStep(1);
+            //Removes boxing and preloads images
+            if(!this.preloaded) {
+                this.$el.empty().append($('#preload_template').html());
+                this.preloaded = true;
+            }
             Views.navigation.unhide();
+            Views.navigation.selectStep(1);
             Views.navigation.setPrevious(false);
             if(RadianApp.app.visibleTimeLapse.get("timeLapse") === RadianApp.Constants.TimeLapseType.NONE) {
                 Views.navigation.setNext(true);
@@ -93,6 +98,7 @@ $(document).ready(function () {
             }
 
             this.$el.empty().append(this.template(RadianApp.app.visibleTimeLapse.getTemplateJSON()));
+
         },
 
         events: {
@@ -1808,7 +1814,7 @@ $(document).ready(function () {
 
         hide: function() {
             this.isModal = true;
-            if(this.landscape && RadianApp.isIOS)  {
+            if(this.landscape)  {
                 navigator.screenOrientation.set('portrait', function(){}, function(){});
             }
             this.setPrevious(false);
@@ -1822,7 +1828,7 @@ $(document).ready(function () {
         },
 
         set: function(element, isVisible, link) {
-            if(this.landscape && RadianApp.isIOS)  {
+            if(this.landscape)  {
                 navigator.screenOrientation.set('portrait', function(){}, function(){});
             }
             element.children().attr("href", "#");
