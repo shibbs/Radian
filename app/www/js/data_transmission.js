@@ -23,6 +23,7 @@ $(function(){
     var Constants = DT.Constants;
     Constants.MAX_PACKET_VALUE = 230;
     var MAX_PACKET_VALUE = Constants.MAX_PACKET_VALUE;
+    var UNSIGNED_MOD = 256;
 
 
     /* ProtocolData
@@ -39,7 +40,7 @@ $(function(){
             var model = this.get('model');
             var data = new Uint8Array(this.ordering.length);
             for (var i = this.ordering.length - 1; i >= 0; i--) {
-                data[i] = this[this.ordering[i]];
+                data[i] = Math.round(this[this.ordering[i]] % UNSIGNED_MOD);
             };
             return data;
         }
@@ -171,12 +172,12 @@ $(function(){
             for (var i = 0; i < points.length; i++) { 
                 //Setup the angle byte (even byte)
                 var degree = points[i][1]/5;
-                data[dataIndex++] = (degree - prevDegree);
+                data[dataIndex++] = Math.round((degree - prevDegree) % UNSIGNED_MOD);
                 prevDegree = degree;
 
                 //Setup the time byte (odd byte)
                 var timeValue = points[i][0]/5;
-                data[dataIndex++] = timeValue - prevTimeValue;
+                data[dataIndex++] = Math.round((timeValue - prevTimeValue) % UNSIGNED_MOD);
                 prevTimeValue = timeValue;
             };
             for (var i = 0; i < data.length; i++) {
@@ -247,20 +248,23 @@ $(function(){
         },
 
         setChecksum: function(dataArray) {
-            var checkSum = new Uint8Array(1); // Hackery to get unsigned int
+            var checkSum = 0;
             
             for (var i = dataArray.length - 1; i >= 0; i--) {
                 var data = dataArray[i];
 
                 for (var j = data.length - 1; j >= 0; j--) {
-                    checkSum[0] += data[j];
+                    checkSum += data[j];
                 };
             };
 
             //Add in size of array
-            checkSum[0] += dataArray.length;
+            checkSum += dataArray.length;
 
-            this.set('checkSum', checkSum[0]%MAX_PACKET_VALUE);
+            //Simulate Unsigned 8-bit Int
+            checkSum %= UNSIGNED_MOD;
+
+            this.set('checkSum', checkSum % MAX_PACKET_VALUE);
         },
 
         initialize: function() {
@@ -366,7 +370,7 @@ $(function(){
         defaults: {
             "startBit":  0,
             "stopBit":   1,
-            "stretchFactor":  44,
+            "stretchFactor":  9,
         },
                                                    
                                         
@@ -434,6 +438,7 @@ $(function(){
 
                 // End bit
                 packet[packet_index++] = this.get("stopBit");
+
             };
 
             return packet;
@@ -449,4 +454,3 @@ $(function(){
     });
 
 });
-

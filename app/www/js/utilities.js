@@ -5,6 +5,30 @@ RadianApp.Utilities.round = function roundNumber(num, dec) {
     return result;
 };
 
+RadianApp.Utilities.isAndroid = function() {
+    try {
+        if(device.platform === 'Android') {
+            return true;
+        }
+    } catch(e) {
+    }
+    return false;
+}
+
+RadianApp.Utilities.countDown = function(count, countFn, finishFn) {
+    var countDown = count;
+    var callmethod = function () {
+        countDown -= 1;
+        countFn(countDown);
+        if(countDown===0) {
+            finishFn();
+        } else {
+            window.countDown = setTimeout(callmethod, 1000);
+        }
+    };
+    window.countDown = setTimeout(callmethod, 1000);
+};
+
 RadianApp.Utilities.formatDate = function(d, onlyDate) {
     var date = d.getDate();
     date = date < 10 ? "0"+date : date;
@@ -26,7 +50,12 @@ RadianApp.Utilities.errorModal = function(errorMessage) {
         <div class='cancelBox'> \
             <div id='cancelAddNewPreset' class='simplemodal-close'>OK</div> \
         </div> \
-        </div>", {  position: ['160px', '15px'] });
+        </div>", {  position: ['50%', '50%'],
+                    onShow: function() { 
+                        $('#simplemodal-container').css('margin-left', '-140px');
+                        $('#simplemodal-container').css('margin-top', '-40px');
+                    }
+                });
 }
 
 RadianApp.Utilities.copyNestedArray = function(array) {

@@ -245,6 +245,10 @@ $(document).ready(function () {
             return newTimeLapse;
         },
 
+        saveQueue: function() {
+            window.localStorage.setItem("queue", JSON.stringify(this.queue));
+        },
+
         removeTimeLapseFromPresets: function(timeLapse) {
             this.presets.remove(timeLapse);
             timeLapse = null;
@@ -290,13 +294,19 @@ $(document).ready(function () {
 
         runTimeLapse: function(timeLapse) {
             if(this.queue.length > 0) {
+                this.isQueue = true;
                 this.runningTimeLapses = this.queue.models;
             } else {
+                this.isQueue = false;
                 this.runningTimeLapses = [timeLapse.clone()];
             }
             this.runningTimeLapseIndex = 0;
             this.sentTime = new Date();
             RadianApp.DataTransmission.send(this.runningTimeLapses);
+        },
+
+        getNumTimeLapses: function() {
+            return this.runningTimeLapses.length;
         },
 
         advanceRunningTimeLapse: function() {

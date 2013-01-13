@@ -123,7 +123,6 @@ function FastClick(layer) {
  */
 FastClick.prototype.deviceIsAndroid = navigator.userAgent.indexOf('Android') > 0;
 
-
 /**
  * Determine whether a given element requires a native click.
  *
