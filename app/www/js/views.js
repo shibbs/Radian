@@ -560,7 +560,7 @@ $(document).ready(function () {
                 that.remove();
                 that.unbind();
                 var scroller = that.scroller;
-                setTimeout(function() { scroller.refresh()}, 0); 
+                setTimeout(function() { if(scroller) scroller.refresh()}, 0); 
             },// callback to invoke with index of button pressed
             'Delete',            // title
             'No,Yes'          // buttonLabels
