@@ -39,8 +39,9 @@ Question = Backbone.Model.extend({
 
 SplineChart = Backbone.Model.extend({
   initialize: function(div_id, xAxisLabel, yAxisLabel, color, splineFunc, xmax, ymax) {
+
     this.div_id = div_id;
-    this.iOS = !! window.navigator.appVersion.match(/\biP(ad|od|hone)\b/);
+    this.iOS = !! window.navigator.appVersion.match(/\biP(ad|od|hone)\b/) || navigator.userAgent.match(/Android/);;
     this.xAxisLabel = xAxisLabel;
     this.yAxisLabel = yAxisLabel;
     this.color = color;
@@ -237,6 +238,7 @@ SplineChart = Backbone.Model.extend({
     var cdf = this.splineFunc(adjustedXs, ysCurve);
     
     var ctx = canvas.getContext('2d');
+    canvas.width = canvas.width;
     ctx.clearRect(0, 0, width, height);
     
     ctx.strokeStyle = '#ccc';

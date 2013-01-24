@@ -1903,7 +1903,7 @@ top: 4px;
 /* NEW NAV */
 #horizontalNav {
 	height: 75px;
-	position: absolute;
+	position: relative;
 	width: 100%;
 	top: -20px;
 	z-index: 20;
@@ -1911,7 +1911,7 @@ top: 4px;
 
 #horizontalNav .rightArea .btn.reset {
 	left: 14px;
-	top: 29px;
+	top: 0px;
 }
 
 #horizontalNav .leftArea, #horizontalNav .rightArea {
@@ -1927,7 +1927,7 @@ top: 4px;
 	background:url(../images/BackArrow.png) no-repeat;
 	background-size: 100%;
 	position: relative;
-	top: 32px;
+	top: 4px;
 	left: 12px;
 }
 
