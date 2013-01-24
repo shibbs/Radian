@@ -81,7 +81,7 @@ $(function(){
             this.lengthHours = model.lengthHours;
             this.lengthMinutes = model.lengthMinutes;
             this.shouldContinue = (model.shouldContinue) ? 1 : 0;
-            this.shouldPan = (model.timeLapse === 1) ? 1 : 0;
+            this.shouldPan = (model.timeLapse === 1) ? 0 : 100;
             this.timeDelayHours = model.timeDelayHours;
             this.timeDelayMinutes = model.timeDelayMinutes;
             this.hold = (Number(model.hold) * 1000) / 50; // 50 millisecond increments
