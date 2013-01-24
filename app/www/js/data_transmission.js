@@ -261,6 +261,10 @@ $(function(){
             //Add in size of array
             checkSum += dataArray.length;
 
+            //Add in Preload Motion
+            var settings = this.get('settings');
+            checkSum += settings.preloadMotion1 + settings.preloadMotion2;
+
             //Simulate Unsigned 8-bit Int
             checkSum %= UNSIGNED_MOD;
 
@@ -295,6 +299,11 @@ $(function(){
 
             // Number of Data Packets
             packet[i++] = dataArray.length;
+
+            //Placeholder for preloadMotion
+            var settings = this.get('settings');
+            packet[i++] = settings.preloadMotion1;
+            packet[i++] = settings.preloadMotion2;
 
             // The Data Packets
             for (var z = 0; z < dataArray.length; z++) {
