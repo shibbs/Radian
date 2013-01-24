@@ -40,7 +40,7 @@ Question = Backbone.Model.extend({
 SplineChart = Backbone.Model.extend({
   initialize: function(div_id, xAxisLabel, yAxisLabel, color, splineFunc, xmax, ymax) {
     this.div_id = div_id;
-    this.iOS = !! window.navigator.appVersion.match(/\biP(ad|od|hone)\b/);
+    this.iOS = !! window.navigator.appVersion.match(/\biP(ad|od|hone)\b/) || navigator.userAgent.match(/Android/);;
     this.xAxisLabel = xAxisLabel;
     this.yAxisLabel = yAxisLabel;
     this.color = color;
@@ -187,16 +187,9 @@ SplineChart = Backbone.Model.extend({
     return handle;
   },
   draw: function(firstTime) {
-    firstTime = true;
-    function cloneCanvas(oldCanvas) {
-      $('#chart_monotonic').html('<canvas width="415" height="205" id="chart"></canvas>');
-    }
-
     var me = this;
     var div = $('#'+this.div_id);
     var canvas = div.children('canvas')[0];
-    var temp = cloneCanvas(canvas);
-    
     var width = parseInt(canvas.width);  // it's a string in IE6(+?)
     var height = parseInt(canvas.height);
     
