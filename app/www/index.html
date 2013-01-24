@@ -943,11 +943,11 @@ color:rgb(110,110,110)'>
 
 		<!-- SpeedRamping Template -->
 		<script type="text/template" id="speedRamping_template">
-			<div>
-				        <div id='horizontalNav'>
+			<div style='overflow: visible;'>
+				        <div id='horizontalNav' style='overflow: visible;'>
 				        	<div id='previous' class='leftArea'><div  class='backarrow'></div></div>
 				        	<div id='reset' class='rightArea'><div class='btn reset'>RESET</div></div>
-				        	<div class='middleArea'>
+				        	<div class='middleArea' style='overflow: visible;'>
 				        		<div class='text'>FIT</div>
 				        		<div id='linear' class='btn'>LINEAR</div>
 				        		<div id='cubic' class='btn'>CURVE</div>
@@ -956,10 +956,9 @@ color:rgb(110,110,110)'>
 
 
 				        <div id="page" style="cursor: default; position: absolute;
-padding-top: 16px;
-overflow: hidden;
+overflow: visible;
 width: 480px;
-height: 210px; margin: 50px auto;
+height: 210px; margin: -33px auto;
 left: 0;
 right: 0;">
 				          <div id="chart_monotonic" class="cubic_spline">
