@@ -187,9 +187,16 @@ SplineChart = Backbone.Model.extend({
     return handle;
   },
   draw: function(firstTime) {
+    firstTime = true;
+    function cloneCanvas(oldCanvas) {
+      $('#chart_monotonic').html('<canvas width="415" height="205" id="chart"></canvas>');
+    }
+
     var me = this;
     var div = $('#'+this.div_id);
     var canvas = div.children('canvas')[0];
+    var temp = cloneCanvas(canvas);
+    
     var width = parseInt(canvas.width);  // it's a string in IE6(+?)
     var height = parseInt(canvas.height);
     
