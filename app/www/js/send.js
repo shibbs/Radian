@@ -31,7 +31,7 @@ RadianApp.DataTransmission.prepareTimeLapsePacket = function(model) {
         //Speed ramping stuff
         "isSpeedRamping": model.get("isSpeedRamping"),
         "speedRampingPoints": RadianApp.Utilities.copyNestedArray(model.get("speedRampingPoints")),
-        "speedRampingCurved": model.get("speedRampingCurved")
+        "speedRampingCurved": model.get("speedRampingCurved"),
 	}
 
 	// Convert to Protocol Data
@@ -52,16 +52,21 @@ RadianApp.DataTransmission.send = function(models) {
 	var DT = RadianApp.DataTransmission;
 	var Sound = RadianApp.Sound;
 
+	var settings = {
+        "preloadMotion1": 60,
+        "preloadMotion2": 80,
+	}
+
 	var dataArray = [];
 
 	for (var i = 0; i < models.length; i++) {
 		dataArray.push( DT.prepareTimeLapsePacket( models[i] ) );
 	};
 
-	var dataPacket = new DT.DataPacket({dataArray: dataArray});
+	var dataPacket = new DT.DataPacket({dataArray: dataArray, settings: settings});
 
 	// Get Transmission Packet'
-	var transmissionPacket = new DT.TransmissionPacket({data: dataPacket.getPacket() });
+	var transmissionPacket = new DT.TransmissionPacket({data: dataPacket.getPacket()});
  	var dataToSend = transmissionPacket.getPacket();
  
  	//Generate Wav
