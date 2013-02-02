@@ -139,7 +139,7 @@ h1{
 	color:rgb(30,30,30);
 	text-transform:uppercase;
 	font:bold 20px/24px "Conv_Gotham-Black", Helvetica, Arial, sans-serif;
-	padding:18px 10px 19px;
+	padding:20px 10px 20px;
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
 	background:#6e6e6e;
@@ -1066,11 +1066,12 @@ font: 20px/24px Helvetica, Arial, sans-serif;
 
 /* Speedramping */
       /* cubic splines */
-      .cubic_spline { position: relative; left: 80px; font-size: 0.95em; -webkit-user-select: none; }
+      .cubic_spline { position: relative; font-size: 0.95em; -webkit-user-select: none; }
       .cubic_spline canvas { border-left: 1px solid #008bca; border-bottom: 1px solid #008bca;}
       .cubic_spline_xlabel, .cubic_spline_ylabel { position: absolute; }
-      .cubic_spline_ylabel { color:#c8c8c8; width: 50px; left: -65px; text-align: right; }
-      .cubic_spline_xlabel { color:#c8c8c8; width: 150px; text-align: center; }
+      .cubic_spline_ylabel { color:#c8c8c8; width: 50px; left: -60px; text-align: right; }
+      .cubic_spline_xlabel { color:#c8c8c8; text-align: center;
+min-width: 30px;}
       .cubic_spline_xaxis_label { color:#c8c8c8; position: relative; top: 2em; text-align: center; }
       .cubic_spline_yaxis_label {
         color:#c8c8c8;
@@ -1103,9 +1104,7 @@ font: 20px/24px Helvetica, Arial, sans-serif;
       	padding-bottom: 15px;
       }
       #chart_monotonic {
-      	position:relative;
-      	left: 35px;
-      	top: 0px;
+      	
       }
 
 .step-nav .dimmed {
@@ -1687,7 +1686,7 @@ select.holo-spinner option { height: 32px; border-top: 1px #444 solid; }
 	text-align: center;
 	line-height: 65px;
 	font-size: 18px;
-	font-family: "Conv_Gotham-Medium";
+	font-family: "Conv_Gotham-Bold";
 	color: rgb(110, 110, 110);
 	text-transform: uppercase;
 }
@@ -2064,7 +2063,7 @@ top: 4px;
 	border-radius: 5px;
 	background: rgb(110, 110, 110);
 	width: 115px;
-	height: 31px;
+	height: 32px;
 	text-align: center;
 	line-height: 31px;
 	font-family: "Conv_Gotham-Black";
@@ -2126,7 +2125,7 @@ table {
 	height: 19px;
 }
 .final-box .time{
-	background:url(../images/ico-time.png) no-repeat;
+	background:url(../images/ico-time_old.png) no-repeat;
 	background-size:19px 19px;
 	background-position: 0px 0px;
 	width: 30px;

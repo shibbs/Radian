@@ -567,9 +567,9 @@ $(document).ready(function () {
             function(i) {
                 if(i===1) return;
                 RadianApp.app.removePresetFromQueue(that.model);
+                var scroller = that.scroller;
                 that.remove();
                 that.unbind();
-                var scroller = that.scroller;
                 setTimeout(function() { if(scroller) scroller.refresh()}, 0); 
             },// callback to invoke with index of button pressed
             'Delete',            // title
@@ -1001,7 +1001,15 @@ $(document).ready(function () {
                 this.running = true;
                 this.percent = 0;
                 this.disableNavigation();
-                RadianApp.app.runTimeLapse(RadianApp.app.visibleTimeLapse);
+                var that = this;
+                RadianApp.app.runTimeLapse(RadianApp.app.visibleTimeLapse, function() {
+                    that.percent = 100;
+                    if(window.timeLapseLoadingBarTimeout) {
+                        clearTimeout(window.timeLapseLoadingBarTimeout)
+                    }
+                    window.location.hash = 'timelapse/countdown';
+                    that.percent = 0;
+                });
                 this.advanceProgressBar();
                 this.updateMessage();
             }
@@ -1020,14 +1028,10 @@ $(document).ready(function () {
             var callmethod = function () {
                 that.advanceProgressBar()
             }
-            if (that.percent !== 100) {
-                that.percent += 1;
+            if (that.percent < 98) {
+                that.percent += 2;
                 that.$('.holder').css('width', that.percent + '%');
-                window.timeLapseLoadingBarTimeout = setTimeout(callmethod, 40);
-            }
-            else {
-                window.location.hash = 'timelapse/countdown';
-                that.percent = 0;
+                window.timeLapseLoadingBarTimeout = setTimeout(callmethod, 30);
             }
         }
     });
@@ -1129,14 +1133,16 @@ $(document).ready(function () {
         },
 
         getInterval: function (totalTime) {
-            var minInterval = 500; //500ms
+            /*var minInterval = 500; //500ms
             var maxInterval = 10000;
             var suggestedInterval = totalTime;
             if(suggestedInterval < minInterval) {
                 suggestedInterval = minInterval;
             } else if(suggestedInterval > maxInterval) {
                 suggestedInterval = maxInterval;
-            }
+            }*/
+            var runningTimeLapse = RadianApp.app.getRunningTimeLapse();
+            var suggestedInterval = (runningTimeLapse.get('intervalMinutes') * 60 + runningTimeLapse.get('intervalSeconds')) * 1000;
             return suggestedInterval;
         },
 
@@ -1181,11 +1187,17 @@ $(document).ready(function () {
 
         render: function () {
             this.$el.empty().append(this.template());
-            this.count = 6;
+            this.count = 4;
+            var runningTimeLapse = RadianApp.app.getRunningTimeLapse();
+            if(runningTimeLapse.get('intervalMinutes') > 0 || runningTimeLapse.get('intervalSeconds') >= 4) {
+                this.count += 2;
+            } else {
+                this.count += runningTimeLapse.get('intervalSeconds')/2;
+            }
             this.cancelled = false;
             window.timeLapseCountDownTimeout = [];
-
-
+            this.display = Math.round(this.count);
+            this.$('#countdown').html(this.display);
             this.countDown();
             return this;
         },
@@ -1209,18 +1221,18 @@ $(document).ready(function () {
             var that = this;
 
             var callmethod = function () {
-                that.countDown()
+                if (that.count > 0) {
+                    that.count -= .05;
+                    if(that.display - 1 >= that.count) {
+                        that.display -=1;
+                        that.$('#countdown').html(that.display);
+                    }
+                    window.timeLapseCountDownTimeout = setTimeout(callmethod, 50);
+                } else {
+                    window.location.hash = 'timelapse/current';
+                }
             }
-
-            if (that.count !== 1) {
-                that.count -= 1;
-                that.$('#countdown').html(that.count);
-
-                window.timeLapseCountDownTimeout = setTimeout(callmethod, 1000);
-            }
-            else {
-                window.location.hash = 'timelapse/current';
-            }
+            window.timeLapseCountDownTimeout = setTimeout(callmethod, 50);
         }
     });
 
@@ -1281,31 +1293,49 @@ $(document).ready(function () {
         },
 
         render: function () {
+            var width = $('body').width();
+
             Views.navigation.hide();
             if(RadianApp.isIOS) {
                 Views.navigation.setLandscape();
             }
             this.$el.empty();
             this.$el.append(this.template(RadianApp.app.visibleTimeLapse.getTemplateJSON()));
-            var totalTime = RadianApp.app.visibleTimeLapse.get('totalTimeHours') * 60 + RadianApp.app.visibleTimeLapse.get('totalTimeMinutes');
-            var degrees = RadianApp.app.visibleTimeLapse.get('degrees');
-
-            ChartMonotonic = new SplineChart('chart_monotonic', 'Time (minutes)', 'Degrees', '#008bca', function(xs, ys) {
-                return new MonotonicCubicSpline(xs, ys);
-            }, totalTime, degrees);
-
-            //ChartMonotonic.addNewPoint(0, 0, true); //Hack to be able to reset graph
-            if(RadianApp.app.visibleTimeLapse.get('isSpeedRamping')) {
-                if(RadianApp.app.visibleTimeLapse.get('speedRampingCurved')){
-                    this.curve();
-                } else {
-                    this.linear();
+            
+            var that = this;
+            var loadPage = function() { 
+                if(width === $('body').width()) {
+                    setTimeout(loadPage, 50);
+                    return
                 }
-                ChartMonotonic.setPoints(RadianApp.app.visibleTimeLapse.get('speedRampingPoints'));
-            } else {
-                this.linear();
-                ChartMonotonic.setPoints();
+                var canvas = document.createElement('canvas');
+                var container = $("#chart_monotonic");
+                canvas.width = $("#horizontalNav").width()-80;
+                canvas.height = container.height();
+                canvas.id = 'chart';
+                container.append(canvas);
+                //<canvas width="100%" height="100%" id="chart"></canvas>
+                var totalTime = RadianApp.app.visibleTimeLapse.get('totalTimeHours') * 60 + RadianApp.app.visibleTimeLapse.get('totalTimeMinutes');
+                var degrees = RadianApp.app.visibleTimeLapse.get('degrees');
+
+                ChartMonotonic = new SplineChart('chart_monotonic', 'Time (minutes)', 'Degrees', '#008bca', function(xs, ys) {
+                    return new MonotonicCubicSpline(xs, ys);
+                }, totalTime, degrees);
+
+                //ChartMonotonic.addNewPoint(0, 0, true); //Hack to be able to reset graph
+                if(RadianApp.app.visibleTimeLapse.get('isSpeedRamping')) {
+                    if(RadianApp.app.visibleTimeLapse.get('speedRampingCurved')){
+                        that.curve();
+                    } else {
+                        that.linear();
+                    }
+                    ChartMonotonic.setPoints(RadianApp.app.visibleTimeLapse.get('speedRampingPoints'));
+                } else {
+                    that.linear();
+                    ChartMonotonic.setPoints();
+                }
             }
+            setTimeout(loadPage, 50);
         }
     });
 
@@ -1325,7 +1355,7 @@ $(document).ready(function () {
             this.$('#unchecked').prop("checked", RadianApp.app.visibleTimeLapse.get("isBulbRamping"));
         },
 
-                render: function () {
+        render: function () {
             Views.navigation.hide();
             this.$el.empty().append(this.template(RadianApp.app.visibleTimeLapse.getTemplateJSON()));
             var statsView = new Views.BulbRampStatsBoxView({
@@ -1364,6 +1394,7 @@ $(document).ready(function () {
             var statsView = new Views.BulbRampStatsBoxView({
                 model: this.model
             });
+
             this.$('#wrapper').append(statsView.render().el);
 
             var total_time_slots = [generate_slot('hours', 0, 2, 1, 'hr'), generate_slot('minutes', 0, 59, 5, 'min')];
