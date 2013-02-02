@@ -1133,14 +1133,16 @@ $(document).ready(function () {
         },
 
         getInterval: function (totalTime) {
-            var minInterval = 500; //500ms
+            /*var minInterval = 500; //500ms
             var maxInterval = 10000;
             var suggestedInterval = totalTime;
             if(suggestedInterval < minInterval) {
                 suggestedInterval = minInterval;
             } else if(suggestedInterval > maxInterval) {
                 suggestedInterval = maxInterval;
-            }
+            }*/
+            var runningTimeLapse = RadianApp.app.getRunningTimeLapse();
+            var suggestedInterval = (runningTimeLapse.get('intervalMinutes') * 60 + runningTimeLapse.get('intervalSeconds')) * 1000;
             return suggestedInterval;
         },
 
