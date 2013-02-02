@@ -705,7 +705,11 @@ font-family: "Conv_Gotham-Bold"; position:relative; margin-top: 26px'>ARE YOU RE
 font-family: "Conv_Gotham-Book";
 line-height: 12px;
 margin-top: 5px;'>
-						Radian will <span>tilt <%= actualDegrees %>°</span> in<span>
+						Radian will <span> <% if (timeLapse === 1) { %>
+										pan
+									 <% } else { %>
+									 	tilt
+									 <% } %> <%= actualDegrees %>°</span> in<span>
 									<% if (totalTimeHours !== 0) { %> <%= totalTimeHours %> hr<% } %> <%= totalTimeMinutes %> min</span> and 
 						take a photo every <span>
 									<% if (intervalMinutes !== 0) { %> <%= intervalMinutes %> min<% } %> <%= intervalSeconds %> sec</span><span style='color:#fff'>.</span> 
@@ -713,7 +717,7 @@ margin-top: 5px;'>
 					<div class='info' style='position: absolute;
 width: 20px;
 height: 20px;
-right: -12px;
+right: -13px;
 top: 0px;
 background: url("./images/infoicon.png") no-repeat;
 background-size: 20px 20px;'></div>
