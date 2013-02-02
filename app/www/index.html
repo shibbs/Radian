@@ -704,8 +704,13 @@ font-family: "Conv_Gotham-Bold"; position:relative; margin-top: 26px'>ARE YOU RE
 					<div class='text' style='font-size: 11.5px;
 font-family: "Conv_Gotham-Book";
 line-height: 12px;
-margin-top: 5px;'>
-						Radian will <span>tilt <%= actualDegrees %>°</span> in<span>
+margin-top: 5px;
+padding-right: 15px;'>
+						Radian will <span> <% if (timeLapse === 1) { %>
+										pan
+									 <% } else { %>
+									 	tilt
+									 <% } %> <%= actualDegrees %>°</span> in<span>
 									<% if (totalTimeHours !== 0) { %> <%= totalTimeHours %> hr<% } %> <%= totalTimeMinutes %> min</span> and 
 						take a photo every <span>
 									<% if (intervalMinutes !== 0) { %> <%= intervalMinutes %> min<% } %> <%= intervalSeconds %> sec</span><span style='color:#fff'>.</span> 
@@ -713,7 +718,7 @@ margin-top: 5px;'>
 					<div class='info' style='position: absolute;
 width: 20px;
 height: 20px;
-right: -12px;
+right: -13px;
 top: 0px;
 background: url("./images/infoicon.png") no-repeat;
 background-size: 20px 20px;'></div>
@@ -944,7 +949,7 @@ color:rgb(110,110,110)'>
 		<!-- SpeedRamping Template -->
 		<script type="text/template" id="speedRamping_template">
 			<div style='overflow: visible;'>
-				        <div id='horizontalNav' style='overflow: visible;'>
+				        <div id='horizontalNav' style='overflow: visible; height:auto'>
 				        	<div id='previous' class='leftArea'><div  class='backarrow'></div></div>
 				        	<div id='reset' class='rightArea'><div class='btn reset'>RESET</div></div>
 				        	<div class='middleArea' style='overflow: visible;'>
@@ -957,12 +962,12 @@ color:rgb(110,110,110)'>
 
 				        <div id="page" style="cursor: default; position: absolute;
 overflow: visible;
-width: 480px;
-height: 210px; margin: -33px auto;
-left: 0;
-right: 0;">
-				          <div id="chart_monotonic" class="cubic_spline">
-				          	<canvas width="415" height="205" id="chart"></canvas>
+width: 90%; 
+height: 67%; margin: -18px auto;
+left: 45px;">
+				          <div id="chart_monotonic" class="cubic_spline" style='width:100%; height:100%'>
+
+				          	
 				          </div>
 				        </div>
 
@@ -987,8 +992,8 @@ right: 0;">
     margin: 0 auto;
 ">
 				<div class="holo-switch needsclick">
-			<input type="checkbox" id="unchecked" <% if (isBulbRamping) { %>checked<% } %>>
-			<label id="isBulbRamping"  class="holo-label" for="unchecked">
+			<input type="checkbox" id="unchecked" class='needsclick' <% if (isBulbRamping) { %>checked<% } %>>
+			<label id="isBulbRamping"  class="holo-label needsclick" for="unchecked">
 			</label>
 		</div>
 		</div>
@@ -1205,11 +1210,11 @@ width: 300px;">
         <!-- Load Libs -->
         <script>
 
-        		// EXTREME DEBUGGING
+        		/*// EXTREME DEBUGGING
         		window.onerror = function(error, url, line) {
 					document.getElementsByTagName('body')[0].innerHTML = 'JS ERROR :( <br /> Message: '+ error + '<br /> URL: ' + url + '<br /> Line Number: ' + line;
     				return false;
-				};	
+				};	*/
 
 			(function () {
 			

@@ -290,7 +290,7 @@ SplineChart = Backbone.Model.extend({
       }
       newXLabel+=minutes+'m'
       xLab.html(newXLabel);
-      xLab.css({left: (pxX - 75) + 'px', top: (height + 9) + 'px', visibility: 'visible'});
+      xLab.css({left: (pxX - 15) + 'px', top: (height + 8) + 'px', visibility: 'visible'});
       
       // horizontal (y) lines
         ctx.moveTo(0, height-pxY);

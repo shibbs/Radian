@@ -292,7 +292,7 @@ $(document).ready(function () {
             //this.visibleTimeLapse = timeLapse.clone();
         },
 
-        runTimeLapse: function(timeLapse) {
+        runTimeLapse: function(timeLapse, finishedCallback) {
             if(this.queue.length > 0) {
                 this.isQueue = true;
                 this.runningTimeLapses = this.queue.models;
@@ -301,8 +301,20 @@ $(document).ready(function () {
                 this.runningTimeLapses = [timeLapse.clone()];
             }
             this.runningTimeLapseIndex = 0;
-            this.sentTime = new Date();
-            RadianApp.DataTransmission.send(this.runningTimeLapses);
+
+            var that = this;
+            var appendCallback = function() {
+                var pause = 4;
+                var runningTimeLapse = RadianApp.app.getRunningTimeLapse();
+                if(runningTimeLapse.get('intervalMinutes') > 0 || runningTimeLapse.get('intervalSeconds') >= 4) {
+                    pause += 2;
+                } else {
+                    pause += runningTimeLapse.get('intervalSeconds')/2;
+                }
+                setTimeout(function() {that.sentTime = new Date();}, pause*1000);
+                finishedCallback();
+            }
+            RadianApp.DataTransmission.send(this.runningTimeLapses, appendCallback);
         },
 
         getNumTimeLapses: function() {
