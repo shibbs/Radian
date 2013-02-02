@@ -1686,7 +1686,7 @@ select.holo-spinner option { height: 32px; border-top: 1px #444 solid; }
 	text-align: center;
 	line-height: 65px;
 	font-size: 18px;
-	font-family: "Conv_Gotham-Medium";
+	font-family: "Conv_Gotham-Bold";
 	color: rgb(110, 110, 110);
 	text-transform: uppercase;
 }
