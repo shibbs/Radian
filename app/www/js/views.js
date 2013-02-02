@@ -1001,7 +1001,15 @@ $(document).ready(function () {
                 this.running = true;
                 this.percent = 0;
                 this.disableNavigation();
-                RadianApp.app.runTimeLapse(RadianApp.app.visibleTimeLapse);
+                var that = this;
+                RadianApp.app.runTimeLapse(RadianApp.app.visibleTimeLapse, function() {
+                    that.percent = 100;
+                    if(window.timeLapseLoadingBarTimeout) {
+                        clearTimeout(window.timeLapseLoadingBarTimeout)
+                    }
+                    window.location.hash = 'timelapse/countdown';
+                    that.percent = 0;
+                });
                 this.advanceProgressBar();
                 this.updateMessage();
             }
@@ -1020,14 +1028,10 @@ $(document).ready(function () {
             var callmethod = function () {
                 that.advanceProgressBar()
             }
-            if (that.percent !== 100) {
-                that.percent += 1;
+            if (that.percent < 98) {
+                that.percent += 2;
                 that.$('.holder').css('width', that.percent + '%');
-                window.timeLapseLoadingBarTimeout = setTimeout(callmethod, 40);
-            }
-            else {
-                window.location.hash = 'timelapse/countdown';
-                that.percent = 0;
+                window.timeLapseLoadingBarTimeout = setTimeout(callmethod, 30);
             }
         }
     });
@@ -1181,11 +1185,17 @@ $(document).ready(function () {
 
         render: function () {
             this.$el.empty().append(this.template());
-            this.count = 6;
+            this.count = 4;
+            var runningTimeLapse = RadianApp.app.getRunningTimeLapse();
+            if(runningTimeLapse.get('intervalMinutes') > 0 || runningTimeLapse.get('intervalSeconds') >= 4) {
+                this.count += 2;
+            } else {
+                this.count += runningTimeLapse.get('intervalSeconds')/2;
+            }
             this.cancelled = false;
             window.timeLapseCountDownTimeout = [];
-
-
+            this.display = Math.round(this.count);
+            this.$('#countdown').html(this.display);
             this.countDown();
             return this;
         },
@@ -1209,18 +1219,18 @@ $(document).ready(function () {
             var that = this;
 
             var callmethod = function () {
-                that.countDown()
+                if (that.count > 0) {
+                    that.count -= .05;
+                    if(that.display - 1 >= that.count) {
+                        that.display -=1;
+                        that.$('#countdown').html(that.display);
+                    }
+                    window.timeLapseCountDownTimeout = setTimeout(callmethod, 50);
+                } else {
+                    window.location.hash = 'timelapse/current';
+                }
             }
-
-            if (that.count !== 1) {
-                that.count -= 1;
-                that.$('#countdown').html(that.count);
-
-                window.timeLapseCountDownTimeout = setTimeout(callmethod, 1000);
-            }
-            else {
-                window.location.hash = 'timelapse/current';
-            }
+            window.timeLapseCountDownTimeout = setTimeout(callmethod, 50);
         }
     });
 

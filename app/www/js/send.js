@@ -47,7 +47,7 @@ RadianApp.DataTransmission.prepareTimeLapsePacket = function(model) {
 	return dataArray;
 }
 
-RadianApp.DataTransmission.send = function(models) {
+RadianApp.DataTransmission.send = function(models, finishedCallback) {
 
 	var DT = RadianApp.DataTransmission;
 	var Sound = RadianApp.Sound;
@@ -85,6 +85,7 @@ RadianApp.DataTransmission.send = function(models) {
 				//TODO Increase Volume
 				Sound.play(path, function() {
 					RadianApp.app.soundPlaying = false;
+					finishedCallback();
 				});
 				//TODO Change Volume back
 			});

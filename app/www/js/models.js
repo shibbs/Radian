@@ -292,7 +292,7 @@ $(document).ready(function () {
             //this.visibleTimeLapse = timeLapse.clone();
         },
 
-        runTimeLapse: function(timeLapse) {
+        runTimeLapse: function(timeLapse, finishedCallback) {
             if(this.queue.length > 0) {
                 this.isQueue = true;
                 this.runningTimeLapses = this.queue.models;
@@ -302,7 +302,7 @@ $(document).ready(function () {
             }
             this.runningTimeLapseIndex = 0;
             this.sentTime = new Date();
-            RadianApp.DataTransmission.send(this.runningTimeLapses);
+            RadianApp.DataTransmission.send(this.runningTimeLapses, finishedCallback);
         },
 
         getNumTimeLapses: function() {
