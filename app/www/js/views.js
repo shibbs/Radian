@@ -567,9 +567,9 @@ $(document).ready(function () {
             function(i) {
                 if(i===1) return;
                 RadianApp.app.removePresetFromQueue(that.model);
+                var scroller = that.scroller;
                 that.remove();
                 that.unbind();
-                var scroller = that.scroller;
                 setTimeout(function() { if(scroller) scroller.refresh()}, 0); 
             },// callback to invoke with index of button pressed
             'Delete',            // title
