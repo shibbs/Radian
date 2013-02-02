@@ -139,7 +139,7 @@ h1{
 	color:rgb(30,30,30);
 	text-transform:uppercase;
 	font:bold 20px/24px "Conv_Gotham-Black", Helvetica, Arial, sans-serif;
-	padding:18px 10px 19px;
+	padding:20px 10px 20px;
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
 	background:#6e6e6e;
@@ -2063,7 +2063,7 @@ top: 4px;
 	border-radius: 5px;
 	background: rgb(110, 110, 110);
 	width: 115px;
-	height: 31px;
+	height: 32px;
 	text-align: center;
 	line-height: 31px;
 	font-family: "Conv_Gotham-Black";
