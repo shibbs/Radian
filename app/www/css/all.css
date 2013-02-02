@@ -1066,11 +1066,12 @@ font: 20px/24px Helvetica, Arial, sans-serif;
 
 /* Speedramping */
       /* cubic splines */
-      .cubic_spline { position: relative; left: 80px; font-size: 0.95em; -webkit-user-select: none; }
+      .cubic_spline { position: relative; font-size: 0.95em; -webkit-user-select: none; }
       .cubic_spline canvas { border-left: 1px solid #008bca; border-bottom: 1px solid #008bca;}
       .cubic_spline_xlabel, .cubic_spline_ylabel { position: absolute; }
-      .cubic_spline_ylabel { color:#c8c8c8; width: 50px; left: -65px; text-align: right; }
-      .cubic_spline_xlabel { color:#c8c8c8; width: 150px; text-align: center; }
+      .cubic_spline_ylabel { color:#c8c8c8; width: 50px; left: -60px; text-align: right; }
+      .cubic_spline_xlabel { color:#c8c8c8; text-align: center;
+min-width: 30px;}
       .cubic_spline_xaxis_label { color:#c8c8c8; position: relative; top: 2em; text-align: center; }
       .cubic_spline_yaxis_label {
         color:#c8c8c8;
@@ -1103,9 +1104,7 @@ font: 20px/24px Helvetica, Arial, sans-serif;
       	padding-bottom: 15px;
       }
       #chart_monotonic {
-      	position:relative;
-      	left: 35px;
-      	top: 0px;
+      	
       }
 
 .step-nav .dimmed {

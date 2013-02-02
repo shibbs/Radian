@@ -1281,31 +1281,49 @@ $(document).ready(function () {
         },
 
         render: function () {
+            var width = $('body').width();
+
             Views.navigation.hide();
             if(RadianApp.isIOS) {
                 Views.navigation.setLandscape();
             }
             this.$el.empty();
             this.$el.append(this.template(RadianApp.app.visibleTimeLapse.getTemplateJSON()));
-            var totalTime = RadianApp.app.visibleTimeLapse.get('totalTimeHours') * 60 + RadianApp.app.visibleTimeLapse.get('totalTimeMinutes');
-            var degrees = RadianApp.app.visibleTimeLapse.get('degrees');
-
-            ChartMonotonic = new SplineChart('chart_monotonic', 'Time (minutes)', 'Degrees', '#008bca', function(xs, ys) {
-                return new MonotonicCubicSpline(xs, ys);
-            }, totalTime, degrees);
-
-            //ChartMonotonic.addNewPoint(0, 0, true); //Hack to be able to reset graph
-            if(RadianApp.app.visibleTimeLapse.get('isSpeedRamping')) {
-                if(RadianApp.app.visibleTimeLapse.get('speedRampingCurved')){
-                    this.curve();
-                } else {
-                    this.linear();
+            
+            var that = this;
+            var loadPage = function() { 
+                if(width === $('body').width()) {
+                    setTimeout(loadPage, 50);
+                    return
                 }
-                ChartMonotonic.setPoints(RadianApp.app.visibleTimeLapse.get('speedRampingPoints'));
-            } else {
-                this.linear();
-                ChartMonotonic.setPoints();
+                var canvas = document.createElement('canvas');
+                var container = $("#chart_monotonic");
+                canvas.width = $("#horizontalNav").width()-80;
+                canvas.height = container.height();
+                canvas.id = 'chart';
+                container.append(canvas);
+                //<canvas width="100%" height="100%" id="chart"></canvas>
+                var totalTime = RadianApp.app.visibleTimeLapse.get('totalTimeHours') * 60 + RadianApp.app.visibleTimeLapse.get('totalTimeMinutes');
+                var degrees = RadianApp.app.visibleTimeLapse.get('degrees');
+
+                ChartMonotonic = new SplineChart('chart_monotonic', 'Time (minutes)', 'Degrees', '#008bca', function(xs, ys) {
+                    return new MonotonicCubicSpline(xs, ys);
+                }, totalTime, degrees);
+
+                //ChartMonotonic.addNewPoint(0, 0, true); //Hack to be able to reset graph
+                if(RadianApp.app.visibleTimeLapse.get('isSpeedRamping')) {
+                    if(RadianApp.app.visibleTimeLapse.get('speedRampingCurved')){
+                        that.curve();
+                    } else {
+                        that.linear();
+                    }
+                    ChartMonotonic.setPoints(RadianApp.app.visibleTimeLapse.get('speedRampingPoints'));
+                } else {
+                    that.linear();
+                    ChartMonotonic.setPoints();
+                }
             }
+            setTimeout(loadPage, 50);
         }
     });
 
@@ -1364,6 +1382,7 @@ $(document).ready(function () {
             var statsView = new Views.BulbRampStatsBoxView({
                 model: this.model
             });
+
             this.$('#wrapper').append(statsView.render().el);
 
             var total_time_slots = [generate_slot('hours', 0, 2, 1, 'hr'), generate_slot('minutes', 0, 59, 5, 'min')];
