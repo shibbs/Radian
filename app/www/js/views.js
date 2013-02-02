@@ -1325,7 +1325,7 @@ $(document).ready(function () {
             this.$('#unchecked').prop("checked", RadianApp.app.visibleTimeLapse.get("isBulbRamping"));
         },
 
-                render: function () {
+        render: function () {
             Views.navigation.hide();
             this.$el.empty().append(this.template(RadianApp.app.visibleTimeLapse.getTemplateJSON()));
             var statsView = new Views.BulbRampStatsBoxView({
