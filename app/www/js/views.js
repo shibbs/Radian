@@ -254,7 +254,7 @@ $(document).ready(function () {
 
         intervalLink: function () {
             window.location.hash = '#timelapse/interval';
-
+            return false;
         },
 
         presetsLink: function () {
@@ -266,7 +266,6 @@ $(document).ready(function () {
         queueLink: function () {
             window.location.hash = '#timelapse/queue';
             return false;
-
         },
 
         advancedLink: function () {

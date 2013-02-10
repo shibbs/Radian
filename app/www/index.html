@@ -100,21 +100,23 @@ left: 0;
 							</div>
 						</div>
 					</div>
-					<div class='row' id='intervalLink'>
+					<div class='row'>
 						<div class='miniTitle'>SHOOT EVERY</div>
 						<div>
-							<div class='display'>
-								<% if (intervalMinutes !== 0) { %>
-									<div class='valueContainer first'>
-										<div class='value'><%= intervalMinutes %></div>
-										<div class='unit'>min</div>
+							<a href='#' id='intervalLink'>
+								<div class='display'>
+									<% if (intervalMinutes !== 0) { %>
+										<div class='valueContainer first'>
+											<div class='value'><%= intervalMinutes %></div>
+											<div class='unit'>min</div>
+										</div>
+									<% } %>
+									<div class='valueContainer last'>
+										<div class='value'><%= intervalSeconds %></div>
+										<div class='unit'>sec</div>
 									</div>
-								<% } %>
-								<div class='valueContainer last'>
-									<div class='value'><%= intervalSeconds %></div>
-									<div class='unit'>sec</div>
 								</div>
-							</div>
+							</a>
 						</div>
 					</div>
 				</div>
