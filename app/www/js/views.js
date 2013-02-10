@@ -254,7 +254,7 @@ $(document).ready(function () {
 
         intervalLink: function () {
             window.location.hash = '#timelapse/interval';
-
+            return false;
         },
 
         presetsLink: function () {
@@ -266,7 +266,6 @@ $(document).ready(function () {
         queueLink: function () {
             window.location.hash = '#timelapse/queue';
             return false;
-
         },
 
         advancedLink: function () {
@@ -301,6 +300,7 @@ $(document).ready(function () {
             } else {
                 this.$el.empty().append(this.template(RadianApp.app.visibleTimeLapse.getTemplateJSON()));
             }
+
             // If we are currently running one don't simulate upload
             //$('#thirdstep').attr('href', '#timelapse/current');
             return this;
@@ -988,7 +988,6 @@ $(document).ready(function () {
             }
             Views.navigation.setPrevious(true, "#timelapse");
             this.$el.empty().append(this.template(RadianApp.app.visibleTimeLapse.getTemplateJSON()));
-
             return this;
         },
 
@@ -1362,6 +1361,7 @@ $(document).ready(function () {
                 model: this.model
             });
             this.$('#secondary').append(statsView.render().el);
+            RadianApp.UI.centerVertically('.inform-list-wrapper');
         }
     });
                   
