@@ -301,6 +301,7 @@ $(document).ready(function () {
             } else {
                 this.$el.empty().append(this.template(RadianApp.app.visibleTimeLapse.getTemplateJSON()));
             }
+
             // If we are currently running one don't simulate upload
             //$('#thirdstep').attr('href', '#timelapse/current');
             return this;
@@ -988,7 +989,6 @@ $(document).ready(function () {
             }
             Views.navigation.setPrevious(true, "#timelapse");
             this.$el.empty().append(this.template(RadianApp.app.visibleTimeLapse.getTemplateJSON()));
-
             return this;
         },
 
