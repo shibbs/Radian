@@ -1362,6 +1362,7 @@ $(document).ready(function () {
                 model: this.model
             });
             this.$('#secondary').append(statsView.render().el);
+            RadianApp.UI.centerVertically('.inform-list-wrapper');
         }
     });
                   
