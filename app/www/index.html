@@ -100,21 +100,23 @@ left: 0;
 							</div>
 						</div>
 					</div>
-					<div class='row' id='intervalLink'>
+					<div class='row'>
 						<div class='miniTitle'>SHOOT EVERY</div>
 						<div>
-							<div class='display'>
-								<% if (intervalMinutes !== 0) { %>
-									<div class='valueContainer first'>
-										<div class='value'><%= intervalMinutes %></div>
-										<div class='unit'>min</div>
+							<a href='#' id='intervalLink'>
+								<div class='display'>
+									<% if (intervalMinutes !== 0) { %>
+										<div class='valueContainer first'>
+											<div class='value'><%= intervalMinutes %></div>
+											<div class='unit'>min</div>
+										</div>
+									<% } %>
+									<div class='valueContainer last'>
+										<div class='value'><%= intervalSeconds %></div>
+										<div class='unit'>sec</div>
 									</div>
-								<% } %>
-								<div class='valueContainer last'>
-									<div class='value'><%= intervalSeconds %></div>
-									<div class='unit'>sec</div>
 								</div>
-							</div>
+							</a>
 						</div>
 					</div>
 				</div>
@@ -724,11 +726,11 @@ background: url("./images/infoicon.png") no-repeat;
 background-size: 20px 20px;'></div>
 				</div>
 			</div>
-			<img src='' style='width: 202px;
-margin: 29px auto 18px auto;
+			<img class='readyImage' src='' style='width: 202px;
+margin: 29px auto 29px auto;
 height: 177px;
 display: block;' />
-			<div style='text-align: center;
+			<div class='bottom' style='text-align: center;
 font-size: 12px;
 font-family: "Conv_Gotham-Bold";
 color: rgb(110, 110, 110);'>
@@ -997,18 +999,19 @@ left: 45px;">
 			</label>
 		</div>
 		</div>
-				</div>
+		</div>
 		<div style='width: 70%; border-top: 1px solid rgb(106, 106, 106); margin:6px auto'></div>
-
-				<ul class="inform-list" style="position:relative; top: -3px; padding-bottom: 4px; left: -10px;
-width: 300px;">
+				<div class='inform-list-wrapper' style='text-align:center'>
+				<ul class="inform-list" style="position:relative; top: -3px; padding-bottom: 4px; display: inline-block">
 					<li id="delayLink">
 						<div>
 						<a href="#timelapse/bulbramping/delay">DELAY</a>
 						<div class="holder">
                             <% if (delayHours !== 0) { %>
+                            	<span style='position:relative; left:8px'>
                                 <strong class="mark"><%= delayHours %></strong>
 							<span>hr</span>
+							</span>
                                  <% } %>
 							<strong class="mark"><%= delayMinutes %></strong>
 							<span>min</span>
@@ -1019,9 +1022,12 @@ width: 300px;">
 					    <div>
 						<a href="#timelapse/bulbramping/duration">DURATION</a>
 						<div class="holder">
+
                             <% if (durationHours !== 0) { %>
+                            	<span style='position:relative; left:8px'>
                                 <strong class="mark"><%= durationHours %></strong>
 							<span>hr</span>
+							</span>
                                  <% } %>
 							<strong class="mark"><%= durationMinutes %></strong>
 							<span>min</span>
@@ -1042,11 +1048,16 @@ width: 300px;">
 						<a href="#timelapse/bulbramping/exposurechange">EXP CHANGE</a>
 						<div class="holder">
 							<strong class="mark"><%= expChange %></strong>
-							<span><%= expType %></span>
+							<span><% if (expType === 'f/10frames') { %>
+									f/10f
+								 <% }  else { %>
+								 	<%= expType %>
+								 <% } %></span>
 						</div>
 						</div>
 					</li>
 				</ul>
+				</div>
 				</div>
 			</div>
 		</script>
@@ -1165,11 +1176,15 @@ width: 300px;">
 
 		<!-- The Bulb Ramp Box Template -->
 		<script type="text/template" id="bulbRampStatsBox_template">
-		<div class="total-box" style='width: 70%; margin-bottom:0px'>
-			<div class="holder">
-				<span>Frames: <strong style='padding: 0;'> <%= totalPhotos %></strong></span>
-				<span>Final Exp: <strong style='padding: 0;'><%= finalShutter %></strong>s</span>
-				<span>Interval: <strong style='padding: 0;'><%= frameRate %></strong>s</span>
+		<div class='bramp-stats' style='position: fixed; width:100%; bottom: 8.5%;'>
+			<div style='width:290px'>
+				<div class="total-box" style='width: 70%; margin-bottom:0px; '>
+					<div class="holder">
+						<span>Frames: <strong style='padding: 0;'> <%= totalPhotos %></strong></span>
+						<span>Final Exp: <strong style='padding: 0;'><%= finalShutter %></strong>s</span>
+						<span>Interval: <strong style='padding: 0;'><%= frameRate %></strong>s</span>
+					</div>
+				</div>
 			</div>
 		</div>
 		</script>
@@ -1322,7 +1337,7 @@ width: 300px;">
        
         <script type="text/javascript" src="js/router.js"></script>
         <script type="text/javascript" src="js/radian.js"></script>
-
+        <script type="text/javascript" src="js/ui.js"></script> 
          <script type="text/javascript" src="js/views.js"></script> 
 
         

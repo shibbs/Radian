@@ -172,8 +172,12 @@ h1{
 .highlight-bg {background-color: #008bca !important; color:#fff !important;}
 .btn-box .btn-white{color: #fff;}
 
-.btn-box a.tappable-active {
-	background-color: #008bca !important;
+.btn-box .btn-white.tappable-active {
+	background-color: rgb(50, 50, 50) !important;
+}
+
+.btn-box .btn-blue.tappable-active {
+	background-color: rgb(16, 74, 105) !important;
 }
 
 .btn-box .settings-btn{
@@ -372,8 +376,11 @@ h1{
 	border-radius: 5px;
 }
 #header a.tappable-active {
-	background:#008bca !important;
-	color:#fff !important;
+	background:rgb(50, 50, 50) !important;
+}
+
+#header .highlighted-btn.tappable-active  {
+	background:rgb(16, 74, 105) !important;
 }
 
 #header .no-btn{
@@ -399,20 +406,23 @@ h1{
 .inform-list li{
 	overflow:hidden;
 	margin:0 0 12px;
+	text-align: left;
 }
 .inform-list a{
 	float:right;
-	background:url(../images/arrow-inform-list.png) no-repeat 100% 0;
-	background-size:10px 14px;
-	-webkit-background-size:10px 14px;
-	-moz-background-size:10px 14px;
-	-o-background-size:10px 14px;
+	background:url(../images/step2arrow.png) no-repeat 100% 0;
+	background-size:15px 15px;
 	padding:0 20px 0 0;
 	color:#fff;
 	text-transform:uppercase;
 	font:13px/18px "Conv_Gotham-Book", Helvetica, Arial, sans-serif;
 	width:96px;
 	margin:21px 0 0 10px;
+}
+.inform-list a.tappable-active {
+	background:url(../images/step2arrowgray.png) no-repeat 100% 0 !important;
+	background-size:15px 15px !important;
+	color: rgb(110,110,110) !important;
 }
 .inform-list a:hover{text-decoration:none;}
 .inform-list .holder{
@@ -776,6 +786,7 @@ span.delete{
 	vertical-align:top;
 }
 
+	
 .choice-btn-box .side{
 	width:40%;
 }
@@ -810,6 +821,16 @@ span.delete{
 	-webkit-border-radius: 2px;
 	border-radius: 2px;
 }
+.btn-white.tappable-active {
+	background-color: rgb(50, 50, 50) !important;
+}
+.highlighted-btn.tappable-active {
+	background-color: rgb(16, 74, 105) !important;
+}
+.save-btn.norm.tappable-active {
+	background-color: rgb(16, 74, 105) !important;
+}
+
 #header .highlighted-btn {
 	background-color:#008bca;
 	color: #fff;
@@ -818,6 +839,9 @@ span.delete{
 .highlighted-btn {
 	background-color:#008bca !important;
 }
+
+
+
 .presets-list .box-holder{
 	display:inline-block;
 	vertical-align:top;
@@ -1723,8 +1747,7 @@ select.holo-spinner option { height: 32px; border-top: 1px #444 solid; }
 }
 
 #topNav .btn.tappable-active {
-	background-color: rgb(0, 139, 202);
-	color:#fff;
+	background-color: rgb(50, 50, 50);
 }
 
 
@@ -1817,8 +1840,7 @@ select.holo-spinner option { height: 32px; border-top: 1px #444 solid; }
 }
 
 .centeredBox .advancedbtn.tappable-active {
-	background-color: rgb(0, 139, 202);
-	color:#fff;
+	background-color: rgb(50, 50, 50);
 }
 
 .advancedSettings {
