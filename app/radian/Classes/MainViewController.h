@@ -29,4 +29,5 @@
 
 @interface MainViewController : CDVViewController {}
 @property (nonatomic, retain) NSMutableArray *allowedOrientations;
+@property (nonatomic) NSUInteger allowedOrientationsMask;
 @end
