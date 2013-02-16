@@ -1297,29 +1297,33 @@ left: 45px;">
 				}
 			})();
 
-/*
+
 			$("body").hammer({
+					'drag': false,
+					'tap': false,
+					'hold': false,
+					'transform':false,
 			    	'swipe_time':400,
-			    	'drag_min_distance': 10
+			    	'swipe_min_distance': 120
 			   })
 			   .bind("swipe", function(ev) {
-			        
+			        var link;
 			        if(!RadianApp.Views.navigation.isModal) {
-			        	console.log(ev);
 			        	if(ev.direction==='left') {
-			        		var string = $('.next-holder .next').attr('href');
-			        		if(string) {
-			        			window.location.hash = string.substring(1);
-			        		}
+			        		link = $('.next-holder .next').attr('href');
 			        	} else if(ev.direction==='right') {
-			        		var string = $('.prev-holder .prev').attr('href');
-			        		if(string) {
-			        			window.location.hash = string.substring(1);
-			        		}
+			        		link = $('.prev-holder .prev').attr('href');
+			        	}
+			        } else {
+			        	if(ev.direction === 'right') {
+			        		link = $('.btn-back').attr('href');
 			        	}
 			        }
+			        if(link) {
+			        	window.location.hash = link.substring(1);
+			        }
 			   });
-*/
+
 
         </script>
 
