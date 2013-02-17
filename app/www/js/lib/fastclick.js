@@ -246,6 +246,32 @@ FastClick.prototype.sendClick = function(targetElement, event) {
 	targetElement.dispatchEvent(clickEvent);
 };
 
+FastClick.prototype.addHighlight = function(event) {
+	var target = event.target;
+	if((/\bparentHighlightNeeded\b/).test(target.className)) {
+		var parent = $(target).parent();
+		while(!parent.hasClass('parentHighlight')) {
+			parent = parent.parent();
+		}
+		$(parent).addClass('tappable-active');
+	} else {
+		$(target).addClass('tappable-active');
+	}
+};
+
+FastClick.prototype.removeHighlight = function(event) {
+	var target = event.target;
+	if((/\bparentHighlightNeeded\b/).test(target.className)) {
+		var parent = $(target).parent();
+		while(!parent.hasClass('parentHighlight')) {
+			parent = parent.parent();
+		}
+		$(parent).removeClass('tappable-active');
+	} else {
+		$(target).removeClass('tappable-active');
+	}
+};
+
 
 /**
  * @param {EventTarget|Element} targetElement
@@ -260,7 +286,7 @@ FastClick.prototype.focus = function(targetElement) {
 	} else {
 		targetElement.focus();
 	}
-	$(event.target).removeClass('tappable-active');
+	this.removeHighlight(event);
 };
 
 /**
@@ -271,7 +297,7 @@ FastClick.prototype.focus = function(targetElement) {
  */
 FastClick.prototype.onTouchStart = function(event) {
 	'use strict';
-	$(event.target).addClass('tappable-active');
+	this.addHighlight(event);
 	var touch = event.targetTouches[0];
 
 	if (this.deviceIsIOS) {
@@ -289,7 +315,7 @@ FastClick.prototype.onTouchStart = function(event) {
 		if (!this.deviceIsIOS4) {
 			if (touch.identifier === this.lastTouchIdentifier) {
 				event.preventDefault();
-				$(event.target).removeClass('tappable-active');
+				this.removeHighlight(event);
 				return false;
 			}
 		
@@ -324,7 +350,7 @@ FastClick.prototype.touchHasMoved = function(event) {
 	var touch = event.targetTouches[0];
 
 	if (Math.abs(touch.pageX - this.touchStartX) > 10 || Math.abs(touch.pageY - this.touchStartY) > 10) {
-		$(event.target).removeClass('tappable-active');
+		this.removeHighlight(event);
 		return true;
 	}
 
@@ -348,7 +374,7 @@ FastClick.prototype.onTouchMove = function(event) {
 	if (this.targetElement !== event.target || this.touchHasMoved(event)) {
 		this.trackingClick = false;
 		this.targetElement = null;
-		$(event.target).removeClass('tappable-active');
+		this.removeHighlight(event);
 	}
 
 	return true;
@@ -412,7 +438,7 @@ FastClick.prototype.onTouchEnd = function(event) {
 		if (forElement) {
 			this.focus(targetElement);
 			if (this.deviceIsAndroid) {
-				$(event.target).removeClass('tappable-active');
+				this.removeHighlight(event);
 				return false;
 			}
 
@@ -424,7 +450,7 @@ FastClick.prototype.onTouchEnd = function(event) {
 		// Case 2: Without this exception for input elements tapped when the document is contained in an iframe, then any inputted text won't be visible even though the value attribute is updated as the user types (issue #37).
 		if ((event.timeStamp - trackingClickStart) > 100 || (this.deviceIsIOS && window.top !== window && targetTagName === 'input')) {
 			this.targetElement = null;
-			$(event.target).removeClass('tappable-active');
+			this.removeHighlight(event);
 			return false;
 		}
 
@@ -435,7 +461,7 @@ FastClick.prototype.onTouchEnd = function(event) {
 			this.targetElement = null;
 			event.preventDefault();
 		}
-		$(event.target).removeClass('tappable-active');
+		this.removeHighlight(event);
 		return false;
 	}
 
@@ -445,7 +471,7 @@ FastClick.prototype.onTouchEnd = function(event) {
 		event.preventDefault();
 		this.sendClick(targetElement, event);
 	}
-	$(event.target).removeClass('tappable-active');
+	this.removeHighlight(event);
 	return false;
 };
 
@@ -459,7 +485,7 @@ FastClick.prototype.onTouchCancel = function() {
 	'use strict';
 	this.trackingClick = false;
 	this.targetElement = null;
-	$(event.target).removeClass('tappable-active');
+	this.removeHighlight(event);
 };
 
 
@@ -478,12 +504,12 @@ FastClick.prototype.onClick = function(event) {
 
 	// If a target element was never set (because a touch event was never fired) allow the click
 	if (!this.targetElement) {
-		$(event.target).addClass('tappable-active');
+		this.addHighlight(event);
 		return true;
 	}
 
 	if (event.forwardedTouchEvent) {
-		$(event.target).addClass('tappable-active');
+		this.addHighlight(event);
 		return true;
 	}
 
@@ -493,19 +519,19 @@ FastClick.prototype.onClick = function(event) {
 	// It's possible for another FastClick-like library delivered with third-party code to fire a click event before FastClick does (issue #44). In that case, set the click-tracking flag back to false and return early. This will cause onTouchEnd to return early.
 	if (this.trackingClick) {
 		this.trackingClick = false;
-		$(event.target).addClass('tappable-active');
+		this.addHighlight(event);
 		return true;
 	}
 
 	// Programmatically generated events targeting a specific element should be permitted
 	if (!event.cancelable) {
-		$(event.target).addClass('tappable-active');
+		this.addHighlight(event);
 		return true;
 	}
 
 	// Very odd behaviour on iOS (issue #18): if a submit element is present inside a form and the user hits enter in the iOS simulator or clicks the Go button on the pop-up OS keyboard the a kind of 'fake' click event will be triggered with the submit-type input element as the target.
 	if (event.target.type === 'submit' && event.detail === 0) {
-		$(event.target).addClass('tappable-active');
+		this.addHighlight(event);
 		return true;
 	}
 
@@ -527,12 +553,12 @@ FastClick.prototype.onClick = function(event) {
 		// Cancel the event
 		event.stopPropagation();
 		event.preventDefault();
-		$(event.target).removeClass('tappable-active');
+		this.removeHighlight(event);
 		return false;
 	}
 
 	// If clicks are permitted, return true for the action to go through.
-	$(event.target).addClass('tappable-active');
+	this.addHighlight(event);
 	return true;
 };
 

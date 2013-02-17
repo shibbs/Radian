@@ -68,52 +68,52 @@ left: 0;
 					<div class='rightArea' id='queueLink'><div class='btn'>QUEUE</div></div>
 				</div>
 				<div class='newStyleBox'>
-					<div class='row' id='degreeLink'>
-						<div class='miniTitle'>														<% if (timeLapse === 1) { %>
+					<div class='row  parentHighlight' id='degreeLink'>
+						<div class='miniTitle parentHighlightNeeded'>														<% if (timeLapse === 1) { %>
 										PAN
 									 <% } else { %>
 									 	TILT
 									 <% } %></div>
-						<div>
-							<div class='display'>
-								<div class='valueContainer'>
-									<div class='value'><%= degrees %><span class='degree'>°</span></div>
-									<div class='unit'><%= directionAbr %></div>
+						<div class='parentHighlightNeeded'>
+							<div class='display parentHighlightNeeded'>
+								<div class='valueContainer parentHighlightNeeded'>
+									<div class='value parentHighlightNeeded'><%= degrees %><span class='degree parentHighlightNeeded'>°</span></div>
+									<div class='unit parentHighlightNeeded'><%= directionAbr %></div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class='row' id='totalTimeLink'>
-						<div class='miniTitle'>IN</div>
-						<div>
-							<div class='display'>
+					<div class='row  parentHighlight' id='totalTimeLink'>
+						<div class='miniTitle parentHighlightNeeded'>IN</div>
+						<div class='parentHighlightNeeded'>
+							<div class='display parentHighlightNeeded'>
 								<% if (totalTimeHours !== 0) { %>
-									<div class='valueContainer first'>
-										<div class='value'><%= totalTimeHours %></div>
-										<div class='unit'>hr</div>
+									<div class='valueContainer first parentHighlightNeeded'>
+										<div class='value parentHighlightNeeded'><%= totalTimeHours %></div>
+										<div class='unit parentHighlightNeeded'>hr</div>
 									</div>
 								<% } %>
-								<div class='valueContainer last'>
-									<div class='value'><%= totalTimeMinutes %></div>
-									<div class='unit'>min</div>
+								<div class='valueContainer last parentHighlightNeeded'>
+									<div class='value parentHighlightNeeded'><%= totalTimeMinutes %></div>
+									<div class='unit parentHighlightNeeded'>min</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class='row'>
-						<div class='miniTitle'>SHOOT EVERY</div>
-						<div>
-							<a href='#' id='intervalLink'>
-								<div class='display'>
+					<div class='row  parentHighlight'>
+						<div class='miniTitle parentHighlightNeeded'>SHOOT EVERY</div>
+						<div class='parentHighlightNeeded'>
+							<a href='#' id='intervalLink' class='parentHighlightNeeded'>
+								<div class='display parentHighlightNeeded'>
 									<% if (intervalMinutes !== 0) { %>
-										<div class='valueContainer first'>
-											<div class='value'><%= intervalMinutes %></div>
-											<div class='unit'>min</div>
+										<div class='valueContainer first parentHighlightNeeded'>
+											<div class='value parentHighlightNeeded'><%= intervalMinutes %></div>
+											<div class='unit parentHighlightNeeded'>min</div>
 										</div>
 									<% } %>
-									<div class='valueContainer last'>
-										<div class='value'><%= intervalSeconds %></div>
-										<div class='unit'>sec</div>
+									<div class='valueContainer last parentHighlightNeeded'>
+										<div class='value parentHighlightNeeded'><%= intervalSeconds %></div>
+										<div class='unit parentHighlightNeeded'>sec</div>
 									</div>
 								</div>
 							</a>
@@ -205,17 +205,17 @@ font: 18px/20px 'Conv_Gotham-Medium', Helvetica, Arial, sans-serif !important; m
 					<h1>SETTINGS</h1>
 				</header>
 				<ul class="extraList">
-					<li id="fps">
-						<div class="mainHeading">FRAME RATE</div>
-						<div class="subHeader">CURRENT: <%= fps %> fps</div>
+					<li id="fps" class='parentHighlight'>
+						<div class="mainHeading parentHighlightNeeded">FRAME RATE</div>
+						<div class="subHeader  parentHighlightNeeded">CURRENT: <%= fps %> fps</div>
 					</li>
-					<li id="about">
-						<div class="mainHeading">ABOUT RADIAN</div>
-						<div class="subHeader">LEARN MORE</div>
+					<li id="about" class='parentHighlight'>
+						<div class="mainHeading  parentHighlightNeeded">ABOUT RADIAN</div>
+						<div class="subHeader  parentHighlightNeeded">LEARN MORE</div>
 					</li>
-					<li id="use">
-						<div class="mainHeading">USING RADIAN</div>
-						<div class="subHeader">Using the app and Radian</div>
+					<li id="use" class='parentHighlight'>
+						<div class="mainHeading  parentHighlightNeeded">USING RADIAN</div>
+						<div class="subHeader  parentHighlightNeeded">Using the app and Radian</div>
 					</li>
 				</ul>
 			</div>
@@ -899,36 +899,36 @@ color:rgb(110,110,110)'>
 					<h1>ADVANCED</h1>
 				</header>
 				<ul class="extraList">
-					<li id="timedelay">
-						<div class="mainHeading">TIME DELAY</div>
+					<li id="timedelay" class='parentHighlight'>
+						<div class="mainHeading parentHighlightNeeded">TIME DELAY</div>
 						<% if (isTimeDelay) { %>
-							<div class="subHeader highlight">ON</div>
+							<div class="subHeader highlight parentHighlightNeeded">ON</div>
 						<% } else { %>
-							<div class="subHeader">OFF</div>
+							<div class="subHeader parentHighlightNeeded">OFF</div>
 						<% } %>
 					</li>
-					<li id="speedramping">
-						<div class="mainHeading">SPEED RAMPING</div>
+					<li id="speedramping" class='parentHighlight'>
+						<div class="mainHeading parentHighlightNeeded">SPEED RAMPING</div>
 						<% if (isSpeedRamping) { %>
-							<div class="subHeader highlight">ON</div>
+							<div class="subHeader highlight parentHighlightNeeded">ON</div>
 						<% } else { %>
-							<div class="subHeader">OFF</div>
+							<div class="subHeader parentHighlightNeeded">OFF</div>
 						<% } %>
 					</li>
-					<li id="bulbramping">
-						<div class="mainHeading">BULB RAMPING</div>
+					<li id="bulbramping" class='parentHighlight'>
+						<div class="mainHeading parentHighlightNeeded">BULB RAMPING</div>
 						<% if (isBulbRamping) { %>
-							<div class="subHeader highlight">ON</div>
+							<div class="subHeader highlight parentHighlightNeeded">ON</div>
 						<% } else { %>
-							<div class="subHeader">OFF</div>
+							<div class="subHeader parentHighlightNeeded">OFF</div>
 						<% } %>
 					</li>
-					<li id="hold">
-						<div class="mainHeading">HOLD</div>
+					<li id="hold" class='parentHighlight'>
+						<div class="mainHeading parentHighlightNeeded">HOLD</div>
 						<% if (hold!=='.25') { %>
-							<div class="subHeader highlight">ON</div>
+							<div class="subHeader highlight parentHighlightNeeded">ON</div>
 						<% } else { %>
-							<div class="subHeader">OFF</div>
+							<div class="subHeader parentHighlightNeeded">OFF</div>
 						<% } %>
 					</li>
 				</ul>
