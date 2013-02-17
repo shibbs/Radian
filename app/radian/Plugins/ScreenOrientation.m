@@ -20,25 +20,47 @@
     
     if([targetOrientation isEqualToString:@"landscape"]) {
         MainViewController * mv = (MainViewController *) appDelegate.viewController;
+        mv.allowedOrientationsMask = UIInterfaceOrientationMaskLandscape;
         [allowed addObject:[NSNumber numberWithInt:UIDeviceOrientationLandscapeRight]];
+        [allowed addObject:[NSNumber numberWithInt:UIDeviceOrientationLandscapeLeft]];
         mv.allowedOrientations = allowed;
+        
+        UIViewController *portraitViewController = [[UIViewController alloc] init];
+        UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:portraitViewController];
+        [mv presentModalViewController:nc animated:NO];
+        [mv dismissModalViewControllerAnimated:NO];
+        /*
         [[UIApplication sharedApplication] setStatusBarOrientation:UIDeviceOrientationLandscapeRight animated:YES];
         [appDelegate.viewController.view setTransform: CGAffineTransformMakeRotation(M_PI * 1.5)];
         [appDelegate.viewController.view setFrame:CGRectMake(statusBarHeight, 0, appDelegate.viewController.view.frame.size.height-statusBarHeight, appDelegate.viewController.view.frame.size.width+statusBarHeight)];
         
-        [UIView commitAnimations];
+        [UIView commitAnimations];*/
     }
     if([targetOrientation isEqualToString:@"portrait"]) {
         MainViewController * mv = (MainViewController *) appDelegate.viewController;
         if (![mv.allowedOrientations containsObject:[NSNumber numberWithInt:UIDeviceOrientationPortrait]]) {
-            [allowed addObject:[NSNumber numberWithInt:UIDeviceOrientationPortrait]];
-            mv.allowedOrientations = allowed;
             [[UIApplication sharedApplication] setStatusBarOrientation:UIDeviceOrientationPortrait animated:YES];
             [appDelegate.viewController.view setTransform: CGAffineTransformMakeRotation(0)];
             [appDelegate.viewController.view setFrame:CGRectMake(0, statusBarWidth, appDelegate.viewController.view.frame.size.height+statusBarWidth, appDelegate.viewController.view.frame.size.width-statusBarWidth)];
             
             [UIView commitAnimations];
             
+            mv.allowedOrientationsMask = UIInterfaceOrientationMaskPortrait;
+            [allowed addObject:[NSNumber numberWithInt:UIDeviceOrientationPortrait]];
+            mv.allowedOrientations = allowed;
+            
+
+            UIViewController *portraitViewController = [[UIViewController alloc] init];
+            portraitViewController.view.backgroundColor = [UIColor redColor];
+            UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:portraitViewController];
+            [mv presentModalViewController:nc animated:NO];
+            [mv dismissModalViewControllerAnimated:NO];
+            
+            /*
+
+             */
+            
+
         }
     }
     

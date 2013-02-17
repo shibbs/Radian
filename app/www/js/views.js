@@ -1295,16 +1295,13 @@ $(document).ready(function () {
             var width = $('body').width();
 
             Views.navigation.hide();
-            if(RadianApp.isIOS) {
-                Views.navigation.setLandscape();
-            }
             this.$el.empty();
             this.$el.append(this.template(RadianApp.app.visibleTimeLapse.getTemplateJSON()));
             
             var that = this;
             var loadPage = function() { 
                 if(width === $('body').width()) {
-                    setTimeout(loadPage, 50);
+                    setTimeout(loadPage, 10);
                     return
                 }
                 var canvas = document.createElement('canvas');
@@ -1334,7 +1331,10 @@ $(document).ready(function () {
                     ChartMonotonic.setPoints();
                 }
             }
-            setTimeout(loadPage, 50);
+            if(RadianApp.isIOS) {
+                Views.navigation.setLandscape();
+            }
+            setTimeout(loadPage, 20);
         }
     });
 
@@ -1812,6 +1812,15 @@ $(document).ready(function () {
             window.location.hash = 'timelapse/hold';
         },
 
+        render: function () {
+            if(!this.model) {
+                this.$el.empty().append(this.template());
+            } else {
+                this.$el.empty().append(this.template(RadianApp.app.visibleTimeLapse.getTemplateJSON()));
+            }  
+            Views.navigation.hide();
+            return this;
+        }
 
     });
 
