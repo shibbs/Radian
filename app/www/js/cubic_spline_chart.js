@@ -102,11 +102,15 @@ SplineChart = Backbone.Model.extend({
     this.ys = []
   },
 
+  roundToNearest: function(value) {
+    return 5 * Math.round(value/5);
+  },
+
   setDefaultPoints:function() {
-    var middlePoint = [(this.xmax-this.xmin)/2, (this.ymax - this.ymin)/2];
-    var endPoint = [this.xmax, this.ymax];
-    this.addNewPoint(middlePoint[0], middlePoint[1], true);
-    this.addNewPoint(endPoint[0], endPoint[1], true);
+    var lowerQuartilePoint = [this.roundToNearest((this.xmax-this.xmin)/4), this.roundToNearest((this.ymax - this.ymin)/4)];
+    var upperQuartilePoint = [this.roundToNearest(3*(this.xmax-this.xmin)/4), this.roundToNearest(3*(this.ymax - this.ymin)/4)];
+    this.addNewPoint(lowerQuartilePoint[0], lowerQuartilePoint[1], true);
+    this.addNewPoint(upperQuartilePoint[0], upperQuartilePoint[1], true);
     this.customized = false;
   },
 
@@ -168,6 +172,7 @@ SplineChart = Backbone.Model.extend({
 
     handle.bind('dblclick',  function(e) { 
       var handle_i = _.map(me.handles, function(x){ return x[0]; }).indexOf(this);
+      console.log('double click');
       me.delete(handle_i, e); 
     });
     handle.bind('mousedown',  function(e) { 
@@ -424,8 +429,8 @@ SplineChart = Backbone.Model.extend({
   },
   add: function(e) {
     e.stopPropagation();
-    if(this.handles.length > 5) {
-      RadianApp.Utilities.errorModal('Radian only supports up to six key frames.');
+    if(this.handles.length > 4) {
+      RadianApp.Utilities.errorModal('Radian only supports up to five key frames.');
       return;
     }
     e = e.originalEvent;
@@ -480,6 +485,10 @@ SplineChart = Backbone.Model.extend({
     if (i < this.questions.length - 1) x = Math.min(x, parseFloat(this.questions[i + 1].answer()) - minGap);
     x = Math.max(x, this.xminData);
     x = Math.min(x, this.xmaxData);
+
+    if(x===this.xmaxData) x -= 5;
+    if(x===this.xminData) x += 5;
+
     x = x.toFixed(precision);  // sometimes ends .XX99999999999 or .XX000000001 otherwise
     xStr = x + '';
     xStr = xStr.replace(/[.]0+$/, '').replace(/([.][0-9]+)0+$/, '$1');  // eliminate trailing zeroes
@@ -494,6 +503,11 @@ SplineChart = Backbone.Model.extend({
     if (i < this.questions.length - 1) y = Math.min(y, parseFloat(this.ys[i + 1]) - minGap);
     y = Math.max(y, this.yminData);
     y = Math.min(y, this.ymaxData);
+
+    //Protect it from the edges of the graph
+    if(y===this.ymaxData) y -= 5;
+    if(y===this.yminData) y += 5;
+
     y = y.toFixed(precision);  // sometimes ends .XX99999999999 or .XX000000001 otherwise
     yStr = y + '';
     yStr = yStr.replace(/[.]0+$/, '').replace(/([.][0-9]+)0+$/, '$1');  // eliminate trailing zeroes

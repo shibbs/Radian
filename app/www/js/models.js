@@ -103,7 +103,7 @@ $(document).ready(function () {
             var totalTimeSeconds = (this.get('totalTimeHours') * 3600 + this.get('totalTimeMinutes') * 60); //INSERT
 
             var degreesPerSecond = totalDegrees / totalTimeSeconds; 
-            var degreesPerShot = degreesPerSecond * this.get('intervalSeconds'); //get degrees to move per shot
+            var degreesPerShot = degreesPerSecond * (this.get('intervalSeconds') + this.get('intervalMinutes') * 60); //get degrees to move per shot
             var desiredSteps = STEPS_PER_DEGREE * degreesPerShot; 
             var NumStepsPerShot = Math.round(desiredSteps); 
             return Math.round(NumStepsPerShot / STEPS_PER_DEGREE * totalPhotos);   

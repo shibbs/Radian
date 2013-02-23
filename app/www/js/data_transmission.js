@@ -157,14 +157,14 @@ $(function(){
             var points = model.speedRampingPoints;
 
             //Add end point per protocol spec
-            var totalTime = model.totalTimeHours * 60 + model.totalTimeMinutes;
-            points.push([totalTime, model.degrees]);
+            var totalTime = model.lengthHours * 60 + model.lengthMinutes;
+            points.push([totalTime, model.rotationDegrees]);
 
             var packetLength = points.length * 2 + PREAMBLE_LENGTH;
 
             
             data[0] = packetLength; // Byte 0
-            data[1] = model.speedRampingCurved;
+            data[1] = model.speedRampingCurved; //Byte 1
 
             var prevTimeValue = 0;
             var prevDegree = 0;
