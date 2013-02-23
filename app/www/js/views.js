@@ -354,7 +354,7 @@ $(document).ready(function () {
                                 onClose: function() {
                                     $.modal.close();
                                     if(isSaved) {
-                                        $.modal("<div class='alert'>PRESET SAVED</div>", {
+                                        $.modal("<div><img style='padding-bottom: 15px' src='./images/DialogueCheckMark.png' /></div><div class='alert'>PRESET SAVED</div>", {
                                             opacity: 80,
                                             position: ['50%', '50%'],
                                             containerId: 'simplemodal-container-simple'
