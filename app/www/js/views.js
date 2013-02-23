@@ -1300,7 +1300,7 @@ $(document).ready(function () {
             
             var that = this;
             var loadPage = function() { 
-                if(width === $('body').width()) {
+                if(width === $('body').width() && typeof(device)!== 'undefined') {
                     setTimeout(loadPage, 10);
                     return
                 }
