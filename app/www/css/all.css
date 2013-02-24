@@ -92,6 +92,9 @@ div#preloaded-images {
 	overflow:hidden;
 	padding:47px 15px 10px;
 }
+#modalContainer {
+	margin-top: 25px;
+}
 .pan-page{padding-top:55px !important;}
 .inner-page{padding-top:13px !important;}
 .loading-page{padding-top:30px !important;}
@@ -710,6 +713,26 @@ span.delete{
 	text-align:center;
 	font-size:15px/21px "Conv_Gotham-Medium", Helvetica, Arial, sans-serif;
 }
+
+#topNav .btn-back{
+	width:22px;
+	height:22px;
+	background:url(../images/BackArrow.png) no-repeat;
+	background-size:100% 100%;
+	-webkit-background-size:100% 100%;
+	-moz-background-size:100% 100%;
+	-o-background-size:100% 100%;
+	text-transform:uppercase;
+	display: block;
+	margin-top: 19px;
+	margin-left: 22px;
+}
+
+#topNav .leftArea.tappable-active .btn-back {
+	background:url(../images/BackArrow_selected.png) no-repeat !important;
+	background-size:100% 100% !important;
+}
+
 #header .btn-back{
 	width:22px;
 	height:22px;
@@ -721,10 +744,8 @@ span.delete{
 	text-transform:uppercase;
 	margin: 6px 18px 9px 7px;
 }
-#header .btn-back.tappable-active{
-	background:url(../images/BackArrow_selected.png) no-repeat !important;
-	background-size:100% 100% !important;
-}
+
+
 #header .no-back{width:50px;}
 .presets-list{
 	list-style:none;
@@ -1163,9 +1184,8 @@ min-width: 30px;}
 /* Settings */
 .extraList {
     font-family:"Conv_Gotham-Book", Helvetica, Arial, sans-serif;
-    padding-top: 25px;
     width: 220px;
-    padding-left: 55px;
+    padding-left: 50px;
     list-style: none;
     margin: 0 auto;
 }
@@ -1728,7 +1748,6 @@ select.holo-spinner option { height: 32px; border-top: 1px #444 solid; }
 /* NEW NAV */
 #topNav {
 	height: 55px;
-	position: absolute;
 	width: 100%;
 	top: 0px;
 }
@@ -1742,7 +1761,7 @@ select.holo-spinner option { height: 32px; border-top: 1px #444 solid; }
 	text-transform: uppercase;
 }
 
-#topNav [class$="Area"] {
+#topNav .leftArea, .rightArea {
 	position: absolute;
 	top: 0px;
 	width: 95px;
@@ -1787,7 +1806,7 @@ select.holo-spinner option { height: 32px; border-top: 1px #444 solid; }
 }
 
 .newStyleBox {
-	margin-top:69px;
+	margin-top:14px;
 	text-align: center;
 }
 
@@ -1998,11 +2017,11 @@ top: 4px;
 	top: 4px;
 	left: 12px;
 }
-
+/*
 #horizontalNav .leftArea .backarrow.tappable-active {
 	background:url(../images/BackArrow_Selected.png) no-repeat !important;
 	background-size:100% 100% !important;
-}
+}*/
 
 #horizontalNav .middleArea {
 	margin: 29px auto;

@@ -230,47 +230,47 @@ font: 18px/20px 'Conv_Gotham-Medium', Helvetica, Arial, sans-serif !important; m
 
 		<!-- TimeLapseSettings Template -->
 		<script type="text/template" id="settings_template">
-		    <div id="wrapper" class="inner-page">
-				<header id="header">
-					<a href="#home" class="btn-back"></a>
-					<span class="no-btn no-back alignright">&nbsp;</span>
-					<h1>SETTINGS</h1>
-				</header>
-				<ul class="extraList">
-					<li id="fps" class='parentHighlight'>
-						<div class="mainHeading parentHighlightNeeded">FRAME RATE</div>
-						<div class="subHeader  parentHighlightNeeded">CURRENT: <%= fps %> fps</div>
-					</li>
-					<li id="about" class='parentHighlight'>
-						<div class="mainHeading  parentHighlightNeeded">ABOUT RADIAN</div>
-						<div class="subHeader  parentHighlightNeeded">LEARN MORE</div>
-					</li>
-					<li id="use" class='parentHighlight'>
-						<div class="mainHeading  parentHighlightNeeded">USING RADIAN</div>
-						<div class="subHeader  parentHighlightNeeded">Using the app and Radian</div>
-					</li>
-				</ul>
+		    <div>
+				<div id="topNav">
+					<div class="title">SETTINGS</div>
+					<div class='leftArea parentHighlight backLink'><a href="#home" class="btn-back parentHighlightNeeded"></a></div>
+					<div class='rightArea'></div>
+				</div>
+				<div id='modalContainer'>
+					<ul class="extraList">
+						<li id="fps" class='parentHighlight'>
+							<div class="mainHeading parentHighlightNeeded">FRAME RATE</div>
+							<div class="subHeader  parentHighlightNeeded">CURRENT: <%= fps %> fps</div>
+						</li>
+						<li id="about" class='parentHighlight'>
+							<div class="mainHeading  parentHighlightNeeded">ABOUT RADIAN</div>
+							<div class="subHeader  parentHighlightNeeded">LEARN MORE</div>
+						</li>
+						<li id="use" class='parentHighlight'>
+							<div class="mainHeading  parentHighlightNeeded">USING RADIAN</div>
+							<div class="subHeader  parentHighlightNeeded">Using the app and Radian</div>
+						</li>
+					</ul>
+				</div>
 			</div>
 		</script>
 
 		<!-- TimeLapseSettingsFrameRate Template -->
 		<script type="text/template" id="settingsFrameRate_template">
-		    <div id="wrapper" class="inner-page">
-				<header id="header">
-					<a href="#settings" class="btn-back"></a>
-					<span class="no-btn no-back alignright">&nbsp;</span>
-					<h1 style='font-size:14px'>FRAMES PER SECOND</h1>
-				</header>
-				<div class="block-info" style="padding-bottom:20px">
-					<span class="text">TIME-LAPSE WILL BE COMPILED AT</span>
-					<div class="row">
-						<strong id="fps" class="mark"><%= fps %></strong>
-						<span>fps</span>
-					</div>
-					<span class="text"></span>
-				</div>
+	    	<div id="topNav">
+				<div class="title">FRAMES PER SECOND</div>
+				<div class='leftArea parentHighlight backLink'><a href="#settings" class="btn-back parentHighlightNeeded"></a></div>
+				<div class='rightArea'></div>
 			</div>
-			<div id="picker">
+			<div class="block-info" style='padding: 0px;'>
+				<span class="text">TIME-LAPSE WILL BE COMPILED AT</span>
+				<div class="row">
+					<strong id="fps" class="mark"><%= fps %></strong>
+					<span>fps</span>
+				</div>
+				<span class="text"></span>
+			</div>
+			<div id="picker" class='bottom'>
 			</div>
 		</script>
 

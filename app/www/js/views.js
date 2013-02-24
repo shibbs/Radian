@@ -154,6 +154,11 @@ $(document).ready(function () {
             "click #fps": "fps",
             "click #about": "about",
             "click #use": "use",
+            "click .backLink": "back",
+        },
+
+        back: function () {
+            window.location.hash = '#home';
         },
 
         render: function() {
@@ -1736,6 +1741,14 @@ $(document).ready(function () {
     Views.SettingsFrameRateView = Views.ModalView.extend({
         template: _.template($('#settingsFrameRate_template').html()),
 
+        events: {
+            "click .backLink": "back",
+        },
+
+        back: function () {
+            window.location.hash = '#settings';
+        },
+
         initialize: function () {
             this.setElement($("#container"));
             RadianApp.app.bind('change:fps', this.updateFps, this);
@@ -1778,6 +1791,7 @@ $(document).ready(function () {
                 },
             }).scroller('setValue', getSettings(), false, 0);
             $('.ios .dwwl').css('min-width', '270px');
+            RadianApp.UI.centerVertically('.block-info');
             return this;
         }
     });
