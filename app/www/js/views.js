@@ -1865,6 +1865,8 @@ $(document).ready(function () {
         unhide: function() {
             this.isModal = false;
             this.$el.css("visibility", "visible");
+            this.$('.step-nav .next').removeClass('tappable-active');
+            this.$('.step-nav .prev').removeClass('tappable-active');
         },
 
         set: function(element, isVisible, link) {
