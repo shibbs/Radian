@@ -334,16 +334,16 @@ $(document).ready(function () {
         eventCurrent: function(e) {
             var me = this;
             var isSaved = false;
-            $.modal("<div> \
+            $.modal("<div id='savePreset'> \
                         <input id='presetName' autofocus placeholder='Preset Name'> \
                         <div class='minibox'> \
                             <div id='cancelAddNewPreset' class='btn btn-white simplemodal-close'>CANCEL</div> \
-                            <div id='addNewPreset' class='btn highlighted-btn'>SAVE</div> \
+                            <div id='addNewPreset' class='btn highlighted-btn'>SAVE PRESET</div> \
                         </div> \
                     </div>", {  position: ['50%', '50%'],
                                 onShow: function() { 
-                                                $('#simplemodal-container').css('margin-left', '-140px');
-                                                $('#simplemodal-container').css('margin-top', '-70px');
+                                                $('#simplemodal-container').css('margin-left', '-154px');
+                                                $('#simplemodal-container').css('margin-top', '-66px');
                                                 $('#addNewPreset').hammer().bind("tap", function(event){
                                                     isSaved = true;
                                                     event.preventDefault();

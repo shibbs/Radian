@@ -1053,45 +1053,49 @@ span.delete{
 
 /* Modal Styling */
 #simplemodal-overlay {background-color: #000; margin: 0; padding: 0;}
-#simplemodal-container {background-color:rgb(200,200,200); padding: 20px 17px 10px 17px; border-radius: 5px;}
+#simplemodal-container {background-color:rgb(200,200,200); border-radius: 2.5px;}
 #simplemodal-container input {
 	margin: 0 auto;
 	display: block;
-	width: 225px;
-height: 30px;
-border-radius: 5px;
-color: black;
-line-height: 20px;
-text-transform: uppercase;
-font: 20px/24px Helvetica, Arial, sans-serif;
+	width: 262px;
+	height: 39px;
+	border-radius: 2.5px;
+	color: rgb(0,0,0);
+	text-transform: uppercase;
+	font: 14px/41px "Conv_Gotham-Medium", Helvetica, Arial, sans-serif;
+	padding-left:  5px;
+	border: none;
+}
+
+#savePreset {
+	width:308px;
+	height: 84px;
+	padding: 23px 0 23px 0;
 }
 .minibox {
-	padding-top: 15px;
+	padding-top: 16px;
 	height: 30px;
 	margin: 0 auto;
-	width: 239px;
-	padding-bottom: 15px;
+	width: 268px;
 }
 .minibox > div {
 	float: left;
-	margin-right: 5%;
-	width: 47.5%;
-	height: 30px;
-
+	margin-right: 18px;
+	width: 125px;
+	height: 33px;
 	color:#fff;
 	text-transform:uppercase;
-	font:bold 18px/20px "Conv_Gotham-Book", Helvetica, Arial, sans-serif;
-	-webkit-border-radius: 5px;
+	font:15px "Conv_Gotham-Black", Helvetica, Arial, sans-serif;
 	border-radius: 5px;
-	background:#6e6e6e;
+	background: rgb(90, 90, 90);
 	text-align: center;
-	line-height: 30px;
+	line-height: 33px;
 }
 
 .minibox > div:last-of-type {
-	margin-right: 0%;
+	margin-right: 0;
 	color: #fff;
-	background-color: #008bca;
+	background-color: rgb(0, 139, 202);
 }
 
 .cancelBox {
