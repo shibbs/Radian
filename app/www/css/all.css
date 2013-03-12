@@ -1053,8 +1053,9 @@ span.delete{
 
 /* Modal Styling */
 #simplemodal-overlay {background-color: #000; margin: 0; padding: 0;}
-#simplemodal-container {background-color:rgb(200,200,200); border-radius: 2.5px;}
-#simplemodal-container input {
+#presetSaveModal {background-color:rgb(200,200,200); border-radius: 2.5px;}
+#simplemodal-container {background-color:rgb(200,200,200); padding: 20px 17px 10px 17px; border-radius: 5px;}
+#presetSaveModal input {
 	margin: 0 auto;
 	display: block;
 	width: 262px;
@@ -1068,6 +1069,8 @@ span.delete{
 }
 
 #savePreset {
+	background-color:rgb(200,200,200); 
+	border-radius: 2.5px;
 	width:308px;
 	height: 84px;
 	padding: 23px 0 23px 0;

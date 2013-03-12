@@ -341,9 +341,10 @@ $(document).ready(function () {
                             <div id='addNewPreset' class='btn highlighted-btn'>SAVE PRESET</div> \
                         </div> \
                     </div>", {  position: ['50%', '50%'],
+                                containerId: 'presetSaveModal',
                                 onShow: function() { 
-                                                $('#simplemodal-container').css('margin-left', '-154px');
-                                                $('#simplemodal-container').css('margin-top', '-66px');
+                                                $('#presetSaveModal').css('margin-left', '-154px');
+                                                $('#presetSaveModal').css('margin-top', '-66px');
                                                 $('#addNewPreset').hammer().bind("tap", function(event){
                                                     isSaved = true;
                                                     event.preventDefault();
