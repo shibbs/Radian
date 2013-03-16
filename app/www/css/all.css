@@ -5,6 +5,7 @@ body{
 	font:11px Helvetica, Arial, sans-serif;
 	background:rgb(30,30,30);
 	min-width:320px;
+	padding-top: 0px;
 }
 img{border-style:none;}
 a{
@@ -74,6 +75,12 @@ div#preloaded-images {
    height: 1px;
    width: 1px;
 }
+
+#aboveNavigation {
+	position: fixed;
+	bottom: 74px;
+	width: 100%;
+}
 .center-page{
 	display:table;
 	width:100%;
@@ -93,7 +100,7 @@ div#preloaded-images {
 	padding:47px 15px 10px;
 }
 #modalContainer {
-	margin-top: 25px;
+	margin-top: 46px;
 }
 .pan-page{padding-top:55px !important;}
 .inner-page{padding-top:13px !important;}
@@ -153,13 +160,11 @@ h1{
 .progress-btn{ 
 	color:#fff;
 	text-transform:uppercase;
-	font:bold 20px/24px "Conv_Gotham-Black", Helvetica, Arial, sans-serif;
+	font:16.5px/16.5px "Conv_Gotham-Black", Helvetica, Arial, sans-serif;
 	padding:18px 10px 19px;
-	-webkit-border-radius: 5px;
 	border-radius: 5px;
 	background:#6e6e6e;
 	display:block;
-	margin:0 0 38px;
 	position:relative;
 }
 
@@ -1259,6 +1264,12 @@ min-width: 30px;}
 	color:#6e6e6e;
 }
 
+#abovePicker {
+	position: fixed;
+	bottom: 150px;
+	width: 100%;
+}
+
 
 /*
 
@@ -1498,23 +1509,10 @@ select.holo-spinner option { height: 32px; border-top: 1px #444 solid; }
 	background-color: #32a5cf!important;
 }
 
-@media screen and (min-height: 45em) { /*720px*/
-	.holo-action-bar { position:fixed; top: 0; }
-/*	.holo-content { margin-top: 96px; }*/
-	body { padding-top: 96px; }
+.superscript {
+	vertical-align: super;
+	font-size: 8px;
 }
-
-@media screen and (min-width: 45em) { /*720px*/
-	.holo-action-bar h1, .holo-fixed-tabs { float:left; }
-	.holo-fixed-tabs { width: auto; }
-}
-
-@media screen and (min-height: 45em) and (min-width: 45em) { /*720px*/s
-/*	.holo-content { margin-top: 48px; }*/
-	body { padding-top: 48px; }
-}
-
-
 
 /* Dark */
 

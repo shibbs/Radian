@@ -67,62 +67,65 @@ left: 0;
 					<div class='leftArea' id='presetsLink'><div class='btn'>PRESETS</div></div>
 					<div class='rightArea' id='queueLink'><div class='btn'>QUEUE</div></div>
 				</div>
-				<div class='newStyleBox'>
-					<div class='row  parentHighlight' id='degreeLink'>
-						<div class='miniTitle parentHighlightNeeded'>														<% if (timeLapse === 1) { %>
-										PAN
-									 <% } else { %>
-									 	TILT
-									 <% } %></div>
-						<div class='parentHighlightNeeded'>
-							<div class='display parentHighlightNeeded'>
-								<div class='valueContainer parentHighlightNeeded'>
-									<div class='value parentHighlightNeeded'><%= degrees %><span class='degree parentHighlightNeeded'>°</span></div>
-									<div class='unit parentHighlightNeeded'><%= directionAbr %></div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class='row  parentHighlight' id='totalTimeLink'>
-						<div class='miniTitle parentHighlightNeeded'>IN</div>
-						<div class='parentHighlightNeeded'>
-							<div class='display parentHighlightNeeded'>
-								<% if (totalTimeHours !== 0) { %>
-									<div class='valueContainer first parentHighlightNeeded'>
-										<div class='value parentHighlightNeeded'><%= totalTimeHours %></div>
-										<div class='unit parentHighlightNeeded'>hr</div>
-									</div>
-								<% } %>
-								<div class='valueContainer last parentHighlightNeeded'>
-									<div class='value parentHighlightNeeded'><%= totalTimeMinutes %></div>
-									<div class='unit parentHighlightNeeded'>min</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class='row  parentHighlight'>
-						<div class='miniTitle parentHighlightNeeded'>SHOOT EVERY</div>
-						<div class='parentHighlightNeeded'>
-							<a href='#' id='intervalLink' class='parentHighlightNeeded'>
+				<div id="content">
+					<div class='newStyleBox'>
+						<div class='row  parentHighlight' id='degreeLink'>
+							<div class='miniTitle parentHighlightNeeded'>														<% if (timeLapse === 1) { %>
+											PAN
+										 <% } else { %>
+										 	TILT
+										 <% } %></div>
+							<div class='parentHighlightNeeded'>
 								<div class='display parentHighlightNeeded'>
-									<% if (intervalMinutes !== 0) { %>
+									<div class='valueContainer parentHighlightNeeded'>
+										<div class='value parentHighlightNeeded'><%= degrees %><span class='degree parentHighlightNeeded'>°</span></div>
+										<div class='unit parentHighlightNeeded'><%= directionAbr %></div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class='row  parentHighlight' id='totalTimeLink'>
+							<div class='miniTitle parentHighlightNeeded'>IN</div>
+							<div class='parentHighlightNeeded'>
+								<div class='display parentHighlightNeeded'>
+									<% if (totalTimeHours !== 0) { %>
 										<div class='valueContainer first parentHighlightNeeded'>
-											<div class='value parentHighlightNeeded'><%= intervalMinutes %></div>
-											<div class='unit parentHighlightNeeded'>min</div>
+											<div class='value parentHighlightNeeded'><%= totalTimeHours %></div>
+											<div class='unit parentHighlightNeeded'>hr</div>
 										</div>
 									<% } %>
 									<div class='valueContainer last parentHighlightNeeded'>
-										<div class='value parentHighlightNeeded'><%= intervalSeconds %></div>
-										<div class='unit parentHighlightNeeded'>sec</div>
+										<div class='value parentHighlightNeeded'><%= totalTimeMinutes %></div>
+										<div class='unit parentHighlightNeeded'>min</div>
 									</div>
 								</div>
-							</a>
+							</div>
+						</div>
+						<div class='row  parentHighlight'>
+							<div class='miniTitle parentHighlightNeeded'>SHOOT EVERY</div>
+							<div class='parentHighlightNeeded'>
+								<a href='#' id='intervalLink' class='parentHighlightNeeded'>
+									<div class='display parentHighlightNeeded'>
+										<% if (intervalMinutes !== 0) { %>
+											<div class='valueContainer first parentHighlightNeeded'>
+												<div class='value parentHighlightNeeded'><%= intervalMinutes %></div>
+												<div class='unit parentHighlightNeeded'>min</div>
+											</div>
+										<% } %>
+										<div class='valueContainer last parentHighlightNeeded'>
+											<div class='value parentHighlightNeeded'><%= intervalSeconds %></div>
+											<div class='unit parentHighlightNeeded'>sec</div>
+										</div>
+									</div>
+								</a>
+							</div>
 						</div>
 					</div>
+					<div class='centeredBox'>
+						<div class='advancedbtn' id='advancedLink'>ADVANCED</div>
+					</div>
 				</div>
-				<div class='centeredBox'>
-					<div class='advancedbtn' id='advancedLink'>ADVANCED</div>
-				</div>
+				<div id="aboveNavigation" style="bottom: 73px;">
 				<div>
 					<div class='advancedSettings'>
 						<% if (isTimeDelay) { %>
@@ -139,10 +142,12 @@ left: 0;
 						<% } %>
 					</div>
 				</div>
-				<div class='stats'>
-					<div><div class='photos'></div><div><%= totalPhotos %></div></div>
-					<div><div class='degrees'></div><div><%= degreesPerPhoto %>°</div></div>
-					<div><div class='duration'></div><div><%= frameRate %>s</div></div>
+				
+					<div class='stats'>
+						<div><div class='photos'></div><div><%= totalPhotos %></div></div>
+						<div><div class='degrees'></div><div><%= degreesPerPhoto %>°</div></div>
+						<div><div class='duration'></div><div><%= frameRate %>s</div></div>
+					</div>
 				</div>
 			</div>
 		</script>
@@ -270,9 +275,17 @@ font: 18px/20px 'Conv_Gotham-Medium', Helvetica, Arial, sans-serif !important; m
 				</div>
 				<span class="text"></span>
 			</div>
+			<div id="abovePicker">
+						<span class="superscript">*</span>
+						 This setting does not affect your time lapse. This value is simply used to calculate your time-lapse's resulting video length, which is denoted by the filmstrip icon.
+						 <!-- ' to keep sublime happy -->
+			</div>
 			<div id="picker" class='bottom'>
 			</div>
+
+
 		</script>
+
 
 
 		<!-- TimeLapseSettingsAbout Template -->
@@ -725,21 +738,13 @@ margin: 0 auto;color: rgb(110, 110, 110);'>THIS WILL CONTINUE THE TIME-LAPSE IND
 			</div>
 		</div>
 		</script>
-		
-		<!-- TimeLapseUpload Template -->
-		<script type="text/template" id="timeLapseUpload_template">
-		<div>
-			<div class='infoBox' style='margin: 0 auto; width: 225px;' >
-				<div class='title' style='text-align: center;
-font-size: 18px;
-color: white;
-font-family: "Conv_Gotham-Bold"; position:relative; margin-top: 26px'>ARE YOU READY?</div>
-				<div style='position:relative;'>
-					<div class='text' style='font-size: 11.5px;
+
+		<!-- TimeLapseMoreInfo Template -->
+		<script type="text/template" id="timeLapseMoreInfo_template">
+			<div class='infoBox'>
+							<div class='text' style='font-size: 11.5px;
 font-family: "Conv_Gotham-Book";
-line-height: 12px;
-margin-top: 5px;
-padding-right: 15px;'>
+line-height: 12px;'>
 						Radian will <span> <% if (timeLapse === 1) { %>
 										pan
 									 <% } else { %>
@@ -747,33 +752,48 @@ padding-right: 15px;'>
 									 <% } %> <%= actualDegrees %>°</span> in<span>
 									<% if (totalTimeHours !== 0) { %> <%= totalTimeHours %> hr<% } %> <%= totalTimeMinutes %> min</span> and 
 						take a photo every <span>
-									<% if (intervalMinutes !== 0) { %> <%= intervalMinutes %> min<% } %> <%= intervalSeconds %> sec</span><span style='color:#fff'>.</span> 
+									<% if (intervalMinutes !== 0) { %> <%= intervalMinutes %> min<% } %> <%= intervalSeconds %> sec</span>.
 					</div>
-					<div class='info' style='position: absolute;
+			</div>
+		</script>
+		
+		<!-- TimeLapseUpload Template -->
+		<script type="text/template" id="timeLapseUpload_template">
+		<div>
+			<div id="topNav">
+				<div class="title">ARE YOU READY?</div>
+				<div class='leftArea'></div>
+				<div class='rightArea' id='moreInfo'><div class='info' style='
+background: url("./images/infoicon.png") no-repeat;
+background-size: 20px 20px;
+right: 17px;
 width: 20px;
 height: 20px;
-right: -13px;
-top: 0px;
-background: url("./images/infoicon.png") no-repeat;
-background-size: 20px 20px;'></div>
-				</div>
-			</div>
-			<img class='readyImage' src='' style='width: 202px;
-margin: 29px auto 29px auto;
-height: 177px;
+top: 20.5px;
+position: absolute;
+'></div></div>
+		    </div>
+		    <div id="content">
+			<img class='readyImage' src='images/Step3RadianImage.png' style='width: 210px;
+margin: 0 auto;
+height: 225px;
 display: block;' />
-			<div class='bottom' style='text-align: center;
-font-size: 12px;
-font-family: "Conv_Gotham-Bold";
-color: rgb(110, 110, 110);'>
-			Make sure Radian is on and connected
 			</div>
-			
-			<div class="btn-box" style='width: 280px;
-margin: 12px auto 0 auto;'>
-				<div id="timelapse" class="progress-btn upload">
-					<div class="message">UPLOAD</div>
-					<div class="holder" style="width:0%"></div>
+
+			<div id="aboveNavigation">
+				<div class='bottom' style='text-align: center;
+	font-size: 12px;
+	font-family: "Conv_Gotham-Bold";
+	color: rgb(110, 110, 110);'>
+				Make sure Radian is on and connected
+				</div>
+				
+				<div class="btn-box" style='width: 247px;
+	margin: 12px auto 0 auto;'>
+					<div id="timelapse" class="progress-btn upload">
+						<div class="message">UPLOAD</div>
+						<div class="holder" style="width:0%"></div>
+					</div>
 				</div>
 			</div>
 		</div>

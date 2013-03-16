@@ -994,11 +994,27 @@ $(document).ready(function () {
             }
             Views.navigation.setPrevious(true, "#timelapse");
             this.$el.empty().append(this.template(RadianApp.app.visibleTimeLapse.getTemplateJSON()));
+            RadianApp.UI.centerVertically('#content');
             return this;
         },
 
         events: {
-            'click .upload': "upload"
+            'click .upload': "upload",
+            'click #moreInfo': "moreInfo"
+        },
+
+        moreInfo: function () {
+                 $.modal("<div class='error' style='width: 256px; font-family:\"Conv_Gotham-Medium\", Helvetica, Arial, sans-serif; font-size: 13.5px; color: rgb(30,30,30)'> \
+        <div>"+ (_.template($('#timeLapseMoreInfo_template').html()))(RadianApp.app.visibleTimeLapse.getTemplateJSON()) +"</div> \
+        <div class='cancelBox'> \
+            <div id='cancelAddNewPreset' class='simplemodal-close'>OK</div> \
+        </div> \
+        </div>", {  position: ['50%', '50%'],
+                    onShow: function() { 
+                        $('#simplemodal-container').css('margin-left', '-145px');
+                        $('#simplemodal-container').css('margin-top', '-46px');
+                    }
+                });
         },
 
         upload: function () {
