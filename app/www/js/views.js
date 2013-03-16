@@ -304,6 +304,7 @@ $(document).ready(function () {
                 setTimeout(function() { scroller.refresh()}, 0);  
             } else {
                 this.$el.empty().append(this.template(RadianApp.app.visibleTimeLapse.getTemplateJSON()));
+                RadianApp.UI.centerVertically('#content');
             }
 
             // If we are currently running one don't simulate upload
