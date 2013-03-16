@@ -45,7 +45,7 @@ RadianApp.Utilities.formatDate = function(d, onlyDate) {
 }
 
 RadianApp.Utilities.errorModal = function(errorMessage) {
-     $.modal("<div style='width: 256px; font-family:\"Conv_Gotham-Medium\", Helvetica, Arial, sans-serif; font-size: 13.5px; color: rgb(30,30,30)'> \
+     $.modal("<div class='error' style='width: 256px; font-family:\"Conv_Gotham-Medium\", Helvetica, Arial, sans-serif; font-size: 13.5px; color: rgb(30,30,30)'> \
         <div>"+ errorMessage +"</div> \
         <div class='cancelBox'> \
             <div id='cancelAddNewPreset' class='simplemodal-close'>OK</div> \
