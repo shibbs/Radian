@@ -5,6 +5,7 @@ body{
 	font:11px Helvetica, Arial, sans-serif;
 	background:rgb(30,30,30);
 	min-width:320px;
+	padding-top: 0px;
 }
 img{border-style:none;}
 a{
@@ -74,6 +75,12 @@ div#preloaded-images {
    height: 1px;
    width: 1px;
 }
+
+#aboveNavigation {
+	position: fixed;
+	bottom: 74px;
+	width: 100%;
+}
 .center-page{
 	display:table;
 	width:100%;
@@ -91,6 +98,9 @@ div#preloaded-images {
 #wrapper{
 	overflow:hidden;
 	padding:47px 15px 10px;
+}
+#modalContainer {
+	margin-top: 46px;
 }
 .pan-page{padding-top:55px !important;}
 .inner-page{padding-top:13px !important;}
@@ -150,13 +160,11 @@ h1{
 .progress-btn{ 
 	color:#fff;
 	text-transform:uppercase;
-	font:bold 20px/24px "Conv_Gotham-Black", Helvetica, Arial, sans-serif;
+	font:16.5px/16.5px "Conv_Gotham-Black", Helvetica, Arial, sans-serif;
 	padding:18px 10px 19px;
-	-webkit-border-radius: 5px;
 	border-radius: 5px;
 	background:#6e6e6e;
 	display:block;
-	margin:0 0 38px;
 	position:relative;
 }
 
@@ -297,6 +305,15 @@ h1{
 	border-radius: 0;
 	border:none;
 }
+.step-nav .next.tappable-active {
+	background:rgb(30,30,30) url(../images/rightarrow_inactive.png) no-repeat !important;
+	background-size:100% 100% !important;
+}
+.step-nav .prev.tappable-active {
+	background:rgb(30,30,30) url(../images/leftarrow_selected.png) no-repeat !important;
+	background-size:100% 100% !important;
+}
+
 .step-nav .next.inactive-right {
 	background:rgb(30,30,30) url(../images/rightarrow_inactive.png) no-repeat !important;
 	background-size:100% 100% !important;
@@ -522,7 +539,7 @@ h1{
 
 }
 .block-info .text {
-	padding-bottom: 0px;
+	padding-bottom: 15px; /* See issue https://github.com/rowanc/Radian/issues/61 */
 }
 .block-info .row{color:#c8c8c8; padding-bottom: 5px;}
 .block-info .row span {color: rgb(255, 255, 255)};
@@ -701,6 +718,26 @@ span.delete{
 	text-align:center;
 	font-size:15px/21px "Conv_Gotham-Medium", Helvetica, Arial, sans-serif;
 }
+
+#topNav .btn-back{
+	width:22px;
+	height:22px;
+	background:url(../images/BackArrow.png) no-repeat;
+	background-size:100% 100%;
+	-webkit-background-size:100% 100%;
+	-moz-background-size:100% 100%;
+	-o-background-size:100% 100%;
+	text-transform:uppercase;
+	display: block;
+	margin-top: 19px;
+	margin-left: 22px;
+}
+
+#topNav .leftArea.tappable-active .btn-back {
+	background:url(../images/BackArrow_selected.png) no-repeat !important;
+	background-size:100% 100% !important;
+}
+
 #header .btn-back{
 	width:22px;
 	height:22px;
@@ -712,10 +749,8 @@ span.delete{
 	text-transform:uppercase;
 	margin: 6px 18px 9px 7px;
 }
-#header .btn-back.tappable-active{
-	background:url(../images/BackArrow_selected.png) no-repeat !important;
-	background-size:100% 100% !important;
-}
+
+
 #header .no-back{width:50px;}
 .presets-list{
 	list-style:none;
@@ -1023,45 +1058,52 @@ span.delete{
 
 /* Modal Styling */
 #simplemodal-overlay {background-color: #000; margin: 0; padding: 0;}
+#presetSaveModal {background-color:rgb(200,200,200); border-radius: 2.5px;}
 #simplemodal-container {background-color:rgb(200,200,200); padding: 20px 17px 10px 17px; border-radius: 5px;}
-#simplemodal-container input {
+#presetSaveModal input {
 	margin: 0 auto;
 	display: block;
-	width: 225px;
-height: 30px;
-border-radius: 5px;
-color: black;
-line-height: 20px;
-text-transform: uppercase;
-font: 20px/24px Helvetica, Arial, sans-serif;
+	width: 262px;
+	height: 39px;
+	border-radius: 2.5px;
+	color: rgb(0,0,0);
+	text-transform: uppercase;
+	font: 14px/41px "Conv_Gotham-Medium", Helvetica, Arial, sans-serif;
+	padding-left:  5px;
+	border: none;
+}
+
+#savePreset {
+	background-color:rgb(200,200,200); 
+	border-radius: 2.5px;
+	width:308px;
+	height: 84px;
+	padding: 23px 0 23px 0;
 }
 .minibox {
-	padding-top: 15px;
+	padding-top: 16px;
 	height: 30px;
 	margin: 0 auto;
-	width: 239px;
-	padding-bottom: 15px;
+	width: 268px;
 }
 .minibox > div {
 	float: left;
-	margin-right: 5%;
-	width: 47.5%;
-	height: 30px;
-
+	margin-right: 18px;
+	width: 125px;
+	height: 33px;
 	color:#fff;
 	text-transform:uppercase;
-	font:bold 18px/20px "Conv_Gotham-Book", Helvetica, Arial, sans-serif;
-	-webkit-border-radius: 5px;
+	font:15px "Conv_Gotham-Black", Helvetica, Arial, sans-serif;
 	border-radius: 5px;
-	background:#6e6e6e;
+	background: rgb(90, 90, 90);
 	text-align: center;
-	line-height: 30px;
+	line-height: 33px;
 }
 
 .minibox > div:last-of-type {
-	margin-right: 0%;
+	margin-right: 0;
 	color: #fff;
-	background-color: #008bca;
+	background-color: rgb(0, 139, 202);
 }
 
 .cancelBox {
@@ -1154,9 +1196,8 @@ min-width: 30px;}
 /* Settings */
 .extraList {
     font-family:"Conv_Gotham-Book", Helvetica, Arial, sans-serif;
-    padding-top: 25px;
     width: 220px;
-    padding-left: 55px;
+    padding-left: 50px;
     list-style: none;
     margin: 0 auto;
 }
@@ -1221,6 +1262,12 @@ min-width: 30px;}
 
 .queue-list a {
 	color:#6e6e6e;
+}
+
+#abovePicker {
+	position: fixed;
+	bottom: 150px;
+	width: 100%;
 }
 
 
@@ -1462,23 +1509,10 @@ select.holo-spinner option { height: 32px; border-top: 1px #444 solid; }
 	background-color: #32a5cf!important;
 }
 
-@media screen and (min-height: 45em) { /*720px*/
-	.holo-action-bar { position:fixed; top: 0; }
-/*	.holo-content { margin-top: 96px; }*/
-	body { padding-top: 96px; }
+.superscript {
+	vertical-align: super;
+	font-size: 8px;
 }
-
-@media screen and (min-width: 45em) { /*720px*/
-	.holo-action-bar h1, .holo-fixed-tabs { float:left; }
-	.holo-fixed-tabs { width: auto; }
-}
-
-@media screen and (min-height: 45em) and (min-width: 45em) { /*720px*/s
-/*	.holo-content { margin-top: 48px; }*/
-	body { padding-top: 48px; }
-}
-
-
 
 /* Dark */
 
@@ -1719,7 +1753,6 @@ select.holo-spinner option { height: 32px; border-top: 1px #444 solid; }
 /* NEW NAV */
 #topNav {
 	height: 55px;
-	position: absolute;
 	width: 100%;
 	top: 0px;
 }
@@ -1733,7 +1766,7 @@ select.holo-spinner option { height: 32px; border-top: 1px #444 solid; }
 	text-transform: uppercase;
 }
 
-#topNav [class$="Area"] {
+#topNav .leftArea, .rightArea {
 	position: absolute;
 	top: 0px;
 	width: 95px;
@@ -1778,7 +1811,6 @@ select.holo-spinner option { height: 32px; border-top: 1px #444 solid; }
 }
 
 .newStyleBox {
-	margin-top:69px;
 	text-align: center;
 }
 
@@ -1989,11 +2021,11 @@ top: 4px;
 	top: 4px;
 	left: 12px;
 }
-
+/*
 #horizontalNav .leftArea .backarrow.tappable-active {
 	background:url(../images/BackArrow_Selected.png) no-repeat !important;
 	background-size:100% 100% !important;
-}
+}*/
 
 #horizontalNav .middleArea {
 	margin: 29px auto;

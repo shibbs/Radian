@@ -154,6 +154,11 @@ $(document).ready(function () {
             "click #fps": "fps",
             "click #about": "about",
             "click #use": "use",
+            "click .backLink": "back",
+        },
+
+        back: function () {
+            window.location.hash = '#home';
         },
 
         render: function() {
@@ -299,6 +304,7 @@ $(document).ready(function () {
                 setTimeout(function() { scroller.refresh()}, 0);  
             } else {
                 this.$el.empty().append(this.template(RadianApp.app.visibleTimeLapse.getTemplateJSON()));
+                RadianApp.UI.centerVertically('#content');
             }
 
             // If we are currently running one don't simulate upload
@@ -329,16 +335,17 @@ $(document).ready(function () {
         eventCurrent: function(e) {
             var me = this;
             var isSaved = false;
-            $.modal("<div> \
+            $.modal("<div id='savePreset'> \
                         <input id='presetName' autofocus placeholder='Preset Name'> \
                         <div class='minibox'> \
                             <div id='cancelAddNewPreset' class='btn btn-white simplemodal-close'>CANCEL</div> \
-                            <div id='addNewPreset' class='btn highlighted-btn'>SAVE</div> \
+                            <div id='addNewPreset' class='btn highlighted-btn'>SAVE PRESET</div> \
                         </div> \
                     </div>", {  position: ['50%', '50%'],
+                                containerId: 'presetSaveModal',
                                 onShow: function() { 
-                                                $('#simplemodal-container').css('margin-left', '-140px');
-                                                $('#simplemodal-container').css('margin-top', '-70px');
+                                                $('#presetSaveModal').css('margin-left', '-154px');
+                                                $('#presetSaveModal').css('margin-top', '-66px');
                                                 $('#addNewPreset').hammer().bind("tap", function(event){
                                                     isSaved = true;
                                                     event.preventDefault();
@@ -988,11 +995,27 @@ $(document).ready(function () {
             }
             Views.navigation.setPrevious(true, "#timelapse");
             this.$el.empty().append(this.template(RadianApp.app.visibleTimeLapse.getTemplateJSON()));
+            RadianApp.UI.centerVertically('#content');
             return this;
         },
 
         events: {
-            'click .upload': "upload"
+            'click .upload': "upload",
+            'click #moreInfo': "moreInfo"
+        },
+
+        moreInfo: function () {
+                 $.modal("<div class='error' style='width: 256px; font-family:\"Conv_Gotham-Medium\", Helvetica, Arial, sans-serif; font-size: 13.5px; color: rgb(30,30,30)'> \
+        <div>"+ (_.template($('#timeLapseMoreInfo_template').html()))(RadianApp.app.visibleTimeLapse.getTemplateJSON()) +"</div> \
+        <div class='cancelBox'> \
+            <div id='cancelAddNewPreset' class='simplemodal-close'>OK</div> \
+        </div> \
+        </div>", {  position: ['50%', '50%'],
+                    onShow: function() { 
+                        $('#simplemodal-container').css('margin-left', '-145px');
+                        $('#simplemodal-container').css('margin-top', '-46px');
+                    }
+                });
         },
 
         upload: function () {
@@ -1736,6 +1759,14 @@ $(document).ready(function () {
     Views.SettingsFrameRateView = Views.ModalView.extend({
         template: _.template($('#settingsFrameRate_template').html()),
 
+        events: {
+            "click .backLink": "back",
+        },
+
+        back: function () {
+            window.location.hash = '#settings';
+        },
+
         initialize: function () {
             this.setElement($("#container"));
             RadianApp.app.bind('change:fps', this.updateFps, this);
@@ -1778,6 +1809,7 @@ $(document).ready(function () {
                 },
             }).scroller('setValue', getSettings(), false, 0);
             $('.ios .dwwl').css('min-width', '270px');
+            RadianApp.UI.centerVertically('.block-info');
             return this;
         }
     });
@@ -1865,6 +1897,8 @@ $(document).ready(function () {
         unhide: function() {
             this.isModal = false;
             this.$el.css("visibility", "visible");
+            this.$('.step-nav .next').removeClass('tappable-active');
+            this.$('.step-nav .prev').removeClass('tappable-active');
         },
 
         set: function(element, isVisible, link) {
