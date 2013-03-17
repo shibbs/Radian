@@ -67,7 +67,7 @@ left: 0;
 					<div class='leftArea' id='presetsLink'><div class='btn'>PRESETS</div></div>
 					<div class='rightArea' id='queueLink'><div class='btn'>QUEUE</div></div>
 				</div>
-				<div id="content">
+				<div id="content" style='padding-top: 7px;'>
 					<div class='newStyleBox'>
 						<div class='row  parentHighlight' id='degreeLink'>
 							<div class='miniTitle parentHighlightNeeded'>														<% if (timeLapse === 1) { %>
@@ -276,9 +276,11 @@ font: 18px/20px 'Conv_Gotham-Medium', Helvetica, Arial, sans-serif !important; m
 				<span class="text"></span>
 			</div>
 			<div id="abovePicker">
+				<div style="width: 268px; margin:0 auto;">
 						<span class="superscript">*</span>
 						 This setting does not affect your time lapse. This value is simply used to calculate your time-lapse's resulting video length, which is denoted by the filmstrip icon.
 						 <!-- ' to keep sublime happy -->
+				</div>
 			</div>
 			<div id="picker" class='bottom'>
 			</div>
@@ -1222,7 +1224,10 @@ left: 45px;">
 						<div class="holder">
 							<span>Frames: <strong style='padding: 0;'> <%= totalPhotos %></strong></span>
 							<span>Final Exp: <strong style='padding: 0;'><%= finalShutter %></strong>s</span>
-							<span>Interval: <strong style='padding: 0;'><%= frameRate %></strong>s</span>
+							<span>Interval: <strong style='padding: 0;'>
+										<% if (intervalMinutes !== 0) { %>
+											<%= intervalMinutes %>min<% } %> <%= intervalSeconds %></strong>s
+							</span>
 						</div>
 					</div>
 				</div>
@@ -1346,7 +1351,7 @@ left: 45px;">
 					'hold': false,
 					'transform':false,
 			    	'swipe_time':400,
-			    	'swipe_min_distance': 120
+			    	'swipe_min_distance': 70
 			   })
 			   .bind("swipe", function(ev) {
 			        var link;
