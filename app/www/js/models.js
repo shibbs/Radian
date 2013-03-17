@@ -307,9 +307,16 @@ $(document).ready(function () {
             if(this.queue.length > 0) {
                 this.isQueue = true;
                 this.runningTimeLapses = this.queue.models;
+                var bramps = this.queue.where({isBulbRamping: true});
+                if(bramps.length > 0) {
+                    RadianApp.Utilities.errorModal("Your queue contains a bramping timelapse.  Before your bramping time-lapse can begin, you must connect a PC sync cord to Radian's phone port and your camera.");
+                }
             } else {
                 this.isQueue = false;
                 this.runningTimeLapses = [timeLapse.clone()];
+                if(timeLapse.get("isBulbRamping")) {
+                    RadianApp.Utilities.errorModal("Before your bramping time-lapse can begin, you must connect a PC sync cord to Radian's phone port and your camera.");
+                }
             }
             this.runningTimeLapseIndex = 0;
 
