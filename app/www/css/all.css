@@ -476,7 +476,8 @@ h1{
 .mark{color:#008bca;}
 .total-box{
 	border-top:1px solid #6a6a6a;
-	width:76%;
+	width: 224px;
+	margin:0 auto;
 	margin:0 auto 15px;
 	font:14px/19px "", Helvetica, Arial, sans-serif;
 	color:#969696;
@@ -523,7 +524,6 @@ h1{
 }
 .block-info{
 	text-align:center;
-	padding:32px 0 5px;
 }
 
 .general {
@@ -1054,6 +1054,18 @@ span.delete{
 
 .norm {
 	background:#008bca;
+}
+
+.pickerPage .bramp-stats, #abovePicker {
+	bottom: 153px;
+	position: fixed; 
+	width:100%; 
+}
+
+.bramp-stats {
+	position: fixed; 
+	width:100%; 
+	bottom: 19px;
 }
 
 /* Modal Styling */
