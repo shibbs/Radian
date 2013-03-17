@@ -79,7 +79,9 @@ $(document).ready(function () {
         },
 
         render: function () {
-            this.$el.empty().append(this.template(RadianApp.app.visibleTimeLapse.getStats()));
+            
+
+            this.$el.empty().append(this.template(_.extend(RadianApp.app.visibleTimeLapse.getStats(), RadianApp.app.visibleTimeLapse.getTemplateJSON())));
             return this;
         },
     });
@@ -1611,7 +1613,7 @@ $(document).ready(function () {
             }()
             var wheel = {};
             for (var i = 0; i < exposures.length; i++) { 
-                wheel[i] =  "          "+exposures[i]+ "          ";
+                wheel[i] =  "          "+exposures[i]+ " sec      ";
             }
 
             var total_time_slots = [{'s': wheel}];

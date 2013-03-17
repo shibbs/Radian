@@ -1224,7 +1224,10 @@ left: 45px;">
 						<div class="holder">
 							<span>Frames: <strong style='padding: 0;'> <%= totalPhotos %></strong></span>
 							<span>Final Exp: <strong style='padding: 0;'><%= finalShutter %></strong>s</span>
-							<span>Interval: <strong style='padding: 0;'><%= frameRate %></strong>s</span>
+							<span>Interval: <strong style='padding: 0;'>
+										<% if (intervalMinutes !== 0) { %>
+											<%= intervalMinutes %>min<% } %> <%= intervalSeconds %></strong>s
+							</span>
 						</div>
 					</div>
 				</div>
