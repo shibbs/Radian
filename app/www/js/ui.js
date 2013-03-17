@@ -21,8 +21,21 @@ $(document).ready(function () {
 		var itemToCenter = $(selectorToCenter);
 		var height = itemToCenter.outerHeight(true);
 		var topItem = getElementWithClass(itemToCenter.prev());
+		console.log(topItem.attr('class'));
 		var top = topItem.offset().top + topItem.outerHeight(true);
+		console.log(itemToCenter.next());
 		var bottom = getElementWithClass(itemToCenter.next()).offset().top;
+		console.log(bottom);
+		var topMarginNeeded = (bottom-top-height)/2;
+		itemToCenter.css('margin-top', (parseInt(itemToCenter.css('margin-top'),10)+topMarginNeeded)+'px');
+	}
+	//TODO abstract
+	RadianApp.UI.centerVerticallyPicker = function(selectorToCenter) {
+		var itemToCenter = $(selectorToCenter);
+		var height = itemToCenter.outerHeight(true);
+		var topItem = getElementWithClass(itemToCenter.prev());
+		var top = topItem.offset().top + topItem.outerHeight(true);
+		var bottom = $('#abovePicker').offset().top;
 		var topMarginNeeded = (bottom-top-height)/2;
 		itemToCenter.css('margin-top', (parseInt(itemToCenter.css('margin-top'),10)+topMarginNeeded)+'px');
 	}
