@@ -290,12 +290,13 @@ font: 18px/20px 'Conv_Gotham-Medium', Helvetica, Arial, sans-serif !important; m
 
 		<!-- TimeLapseSettingsAbout Template -->
 		<script type="text/template" id="settingsAbout_template">
-		    <div id="wrapper" class="inner-page">
-				<header id="header">
-					<a href="#settings" class="btn-back"></a>
-					<span class="no-btn no-back alignright">&nbsp;</span>
-					<h1>ABOUT RADIAN</h1>
-				</header>
+		    <div>
+				<div id="topNav">
+					<div class="title">ABOUT RADIAN</div>
+					<div class='leftArea parentHighlight backLink'><a href="#settings" class="btn-back parentHighlightNeeded"></a></div>
+					<div class='rightArea'></div>
+				</div>
+
 				<div>
 					Radian is a remarkably simple and affordable motion time-lapse device that can be used to create beautiful panning, tilting, or still time-lapses. This app is necessary in order to program the device, but is not needed during operation. Find out more about Radian at http://www.alpinelaboratories.com. 
 				</div>
@@ -304,12 +305,12 @@ font: 18px/20px 'Conv_Gotham-Medium', Helvetica, Arial, sans-serif !important; m
 
 		<!-- TimeLapseSettingsUse Template -->
 		<script type="text/template" id="settingsUse_template">
-		    <div id="wrapper" class="inner-page">
-				<header id="header">
-					<a href="#settings" class="btn-back"></a>
-					<span class="no-btn no-back alignright">&nbsp;</span>
-					<h1>USING RADIAN</h1>
-				</header>
+		    <div>
+				<div id="topNav">
+					<div class="title">USING RADIAN</div>
+					<div class='leftArea parentHighlight backLink'><a href="#settings" class="btn-back parentHighlightNeeded"></a></div>
+					<div class='rightArea'></div>
+				</div>
 				<div>
 The app is structured into 3 simple steps: 1) choose pan or tilt 2) configure your time-lapse 3) upload. 
 
@@ -636,12 +637,12 @@ left: 0px;font-weight: bold;'>
 		
 		<!-- TimeLapseDegrees Template -->
 		<script type="text/template" id="timeLapseDegrees_template">
-		    <div id="wrapper" class="inner-page">
-				<header id="header">
-					<a href="#timelapse" class="btn-back"></a>
-					<span class="no-btn no-back alignright">&nbsp;</span>
-					<h1>DEGREES</h1>
-				</header>
+		    <div>
+				<div id="topNav">
+					<div class="title">DEGREES</div>
+					<div class='leftArea parentHighlight backLink'><a href="#timelapse" class="btn-back parentHighlightNeeded"></a></div>
+					<div class='rightArea'></div>
+				</div>
 				<div class="block-info">
 					<span class="text">Move</span>
 					<div class="row">
@@ -651,7 +652,6 @@ left: 0px;font-weight: bold;'>
 					<span id="direction" class="text" style="font-size: 19px; color:rgb(150, 150, 150);"><%= direction %></span>
 					</div>
 				</div>
-				<div style='height: 53px'></div>
 			</div>
 
 			<div id="picker">
@@ -660,12 +660,12 @@ left: 0px;font-weight: bold;'>
 		
 		<!-- TimeLapseTotalTime Template -->
 		<script type="text/template" id="timeLapseTotalTime_template">
-		    <div id="wrapper" class="inner-page">
-				<header id="header">
-					<a href="#timelapse" class="btn-back"></a>
-					<span class="no-btn no-back alignright">&nbsp;</span>
-					<h1>DURATION</h1>
-				</header>
+		    <div>
+				<div id="topNav">
+					<div class="title">DURATION</div>
+					<div class='leftArea parentHighlight backLink'><a href="#timelapse" class="btn-back parentHighlightNeeded"></a></div>
+					<div class='rightArea'></div>
+				</div>
 				<div class="block-info" style='padding-bottom:0px'>
 				    <span class="text">TIME LAPSE FOR</span>
 					<div class="row">					
@@ -707,12 +707,12 @@ margin: 0 auto;color: rgb(110, 110, 110);'>THIS WILL CONTINUE THE TIME-LAPSE IND
 		
 		<!-- TimeLapseInterval Template -->
 		<script type="text/template" id="timeLapseInterval_template">
-			<div id="wrapper" class="inner-page">
-				<header id="header">
-					<a href="#timelapse" class="btn-back"></a>
-					<span class="no-btn no-back alignright">&nbsp;</span>
-					<h1>INTERVAL</h1>
-				</header>
+			<div>
+				<div id="topNav">
+					<div class="title">INTERVAL</div>
+					<div class='leftArea parentHighlight backLink'><a href="#timelapse" class="btn-back parentHighlightNeeded"></a></div>
+					<div class='rightArea'></div>
+				</div>
 				<div class="block-info">
 					<span class="text">TAKE A PHOTO EVERY</span>
 					<div class="row">
@@ -722,7 +722,6 @@ margin: 0 auto;color: rgb(110, 110, 110);'>THIS WILL CONTINUE THE TIME-LAPSE IND
 						<span>sec</span>
 					</div>
 				</div>
-				<div style='height: 53px'></div>
 			</div>
             <div id="picker">
 			</div>
@@ -730,11 +729,13 @@ margin: 0 auto;color: rgb(110, 110, 110);'>THIS WILL CONTINUE THE TIME-LAPSE IND
 		
 		<!-- The Stats Box Template -->
 		<script type="text/template" id="statsBox_template">
-		<div class="total-box">
-			<div class="holder">
-				<span><strong class="photo"><%= totalPhotos %></strong> photos</span>
-				<span><strong class="photo-info"><%= degreesPerPhoto %>&deg;</strong>/photo</span>
-				<span><strong class="time"><%= frameRate %></strong> seconds</span>
+		<div id="abovePicker">
+			<div class="total-box">
+				<div class="holder">
+					<span><strong class="photo"><%= totalPhotos %></strong> photos</span>
+					<span><strong class="photo-info"><%= degreesPerPhoto %>&deg;</strong>/photo</span>
+					<span><strong class="time"><%= frameRate %></strong> seconds</span>
+				</div>
 			</div>
 		</div>
 		</script>
@@ -944,13 +945,13 @@ color:rgb(110,110,110)'>
 		
 		<!-- TimeLapseAdvanced Template -->
 		<script type="text/template" id="timeLapseAdvanced_template">
-		    <div id="wrapper" class="inner-page">
-				<header id="header">
-					<a href="#timelapse" class="btn-back"></a>
-					<span class="no-btn no-back alignright">&nbsp;</span>
-					<h1>ADVANCED</h1>
-				</header>
-				<ul class="extraList">
+		    <div>
+				<div id="topNav">
+					<div class="title">ADVANCED</div>
+					<div class='leftArea parentHighlight backLink'><a href="#timelapse" class="btn-back parentHighlightNeeded"></a></div>
+					<div class='rightArea'></div>
+				</div>
+				<ul class="extraList" style='margin-top: 46px'>
 					<li id="timedelay" class='parentHighlight'>
 						<div class="mainHeading parentHighlightNeeded">TIME DELAY</div>
 						<% if (isTimeDelay) { %>
@@ -1031,16 +1032,19 @@ left: 45px;">
 
 		<!-- Bulb Ramping Template -->
 		<script type="text/template" id="bulbRamping_template">
-		    <div id="wrapper" class="inner-page">
-				<header id="header">
-					<a href="#timelapse/advanced" class="btn-back"></a>
-					<span class="no-btn no-back alignright">&nbsp;</span>
-					<h1>BULB RAMP</h1>
-				</header>
-				<div id='secondary' style='width:290px; margin: 0 auto;'>
-				<div  class="holo-dark holo-accent-blue" style="font-size:20px; font-weight:strong; 	font-family:'Conv_Gotham-Black', Helvetica, Arial, sans-serif;
+    	<div>
+
+		<div id="topNav">
+			<div class="title">BULB RAMP</div>
+			<div class='leftArea parentHighlight backLink'><a href="#timelapse/advanced" class="btn-back parentHighlightNeeded"></a></div>
+			<div class='rightArea'></div>
+		</div>
+
+        <div id='secondary' style='margin: 0 auto; position: relative;'>
+        	<div style='width:290px; margin: 0 auto; '>
+<div  class="holo-dark holo-accent-blue" style="font-size:20px; font-weight:strong; 	font-family:'Conv_Gotham-Black', Helvetica, Arial, sans-serif;
 	vertical-align:baseline;position:relative; top:3px;left:-12px">
-			
+
 				<div style="
     width: 40%;
     margin: 0 auto;
@@ -1052,76 +1056,64 @@ left: 45px;">
 		</div>
 		</div>
 		</div>
-		<div style='width: 70%; border-top: 1px solid rgb(106, 106, 106); margin:6px auto'></div>
-				<div class='inform-list-wrapper' style='text-align:center'>
-				<ul class="inform-list" style="position:relative; top: -3px; padding-bottom: 4px; display: inline-block">
-					<li id="delayLink">
-						<div>
-						<a href="#timelapse/bulbramping/delay">DELAY</a>
-						<div class="holder">
-                            <% if (delayHours !== 0) { %>
-                            	<span style='position:relative; left:8px'>
-                                <strong class="mark"><%= delayHours %></strong>
-							<span>hr</span>
-							</span>
-                                 <% } %>
-							<strong class="mark"><%= delayMinutes %></strong>
-							<span>min</span>
-						</div>
-						</div>
-					</li>
-					<li id="delayLink">
-					    <div>
-						<a href="#timelapse/bulbramping/duration">DURATION</a>
-						<div class="holder">
 
-                            <% if (durationHours !== 0) { %>
-                            	<span style='position:relative; left:8px'>
-                                <strong class="mark"><%= durationHours %></strong>
-							<span>hr</span>
-							</span>
-                                 <% } %>
-							<strong class="mark"><%= durationMinutes %></strong>
-							<span>min</span>
-						</div>
-						</div>
-					</li>
-					<li id="startShutterLink">
-						<div>
-						<a href="#timelapse/bulbramping/startshutter">INITIAL EXP</a>
-						<div class="holder">
-							<strong class="mark"><%= startShutter %></strong>
-							<span>s</span>
-						</div>
-						</div>
-					</li>
-					<li id="startShutterLink">
-						<div>
-						<a href="#timelapse/bulbramping/exposurechange">EXP CHANGE</a>
-						<div class="holder">
-							<strong class="mark"><%= expChange %></strong>
-							<span><% if (expType === 'f/10frames') { %>
-									f/10f
-								 <% }  else { %>
-								 	<%= expType %>
-								 <% } %></span>
-						</div>
-						</div>
-					</li>
-				</ul>
-				</div>
-				</div>
-			</div>
+	            <div class='centerfix' style='width: 70%; border-top: 1px solid rgb(106, 106, 106); margin:13px auto 0px auto'></div>
+            </div>
+            <div class='inform-list-wrapper' style='text-align:center; margin-top:0px; padding-top: 5px;'>
+                <ul class="inform-list" style="position:relative; display: inline-block; padding: 0px">
+                    <li id="delayLink">
+                        <div>
+                            <a href="#timelapse/bulbramping/delay">DELAY</a>
+
+                            <div class="holder">
+                                <% if (delayHours !== 0) { %> <span style='position:relative; left:8px'><strong class="mark"><%= delayHours %></strong> <span>hr</span></span> <% } %> <strong class="mark"><%= delayMinutes %></strong> <span>min</span>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li id="delayLink">
+                        <div>
+                            <a href="#timelapse/bulbramping/duration">DURATION</a>
+
+                            <div class="holder">
+                                <% if (durationHours !== 0) { %> <span style='position:relative; left:8px'><strong class="mark"><%= durationHours %></strong> <span>hr</span></span> <% } %> <strong class="mark"><%= durationMinutes %></strong> <span>min</span>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li id="startShutterLink">
+                        <div>
+                            <a href="#timelapse/bulbramping/startshutter">INITIAL EXP</a>
+
+                            <div class="holder">
+                                <strong class="mark"><%= startShutter %></strong> <span>s</span>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li id="startShutterLink" style='margin-bottom:0px'>
+                        <div>
+                            <a href="#timelapse/bulbramping/exposurechange">EXP CHANGE</a>
+
+                            <div class="holder">
+                                <strong class="mark"><%= expChange %></strong> <span><% if (expType === 'f/10frames') { %> f/10f <% }  else { %> <%= expType %> <% } %></span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 		</script>
 
 		<!-- BulbRampingDelay Template -->
 		<script type="text/template" id="bulbRampingDelay_template">
-		    <div id="wrapper" class="inner-page bulbramping">
-				<header id="header">
-					<a href="#timelapse/bulbramping" class="btn-back"></a>
-					<span class="no-btn no-back alignright">&nbsp;</span>
-					<h1>DELAY</h1>
-				</header>
+		    <div class="pickerPage bulbramping">
+				<div id="topNav">
+					<div class="title">DELAY</div>
+					<div class='leftArea parentHighlight backLink'><a href="#timelapse/bulbramping" class="btn-back parentHighlightNeeded"></a></div>
+					<div class='rightArea'></div>
+				</div>
 				<div class="block-info">
 					<span class="text">DELAY BEFORE BULB RAMP</span>
 					<div class="row">					
@@ -1130,7 +1122,6 @@ left: 45px;">
 						<strong id="delayMinutes" class="mark"><%= delayMinutes %></strong>
 						<span>min</span> 
 					</div>
-					<div style='height: 53px'></div>
 				</div>
 			</div>
 			<div id="picker">
@@ -1139,12 +1130,12 @@ left: 45px;">
 		
 		<!-- BulbRampingDuration Template -->
 		<script type="text/template" id="bulbRampingDuration_template">
-		    <div id="wrapper" class="inner-page bulbramping">
-				<header id="header">
-					<a href="#timelapse/bulbramping" class="btn-back"></a>
-					<span class="no-btn no-back alignright">&nbsp;</span>
-					<h1>DURATION</h1>
-				</header>
+		    <div class="pickerPage bulbramping">
+				<div id="topNav">
+					<div class="title">DURATION</div>
+					<div class='leftArea parentHighlight backLink'><a href="#timelapse/bulbramping" class="btn-back parentHighlightNeeded"></a></div>
+					<div class='rightArea'></div>
+				</div>
 				<div class="block-info">
 					<span class="text">BULB RAMP FOR</span>
 					<div class="row">					
@@ -1152,7 +1143,6 @@ left: 45px;">
 						<span>hr</span>
 						<strong id="durationMinutes" class="mark"><%= durationMinutes %></strong>
 						<span>min</span> 
-						<div style='height: 53px'></div>
 					</div>
 				</div>
 			</div>
@@ -1162,19 +1152,18 @@ left: 45px;">
 
 		<!-- BulbRampingInitialExp Template -->
 		<script type="text/template" id="bulbRampingStartShutter_template">
-		    <div id="wrapper" class="inner-page bulbramping">
-				<header id="header">
-					<a href="#timelapse/bulbramping" class="btn-back"></a>
-					<span class="no-btn no-back alignright">&nbsp;</span>
-					<h1>INITIAL EXPOSURE</h1>
-				</header>
+		    <div id="wrapper" class="pickerPage inner-page bulbramping">
+				<div id="topNav">
+					<div class="title">INITIAL EXPOSURE</div>
+					<div class='leftArea parentHighlight backLink'><a href="#timelapse/bulbramping" class="btn-back parentHighlightNeeded"></a></div>
+					<div class='rightArea'></div>
+				</div>
 				<div class="block-info">
 					<span class="text">START EXPOSURE AT</span>
 					<div class="row">					
 						<strong id="startShutter" class="mark"><%= startShutter %></strong>
 						<span>seconds</span>
 					</div>
-					<div style='height: 53px'></div>
 				</div>
 			</div>
 			<div id="picker">
@@ -1183,19 +1172,18 @@ left: 45px;">
 
 		<!-- BulbRampingExpChange Template -->
 		<script type="text/template" id="bulbRampingExpChange_template">
-		    <div id="wrapper" class="inner-page bulbramping">
-				<header id="header">
-					<a href="#timelapse/bulbramping" class="btn-back"></a>
-					<span class="no-btn no-back alignright">&nbsp;</span>
-					<h1>EXP CHANGE</h1>
-				</header>
+		    <div class="pickerPage bulbramping">
+				<div id="topNav">
+					<div class="title">EXP CHANGE</div>
+					<div class='leftArea parentHighlight backLink'><a href="#timelapse/bulbramping" class="btn-back parentHighlightNeeded"></a></div>
+					<div class='rightArea'></div>
+				</div>
 				<div class="block-info">
 					<span class="text">CHANGE EXPOSURE BY</span>
 					<div class="row">					
 						<strong id="expChange" class="mark"><%= expChange %></strong>
 						<span id="expType"><%= expType %></span>
 					</div>
-					<div style='height: 53px'></div>
 				</div>
 			</div>
 			<div id="picker">
@@ -1204,12 +1192,12 @@ left: 45px;">
 
 		<!-- TimeLapseTimeDelay Template -->
 		<script type="text/template" id="timeLapseTimeDelay_template">
-		    <div id="wrapper" class="inner-page">
-				<header id="header">
-					<a href="#timelapse/advanced" class="btn-back"></a>
-					<span class="no-btn no-back alignright">&nbsp;</span>
-					<h1>TIME DELAY</h1>
-				</header>
+		    <div>
+				<div id="topNav">
+					<div class="title">TIME DELAY</div>
+					<div class='leftArea parentHighlight backLink'><a href="#timelapse/advanced" class="btn-back parentHighlightNeeded"></a></div>
+					<div class='rightArea'></div>
+				</div>
 				<div class="block-info">
 				    <span class="text">WAIT</span>
 					<div class="row">					
@@ -1219,36 +1207,36 @@ left: 45px;">
 						<span>min</span> 
 					</div>
 					<span class="text">BEFORE STARTING</span>
-					<div style='height: 50px'></div>
 				</div>
+			
+            <div id="picker" class='test' style="left:-5px">
 			</div>
-            <div id="picker">
 			</div>
 		</script>
 
 		<!-- The Bulb Ramp Box Template -->
 		<script type="text/template" id="bulbRampStatsBox_template">
-		<div class='bramp-stats' style='position: fixed; width:100%; bottom: 8.5%;'>
-			<div style='width:290px'>
-				<div class="total-box" style='width: 70%; margin-bottom:0px; '>
-					<div class="holder">
-						<span>Frames: <strong style='padding: 0;'> <%= totalPhotos %></strong></span>
-						<span>Final Exp: <strong style='padding: 0;'><%= finalShutter %></strong>s</span>
-						<span>Interval: <strong style='padding: 0;'><%= frameRate %></strong>s</span>
+			<div class='bramp-stats'>
+				<div style='width:290px; margin: 0 auto;'>
+					<div class="total-box" style='width: 70%; margin-bottom:0px; '>
+						<div class="holder">
+							<span>Frames: <strong style='padding: 0;'> <%= totalPhotos %></strong></span>
+							<span>Final Exp: <strong style='padding: 0;'><%= finalShutter %></strong>s</span>
+							<span>Interval: <strong style='padding: 0;'><%= frameRate %></strong>s</span>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
 		</script>
 
 		<!-- TimeLapseHold Template -->
 		<script type="text/template" id="timeLapseHold_template">
-		    <div id="wrapper" class="inner-page">
-				<header id="header">
-					<a href="#timelapse/advanced" class="btn-back"></a>
-					<span class="no-btn no-back alignright">&nbsp;</span>
-					<h1>HOLD</h1>
-				</header>
+		    <div>
+				<div id="topNav">
+					<div class="title">HOLD</div>
+					<div class='leftArea parentHighlight backLink'><a href="#timelapse/advanced" class="btn-back parentHighlightNeeded"></a></div>
+					<div class='rightArea'></div>
+				</div>
 				<div class="block-info" style="padding-bottom:20px">
 					<span class="text">PRESS THE SHUTTER FOR</span>
 					<div class="row">
@@ -1258,12 +1246,14 @@ left: 45px;">
 					<span class="text">EVERY PHOTO</span>
 					<div style='height: 25px'></div>
 				</div>
-				<div class="textBox">
-					<ul>
-						<li>.25s is the default.</li>
-						<li>.5s is for IR triggering.</li>
-						<li>2s is for HDR bracketing.</li>
-					</ul>
+				<div id="abovePicker">
+					<div class="textBox">
+						<ul>
+							<li>.25s is the default.</li>
+							<li>.5s is for IR triggering.</li>
+							<li>2s is for HDR bracketing.</li>
+						</ul>
+					</div>
 				</div>
 			</div>
 			<div id="picker">

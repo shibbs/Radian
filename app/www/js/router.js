@@ -36,109 +36,189 @@ $(document).ready(function () {
         },
 
         home: function() {
-            RadianApp.Views.homeView.render();
+            if(RadianApp.app.currentView) {
+                RadianApp.app.currentView.close();
+            }
+            RadianApp.app.currentView = new RadianApp.Views.HomeView();
+            RadianApp.app.currentView.render();
         },
 
         settings: function() {
-            var settingsView = new RadianApp.Views.SettingsView();
-            settingsView.render();
+            RadianApp.app.currentView.close();
+            RadianApp.app.currentView = new RadianApp.Views.SettingsView();
+            RadianApp.app.currentView.render();
         },
 
         settingsFrameRate: function() {
-            var view = new RadianApp.Views.SettingsFrameRateView();
-            view.render();
+            RadianApp.app.currentView.close();
+            RadianApp.app.currentView = new RadianApp.Views.SettingsFrameRateView();
+            RadianApp.app.currentView.render();
         },
         
         settingsAbout: function() {
-            var view = new RadianApp.Views.SettingsAboutView();
-            view.render();
+            RadianApp.app.currentView.close();
+            RadianApp.app.currentView = new RadianApp.Views.SettingsAboutView();
+            RadianApp.app.currentView.render();
         },
 
         settingsUse: function() {
-            var view = new RadianApp.Views.SettingsUseView();
-            view.render();
+            RadianApp.app.currentView.close();
+            RadianApp.app.currentView = new RadianApp.Views.SettingsUseView();
+            RadianApp.app.currentView.render();
         },
 
         timeLapse: function() {
-            RadianApp.Views.timeLapseView.render();
+            RadianApp.app.currentView.close();
+            RadianApp.app.currentView = new RadianApp.Views.TimeLapseView({
+                model: RadianApp.app
+            });
+            RadianApp.app.currentView.render();
         },
 
     	timeLapsePresets: function() {
-            RadianApp.Views.timeLapsePresetsView.render();
+            RadianApp.app.currentView.close();
+            RadianApp.app.currentView = new RadianApp.Views.TimeLapsePresetsView();
+            RadianApp.app.currentView.render();
         },
 
     	timeLapseDegrees: function() {
-            RadianApp.Views.timeLapseDegreesView.render();
+            RadianApp.app.currentView.close();
+            RadianApp.app.currentView = new RadianApp.Views.TimeLapseDegreesView({
+                model: RadianApp.app
+            });
+            RadianApp.app.currentView.render();
         },
 
     	timeLapseTotalTime: function() {
-            RadianApp.Views.timeLapseTotalTimeView.render();
+            RadianApp.app.currentView.close();
+            RadianApp.app.currentView = new RadianApp.Views.TimeLapseTotalTimeView({
+                model: RadianApp.app
+            });
+            RadianApp.app.currentView.render();
         },
 
     	timeLapseInterval: function() {
-            RadianApp.Views.timeLapseIntervalView.render();
+            RadianApp.app.currentView.close();
+            RadianApp.app.currentView = new RadianApp.Views.TimeLapseIntervalView({
+                model: RadianApp.app
+            });
+            RadianApp.app.currentView.render();
         },
 
     	timeLapseCountDown: function() {
-            RadianApp.Views.timeLapseCountDownView.render();
+            RadianApp.app.currentView.close();
+            RadianApp.app.currentView = new RadianApp.Views.TimeLapseCountDownView({
+                model: RadianApp.app
+            });
+            RadianApp.app.currentView.render();
         },
 
     	timeLapseUpload: function() {
-            RadianApp.Views.timeLapseUploadView.render();
+            RadianApp.app.currentView.close();
+            RadianApp.app.currentView = new RadianApp.Views.TimeLapseUploadView({
+                model: RadianApp.app
+            });
+            RadianApp.app.currentView.render();
         },
 
     	timeLapseCurrent: function() {
-    		RadianApp.Views.timeLapseCurrent = new RadianApp.Views.TimeLapseCurrent({model: window.running_program});
-            RadianApp.Views.timeLapseCurrent.render();
+            RadianApp.app.currentView.close();
+    		RadianApp.app.currentView =  new RadianApp.Views.TimeLapseCurrent({model: window.running_program});
+            RadianApp.app.currentView.render();
         },
 
     	timeLapseQueue: function() {
-            RadianApp.Views.timeLapseQueueView.render();
+            RadianApp.app.currentView.close();
+            RadianApp.app.currentView = new RadianApp.Views.TimeLapseQueueView({
+                model: RadianApp.app
+            });
+            RadianApp.app.currentView.render();
         },
 
         timeLapseQueueAdd: function() {
-            RadianApp.Views.timeLapseQueueAddView.render();
+            RadianApp.app.currentView.close();
+            RadianApp.app.currentView = new RadianApp.Views.TimeLapseQueueAddView({
+                model: RadianApp.app
+            });
+            RadianApp.app.currentView.render();
         },
 
     	timeLapseAdvanced: function() {
-            RadianApp.Views.timeLapseAdvancedView.render();
+            RadianApp.app.currentView.close();
+            RadianApp.app.currentView = new RadianApp.Views.TimeLapseAdvancedView({
+                model: RadianApp.app
+            });
+            RadianApp.app.currentView.render();
         },
 
         timeLapseCompleted: function() {
-            RadianApp.Views.timeLapseCompletedView.render();
+            RadianApp.app.currentView.close();
+            RadianApp.app.currentView = new RadianApp.Views.TimeLapseCompletedView({
+                model: RadianApp.app
+            });
+            RadianApp.app.currentView.render();
         },
 
         speedRamping: function() {
-            RadianApp.Views.speedRampingView.render();
+            RadianApp.app.currentView.close();
+            RadianApp.app.currentView = new RadianApp.Views.SpeedRampingView({
+                model: RadianApp.app
+            });
+            RadianApp.app.currentView.render();
         },
 
         bulbramping: function() {
-            RadianApp.Views.bulbRampingView.render();
+            RadianApp.app.currentView.close();
+            RadianApp.app.currentView = new RadianApp.Views.BulbRampingView({
+                model: RadianApp.app
+            });
+            RadianApp.app.currentView.render();
         },
 
         bulbrampingDelay: function() {
-            RadianApp.Views.bulbRampingDelay.render();
+            RadianApp.app.currentView.close();
+            RadianApp.app.currentView = new RadianApp.Views.BulbRampingDelay({
+                model: RadianApp.app
+            });
+            RadianApp.app.currentView.render();
         },
 
         bulbrampingDuration: function() {
-            RadianApp.Views.bulbRampingDuration.render();
+            RadianApp.app.currentView.close();
+            RadianApp.app.currentView = new RadianApp.Views.BulbRampingDuration({
+                model: RadianApp.app
+            });
+            RadianApp.app.currentView.render();
         },
 
         bulbrampingStartShutter: function() {
-            RadianApp.Views.bulbRampingStartShutter.render();
+            RadianApp.app.currentView.close();
+            RadianApp.app.currentView = new RadianApp.Views.BulbRampingStartShutter({
+                model: RadianApp.app
+            });
+            RadianApp.app.currentView.render();
         },
 
         bulbrampingExposureChange: function() {
-            RadianApp.Views.bulbRampingExposureChange.render();
+            RadianApp.app.currentView.close();
+            RadianApp.app.currentView = new RadianApp.Views.BulbRampingExposureChange({
+                model: RadianApp.app
+            });
+            RadianApp.app.currentView.render();
         },
 
         timeLapseTimeDelay: function() {
-            RadianApp.Views.timeLapseTimeDelayView.render();
+            RadianApp.app.currentView.close();
+            RadianApp.app.currentView = new RadianApp.Views.TimeLapseTimeDelay({model: RadianApp.app});
+            RadianApp.app.currentView.render();
         },
 
         timeLapseHold: function() {
-            var timeLapseHoldView = new RadianApp.Views.TimeLapseHoldView();
-            timeLapseHoldView.render();
+            RadianApp.app.currentView.close();
+            RadianApp.app.currentView =  new RadianApp.Views.TimeLapseHoldView({
+                model: RadianApp.app
+            });
+            RadianApp.app.currentView.render();
         },
 
     });

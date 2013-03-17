@@ -17,6 +17,12 @@ $(document).ready(function () {
     var Views = RadianApp.Views;
     var scrollTheme = isDroid ? 'android-ics' : 'ios';
 
+    Backbone.View.prototype.close = function(){
+      this.remove();
+      this.unbind();
+      $('body').prepend('<div id="container"></div>');
+    }
+
     Views.BaseView = Backbone.View.extend({
 
         initialize: function () {
@@ -178,18 +184,32 @@ $(document).ready(function () {
 
         use: function () {
             window.location.hash = '#settings/use';
-
         },
 
     });
 
     Views.SettingsAboutView = Views.ModalView.extend({
         template: _.template($('#settingsAbout_template').html()),
+        events: {
+            "click .backLink": "back",
+        },
+
+        back: function () {
+            window.location.hash = '#settings';
+        }
 
     });
 
     Views.SettingsUseView = Views.ModalView.extend({
         template: _.template($('#settingsUse_template').html()),
+
+        events: {
+            "click .backLink": "back",
+        },
+
+        back: function () {
+            window.location.hash = '#settings';
+        },
 
     });
 
@@ -779,19 +799,20 @@ $(document).ready(function () {
         },
         updateDegrees: function () {
             this.$('#wrapper #degrees').html(RadianApp.app.visibleTimeLapse.get('degrees') + '&deg;');
-
-
-
         },
 
         updateDirection: function () {
             this.$('#direction').html(C.DirectionCanonical(RadianApp.app.visibleTimeLapse.get('isClockwise')));
+        },
 
-
-
+        events: {
+            "click .backLink": "back",
         },
 
 
+        back: function () {
+            window.location.hash = '#timelapse';
+        },
 
 
         render: function () {
@@ -808,7 +829,7 @@ $(document).ready(function () {
             var statsView = new Views.StatsBoxView({
                 model: this.model
             });
-            this.$('#wrapper').append(statsView.render().el);
+            $('#container').append(statsView.render().el);
 
             var getSettings = function() {
                 return [String(RadianApp.app.visibleTimeLapse.get('degrees')), C.DirectionAbbr(RadianApp.app.visibleTimeLapse.get('isClockwise'))];
@@ -837,7 +858,7 @@ $(document).ready(function () {
                     RadianApp.app.visibleTimeLapse.set({'degrees': Number(instance.values[0])}, error);
                 },
             }).scroller('setValue', getSettings(), false, 0);
-
+            RadianApp.UI.centerVerticallyPicker('.block-info');
 
 
             return this;
@@ -857,6 +878,12 @@ $(document).ready(function () {
 
         events: {
             "click #continue": "continue",
+            "click .backLink": "back",
+        },
+
+
+        back: function () {
+            window.location.hash = '#timelapse';
         },
 
         continue: function() {
@@ -884,7 +911,7 @@ $(document).ready(function () {
             var statsView = new Views.StatsBoxView({
                 model: this.model
             });
-            this.$('#wrapper').append(statsView.render().el);
+            $('#container').append(statsView.render().el);
 
             var total_time_slots = [generate_slot('hours', 0, 240, 1, 'hr'), generate_slot('minutes', 0, 59, 1, 'min')];
 
@@ -917,7 +944,7 @@ $(document).ready(function () {
                 },
             }).scroller('setValue', getSettings(), false, 0);
 
-
+            RadianApp.UI.centerVerticallyPicker('.block-info');
             return this;
         }
     });
@@ -936,13 +963,22 @@ $(document).ready(function () {
 
         },
 
+        events: {
+            "click .backLink": "back",
+        },
+
+
+        back: function () {
+            window.location.hash = '#timelapse';
+        },
+
         render: function () {
             Views.navigation.hide();
             this.$el.empty().append(this.template(RadianApp.app.visibleTimeLapse.getTemplateJSON()));
             var statsView = new Views.StatsBoxView({
                 model: RadianApp.app.visibleTimeLapse
             });
-            this.$('#wrapper').append(statsView.render().el);
+            $('#container').append(statsView.render().el);
 
             var interval_slots = [generate_slot('minutes', 0, 360, 1, 'min'), generate_slot('seconds', 0, 59, 1, 'sec')];
 
@@ -976,7 +1012,7 @@ $(document).ready(function () {
             }).scroller('setValue', getSettings(), false, 0);
 
 
-
+            RadianApp.UI.centerVerticallyPicker('.block-info');
             return this;
         }
     });
@@ -1367,8 +1403,13 @@ $(document).ready(function () {
 
         events: {
             'click #isBulbRamping': "toggleOn",        
+            "click .backLink": "back",
         },
 
+        back: function (e) {
+            window.location.hash = '#timelapse/advanced';
+            e.stopImmediatePropagation();
+        },
 
         toggleOn: function(e) {
             e.stopImmediatePropagation();
@@ -1390,8 +1431,17 @@ $(document).ready(function () {
                   
     
 
-    Views.BulbrampingDelay = Views.ModalView.extend({
+    Views.BulbRampingDelay = Views.ModalView.extend({
         template: _.template($('#bulbRampingDelay_template').html()),
+
+        events: {
+            "click .backLink": "back",
+        },
+
+        back: function (e) {
+            window.location.hash = '#timelapse/bulbramping';
+            e.stopImmediatePropagation();
+        },
 
          initialize: function () {
             this.setElement($("#container"));
@@ -1418,7 +1468,7 @@ $(document).ready(function () {
                 model: this.model
             });
 
-            this.$('#wrapper').append(statsView.render().el);
+            this.$('.pickerPage').append(statsView.render().el);
 
             var total_time_slots = [generate_slot('hours', 0, 2, 1, 'hr'), generate_slot('minutes', 0, 59, 5, 'min')];
 
@@ -1444,12 +1494,12 @@ $(document).ready(function () {
                 },
             }).scroller('setValue', getSettings(), false, 0);
 
-
+            RadianApp.UI.centerVertically('.block-info');
             return this;
         }
     });
 
-    Views.BulbrampingDuration = Views.ModalView.extend({
+    Views.BulbRampingDuration = Views.ModalView.extend({
         template: _.template($('#bulbRampingDuration_template').html()),
 
         initialize: function () {
@@ -1458,6 +1508,14 @@ $(document).ready(function () {
             RadianApp.app.visibleTimeLapse.bind('change:durationMinutes', this.updateDurationMinutes, this);
         },
 
+        events: {
+            "click .backLink": "back",
+        },
+
+        back: function (e) {
+            window.location.hash = '#timelapse/bulbramping';
+            e.stopImmediatePropagation();
+        },
 
         updateDurationHours: function () {
             this.$('#durationHours').html(RadianApp.app.visibleTimeLapse.get('durationHours'));
@@ -1475,7 +1533,7 @@ $(document).ready(function () {
             var statsView = new Views.BulbRampStatsBoxView({
                 model: this.model
             });
-            this.$('#wrapper').append(statsView.render().el);
+            this.$('.pickerPage').append(statsView.render().el);
 
             var total_time_slots = [generate_slot('hours', 0, 3, 1, 'hr'), generate_slot('minutes', 0, 59, 1, 'min')];
 
@@ -1509,12 +1567,12 @@ $(document).ready(function () {
                 },
             }).scroller('setValue', getSettings(), false, 0);
 
-
+            RadianApp.UI.centerVertically('.block-info');
             return this;
         }
     });
 
-    Views.BulbrampingStartShutter = Views.ModalView.extend({
+    Views.BulbRampingStartShutter = Views.ModalView.extend({
         template: _.template($('#bulbRampingStartShutter_template').html()),
 
                 initialize: function () {
@@ -1522,6 +1580,14 @@ $(document).ready(function () {
             RadianApp.app.visibleTimeLapse.bind('change:startShutter', this.updateStartShutter, this);
         },
 
+        events: {
+            "click .backLink": "back",
+        },
+
+        back: function (e) {
+            window.location.hash = '#timelapse/bulbramping';
+            e.stopImmediatePropagation();
+        },
 
         updateStartShutter: function () {
             this.$('#startShutter').html(RadianApp.app.visibleTimeLapse.get('startShutter'));
@@ -1534,7 +1600,7 @@ $(document).ready(function () {
             var statsView = new Views.BulbRampStatsBoxView({
                 model: this.model
             });
-            this.$('#wrapper').append(statsView.render().el);
+            this.$('.pickerPage').append(statsView.render().el);
 
             var exposures = function() {
                 var temp_array = [];
@@ -1572,12 +1638,12 @@ $(document).ready(function () {
             }).scroller('setValue', getSettings(), false, 0);
 
             $('.ios .dwwl').css('min-width', '270px');
-
+            RadianApp.UI.centerVertically('.block-info');
             return this;
         }
     });
 
-    Views.BulbrampingExposureChange = Views.ModalView.extend({
+    Views.BulbRampingExposureChange = Views.ModalView.extend({
         template: _.template($('#bulbRampingExpChange_template').html()),
 
         initialize: function () {
@@ -1586,6 +1652,14 @@ $(document).ready(function () {
             RadianApp.app.visibleTimeLapse.bind('change:expType', this.updateExpType, this);
         },
 
+        events: {
+            "click .backLink": "back",
+        },
+
+        back: function (e) {
+            window.location.hash = '#timelapse/bulbramping';
+            e.stopImmediatePropagation();
+        },
 
         updateExpChange: function () {
             this.$('#expChange').html(RadianApp.app.visibleTimeLapse.get('expChange'));
@@ -1603,7 +1677,7 @@ $(document).ready(function () {
             var statsView = new Views.BulbRampStatsBoxView({
                 model: this.model
             });
-            this.$('#wrapper').append(statsView.render().el);
+            this.$('.pickerPage').append(statsView.render().el);
 
             var exp = ["-5", "-4.9", "-4.8", "-4.7", "-4.6", "-4.5", "-4.4", "-4.3", "-4.2", "-4.1", "-4", "-3.9", "-3.8", "-3.7", "-3.6", "-3.5", "-3.4", "-3.3", "-3.2", "-3.1", "-3", "-2.9", "-2.8", "-2.7", "-2.6", "-2.5", "-2.4", "-2.3", "-2.2", "-2.1", "-2", "-1.9", "-1.8", "-1.7", "-1.6", "-1.5", "-1.4", "-1.3", "-1.2", "-1.1", "-1", "-0.9", "-0.8", "-0.7", "-0.6", "-0.5", "-0.4", "-0.3", "-0.2", "-0.1", "0", "0.1", "0.2", "0.3", "0.4", "0.5", "0.6", "0.7", "0.8", "0.9", "1", "1.1", "1.2", "1.3", "1.4", "1.5", "1.6", "1.7", "1.8", "1.9", "2", "2.1", "2.2", "2.3", "2.4", "2.5", "2.6", "2.7", "2.8", "2.9", "3", "3.1", "3.2", "3.3", "3.4", "3.5", "3.6", "3.7", "3.8", "3.9", "4", "4.1", "4.2", "4.3", "4.4", "4.5", "4.6", "4.7", "4.8", "4.9", "5"];
             var wheel = {};
@@ -1635,7 +1709,7 @@ $(document).ready(function () {
                     RadianApp.app.visibleTimeLapse.set({'expType': expType[instance.values[1]]}, error);
                 },
             }).scroller('setValue', getSettings(), false, 0);
-
+            RadianApp.UI.centerVertically('.block-info');
             //console.log(RadianApp.app.visibleTimeLapse.get('expType'));
             //console.log(expType.indexOf(RadianApp.app.visibleTimeLapse.get('expType')));
             return this;
@@ -1656,6 +1730,16 @@ $(document).ready(function () {
             RadianApp.app.visibleTimeLapse.bind('change:timeDelayMinutes', this.updateTimeDelayMinutes, this);
         },
 
+        events: {
+            "click .backLink": "back",
+        },
+
+        back: function (e) {
+            window.location.hash = '#timelapse/advanced';
+            e.stopImmediatePropagation();
+        },
+
+
         updateTimeDelayHours: function () {
             this.$('#timeDelayHours').html(RadianApp.app.visibleTimeLapse.get('timeDelayHours'));
 
@@ -1672,7 +1756,7 @@ $(document).ready(function () {
             var statsView = new Views.StatsBoxView({
                 model: this.model
             });
-            this.$('#wrapper').append(statsView.render().el);
+            this.$('#container').append(statsView.render().el);
 
             var total_time_slots = [generate_slot('hours', 0, 240, 1, 'hr'), generate_slot('minutes', 0, 59, 1, 'min')];
 
@@ -1702,7 +1786,7 @@ $(document).ready(function () {
                     }
                 },
             }).scroller('setValue', getSettings(), false, 0);
-
+            RadianApp.UI.centerVertically('.block-info');
             return this;
         }
     });
@@ -1715,6 +1799,14 @@ $(document).ready(function () {
             RadianApp.app.visibleTimeLapse.bind('change:hold', this.updateHold, this);
         },
 
+        events: {
+            "click .backLink": "back",
+        },
+
+        back: function (e) {
+            window.location.hash = '#timelapse/advanced';
+            e.stopImmediatePropagation();
+        },
 
         updateHold: function () {
             this.$('#hold').html(RadianApp.app.visibleTimeLapse.get('hold'));
@@ -1752,6 +1844,7 @@ $(document).ready(function () {
                 },
             }).scroller('setValue', getSettings(), false, 0);
             $('.ios .dwwl').css('min-width', '270px');
+            RadianApp.UI.centerVerticallyPicker('.block-info');
             return this;
         }
     });
@@ -1763,8 +1856,9 @@ $(document).ready(function () {
             "click .backLink": "back",
         },
 
-        back: function () {
+        back: function (e) {
             window.location.hash = '#settings';
+            e.stopImmediatePropagation();
         },
 
         initialize: function () {
@@ -1809,7 +1903,7 @@ $(document).ready(function () {
                 },
             }).scroller('setValue', getSettings(), false, 0);
             $('.ios .dwwl').css('min-width', '270px');
-            RadianApp.UI.centerVertically('.block-info');
+            RadianApp.UI.centerVerticallyPicker('.block-info');
             return this;
         }
     });
@@ -1825,7 +1919,13 @@ $(document).ready(function () {
             'click #timedelay': 'timedelay',
             'click #speedramping': 'speedramping',
             'click #bulbramping': 'bulbramping',
-            'click #hold': 'hold'
+            'click #hold': 'hold',
+            "click .backLink": "back",
+        },
+
+
+        back: function () {
+            window.location.hash = '#timelapse';
         },
 
         timedelay: function() {
@@ -1964,57 +2064,7 @@ $(document).ready(function () {
     });
     Views.navigation = new Views.Navigation();
 
-    Views.timeLapseView = new Views.TimeLapseView({
-        model: RadianApp.app
-    });
-    Views.timeLapsePresetsView = new Views.TimeLapsePresetsView();
-    Views.timeLapseDegreesView = new Views.TimeLapseDegreesView({
-        model: RadianApp.app
-    });
-    Views.timeLapseTotalTimeView = new Views.TimeLapseTotalTimeView({
-        model: RadianApp.app
-    });
-    Views.timeLapseIntervalView = new Views.TimeLapseIntervalView({
-        model: RadianApp.app
-    });
-    Views.timeLapseUploadView = new Views.TimeLapseUploadView();
-    Views.timeLapseCountDownView = new Views.TimeLapseCountDownView();
-    Views.timeLapseCompletedView = new Views.TimeLapseCompletedView();
-    Views.timeLapseQueueView = new Views.TimeLapseQueueView({
-        model: RadianApp.app
-    });
 
-    Views.timeLapseAdvancedView = new Views.TimeLapseAdvancedView({
-        model: RadianApp.app
-    });
-
-    Views.speedRampingView =  new Views.SpeedRampingView({
-        model: RadianApp.app
-    });
-
-    Views.bulbRampingView =  new Views.BulbRampingView({
-        model: RadianApp.app
-    });
-
-    Views.bulbRampingDelay = new Views.BulbrampingDelay({
-        model: RadianApp.app
-    });
-
-    Views.bulbRampingDuration = new Views.BulbrampingDuration({
-        model: RadianApp.app
-    });
-
-    Views.bulbRampingStartShutter = new Views.BulbrampingStartShutter({
-        model: RadianApp.app
-    });
-
-    Views.bulbRampingExposureChange = new Views.BulbrampingExposureChange({
-        model: RadianApp.app
-    });
-
-    Views.timeLapseTimeDelayView = new Views.TimeLapseTimeDelay({
-        model: RadianApp.app
-    });
 
             //Launch the router
         RadianApp.router= new RadianApp.Router();
