@@ -766,7 +766,7 @@ span.delete{
 .presets-list li:first-child{border-color:rgb(70,70,70);}
 .presets-list .opener{
 	display:block;
-	padding:14px 5px 5px;
+	padding: 10px 5px 10px;
 	position:relative;
 }
 .presets-list .title{
