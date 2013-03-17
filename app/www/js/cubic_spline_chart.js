@@ -106,11 +106,48 @@ SplineChart = Backbone.Model.extend({
     return 5 * Math.round(value/5);
   },
 
+  findClosestPoint: function() {
+    var midpoint = (this.xmax-this.xmin)/2;
+    var slope = (this.ymax - this.ymin) / (this.xmax - this.xmin);
+    var upperMidpoint;
+    var lowerMidpoint;
+    
+    if(midpoint % 5 == 0) {
+      upperMidpoint = midpoint + 5;
+      lowerMidpoint = midpoint - 5;
+    } else {
+       upperMidpoint = this.roundToNearest(midpoint);
+       lowerPoint = this.roundToNearest(midpoint-5);
+    }
+    var lowerPoint = [this.xmin, this.ymin];
+    var upperPoint = [this.xmax, this.ymax];
+    for(var xpoint = lowerMidpoint; xpoint >= this.xmin; xpoint-=5) {
+      var ypoint = xpoint * slope;
+      if(ypoint % 5 == 0) {
+        lowerPoint = [xpoint, ypoint]
+        console.log("Lower Point");
+        console.log(lowerPoint);
+        break;
+      }
+    }
+
+    for(var xpoint = upperMidpoint; xpoint <= this.xmax; xpoint+=5) {
+      var ypoint = xpoint * slope;
+      if(ypoint % 5 == 0) {
+        upperPoint = [xpoint, ypoint]
+        console.log("Upper Point");
+        console.log(upperPoint);
+        break;
+      }
+    }
+
+    return [lowerPoint, upperPoint]
+  },
+
   setDefaultPoints:function() {
-    var lowerQuartilePoint = [this.roundToNearest((this.xmax-this.xmin)/4), this.roundToNearest((this.ymax - this.ymin)/4)];
-    var upperQuartilePoint = [this.roundToNearest(3*(this.xmax-this.xmin)/4), this.roundToNearest(3*(this.ymax - this.ymin)/4)];
-    this.addNewPoint(lowerQuartilePoint[0], lowerQuartilePoint[1], true);
-    this.addNewPoint(upperQuartilePoint[0], upperQuartilePoint[1], true);
+    var points = this.findClosestPoint();
+    this.addNewPoint(points[0][0], points[0][1], true);
+    this.addNewPoint(points[1][0], points[1][1], true);
     this.customized = false;
   },
 
@@ -486,8 +523,9 @@ SplineChart = Backbone.Model.extend({
     x = Math.max(x, this.xminData);
     x = Math.min(x, this.xmaxData);
 
-    if(x===this.xmaxData) x -= 5;
-    if(x===this.xminData) x += 5;
+    //Protect it from the edges of the graph
+    //if(x===this.xmaxData) x -= 5;
+    //if(x===this.xminData) x += 5;
 
     x = x.toFixed(precision);  // sometimes ends .XX99999999999 or .XX000000001 otherwise
     xStr = x + '';
@@ -505,8 +543,8 @@ SplineChart = Backbone.Model.extend({
     y = Math.min(y, this.ymaxData);
 
     //Protect it from the edges of the graph
-    if(y===this.ymaxData) y -= 5;
-    if(y===this.yminData) y += 5;
+    //if(y===this.ymaxData) y -= 5;
+    //if(y===this.yminData) y += 5;
 
     y = y.toFixed(precision);  // sometimes ends .XX99999999999 or .XX000000001 otherwise
     yStr = y + '';
