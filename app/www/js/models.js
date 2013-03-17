@@ -134,6 +134,7 @@ $(document).ready(function () {
             var finalExposure = this.getFinalShutter(attrs);
             var delayTotalSeconds = attrs.delayMinutes * 60 + attrs.delayHours * 60 * 60;
             var brampDurationTotalSeconds = attrs.durationMinutes * 60 + attrs.durationHours * 60 * 60;
+            var initialExposure = Number(attrs.startShutter);
 
             var error = {};
 
@@ -176,6 +177,16 @@ $(document).ready(function () {
                as long as final exp is 2 seconds less than interval. */
             if(attrs.isBulbRamping && !attrs.shouldContinue && (delayTotalSeconds + brampDurationTotalSeconds) >= durationTotalSeconds) {
                 error.message = "Delay + Bramp time cannot be longer than the total duration of your time-lapse!";
+            }
+
+            /* Initial exposure can at most = interval - 2 seconds */
+            if(attrs.isBulbRamping && initialExposure > intervalTotalSeconds - 2) {
+                error.message = "Your initial exposure can be at most 2 seconds less than your interval, otherwise Radian will move while you are still shooting";
+            }
+
+            /* Final exposure must be greater than 1/30s */
+            if(attrs.isBulbRamping && finalExposure < Number(1/30)) {
+                error.message = "You cannot have a final exposure faster than 1/30s.";
             }
 
             if(error.message) {
