@@ -798,7 +798,7 @@ $(document).ready(function () {
             RadianApp.app.visibleTimeLapse.bind('change:isClockwise', this.updateDirection, this);
         },
         updateDegrees: function () {
-            this.$('#wrapper #degrees').html(RadianApp.app.visibleTimeLapse.get('degrees') + '&deg;');
+            this.$('#degrees').html(RadianApp.app.visibleTimeLapse.get('degrees') + '&deg;');
         },
 
         updateDirection: function () {
