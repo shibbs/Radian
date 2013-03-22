@@ -16,6 +16,9 @@ $(document).ready(function () {
     var C = RadianApp.Constants;
     var Views = RadianApp.Views;
     var scrollTheme = isDroid ? 'android-ics' : 'ios';
+    if (isDroid) {
+        $('body').addClass('android');
+    }
 
     Backbone.View.prototype.close = function(){
       this.remove();

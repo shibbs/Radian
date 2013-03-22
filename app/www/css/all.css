@@ -1062,6 +1062,12 @@ span.delete{
 	width:100%; 
 }
 
+.android .pickerPage .bramp-stats, .android #abovePicker {
+	bottom: 116px;
+	position: fixed; 
+	width:100%; 
+}
+
 .bramp-stats {
 	position: fixed; 
 	width:100%; 
@@ -1274,12 +1280,6 @@ min-width: 30px;}
 
 .queue-list a {
 	color:#6e6e6e;
-}
-
-#abovePicker {
-	position: fixed;
-	bottom: 150px;
-	width: 100%;
 }
 
 
