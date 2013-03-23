@@ -341,6 +341,10 @@ h1{
 	top: -10px;
 }
 
+.fill {
+	max-width: 47px;
+}
+
 
 .step-nav .next.tappable-active {
 	background:rgb(30,30,30) url(../images/rightarrow_inactive.png) no-repeat 23px 10px !important;

@@ -330,6 +330,7 @@ $(document).ready(function () {
             } else {
                 this.$el.empty().append(this.template(RadianApp.app.visibleTimeLapse.getTemplateJSON()));
                 RadianApp.UI.centerVertically('#content');
+                $(".stats > div > div").textfill(14, 2);
             }
 
             // If we are currently running one don't simulate upload
