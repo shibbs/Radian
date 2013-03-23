@@ -288,6 +288,7 @@ h1{
 	color:#008bca;
 	border:5px solid #008bca;
 }
+/*
 .step-nav .prev,
 .step-nav .next{
 	width:23px;
@@ -304,26 +305,55 @@ h1{
 	-webkit-border-radius: 0;
 	border-radius: 0;
 	border:none;
+}*/
+
+.step-nav .next {
+	width: 70px;
+	height: 49px;
+	overflow: hidden;
+	text-indent: -9999px;
+	background: url(../images/btn-next.png) no-repeat 23px 10px;
+	background-size: 23px 34px;
+	margin: 2px 0 0 auto;
+	display: block;
+	-webkit-border-radius: 0;
+	border-radius: 0;
+	border: none;
+	position: absolute;
+	right: -14px;
+	top: -10px;
 }
+
+.step-nav .prev {
+	width: 70px;
+	height: 49px;
+	overflow: hidden;
+	text-indent: -9999px;
+	background: url(../images/btn-prev.png) no-repeat 24px 10px;
+	background-size: 23px 34px;
+	margin: 2px 0 0 auto;
+	display: block;
+	-webkit-border-radius: 0;
+	border-radius: 0;
+	border: none;
+	position: absolute;
+	left: -14px;
+	top: -10px;
+}
+
+
 .step-nav .next.tappable-active {
-	background:rgb(30,30,30) url(../images/rightarrow_inactive.png) no-repeat !important;
-	background-size:100% 100% !important;
+	background:rgb(30,30,30) url(../images/rightarrow_inactive.png) no-repeat 23px 10px !important;
+	background-size:23px 34px !important;
 }
 .step-nav .prev.tappable-active {
-	background:rgb(30,30,30) url(../images/leftarrow_selected.png) no-repeat !important;
-	background-size:100% 100% !important;
+	background:rgb(30,30,30) url(../images/leftarrow_selected.png) no-repeat 24px 10px !important;
+	background-size:23px 34px !important;
 }
 
 .step-nav .next.inactive-right {
-	background:rgb(30,30,30) url(../images/rightarrow_inactive.png) no-repeat !important;
-	background-size:100% 100% !important;
-}
-.step-nav .prev{
-	background:rgb(30,30,30) url(../images/btn-prev.png) no-repeat;
-	background-size:100% 100%;
-	-webkit-background-size:100% 100%;
-	-moz-background-size:100% 100%;
-	-o-background-size:100% 100%;
+	background:rgb(30,30,30) url(../images/rightarrow_inactive.png) no-repeat 23px 10px !important;
+	background-size:23px 34px !important;
 }
 .step-nav .prev-holder{
 	background:rgb(30,30,30);
@@ -1062,6 +1092,12 @@ span.delete{
 	width:100%; 
 }
 
+.android .pickerPage .bramp-stats, .android #abovePicker {
+	bottom: 116px;
+	position: fixed; 
+	width:100%; 
+}
+
 .bramp-stats {
 	position: fixed; 
 	width:100%; 
@@ -1274,12 +1310,6 @@ min-width: 30px;}
 
 .queue-list a {
 	color:#6e6e6e;
-}
-
-#abovePicker {
-	position: fixed;
-	bottom: 150px;
-	width: 100%;
 }
 
 
@@ -1776,6 +1806,9 @@ select.holo-spinner option { height: 32px; border-top: 1px #444 solid; }
 	font-family: "Conv_Gotham-Bold";
 	color: rgb(110, 110, 110);
 	text-transform: uppercase;
+	margin: 0px 100px;
+	text-overflow: ellipsis;
+	overflow: hidden;
 }
 
 #topNav .leftArea, .rightArea {
