@@ -20,6 +20,7 @@
                 newSize = minFontSizePx;
             }
             ourText.css("fontSize",newSize);  
+            ourText.css("lineHeight",newSize+"px");  
         }); 
     };  
 })(jQuery);
