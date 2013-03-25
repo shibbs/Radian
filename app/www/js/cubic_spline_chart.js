@@ -149,6 +149,8 @@ SplineChart = Backbone.Model.extend({
     this.addNewPoint(points[0][0], points[0][1], true);
     this.addNewPoint(points[1][0], points[1][1], true);
     this.customized = false;
+
+    this.addAxisLabels();
   },
 
   setPoints: function(points) {
@@ -169,13 +171,43 @@ SplineChart = Backbone.Model.extend({
 
   },
 
+  createXLabel: function(x) {
+    var div = $('#'+this.div_id);
+    var xLab = $('<div/>', {'class': 'cubic_spline_xlabel'});
+    var canvas = div.children('canvas')[0];
+    var width = parseInt(canvas.width);  
+    var height = parseInt(canvas.height);
+    var hours = Math.floor(Number(x) / 60);
+    var minutes = Math.round((Number(x) - (hours * 60)));
+    if(minutes < 10) {
+      minutes = '0'+ minutes;
+    }
+    var newXLabel = '';
+    if(hours) {
+      newXLabel += hours+"h";
+    }
+    newXLabel+=minutes+'m'
+    xLab.html(newXLabel);
+    xLab.css({left: (((x - this.xmin) * this.xfactor) - 15) + 'px', top: (height + 8) + 'px', visibility: 'visible'});
+    div.append(xLab);
+  },
+
+  createYLabel: function(y) {
+    var div = $('#'+this.div_id);
+    var yLab = $('<div/>', {'class': 'cubic_spline_ylabel'});
+    var canvas = div.children('canvas')[0];
+    var width = parseInt(canvas.width);  
+    var height = parseInt(canvas.height);
+    yLab.html(y+'&deg');
+    yLab.css({top: ((height - ((y - this.ymin) * this.yfactor)) - 10) + 'px', visibility: 'visible'});
+    div.append(yLab);
+  },
+
   addAxisLabels: function(div, width, height) {
-      var xAxisLabel = $('<div/>', {'class': 'cubic_spline_xaxis_label'});
-      xAxisLabel.css({width: width + 'px'});
-      div.append(xAxisLabel);
-      //var yAxisLabel = $('div', {'class': 'cubic_spline_yaxis_label'});
-      //yAxisLabel.update().css({top: (height / 2 - 9) + 'px'});
-      //div.insert(yAxisLabel);
+    this.createXLabel(this.xmin);
+    this.createXLabel(this.xmax);
+    this.createYLabel(this.ymin);
+    this.createYLabel(this.ymax);
   },
   addPointLabelsX: function(i) {
     var div = $('#'+this.div_id);
@@ -186,7 +218,7 @@ SplineChart = Backbone.Model.extend({
   },
   addPointLabelsY: function(i) {
     var div = $('#'+this.div_id);
-    yLab = $('<div/>', {'class': 'cubic_spline_ylabel'});
+    var yLab = $('<div/>', {'class': 'cubic_spline_ylabel'});
     this.yLabs.splice(i, 0, yLab);
     div.append(yLab);
     return yLab;
