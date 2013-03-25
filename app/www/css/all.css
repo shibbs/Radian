@@ -1810,9 +1810,12 @@ select.holo-spinner option { height: 32px; border-top: 1px #444 solid; }
 	font-family: "Conv_Gotham-Bold";
 	color: rgb(110, 110, 110);
 	text-transform: uppercase;
-	margin: 0px 100px;
 	text-overflow: ellipsis;
 	overflow: hidden;
+}
+
+#topNav .title.main {
+	margin: 0px 100px;
 }
 
 #topNav .leftArea, .rightArea {
