@@ -221,6 +221,7 @@ $(document).ready(function () {
         },
 
         toggleShow: function(e) {
+            alert('nice');
             if(e) this.endEvent(e);
             this.$('.box').toggleClass('hide');
             this.open = !this.open;
@@ -232,7 +233,7 @@ $(document).ready(function () {
             var scroller = this.scroller;
             setTimeout(function() { scroller.refresh()}, 0); 
 
-        },
+        }
 
     });
 
@@ -376,17 +377,9 @@ $(document).ready(function () {
             var temp = new Views.TimeLapseQueueItemView(model);
             this.$('#list').prepend(temp.render().$el);
             var scroller = this.scroller;
+            temp.scroller = scroller;
             setTimeout(function() { scroller.refresh()}, 0);
         },
-
-        insertQueue: function (model) {
-            var me = this;
-            var scroller = this.scroller;
-            var temp = new Views.TimeLapseQueueHomeView(model, scroller);
-            this.$('#list').append(temp.render().$el);
-            setTimeout(function() { scroller.refresh()}, 0);
-        },
-
 
         render: function () {
             Views.navigation.selectStep(2);
@@ -618,6 +611,7 @@ $(document).ready(function () {
         events: {
             "click .delete": "deleteEvent", 
             "click .canSort": "updateIndex", 
+            "click": "toggleShow", 
         },
 
         updateIndex: function(me) {
@@ -652,10 +646,25 @@ $(document).ready(function () {
         },
 
         render: function() {
-            var elem = this.template({name: this.model.get('name')});
+            var elem = this.template(this.model.getTemplateJSON());
             this.$el.empty().append(elem);
             return this;
         },
+
+        toggleShow: function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            this.$('.box').toggleClass('hide');
+            this.open = !this.open;
+            if(this.open) {
+                this.$('.opener .delete').addClass('hide');
+            } else if (!this.open) {
+                this.$('.opener .delete').removeClass('hide');
+            }
+            var scroller = this.scroller;
+            setTimeout(function() { scroller.refresh()}, 0); 
+
+        }
 
     });
 

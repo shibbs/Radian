@@ -474,7 +474,7 @@ left: 0px;font-weight: bold;'>
 		<script type="text/template" id="timeLapse_Queue_template">
 		    <div>
 				<div id="topNav">
-					<div class="title main"><%= name %></div>
+					<div class="title main">QUEUE</div>
 					<div class='leftArea'></div>
 					<div class='rightArea' id='clearLink'><div class='btn'>CLEAR</div></div>
 				</div>
@@ -496,6 +496,7 @@ right: 0;">
 					</div>
 				</div>
 			</div>
+									<div style="position:absolute; z-index: 80; bottom: 0; left:0; right:0; height: 64px; width:100%; background-color:rgb(30,30,30)"></div>
 		</script>
 		
 		<!-- TimeLapsePresets Template -->
@@ -579,40 +580,53 @@ left: 0px;font-weight: bold;'>
 		</script>
 
 
-
-		<!-- TimeLapseQueue Template -->
-		<script type="text/template" id="timeLapseQueue_template">
-			<div>
-				<header id="header" style="z-index:100; position: relative; ">
-					<span class="no-btn">&nbsp;</span>
-					<a href="#timelapse" class="highlighted-btn alignright">DONE</a>
-					<h1>QUEUE</h1>
-				</header>
-				<div style="position:absolute; z-index: 80; top: 0; left:0; right:0; height: 64px; width:100%; background-color:rgb(30,30,30)">
-				</div>
-				<div id="scrollwrapper" style="	position:absolute; z-index:1;
-	top:64px; bottom:0px; left:0;
-	width:100%;
-	overflow:auto;">
-				<div id="scroller" style=" 	width:100%;
-	padding:0;">
-				<ul id="list" class="list sortable needsclick" style="position:relative; width:100%; padding:0; margin:0" >
-					<li id="addPresets">
-						<a href="#" class="add-link">ADD PRESET TO QUEUE</a>
-					</li>
-
-				</ul>
-				</div>
-				</div>
-			</div>
-		</script>
-
 		<!-- TimeLapseQueueItem Template -->
 		<script type="text/template" id="timeLapseQueueItem_template">
 	
 				<div class="handle"></div>
 				<a href="#" class="delete" style='z-index:100'></a>
 				<a href="#" class="list-link"><%= name %></a>
+
+				<div class="box hide">
+							<div class="box-holder">
+								<div class="row">
+									<span style='margin-bottom: 5px;
+left: 0px;font-weight: bold;'>
+									<% if (timeLapse === 1) { %>
+										PAN
+									 <% } else { %>
+									 	TILT
+									 <% } %>
+									</span>
+								</div>
+								<div class="row">
+									<strong class="mark"><%= degrees %></strong>
+									<span><%= directionAbr %></span>
+								</div>
+								<div class="row">
+		  							<% if (totalTimeHours !== 0) { %>
+		                                <strong class="mark"><%= totalTimeHours %></strong>
+		                                 <span>hr</span>
+		                                 <% } %><strong class="mark"><%= totalTimeMinutes %></strong>
+									<span>min</span>
+								</div>
+								<div class="row">
+            						<% if (intervalMinutes !== 0) { %>
+            						<strong class="mark"><%= intervalMinutes %></strong>
+									<span>min</span><% } %><strong class="mark"><%= intervalSeconds %></strong>
+									<span>sec</span>
+								</div>
+								<div class="small-btn-row">
+									 <% if (isTimeDelay) { %> <a class="light-btn" href="#">DELAY</a> <% } %>
+									<% if (isSpeedRamping) { %><a href="#"  class="light-btn">SRAMP</a><% } %>
+									<% if (isBulbRamping) { %> <a href="#" class="light-btn">BRAMP</a><% } %>
+									<% if (hold!=='.25') {  %><a href="#" class="light-btn">HOLD</a><% } %>
+								</div>
+								<div class="btn-row">
+									<a href="#" class="save-btn norm">LOAD PRESET</a>
+								</div>
+							</div>
+						</div>
 
 		</script>
 
