@@ -93,10 +93,6 @@ $(document).ready(function () {
             this.getStats());
         },
 
-        parse: function(json) {
-            alert('worked');
-        },
-
         calculateActualDegrees: function(totalPhotos) {
             var STEPS_PER_DEGREE = 57.7;
             var totalDegrees = this.get('degrees'); //INSERT
@@ -135,7 +131,8 @@ $(document).ready(function () {
             var delayTotalSeconds = attrs.delayMinutes * 60 + attrs.delayHours * 60 * 60;
             var brampDurationTotalSeconds = attrs.durationMinutes * 60 + attrs.durationHours * 60 * 60;
             var initialExposure = Number(attrs.startShutter);
-
+            var lastPoint = attrs.speedRampingPoints[attrs.speedRampingPoints.length-1];
+            console.log(lastPoint)
             var error = {};
 
             /* Radian cannot exceed 5 degrees per second. If user selects an interval in 
@@ -187,6 +184,20 @@ $(document).ready(function () {
             /* Final exposure must be greater than 1/30s */
             if(attrs.isBulbRamping && finalExposure < Number(1/30)) {
                 error.message = "You cannot have a final exposure faster than 1/30s.";
+            }
+
+
+            /* Degrees must not go below the last custom speed ramping point */
+            if(attrs.isSpeedRamping && lastPoint &&  attrs.degrees < lastPoint[1]) {
+                error.message = "You currently have custom speed ramping settings with a point at " + lastPoint[1] + "&deg;.  If you want to reduce the number of degrees, you can reset the speed ramp settings.";
+            }
+
+            /* Time must not go below the last custom speed ramping point */
+            if(attrs.isSpeedRamping && lastPoint && lastPoint[0]*60 > durationTotalSeconds) {
+
+                var hours = Math.round((lastPoint[0]-30) / 60);
+                var minutes = lastPoint[0] - (hours * 60);
+                error.message = "You currently have custom speed ramping settings with a point at " +  hours + "h" +  minutes + "m.  If you want to reduce the duration, you can reset the speed ramp settings.";
             }
 
             if(error.message) {
