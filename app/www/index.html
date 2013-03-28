@@ -363,65 +363,6 @@ Hold. By default, everytime Radian triggers your camera to take a photo, it send
 			</div>
 		</script>
 
-
-		<!-- TimeLapse Template -->
-		<script type="text/template" id="!timeLapse_template">
-		    <div id="wrapper" class="inner-page">
-		   		<div id="topNav">
-					<div class="title">FRAMES PER SECOND</div>
-					<div class='leftArea parentHighlight backLink'><a href="#settings" class="btn-back parentHighlightNeeded"></a></div>
-					<div class='rightArea'></div>
-				</div>
-				<header id="header">
-					<a href="#" class="alignright">SAVE</a>
-					<h1>RADIAN</h1>
-				</header>
-				<ul class="inform-list">
-					<li id="degreeLink">
-						<a href="#timelapse/degrees">DEGREES</a>
-						<div class="holder">
-							<strong class="mark"><%= degrees %></strong>
-							<span><%= directionAbr %></span>
-						</div>
-					</li>
-					<li id="totalTimeLink">
-						<a href="#timelapse/totaltime">TOTAL TIME</a>
-						<div class="holder">
-                            <% if (totalTimeHours !== 0) { %>
-                                <strong class="mark"><%= totalTimeHours %></strong>
-							<span>hr</span>
-                                 <% } %>
-							<strong class="mark"><%= totalTimeMinutes %></strong>
-							<span>min</span>
-						</div>
-					</li>
-					<li id="intervalLink">
-						<a href="#timelapse/interval">INTERVAL</a>
-						<div class="holder">
-            <% if (intervalMinutes !== 0) { %>
-
-							<strong class="mark"><%= intervalMinutes %></strong>
-                                            
-							<span>min</span>
-                <% } %>
-							<strong class="mark"><%= intervalSeconds %></strong>
-							<span>sec</span>
-						</div>
-					</li>
-					<li id="advancedLink">
-						<a href="#timelapse/advanced">ADVANCED</a>
-					</li>
-				</ul>
-				<div class="total-box">
-					<div class="holder">
-						<span><strong class="photo"><%= totalPhotos %></strong> photos</span>
-						<span><strong class="photo-info"><%= degreesPerPhoto %>&deg;</strong>/photo</span>
-						<span><strong class="time"><%= frameRate %></strong> seconds</span>
-					</div>
-				</div>
-			</div>
-		</script>
-
 		<!-- TimeLapseQueueItem Template -->
 		<script type="text/template" id="timeLapseQueueItemHome_template">
 					<a href="#" class="opener">
@@ -952,7 +893,7 @@ color:rgb(110,110,110)'>
 		</script>
 
 				<script type="text/template" id="settings_template">
-		    <div id="wrapper" class="inner-page">
+		    <div>
 				<header id="header">
 					<a href="#home" class="btn-back"></a>
 					<span class="no-btn no-back alignright">&nbsp;</span>
