@@ -1083,9 +1083,17 @@ $(document).ready(function () {
             } else {
                 Views.navigation.setNext(false);
             }
-            Views.navigation.setPrevious(true, "#timelapse");
+            if(RadianApp.app.isRunningSingleTimeLapse) {
+                Views.navigation.setPrevious(true, "#timelapse");
+            } else {
+                Views.navigation.setPrevious(true, "#queue");
+            }
+            
             this.$el.empty().append(this.template(RadianApp.app.visibleTimeLapse.getTemplateJSON()));
             RadianApp.UI.centerVertically('#content');
+            if(!RadianApp.app.isRunningSingleTimeLapse) {
+                $('.info').hide();
+            }
             return this;
         },
 
@@ -1095,6 +1103,9 @@ $(document).ready(function () {
         },
 
         moreInfo: function () {
+                if(!RadianApp.app.isRunningSingleTimeLapse) {
+                    return;
+                }
                  $.modal("<div class='error' style='width: 256px; font-family:\"Conv_Gotham-Medium\", Helvetica, Arial, sans-serif; font-size: 13.5px; color: rgb(30,30,30)'> \
         <div>"+ (_.template($('#timeLapseMoreInfo_template').html()))(RadianApp.app.visibleTimeLapse.getTemplateJSON()) +"</div> \
         <div class='cancelBox'> \
