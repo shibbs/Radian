@@ -115,14 +115,17 @@ $(document).ready(function () {
         },
 
         newTimeLapseLink: function() {
+            RadianApp.app.isRunningSingleTimeLapse = true;
             window.location.hash = "timelapse";
         },
 
         loadPresetLink: function() {
+            RadianApp.app.isRunningSingleTimeLapse = true;
             window.location.hash = "presets";
         },
 
         createQueueLink: function() {
+            RadianApp.app.isRunningSingleTimeLapse = false;
             window.location.hash = "queue";
         },
 

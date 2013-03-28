@@ -304,7 +304,7 @@ $(document).ready(function () {
         },
 
         runTimeLapse: function(timeLapse, finishedCallback) {
-            if(this.queue.length > 0) {
+            if(!this.isRunningSingleTimeLapse) {
                 this.isQueue = true;
                 this.runningTimeLapses = this.queue.models;
                 var bramps = this.queue.where({isBulbRamping: true});
@@ -322,7 +322,7 @@ $(document).ready(function () {
 
             var that = this;
             var appendCallback = function() {
-                var pause = 4;
+                var pause = 6;
                 var runningTimeLapse = RadianApp.app.getRunningTimeLapse();
                 if(runningTimeLapse.get('intervalMinutes') > 0 || runningTimeLapse.get('intervalSeconds') >= 4) {
                     pause += 2;
@@ -336,6 +336,7 @@ $(document).ready(function () {
         },
 
         getNumTimeLapses: function() {
+            if(this.isRunningSingleTimeLapse) return 1;
             return this.runningTimeLapses.length;
         },
 
