@@ -14,7 +14,7 @@ $(document).ready(function () {
             name: "RADIAN",
             current: true,
             dateCreated: RadianApp.Utilities.formatDate(new Date()),
-            timeLapse: C.TimeLapseType.NONE,
+            timeLapse: C.TimeLapseType.PAN,
             degrees: 45,
             totalTimeHours: 1,
             totalTimeMinutes: 0,

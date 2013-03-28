@@ -101,60 +101,34 @@ $(document).ready(function () {
             Views.navigation.unhide();
             Views.navigation.selectStep(1);
             Views.navigation.setPrevious(false);
-            if(RadianApp.app.visibleTimeLapse.get("timeLapse") === RadianApp.Constants.TimeLapseType.NONE) {
-                Views.navigation.setNext(true);
-                $('.next').addClass('inactive-right');
-            } else {
-                Views.navigation.setNext(true, "#timelapse");
-            }
-
-            this.$el.empty().append(this.template(RadianApp.app.visibleTimeLapse.getTemplateJSON()));
+            Views.navigation.setNext(false);
+            var json = _.extend(RadianApp.app.visibleTimeLapse.getTemplateJSON(), {num_presets: RadianApp.app.presets.length});
+            this.$el.empty().append(this.template(json));
 
         },
 
         events: {
-            "click #pan": "pan",
-            "click #tilt": "tilt",
-            "touchstart #pan": "panStart",
-            "touchstart #tilt": "tiltStart",
-            "touchend #pan": "panEnd",
-            "touchend #tilt": "tiltEnd",
+            "click #newTimeLapse": "newTimeLapseLink",
+            "click #loadPresetLink": "loadPresetLink",
+            "click #createQueueLink": "createQueueLink",
+            "click #settingsLink": "settingsLink",
         },
 
-        pan: function(e) {
-            RadianApp.app.visibleTimeLapse.set("timeLapse", RadianApp.Constants.TimeLapseType.PAN);
-            $('.next').removeClass('inactive-right');
-            window.location.hash = '#timelapse';
-            e.stopImmediatePropagation();
-            e.preventDefault();
-            return false;
+        newTimeLapseLink: function() {
+            window.location.hash = "timelapse";
         },
 
-        tilt: function(e) {
-            RadianApp.app.visibleTimeLapse.set("timeLapse", RadianApp.Constants.TimeLapseType.TILT);
-            $('.next').removeClass('inactive-right');
-            window.location.hash = '#timelapse';
-            e.stopImmediatePropagation();
-            e.preventDefault();
-            return false;
+        loadPresetLink: function() {
+            window.location.hash = "presets";
         },
 
-        panStart: function() {
-           // this.$('#tilt').removeClass('btn-blue');
+        createQueueLink: function() {
+            window.location.hash = "queue";
         },
 
-        tiltStart: function() {
-           // this.$('#pan').removeClass('btn-blue');
+        settingsLink: function() {
+            window.location.hash = "settings";
         },
-
-        panEnd: function() {
-          // this.$('#tilt').addClass('btn-blue');
-        },
-
-        tiltEnd: function() {
-          // this.$('#pan').addClass('btn-blue');
-        },
-
 
     });
 
@@ -263,12 +237,12 @@ $(document).ready(function () {
     Views.TimeLapseView = Views.BaseView.extend({
         template: _.template($('#timeLapse_template').html()),
         qtemplate: _.template($('#timeLapse_Queue_template').html()),
+
         events: {
             "click #degreeLink": "degreeLink",
             "click #totalTimeLink": "totalTimeLink",
             "click #intervalLink": "intervalLink",
-            "click #presetsLink": "presetsLink",
-            "click #queueLink": "queueLink",
+            "click #saveLink": "saveLink",
             "click #advancedLink": "advancedLink",
         },
 
@@ -287,78 +261,7 @@ $(document).ready(function () {
             return false;
         },
 
-        presetsLink: function () {
-            window.location.hash = '#timelapse/presets';
-            return false;
-
-        },
-
-        queueLink: function () {
-            window.location.hash = '#timelapse/queue';
-            return false;
-        },
-
-        advancedLink: function () {
-            window.location.hash = '#timelapse/advanced';
-            return false;
-
-        },
-
-        insertQueue: function (model) {
-            var me = this;
-            var scroller = this.scroller;
-            var temp = new Views.TimeLapseQueueHomeView(model, scroller);
-            this.$('#list').append(temp.render().$el);
-            setTimeout(function() { scroller.refresh()}, 0);
-        },
-
-        render: function () {
-            Views.navigation.selectStep(2);
-            Views.navigation.unhide();
-            Views.navigation.setNext(true, "#timelapse/upload");
-            Views.navigation.setPrevious(true, "#home");
-
-            if(RadianApp.app.queue.length > 0) {
-                this.$el.empty().append(this.qtemplate(RadianApp.app.visibleTimeLapse.getTemplateJSON()));
-                var scroller = new iScroll('scrollwrapper', {});
-                this.scroller = scroller;
-                var models = RadianApp.app.queue.models;
-                for (var i = 0; i < models.length; i++) {
-                    this.insertQueue(models[i]);
-                };
-                setTimeout(function() { scroller.refresh()}, 0);  
-            } else {
-                this.$el.empty().append(this.template(RadianApp.app.visibleTimeLapse.getTemplateJSON()));
-                RadianApp.UI.centerVertically('#content');
-                $(".stats > div > div").textfill(14, 2);
-            }
-
-            // If we are currently running one don't simulate upload
-            //$('#thirdstep').attr('href', '#timelapse/current');
-            return this;
-        }
-    });
-
-    var vent = _.extend({}, Backbone.Events);
-
-
-    
-
-    Views.TimeLapsePresetItemView = Backbone.View.extend({
-        tag: 'li',
-        template: _.template($('#timeLapsePresetItem_template').html()),
-        events: {
-            "click .btn-row": "mainAction",
-            "click .delete": "deleteEvent",
-            "click": "toggleShow",    
-        },
-
-        endEvent: function(e) {
-            e.preventDefault();
-            e.stopImmediatePropagation();
-        },
-
-        eventCurrent: function(e) {
+        saveLink: function (e) {
             var me = this;
             var isSaved = false;
             $.modal("<div id='savePreset'> \
@@ -399,13 +302,155 @@ $(document).ready(function () {
 
                                 }
                             });
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            return false;
+        },
+
+        advancedLink: function () {
+            window.location.hash = '#timelapse/advanced';
+            return false;
+
+        },
+
+        saveNewPreset: function() {
+            var name = $('#presetName').val().toUpperCase();
+            if (name.length === 0) return;
             
-            this.endEvent(e);
+            var newTimeLapse = RadianApp.app.saveTimeLapseAsPreset(RadianApp.app.visibleTimeLapse, name);
+            this.$('.title').html(name);
+            RadianApp.app.loadTimeLapse(newTimeLapse);
+            $.modal.close(); 
+        },
+
+        insertQueue: function (model) {
+            var me = this;
+            var scroller = this.scroller;
+            var temp = new Views.TimeLapseQueueHomeView(model, scroller);
+            this.$('#list').append(temp.render().$el);
+            setTimeout(function() { scroller.refresh()}, 0);
+        },
+
+        render: function () {
+            Views.navigation.selectStep(2);
+            Views.navigation.unhide();
+            Views.navigation.setNext(true, "#timelapse/upload");
+            Views.navigation.setPrevious(true, "#home");
+            this.$el.empty().append(this.template(RadianApp.app.visibleTimeLapse.getTemplateJSON()));
+            RadianApp.UI.centerVertically('#content');
+            $(".stats > div > div").textfill(14, 2);
+            return this;
+        }
+    });
+
+
+    Views.TimeLapseQueueView = Views.BaseView.extend({
+        template: _.template($('#timeLapse_Queue_template').html()),
+
+        events: {
+            'click #addPresets': 'navigateToAddView',
+            'click #clearLink': 'clear'
+        },
+        clear: function(e) {
+            RadianApp.app.queue.reset();
+            $('li.canSort').remove();
+        },
+        navigateToAddView: function(e) {
+            e.preventDefault();
+            if(RadianApp.app.queue.length >= 4) {
+                RadianApp.Utilities.errorModal('You may only have four presets in the queue.')
+                return;
+            }
+            window.location.hash = '#timelapse/queue/add';
+            var addView = new Views.TimeLapseQueueAddView();
+            addView.render();
+        },
+
+        insertNewQueue: function (model) {
+            var me = this;
+            var temp = new Views.TimeLapseQueueItemView(model);
+            this.$('#list').prepend(temp.render().$el);
+            var scroller = this.scroller;
+            setTimeout(function() { scroller.refresh()}, 0);
+        },
+
+        insertQueue: function (model) {
+            var me = this;
+            var scroller = this.scroller;
+            var temp = new Views.TimeLapseQueueHomeView(model, scroller);
+            this.$('#list').append(temp.render().$el);
+            setTimeout(function() { scroller.refresh()}, 0);
+        },
+
+
+        render: function () {
+            Views.navigation.selectStep(2);
+            Views.navigation.unhide();
+            Views.navigation.setNext(true, "#timelapse/upload");
+            Views.navigation.setPrevious(true, "#home");
+
+            this.$el.empty().append(this.template(RadianApp.app.visibleTimeLapse.getTemplateJSON()));
+            var handleClass = 'handle';
+
+            $('.sortable').sortable({
+                handle: '.'+handleClass,
+                axis: "y",
+                delay: 250,
+                items: '.canSort',
+                stop: function( event, ui ) { 
+                    var list = $('#list > li[order]');
+                    var models = RadianApp.app.queue.models;
+                    for (var i = 0; i < models.length; i++) {
+                        var model = models[i];
+                        model.set('order', Number(list.index($('#list > li[order='+(model.get('order'))+']')))+1);
+                    };
+                    RadianApp.app.queue.sort();
+                    RadianApp.app.saveQueue();
+                },
+            });
+
+            var scroller = new iScroll('scrollwrapper', {
+                userDisabled: function(e) {
+                   return e.srcElement.className===handleClass;
+                }
+            });
+            this.scroller = scroller;
+            $('#scrollwrapper').css('overflow', 'visible');
+
+            var models = RadianApp.app.queue.models;
+
+            for (var i = models.length -1; i >= 0; i--) {
+                this.insertNewQueue(models[i]);
+            };
+            
+            setTimeout(function() { scroller.refresh()}, 0); 
+
+            return this;
+        }
+    });
+
+    var vent = _.extend({}, Backbone.Events);
+
+
+    
+
+    Views.TimeLapsePresetItemView = Backbone.View.extend({
+        tag: 'li',
+        template: _.template($('#timeLapsePresetItem_template').html()),
+        events: {
+            "click .btn-row": "mainAction",
+            "click .delete": "deleteEvent",
+            "click": "toggleShow",    
+        },
+
+        endEvent: function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
         },
 
         loadEvent: function(e) {
             RadianApp.app.loadTimeLapse(this.model);
-            window.location.hash = '#home';
+            window.location.hash = '#timelapse';
             this.endEvent(e);
         },
 
@@ -431,12 +476,9 @@ $(document).ready(function () {
         initialize: function(model, scroller, current, parent) {
             this.parent = parent;
             this.model = model;
-            this.current = current ? current : false;
             this.scroller = scroller;
-            this.mainAction = current ? this.eventCurrent : this.mainAction;
             vent.on('presets:editmode', this.enterEditMode, this);
             vent.on('presets:leaveeditmode', this.leaveEditMode, this);
-            this.open = current ? current : false;
         },
 
         mainAction: function(e) {
@@ -477,21 +519,10 @@ $(document).ready(function () {
             var me = this;
             this.$el.empty().append(elem);
             this.$('.opener .delete').addClass('hide');
-            if(this.current) {
-                this.$('.box').removeClass('hide');
-                this.$('.box').addClass('show');
-                this.$('.save-btn').html('SAVE AS PRESET');
-            }
             return this;
         },
 
         enterEditMode: function() {
-            if(this.current) {
-                this.$el.css('display', 'none');
-                var scroller = this.scroller;
-                setTimeout(function() { scroller.refresh()}, 0); 
-                return;
-            }
             this.deleteMode = true;
             this.$('.save-btn').html('DELETE');
             this.$('.save-btn').removeClass('norm');
@@ -500,12 +531,6 @@ $(document).ready(function () {
         },
 
         leaveEditMode: function() {
-            if(this.current) {
-                var scroller = this.scroller;
-                setTimeout(function() { scroller.refresh()}, 0); 
-                this.$el.css('display', 'block');
-                return;
-            }
             this.deleteMode = false;
             this.$('.save-btn').html('LOAD PRESET');
             this.$('.save-btn').removeClass('delete');
@@ -519,6 +544,11 @@ $(document).ready(function () {
 
         events: {
             "click #edit": "editMode",
+            "click #backLink": "backLink"
+        },
+
+        backLink: function() {
+            window.location.hash = "#home";
         },
 
         editMode: function(e) {
@@ -562,8 +592,6 @@ $(document).ready(function () {
             var temp = RadianApp.app.visibleTimeLapse.clone();
             temp.set('current', true);
             temp.set('dateCreated', RadianApp.Utilities.formatDate(new Date(), true));
-            var currentView = new Views.TimeLapsePresetItemView(temp, scroller, true, this);
-            this.$('#list').append(currentView.render().$el);
             var models = RadianApp.app.presets.models;
 
             for (var i = models.length -1; i >= 0; i--) {
@@ -627,7 +655,7 @@ $(document).ready(function () {
     });
 
 
-
+    /*
 
     Views.TimeLapseQueueView = Views.ModalView.extend({
         template: _.template($('#timeLapseQueue_template').html()),
@@ -699,7 +727,7 @@ $(document).ready(function () {
             return this;
         }
     });
-
+    */
 
      Views.TimeLapseQueueAddItemView = Backbone.View.extend({
         tag: 'li',
@@ -746,7 +774,7 @@ $(document).ready(function () {
         template: _.template($('#timeLapseQueueAdd_template').html()),
 
         events: {
-            'click #save': 'save'
+            'click #backLink': 'save'
         },
 
         save: function() {
@@ -754,6 +782,7 @@ $(document).ready(function () {
                 RadianApp.app.addPresetToQueue(timelapse);
             });
             this.collection.reset();
+            window.location.hash = "queue"
         },
 
         collection: new (Backbone.Collection.extend({
@@ -800,9 +829,19 @@ $(document).ready(function () {
 
         initialize: function () {
             this.setElement($("#container"));
+            RadianApp.app.visibleTimeLapse.bind('change:timeLapse', this.updateType, this);
             RadianApp.app.visibleTimeLapse.bind('change:degrees', this.updateDegrees, this);
             RadianApp.app.visibleTimeLapse.bind('change:isClockwise', this.updateDirection, this);
         },
+        
+        updateType: function () {
+            var name = "PAN";
+            if(RadianApp.app.visibleTimeLapse.get('timeLapse')==RadianApp.Constants.TimeLapseType.TILT) {
+                name = "TILT";
+            }
+            this.$('#timeLapseType').html(name);
+        },
+
         updateDegrees: function () {
             this.$('#degrees').html(RadianApp.app.visibleTimeLapse.get('degrees') + '&deg;');
         },
@@ -838,7 +877,7 @@ $(document).ready(function () {
             $('#container').append(statsView.render().el);
 
             var getSettings = function() {
-                return [String(RadianApp.app.visibleTimeLapse.get('degrees')), C.DirectionAbbr(RadianApp.app.visibleTimeLapse.get('isClockwise'))];
+                return [RadianApp.app.visibleTimeLapse.get('timeLapse'), String(RadianApp.app.visibleTimeLapse.get('degrees')), C.DirectionAbbr(RadianApp.app.visibleTimeLapse.get('isClockwise'))];
             };
             var error= {
                 error: function () {
@@ -849,7 +888,10 @@ $(document).ready(function () {
                 theme: scrollTheme,
                 display: 'inline',
                 mode: 'scroller',
-                wheels: [{
+                wheels: [{'Type': {
+                    1: 'PAN',
+                    2: 'TILT' //TODO: remove constants
+                }}, {
                     'Degrees': create_slot(0, 360, 5)
                 }, {
                     'Direction': {
@@ -860,13 +902,14 @@ $(document).ready(function () {
                 height: 35,
                 rows: 3,
                 onChange: function (valueText, instance) {
-                    RadianApp.app.visibleTimeLapse.set({'isClockwise': instance.values[1] == 'CW'} , error);
-                    RadianApp.app.visibleTimeLapse.set({'degrees': Number(instance.values[0])}, error);
+                    RadianApp.app.visibleTimeLapse.set({'timeLapse': Number(instance.values[0])} , error);
+                    RadianApp.app.visibleTimeLapse.set({'isClockwise': instance.values[2] == 'CW'} , error);
+                    RadianApp.app.visibleTimeLapse.set({'degrees': Number(instance.values[1])}, error);
                 },
             }).scroller('setValue', getSettings(), false, 0);
             RadianApp.UI.centerVerticallyPicker('.block-info');
 
-
+            this.$('#picker').addClass('threePicker');
             return this;
         },
 
