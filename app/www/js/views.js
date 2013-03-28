@@ -1319,7 +1319,8 @@ $(document).ready(function () {
 
         render: function () {
             this.$el.empty().append(this.template());
-            this.count = 4;
+            RadianApp.UI.centerVertically('#vcenter');
+            this.count = 6;
             var runningTimeLapse = RadianApp.app.getRunningTimeLapse();
             if(runningTimeLapse.get('intervalMinutes') > 0 || runningTimeLapse.get('intervalSeconds') >= 4) {
                 this.count += 2;
