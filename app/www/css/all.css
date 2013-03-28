@@ -667,7 +667,7 @@ h1{
 
 }
 .block-info .text {
-	padding-bottom: 15px; /* See issue https://github.com/rowanc/Radian/issues/61 */
+	padding-bottom: 10px; /* See issue https://github.com/rowanc/Radian/issues/61 ... and now see issue https://github.com/rowanc/Radian/issues/85 */
 }
 .block-info .row{color:#c8c8c8; padding-bottom: 5px;}
 .block-info .row span {color: rgb(255, 255, 255)};
