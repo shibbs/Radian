@@ -197,7 +197,7 @@ h1{
 }
 
 .mainList li.tappable-active {
-	margin-bottom: 49px;
+	margin-bottom: 33px;
 	background: url(../images/step2arrowgray.png) no-repeat !important;
 	background-size: 15px 15px !important;
 	background-position: 201px 14% !important;
