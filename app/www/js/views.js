@@ -396,7 +396,7 @@ $(document).ready(function () {
                         $('#simplemodal-container').css('margin-top', '-40px');
                                                 $('#addNewPreset').hammer().bind("tap", function(event){
                                                 
-                                                    event.preventDefault();
+                                                event.preventDefault();
                                                 event.stopImmediatePropagation();
                                                 RadianApp.app.queue.reset();
                                                 $('li.canSort').remove();
@@ -439,6 +439,11 @@ $(document).ready(function () {
             } else {
                 Views.navigation.setNext(true);
             }
+            $('#thirdstep').hammer().bind("tap", function(event){
+                if(RadianApp.app.queue.length == 0 && window.location.hash=="#queue") { //TODO: FIX SUPER JANKY, should be removing but want the release out...
+                    RadianApp.Utilities.errorModal('The queue is empty. Add some presets to upload!');
+                }
+            });
             Views.navigation.setPrevious(true, "#home");
 
             this.$el.empty().append(this.template(RadianApp.app.visibleTimeLapse.getTemplateJSON()));
