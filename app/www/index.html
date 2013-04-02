@@ -40,7 +40,7 @@ left: 0;
     <body class='loading' style=''>
 		<div id="container">
 		</div>
-		<div id="navigation" style="position:fixed; bottom:14px; width: 100%; z-index: 500;">
+		<div id="navigation" class="navi" style="position:fixed; bottom:14px; width: 100%; z-index: 500;">
 				<nav class="step-nav inner-step" style="width:89%; margin: 0 auto">
 					<ul>
 						<li class="prev-holder" style="visibility">
@@ -261,6 +261,9 @@ left: 0;
 							<div class="mainHeading  parentHighlightNeeded">USING RADIAN</div>
 							<div class="subHeader  parentHighlightNeeded">Using the app and Radian</div>
 						</li>
+						<li id="version" class='parentHighlight'>
+							<div class="mainHeading  parentHighlightNeeded">APP VERSION</div>
+						</li>
 					</ul>
 				</div>
 			</div>
@@ -304,62 +307,209 @@ left: 0;
 					<div class='leftArea parentHighlight backLink'><a href="#settings" class="btn-back parentHighlightNeeded"></a></div>
 					<div class='rightArea'></div>
 				</div>
-
 				<div>
 					Radian is a remarkably simple and affordable motion time-lapse device that can be used to create beautiful panning, tilting, or still time-lapses. This app is necessary in order to program the device, but is not needed during operation. Find out more about Radian at http://www.alpinelaboratories.com. 
 				</div>
 			</div>
 		</script>
 
+				<!-- TimeLapseSettingsAbout Template -->
+		<script type="text/template" id="settingsVersion_template">
+		    <div>
+				<div id="topNav" class="top">
+					<div class="title">VERSION</div>
+					<div class='leftArea parentHighlight backLink'><a href="#settings" class="btn-back parentHighlightNeeded"></a></div>
+					<div class='rightArea'></div>
+				</div>
+
+				<div class="version" style="text-align:center; font-size: 38px;
+font-family: 'Conv_Gotham-Black';
+position: relative;
+color: rgb(0, 139, 202);">
+					1.0.1
+				</div>
+				<div class="bottom" style="position: fixed; bottom: 0"></div>
+			</div>
+		</script>
+
 		<!-- TimeLapseSettingsUse Template -->
 		<script type="text/template" id="settingsUse_template">
 		    <div>
-				<div id="topNav">
+				<div id="topNav" style="position:fixed; background-color: rgb(30, 30, 30);">
 					<div class="title">USING RADIAN</div>
 					<div class='leftArea parentHighlight backLink'><a href="#settings" class="btn-back parentHighlightNeeded"></a></div>
 					<div class='rightArea'></div>
 				</div>
-				<div>
-The app is structured into 3 simple steps: 1) choose pan or tilt 2) configure your time-lapse 3) upload. 
+				<div style="height:65px"></div>
+				<div id="aboutRadian">
+				<div id="aboutRadian">
+				<dl>
 
-Step 1) Choose pan or tilt for the time-lapse - Choose pan if you’d like to create a side-to-side or stationary time-lapse, or tilt for a vertical up/down time-lapse. Tilting uses significantly more power than panning, so be sure to only use tilt if you are actually doing a vertical time-lapse. 
+<dt><a href="#overview">Overview</a></dt>
+<dt><a href="#step1">Step 1</a></dt>
 
+<dt><a href="#step2basic">Step 2: Basic Settings</a></dt>
 
-Step 2) Choose the settings for your time-lapse - Step 2’s main screen may be daunting at first, but can be broken down into several key aspects.
+<dd><a href="#movement"><span>○</span> Movement</a></dd>
+<dd><a href="#duration"><span>○</span> Duration</a></dd>
+<dd><a href="#interval"><span>○</span> Interval</a></dd>
+<dd><a href="#results"><span>○</span> Results</a></dd>
 
+<dt><a href="#step2advanced">Step 2: Advanced Settings</a></dt>
 
-Basic Settings --
+<dd><a href="#timedelay"><span>○</span> Time Delay</a></dd>
+<dd><a href="#speedramping"><span>○</span> Speed Ramping</a></dd>
+<dd><a href="#hold"><span>○</span> Hold</a></dd>
+<dd><a href="#bulbramping"><span>○</span> Bulb Ramping</a></dd>
 
-There are 3 fundamental settings for any time-lapse: movement (how many degrees Radian will move), total time (how long you want to time-lapse for), and interval (how often you want to take a photo). These three settings are selectable from the main screen in step two. 
+<dt><a href="#step2queue">Step 2: Creating a Queue</a></dt>
 
+<dt><a href="#step3">Step 3: Uploading</a></dt>
+<dt><a href="#progress">Progress Tracking</a></dt>
+<dt><a href="#pantilt">Programming a pan/tilt setup</a></dt>
+</dl>
+<b><a name="overview"></a></b>
+<h1 style="font-weight: bold;">OVERVIEW</h1>
+<p dir="ltr">The app is organized into 3 simple steps. In Step 1, you will choose whether you want to create a new time-lapse configuration, load a previous configuration (Preset), or create a queue using a combination of these Presets. In Step 2 you will finalize your configuration's settings or specify the order in which you want your Presets executed if you choose to create a queue. Lastly, in Step 3 you will upload your configuration to Radian, and be able to track the progress of your time-lapse.</p>
+<h1 style="font-weight: bold;"><span>Step 1) Select an option</span></h1>
+<p dir="ltr">Choose “NEW TIME-LAPSE" if you’d like to configure a new time-lapse, or “PRESETS” to load a previously saved time-lapse. "<a href="#step2queue">QUEUE</a>" allows you to create a list of up to 4 presets, to be executed sequentially by Radian.</p>
+<h1 style="font-weight: bold;"><span>Step 2) Basic Settings</span></h1>
+<p dir="ltr">If you’re not making a queue, Step 2 is where you will configure your time-lapse settings. There are 3 fundamental settings for any time-lapse:</p>
+<ol>
+  <li><a href="#movement">MOVEMENT</a> (how many degrees Radian will move)</li>
+  <li><a href="#movement">DURATION</a> (how long you want to time-lapse for)</li>
+  <li><a href="#interval">INTERVAL</a> (how often you want to take a photo)</li>
+</ol>
+<ol>
+</ol>
+<span></span>
+<p dir="ltr">These three settings are selectable from the main screen in Step two. </p>
+<b><a name="movement"></a></b>
+<h3 style="font-weight: bold;"><span>Movement</span><span>&nbsp;</span></h3>
+<p dir="ltr">When you select the first line, “Pan/tilt X degrees”, you are taken to a screen where you can select how many degrees you want Radian to move over the length of your time-lapse. From here you can also select whether this particular time-lapse will pan or tilt. This is important for power consumption: in pan-mode the battery can last for over 100+ rotations, but in tilt-mode, the motor must always be on in order to lift a camera, resulting in 5-6 hours of power. </p>
+<blockquote><b>Tip</b>: if you are tilting down, you can simply select “Pan” to save power</blockquote>
+<b><span></span></b>
+<b><a name="duration"></a></b>
+<h3 style="font-weight: bold;">Duration</h3>
+<p dir="ltr">When you select the second line, “in Y hours”, you are taken to a screen where you can select how long you would like Radian to time-lapse for.</p>
+<span></span>
+<p dir="ltr">You’ll also notice an infinity loop icon. Pressing it, so that it is highlighted blue, will enable continuous mode. This means that your time-lapse will continue shooting with your specified settings even after you reach your set duration. In other words, it will still move X degrees in Y time firing at your Z interval, but will continue at this rate until you end the time-lapse.</p>
+<b><a name="interval"></a></b>
+<h3 style="font-weight: bold;">Interval</h3>
+<p dir="ltr">When you select the third line, “and shoot every Z sec/min”, you are taken to a screen where you can select how often Radian should trigger your camera to take a photo and move. Keep in mind that as you shorten the interval and keep the movement and duration settings constant, Radian will take more photos and move less between shots (and thus pan slower in the final time-lapse video).</p>
+<span></span>
+<blockquote><b>Tip</b>: For Radian, we recommend a speed between .1 and .15 degrees per photo</blockquote>
+<span></span>
+<p dir="ltr"><span>For intervals that are 3 seconds or less, Radian will move, wait (.5 * interval) seconds, trigger the camera, wait for (.5 * interval) seconds, then repeat the process. For intervals that are 4 seconds or greater, Radian will shoot, wait (interval-2s), move, wait 2 seconds, and repeat the process again. The green LED on Radian will blink every time Radian moves.</span></p>
+<span></span>
+<p dir="ltr">Note: If you are using another remote or syncing Radian with another motion time-lapse device, it is important to note that the interval is an absolute time, and is the time between the beginning of each photo taken.</p>
+<b><span></span></b>
+<b><a name="results"></a></b>
+<h3 style="font-weight: bold;"><span>Results Section</span></h3>
+<b><span></span></b>
+<p dir="ltr">Note the three icons and stats at the bottom of the main screen. These are the “results” based on your time-lapse settings: </p>
+<p dir="ltr"><span style="text-align: left;"><img src="images/photos_2x_icon.png" alt="" style="float: left; margin-right: 10px;" /></span> Total number of photos that will be taken</p>
+<p dir="ltr"><span style="text-align: left;"><img src="images/degreesperphoto_2x_icon.png" alt="" style="float: left; margin-right: 10px;" /></span> Degrees Radian will move between photos</p>
+<p dir="ltr"><span style="text-align: left;"><img src="images/filmstrip_icon.png" alt="" style="float: left; margin-right: 10px;" /></span> Length your compiled time-lapse video will be. This is based on the number of photos that will be taken and the frame rate you set in the app. (# photos / Frames per second). You can set your desired frame rate in the app settings, but the default is 24 FPS.</p>
+<span></span>
+<p dir="ltr">Use these as guidelines to help determine your time-lapse settings. For example, you may want a slower moving time-lapse (generally recommended), which means that you should aim to keep your degrees/photo between .1 and .2 degrees. Or, you may want a shorter time-lapse video (also recommended), which means having 240 photos instead of 2,400. Get comfortable by playing around with the basic settings to see how each one affects the results, and soon you should have an intuitive sense for which settings will give you your desired results.</p>
+<h1 style="font-weight: bold;"><span>Step 2) Advanced Settings</span></h1>
+<b><span></span></b>
+<p dir="ltr">Advanced settings can be reached by tapping the “advanced” button. There are 4 advanced settings: Time Delay, Speed Ramp, Bulb Ramp, and Hold. When any of these are on, a corresponding label will appear on the main page of Step 2 to denote that the advanced feature is activated.</p>
+<span></span>
+<a name="timedelay"></a>
+<h3 style="font-weight: bold;"><span>Time Delay</span></h3>
+<p dir="ltr">Radian will wait the amount of time set here before starting the time-lapse. DEFAULT: 0 minutes.</p>
+<span></span>
+<a name="speedramping"></a>
+<h3 style="font-weight: bold;"><span>Speed Ramping</span></h3>
+<p dir="ltr">This feature gives you finer control over how Radian moves throughout your time-lapse. It enables Radian to speed up or slow down its movement. This can be used for slow in/slow out, or fast in/fast out transitions.</p>
+<span></span>
+<p dir="ltr"><span>This is set using a simple graphical interface with Time Duration of the time-lapse on the X-axis and Total Movement of Radian (in degrees) on the Y-axis. The starting point is fixed at the origin (the beginning of the time-lapse), and the end-point (the end of the time-lapse) is fixed at the total number of degrees Radian will move as set in the </span><span>Movement</span><span> screen in the basic settings. You can add/remove keypoints by double tapping on the graph, and move them around by dragging them. Radian will speed up/slow down accordingly to meet each keypoint you set. As an example, if you set a keypoint at 30 minutes, 30 degrees, Radian will have moved 30 degrees at the 30 min. mark in your time-lapse. You may select a “curve” or “linear” fit depending on how smooth you want Radian to change speeds. Hitting “reset” will simply turn off speed ramping, and Radian will move at a constant rate.</span></p>
+<span></span>
+<blockquote><b>Note</b>: If Speed Ramping is enabled, your time-lapse will stop after your set duration even if you enable Continuous-Mode in the Duration screen.</blockquote>
+<p>Fast-in Fast-out<br />
+Interval: 10s<br />
+Duration 1 hour<br />
+Movement: 45 cwSpeed ramp: 15 degrees x 15 minutes : 30 degrees x 45 minutes</p>
+<h3 style="font-weight: bold;"><span>Hold</span></h3>
+<p dir="ltr">By default, every time Radian triggers your camera to take a photo, it sends a .25 second pulse (the equivalent of manually pressing the shutter button for .25 seconds). Your “hold” time should stay at the default .25 seconds unless:</p>
+<p dir="ltr"></p>
+<ol>
+  <li>You have set your camera to take bracketed exposures (3 photos with varying exposures, to be merged into an HDR image later, instead of one photo each time). In this case, 2 seconds or more is generally needed.</li>
+  <li>You are using a third party infrared trigger. For IR triggering, at least .5 seconds is necessary.</li>
+</ol>
+<b><a name="bulbramping"></a></b>
+<h3 style="font-weight: bold;"><span>Bulb Ramping</span></h3>
+<p dir="ltr">In bulb-ramping mode, Radian dynamically controls the shutter length of each photo taken, allowing you to better adjust to big changes in light (sunsets, sunrises). Bulb-ramping can be tricky at first, but once you get the hang of it, bramps can be set up in a matter of seconds.</p>
+<span></span>
+<p dir="ltr"><span>There are a few important things to note with bulb-ramping:</span></p>
+<ol>
+  <li>At this point, bulb-ramping only works reliably with Canon cameras. This is unfortunately due to limitations on the camera manufacturer’s end and bulb-ramping in general.</li>
+  <li>You need a <a href="http://www.amazon.com/EDEALLINE-3-5mm-FLASH-Cable-Screw/dp/B00A8VNFTO/ref=sr_1_2?s=electronics&amp;ie=UTF8&amp;qid=1364495559&amp;sr=1-2&amp;keywords=3.5mm+pc+sync+cord">3.5mm/PC sync cable</a>, to be connected between Radian’s phone port (after programming) and your camera’s PC sync port. If your camera does not have one, you’ll need a PC Sync Hot shoe adapter like <a href="http://www.amazon.com/Seagull-SC-2-Flash-Adapter-Socket/dp/B00281Y6FO/ref=sr_1_1?s=electronics&amp;ie=UTF8&amp;qid=1364495287&amp;sr=1-1&amp;keywords=pc+sync+hot+shoe">this one</a>. This allows Radian to accurately time the shutter length.</li>
+  <li>The fastest shutter speed for most cameras is 1/25th of a second. This is also a technical limitation on the camera’s end.</li>
+  <li>Your camera needs to be in Bulb mode.</li>
+</ol>
+<ol>
+</ol>
+<span></span>
+<p dir="ltr">The bulb-ramping page has 4 settings to configure: the delay, the duration, initial exposure length, and the exposure change.</p>
+<b><span></span></b>
+<h4 style="font-weight: bold;">Delay<b>&nbsp;</b></h4>
+<p>This is how long into the time-lapse that Radian should stay constant at the initial exposure until bulb-ramping.</p>
+<span></span>
+<h4 style="font-weight: bold;">Duration&nbsp;</h4>
+<p dir="ltr">How long Radian will change the exposure for, not the actual length of the time-lapse (configured in the Step 2 main page). Note that the delay + duration can never exceed the time-lapse length you’ve set on the main page.</p>
+<span></span>
+<h4 style="font-weight: bold;">Initial Exposure</h4>
+<p dir="ltr">The starting shutter speed. For the length of your delay, if any, and for the first frame of your bulb-ramp, this will be your initial exposure length.</p>
+<span></span>
+<h4 style="font-weight: bold;">Exposure Change&nbsp;</h4>
+<p dir="ltr">This is the rate at which Radian will change the exposure length. We recommend using f/10min, which is short for f-stops per 10 minutes. Every f-stop is is either a doubling or halving of light, so an exp change of 1 f/10min means that your shutter length will double every 10 minutes. An exp of 2 f/10 min means that your shutter will quadruple every 10 min. An exp change of -1 f/10min means that it will halve every 10 minutes. For sunsets, the general rule of thumb is that the light fall-off is about 2 f/10min for an hour, starting at sunset.</p>
+<span></span>
+<h4 style="font-weight: bold;">Results<b>&nbsp;</b></h4>
+<p dir="ltr">The results section is important for keeping note of the time-lapse interval, the number of frames your bulb-ramp will last for, and the final exposure given your settings. Use the final exposure to help you figure out the optimal interval, exp change, and duration of the bulb-ramp.</p>
+<span></span>
+<blockquote><b>Sunset Example</b><br />
+  <dl><dt>General Radian Settings</dt>
+  <dd>○&nbsp;Movement: 60 degrees CW</dd>
+  <dd>○&nbsp;Duration 1.5 hours &amp; continuous</dd>
+  <dd>○&nbsp;Interval: 15-20 sec</dd>
+  <dt>Bramp Settings</dt>
+  <dd>○&nbsp;Duration: about 40-44min</dd>
+  <dd>○&nbsp;Initial exposure: 1/25 sec (set your ISO and Aperture manually according to this shutter speed)</dd>
+  <dd>○&nbsp;Exposure Change: 2f/10min</dd>
+  </dl>
+</blockquote>
+<blockquote><b>Note</b>: Most of the time, bulb-ramping cannot change the exposure enough to adequately cover a full day-night or night-day transition. If you are trying to do a full transition, however, you can manually aid your bulb-ramp by periodically changing the ISO and aperture, and smoothing out the jumps in exposure in Lightroom and/or LRTimelapse. This requires a little more work, but works to great effect.</blockquote>
+<b><a name="step2queue"></a></b>
+<h3 style="font-weight: bold;"><span>Creating a Queue </span></h3>
+<p dir="ltr">To use a queue to control your time-lapses, choose Create a Queue in Step 1 of the app. This will take you to the Queue screen where you can add/delete presets, and rearrange them into the order you want them carried out by Radian. Radian will complete each preset one after the other in the order you specify until all of them have been completed.</p>
+<span></span>
+<p dir="ltr">Presets can be created from the basic settings screen by pressing the Save button after you have your outlined your desired settings.</p>
+<h1 style="font-weight: bold;"><span>Step 3) Uploading</span></h1>
+<b><span></span></b>
+<p dir="ltr">Once you have chosen the settings/queue you want, navigate to Step 3 (by swiping or pressing the arrow at the bottom right of the screen). Connect your phone to Radian via the 3.5mm audio cable. Turn Radian on and wait until after the battery status has flashed and the unit has recalibrated before pressing upload. Once uploaded, you should see the Time-Lapse LED turn solid green to confirm a successful upload. You are now free to disconnect your phone at any point. A countdown will start to indicate the the beginning of your time-lapse. Radian is now programmed to the settings you just uploaded. Restarting Radian will always restart the last programmed time-lapse from the beginning. &nbsp;&nbsp;</p>
+<span></span>
+<p dir="ltr">If you do not see the Time-Lapse LED turn solid green, you must re-upload your time-lapse settings until it does. If after a few tries nothing happens, try restarting the device, your phone, and the app itself. Also try reconnecting the audio cable and ensuring a secure connection. You can confirm that the app is sending a signal by unplugging the audio cable from your phone, and pressing the upload button. If it plays a sound, then it means the app is successfully sending a signal.</p>
+<b><span></span></b>
+<b><a name="progress"></a></b>
+<h1 style="font-weight: bold;"><span>Progress</span></h1>
+<p dir="ltr">This screen is purely to help you track the progress of your time-lapse. After uploading, there is no actual communication between the phone and Radian. Pressing “Reset counter” will simply reset the Progress page, useful if you are restarting the time-lapse by turning Radian off and on.</p>
+<span></span>
+<p dir="ltr">During the time-lapse, the Radian unit’s Time-lapse LED will blink green every time it moves.</p>
+<p dir="ltr"><br />
+</p>
+<p dir="ltr"></p>
 
-Movement. When you select “Pan/tilt X degrees”, you are taken to a screen where you can select how many degrees you want Radian to move over the length of your time-lapse. 
+<b><span></span></b>
+<b><a name="pantilt"></a></b>
+<h1>Programming a pan/tilt setup</h1>
+<div>If you are using a pan/tilt combo, you'll need to program each Radian separately (one with tilt settings, and one with pan settings). Make sure the intervals are the same, and when you are ready to start the time-lapse, simply switch on (or restart) both Radians at the same time.&nbsp;</div>
+<br />
 
-Duration. When you select the second line, “in Y hours”, you are taken to a screen where you can select how long you would like Radian to time-lapse for. 
-
-Additionally, you’ll notice an infinity loop icon. Pressing it will enables continuous mode, which means that while your time-lapse will still move x degrees in y time and shoot every Z seconds (or minutes) per your settings, the time-lapse will continue with those settings indefinitely. 
-
-Interval. When you select the third line, “and shoot every Z time”, you are taken to a screen where you can select how often Radian should trigger your camera to take a photo and move. Keep in mind that as you shorten the interval and keep the other two settings constant, Radian will take more photos and move slower between shots. 
-
-If you are using another remote or syncing Radian with another motion time-lapse device, it is important to note that the interval is an absolute time, and is the time between the beginning of each photo taken. 
-
-For intervals that are 3 seconds or less, Radian will move, wait (.3 * interval) seconds, trigger the camera, wait for (.7 * interval) seconds, then move and repeat the process. For intervals that are 4 seconds or greater, Radian will move, wait 2 seconds, trigger the camera, then wait the remaining (interval-2s) seconds before moving and repeating the process again. The green LED on Radian will blink every time Radian moves. 
-
-Results section. Note the three icons and stats at the bottom of the main screen. These are the “results” based on your time-lapse settings: number of photos, degrees Radian will move between taking each photo, and how long your compiled time-lapse video will be based on the number of photos that will be taken (# photos divided by default FPS set in app settings). Use these as guidelines to help inform your time-lapse settings - for example, you may want a slower moving time-lapse (generally recommended), which means that you should aim to keep your degrees/photo between .1 and .2 degrees. Or, you may want a short time-lapse video (also recommended), which means having 240 photos instead of 2,040.
-
-
-Advanced Settings ---
-
-Advanced settings can be reached by tapping the “advanced” button.
-There are 4 advanced settings - Time delay, speed ramp, bulb ramp, and Hold. When any of these are on, a corresponding label will appear on the main page of step 2 to denote that the advanced feature is activated. 
-
-
-Time Delay. Radian will wait the amount of time set here before starting the time-lapse. The default is set to 0 minutes. 
-
-
-Speed Ramp. This feature allows you finer control of how Radian moves throughout the time-lapse you’ve configured. It is a simple graphical interface with Movement of Radian (in degrees) on the y-axis, and time length of the time-lapse on the x-axis. By nature, the starting point is fixed at the origin (the beginning of the time-lapse), and the end-point (the end of the time-lapse) is fixed at the total number of degrees Radian will move as set in the “Movement” screen in the basic settings. Add/remove keypoints by double tapping, and move them around by dragging. As an example, if you set a keypoint at 1 hour, 60 degrees, Radian will have moved 60 degrees at the 1 hour mark in your time-lapse. You may select a “curve” or “linear” fit depending on how you want Radian to change speeds. Hitting “reset” will simply turn off speed ramping, and Radian will move at a constant rate. 
-
-Hold. By default, everytime Radian triggers your camera to take a photo, it sends a .25 second pulse (the equivalent of manually pressing the shutter button for .25 seconds). However, if you have set your camera to take bracketed exposures (instead of one photo each time, 3 photos with varying exposures, to be merged into an hdr image later), or are using a third party infrared trigger, your “hold” time must be longer than .25 seconds. For IR triggering, at least .5 seconds is necessary. For bracketed images, 2 seconds or more is required. 
+			</div>
+		
 				</div>
 			</div>
 		</script>

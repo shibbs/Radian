@@ -9,6 +9,7 @@ $(document).ready(function () {
             "settings/framerate": 'settingsFrameRate',
             "settings/about": 'settingsAbout',
             "settings/use": 'settingsUse',
+            "settings/version": 'settingsVersion',
             "home": 'home',
             "timelapse": 'timeLapse',
     		"presets": 'timeLapsePresets',
@@ -64,6 +65,12 @@ $(document).ready(function () {
         settingsUse: function() {
             RadianApp.app.currentView.close();
             RadianApp.app.currentView = new RadianApp.Views.SettingsUseView();
+            RadianApp.app.currentView.render();
+        },
+
+        settingsVersion: function() {
+            RadianApp.app.currentView.close();
+            RadianApp.app.currentView = new RadianApp.Views.SettingsVersion();
             RadianApp.app.currentView.render();
         },
 

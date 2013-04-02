@@ -115,7 +115,7 @@ $(document).ready(function () {
             var timeHoursProgress = Math.floor(seconds / 3600);
             var timeMinutesProgress = Math.floor((seconds - (timeHoursProgress * 3600)) / 60);
             return {
-                photosProgress: totalPhotos,
+                photosProgress: totalPhotos + 1,
                 degreesProgress: degreesProgress,  
                 timeMinutesProgress: timeMinutesProgress,
                 timeHoursProgress: timeHoursProgress,
