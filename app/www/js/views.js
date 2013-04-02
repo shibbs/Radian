@@ -1194,6 +1194,7 @@ $(document).ready(function () {
             this.interval = this.getInterval(totalTime);
             $('.dial').knob();
             this.advanceProgressBar();
+            RadianApp.UI.centerVertically('#content');
             return this;
         },
 
