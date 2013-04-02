@@ -555,7 +555,9 @@ h1{
 	color:#6e6e6e;
 	font:17px/19px "Conv_Gotham-Black", Helvetica, Arial, sans-serif;
 	overflow:hidden;
+	
 	padding:7px 3px 0;
+
 }
 .inform-list{
 	list-style:none;
@@ -1922,6 +1924,8 @@ select.holo-spinner option { height: 32px; border-top: 1px #444 solid; }
 	text-transform: uppercase;
 	text-overflow: ellipsis;
 	overflow: hidden;
+	height: 65px;
+	white-space: nowrap;
 }
 
 #topNav .title.main {
