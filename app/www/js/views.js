@@ -1172,6 +1172,11 @@ $(document).ready(function () {
         template: _.template($('#timeLapseCurrent_template').html()),
 
         render: function () {
+            var currentTime = new Date();
+            if (RadianApp.app.lastCount >= currentTime.getTime()) {
+                window.location.hash = "timelapse/countdown";
+            }
+            RadianApp.app.lastCount = 0;
             Views.navigation.selectStep(4);
             Views.navigation.unhide();
             Views.navigation.setNext(false);
@@ -1195,7 +1200,7 @@ $(document).ready(function () {
         updateTimeInterval: function() {
             var runningTimeLapse = RadianApp.app.getRunningTimeLapse();
             var totalTime = runningTimeLapse.get('totalTimeHours') * 3600 + runningTimeLapse.get('totalTimeMinutes') * 60;
-            var elapsedTime = ((new Date()).getTime() - RadianApp.app.sentTime.getTime()) / 1000;
+            var elapsedTime = ((new Date()).getTime() - RadianApp.app.sentTime.getTime() - (RadianApp.app.pause * 1000)) / 1000;
             if(elapsedTime > totalTime) {
                 var amountOver = elapsedTime - totalTime;
                 if(amountOver < 5) {
@@ -1318,18 +1323,25 @@ $(document).ready(function () {
 
 
         render: function () {
+            Views.navigation.selectStep(4);
+            Views.navigation.unhide();
+            Views.navigation.setNext(false);
+            Views.navigation.setPrevious(true, "#timelapse/upload");
             this.$el.empty().append(this.template());
             RadianApp.UI.centerVertically('#vcenter');
-            this.count = 6;
-            var runningTimeLapse = RadianApp.app.getRunningTimeLapse();
-            if(runningTimeLapse.get('intervalMinutes') > 0 || runningTimeLapse.get('intervalSeconds') >= 4) {
-                this.count += 2;
-            } else {
-                this.count += runningTimeLapse.get('intervalSeconds')/2;
+            if(RadianApp.app.lastCount == 0) {
+                RadianApp.app.lastCount = 6*1000 + RadianApp.app.sentTime.getTime();
+                var runningTimeLapse = RadianApp.app.getRunningTimeLapse();
+                if(runningTimeLapse.get('intervalMinutes') > 0 || runningTimeLapse.get('intervalSeconds') >= 4) {
+                     RadianApp.app.lastCount += 2000;
+                } else {
+                     RadianApp.app.lastCount += runningTimeLapse.get('intervalSeconds')/2 * 1000;
+                }
             }
             this.cancelled = false;
             window.timeLapseCountDownTimeout = [];
-            this.display = Math.round(this.count);
+            var currentTime = new Date();
+            this.display = Math.round((RadianApp.app.lastCount-currentTime.getTime())/1000);
             this.$('#countdown').html(this.display);
             this.countDown();
             return this;
@@ -1354,15 +1366,17 @@ $(document).ready(function () {
             var that = this;
 
             var callmethod = function () {
-                if (that.count > 0) {
-                    that.count -= .05;
-                    if(that.display - 1 >= that.count) {
-                        that.display -=1;
+                var currentTime = new Date();
+                if (RadianApp.app.lastCount >= currentTime.getTime()) {
+                    if((that.display - 1)*1000 >= RadianApp.app.lastCount - currentTime.getTime()) {
+                        that.display -= 1;
                         that.$('#countdown').html(that.display);
                     }
-                    window.timeLapseCountDownTimeout = setTimeout(callmethod, 50);
+                    window.timeLapseCountDownTimeout = setTimeout(callmethod, 30);
                 } else {
-                    window.location.hash = 'timelapse/current';
+                    if(window.location.hash == "#timelapse/countdown") {
+                        window.location.hash = 'timelapse/current';
+                    }
                 }
             }
             window.timeLapseCountDownTimeout = setTimeout(callmethod, 50);

@@ -160,7 +160,6 @@ h1{
 #newTimeLapse .mainChoice {
 	font: 18px/18px Conv_Gotham-Medium; 
 	color: rgb(255,255,255);
-	padding-left: 5px;
 	background: url(../images/step2arrow.png) no-repeat;
 	background-size: 15px 15px;
 	background-position: 206px 14%;
@@ -179,7 +178,6 @@ h1{
 #newTimeLapse.tappable-active .mainChoice {
 	font: 18px/18px Conv_Gotham-Medium; 
 	color: rgb(110, 110, 110) !important;
-	padding-left: 5px;
 	background: url(../images/step2arrowgray.png) no-repeat !important;
 	background-size: 15px 15px !important;
 	background-position: 206px 14% !important;
@@ -202,7 +200,7 @@ h1{
 
 .mainList {
     font-family:"Conv_Gotham-Medium", Helvetica, Arial, sans-serif;
-    padding: 33px 0px 0 5px;
+    padding: 33px 0px 0 0px;
     list-style: none;
     margin:0;
 }
@@ -211,14 +209,14 @@ h1{
 	margin-bottom: 33px;
 	background: url(../images/step2arrow.png) no-repeat;
 	background-size: 15px 15px;
-	background-position: 201px 14%;
+	background-position: 206px 14%;
 }
 
 .mainList li.tappable-active {
 	margin-bottom: 33px;
 	background: url(../images/step2arrowgray.png) no-repeat !important;
 	background-size: 15px 15px !important;
-	background-position: 201px 14% !important;
+	background-position: 206px 14% !important;
 }
 
 .mainList .mainHeading {
@@ -557,7 +555,9 @@ h1{
 	color:#6e6e6e;
 	font:17px/19px "Conv_Gotham-Black", Helvetica, Arial, sans-serif;
 	overflow:hidden;
+	
 	padding:7px 3px 0;
+
 }
 .inform-list{
 	list-style:none;
@@ -1924,6 +1924,8 @@ select.holo-spinner option { height: 32px; border-top: 1px #444 solid; }
 	text-transform: uppercase;
 	text-overflow: ellipsis;
 	overflow: hidden;
+	height: 65px;
+	white-space: nowrap;
 }
 
 #topNav .title.main {
