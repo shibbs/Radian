@@ -161,10 +161,28 @@ h1{
 	font: 18px/18px Conv_Gotham-Medium; 
 	color: rgb(255,255,255);
 	padding-left: 5px;
-
 	background: url(../images/step2arrow.png) no-repeat;
 	background-size: 15px 15px;
 	background-position: 206px 14%;
+}
+
+#newTimeLapse.tappable-active .timeLapseIcon {
+	background: url('../images/RadianIcon.png') no-repeat !important;
+	background-size: 15.5px 15.5px !important;
+	background-position: 0px 0px !important;
+	width: 15.5px !important;
+	height: 15.5px !important;
+	position: absolute !important;
+	left: 26px !important;
+}
+
+#newTimeLapse.tappable-active .mainChoice {
+	font: 18px/18px Conv_Gotham-Medium; 
+	color: rgb(110, 110, 110) !important;
+	padding-left: 5px;
+	background: url(../images/step2arrowgray.png) no-repeat !important;
+	background-size: 15px 15px !important;
+	background-position: 206px 14% !important;
 }
 
 #newTimeLapse .mainChoice.tappable-active {
