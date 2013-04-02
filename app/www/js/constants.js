@@ -5,7 +5,6 @@ $(document).ready(function () {
 
     // What kind of time lapse is it
     C.TimeLapseType = {
-        NONE : 0,
         PAN : 1,
         TILT : 2,
     }
