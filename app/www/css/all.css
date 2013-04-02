@@ -75,7 +75,9 @@ div#preloaded-images {
    height: 1px;
    width: 1px;
 }
-
+.threePicker .ios .dwwl {
+	min-width: 93px;
+}
 #aboveNavigation {
 	position: fixed;
 	bottom: 74px;
@@ -136,6 +138,98 @@ h1{
 	text-align:center;
 	font:bold 24px/29px "Conv_Gotham-Bold", Helvetica, Arial, sans-serif;
 }
+#home {
+	margin:0 auto; 
+	width: 219px
+}
+
+#newTimeLapse {
+	padding-bottom:47px;
+	border-bottom:1px solid rgb(70,70,70);;
+}
+#newTimeLapse .timeLapseIcon {
+	background: url('../images/RadianIcon_highlighted.png') no-repeat;
+	background-size: 15.5px 15.5px;
+	background-position: 0px 0px;
+	width: 15.5px;
+	height: 15.5px;
+	position: absolute;
+	left: 26px;
+}
+
+#newTimeLapse .mainChoice {
+	font: 18px/18px Conv_Gotham-Medium; 
+	color: rgb(255,255,255);
+	padding-left: 5px;
+
+	background: url(../images/step2arrow.png) no-repeat;
+	background-size: 15px 15px;
+	background-position: 206px 14%;
+}
+
+#newTimeLapse .mainChoice.tappable-active {
+	background: url(../images/step2arrowgray.png) no-repeat !important;
+	background-size: 15px 15px !important;
+	background-position: 206px 14% !important;
+}
+
+#newTimeLapse .tappable-active.mainChoice {
+	color: rgb(110, 110, 110) !important;
+}
+
+.mainChoiceList {
+	margin-top: 33px;
+
+}
+
+.mainList {
+    font-family:"Conv_Gotham-Medium", Helvetica, Arial, sans-serif;
+    padding: 33px 0px 0 5px;
+    list-style: none;
+    margin:0;
+}
+
+.mainList li {
+	margin-bottom: 33px;
+	background: url(../images/step2arrow.png) no-repeat;
+	background-size: 15px 15px;
+	background-position: 201px 14%;
+}
+
+.mainList li.tappable-active {
+	margin-bottom: 33px;
+	background: url(../images/step2arrowgray.png) no-repeat !important;
+	background-size: 15px 15px !important;
+	background-position: 201px 14% !important;
+}
+
+.mainList .mainHeading {
+	color: #fff;
+	height: 20px;
+	font-size: 14px;
+	font-family: "Conv_Gotham-Medium";
+}
+.mainList .tappable-active .mainHeading {
+	color: rgb(110, 110, 110) !important;
+}
+
+.mainList .subHeader {
+	color: rgb(110,110,110);
+	font-size: 12px;
+	font-family: "Conv_Gotham-Book";
+}
+
+.mainList .tappable-active .subHeader {
+	color: rgb(50, 50, 50) !important;
+}
+
+.mainList .tappable-active .subHeader.highlight {
+	color: rgb(16, 74, 105) !important;
+}
+
+
+
+
 .pan-page h1{color:#c8c8c8;}
 .btn-box{
 	text-align:center;
@@ -573,7 +667,7 @@ h1{
 
 }
 .block-info .text {
-	padding-bottom: 15px; /* See issue https://github.com/rowanc/Radian/issues/61 */
+	padding-bottom: 10px; /* See issue https://github.com/rowanc/Radian/issues/61 ... and now see issue https://github.com/rowanc/Radian/issues/85 */
 }
 .block-info .row{color:#c8c8c8; padding-bottom: 5px;}
 .block-info .row span {color: rgb(255, 255, 255)};
@@ -711,8 +805,8 @@ span.delete{
 	-o-background-size:100% 100%;
 	width:20px;
 	height:21px;
-	right: 5px;
-	bottom: 14px;
+	right: 10px;
+	bottom: 16px;
 }
 
 
@@ -750,7 +844,7 @@ span.delete{
 	color:#008bca;
 	padding:0 28px;
 	text-align:center;
-	font-size:15px/21px "Conv_Gotham-Medium", Helvetica, Arial, sans-serif;
+	font-size:15px/24px "Conv_Gotham-Medium", Helvetica, Arial, sans-serif;
 }
 
 #topNav .btn-back{
@@ -1851,6 +1945,10 @@ select.holo-spinner option { height: 32px; border-top: 1px #444 solid; }
 
 #topNav .btn.tappable-active {
 	background-color: rgb(50, 50, 50);
+}
+
+.disable {
+	background-color: rgb(50, 50, 50) !important;
 }
 
 
