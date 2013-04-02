@@ -818,7 +818,8 @@ display: block;' />
 		<script type="text/template" id="timeLapseCurrent_template">
 		<div>
 			<% if(!isQueue) { %>
-			<div style='margin: 30px 0 52px;
+			<div class="upper" style='margin: 30px 0 0px 0px;
+			padding-bottom: 30px;
 color: white;
 text-align: center;
 font: bold 18px/13px "Conv_Gotham-Bold", Helvetica, Arial, sans-serif;'>IN PROGRESS</div>
@@ -831,13 +832,13 @@ font: bold 14px/11px "Conv_Gotham-Bold", Helvetica, Arial, sans-serif;'>
 								<%= name %>
 							</div>
 							<div style='height: 62px'>
-							<div style='text-align:center; font-size: 12px;
+							<div class= "upper" style='text-align:center; font-size: 12px;
 font-family: "Conv_Gotham-Medium";
 line-height: 16px; color:rgb(110,110,110);'>
 								TIME LAPSE <%= index %> OF <%= size %>
 							</div>
 							<% if(isNext) { %>
-								<div style='text-align: center;
+								<div class= "upper"  style='text-align: center;
 font-size: 13px;
 font-family: "Conv_Gotham-Medium";
 color:rgb(110,110,110)'>
@@ -846,36 +847,40 @@ color:rgb(110,110,110)'>
 							<% } %>
 							</div>
 			<% } %>
-			<div class="loading-box">
-				<div class="general">
-				<input type="text" class="dial" data-textSize='14px' data-min="0" data-max="100" data-fgColor="#008bca" data-textColor="#FFF" data-bgColor="#1c4557" data-skin="tron" data-thickness="1" data-readOnly="true" data-width="110" data-height="110">
+			<div id="content" style="margin-top: 0px">
+				<div class="loading-box">
+					<div class="general">
+					<input type="text" class="dial" data-textSize='14px' data-min="0" data-max="100" data-fgColor="#008bca" data-textColor="#FFF" data-bgColor="#1c4557" data-skin="tron" data-thickness="1" data-readOnly="true" data-width="110" data-height="110">
+					</div>
 				</div>
-			</div>
-			<div class="final-box">
-				<div class="holder">
+				<div class="final-box">
+					<div class="holder">
 
-				<table border="0" bordercolor="" style="background-color:" width="100%" cellpadding="0" cellspacing="0">
-					<tr>
-						<td><div class='photo'></div></td>
-						<td><strong id="photosProgress">368</strong> <span>/ <span  id="photosTotal"><%= totalPhotos %></span></span></td>
-					</tr>
-					<tr>
-						<td><div class='photo-info'></div></td>
-						<td><strong id="degreesProgress">180.0</strong><strong>&deg;</strong><span id="degreesTotal">/<%= actualDegrees %>&deg;</span></td>
-					</tr>
-					<tr>
-						<td><div class='time'></div></td>
-						<td><strong id="timeProgressHour">1</strong><strong>:</strong><strong id="timeProgressMinute">23</strong> <span id="timeTotal">/<%= totalTimeHours %>:<%= totalTimeMinutes %></span></td>
-					</tr>
-				</table>
+					<table border="0" bordercolor="" style="background-color:" width="100%" cellpadding="0" cellspacing="0">
+						<tr>
+							<td><div class='photo'></div></td>
+							<td><strong id="photosProgress">368</strong> <span>/ <span  id="photosTotal"><%= totalPhotos %></span></span></td>
+						</tr>
+						<tr>
+							<td><div class='photo-info'></div></td>
+							<td><strong id="degreesProgress">180.0</strong><strong>&deg;</strong><span id="degreesTotal">/<%= actualDegrees %>&deg;</span></td>
+						</tr>
+						<tr>
+							<td><div class='time'></div></td>
+							<td><strong id="timeProgressHour">1</strong><strong>:</strong><strong id="timeProgressMinute">23</strong> <span id="timeTotal">/<%= totalTimeHours %>:<%= totalTimeMinutes %></span></td>
+						</tr>
+					</table>
 
-	
+		
+					</div>
 				</div>
 			</div>
 			<div>
-				<div class="choiceBox">
-					<a class="cancel side restartCounter" href="#timelapse/current">RESET COUNTER</a>
-					<a class="cancel side newTimeLapse" href="#home">NEW TIMELAPSE</a>
+				<div id="aboveNavigation" class="below">
+					<div class="choiceBox">
+						<a class="cancel side restartCounter" href="#timelapse/current">RESET COUNTER</a>
+						<a class="cancel side newTimeLapse" href="#home">NEW TIMELAPSE</a>
+					</div>
 				</div>
 			</div>
 		</div>
