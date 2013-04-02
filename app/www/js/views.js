@@ -324,7 +324,7 @@ $(document).ready(function () {
             
             var newTimeLapse = RadianApp.app.saveTimeLapseAsPreset(RadianApp.app.visibleTimeLapse, name);
             this.$('.title').html(name);
-            this.$('#saveLink .btn').addClass('tappable-active');
+            this.$('#saveLink .btn').addClass('disable');
             RadianApp.app.loadTimeLapse(newTimeLapse);
             $.modal.close(); 
         },

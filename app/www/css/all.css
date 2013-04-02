@@ -844,7 +844,7 @@ span.delete{
 	color:#008bca;
 	padding:0 28px;
 	text-align:center;
-	font-size:15px/21px "Conv_Gotham-Medium", Helvetica, Arial, sans-serif;
+	font-size:15px/24px "Conv_Gotham-Medium", Helvetica, Arial, sans-serif;
 }
 
 #topNav .btn-back{
@@ -1945,6 +1945,10 @@ select.holo-spinner option { height: 32px; border-top: 1px #444 solid; }
 
 #topNav .btn.tappable-active {
 	background-color: rgb(50, 50, 50);
+}
+
+.disable {
+	background-color: rgb(50, 50, 50) !important;
 }
 
 
