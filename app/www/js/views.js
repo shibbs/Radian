@@ -142,6 +142,7 @@ $(document).ready(function () {
             "click #fps": "fps",
             "click #about": "about",
             "click #use": "use",
+            "click #version": "version",
             "click .backLink": "back",
         },
 
@@ -168,6 +169,10 @@ $(document).ready(function () {
             window.location.hash = '#settings/use';
         },
 
+        version: function () {
+            window.location.hash = '#settings/version';
+        },
+
     });
 
     Views.SettingsAboutView = Views.ModalView.extend({
@@ -187,6 +192,27 @@ $(document).ready(function () {
 
         events: {
             "click .backLink": "back",
+        },
+
+        back: function () {
+            window.location.hash = '#settings';
+        },
+
+    });
+
+    Views.SettingsVersion = Views.ModalView.extend({
+        template: _.template($('#settingsVersion_template').html()),
+
+        events: {
+            "click .backLink": "back",
+        },
+
+        render: function() {
+            Views.navigation.hide();
+            var elem = this.template();
+            this.$el.empty().append(elem);
+            RadianApp.UI.centerVertically('.version');
+            return this;
         },
 
         back: function () {
@@ -1219,7 +1245,7 @@ $(document).ready(function () {
             var runningTimeLapse = RadianApp.app.getRunningTimeLapse();
             var templateJSON = runningTimeLapse.getTemplateJSON();
             if(templateJSON.totalTimeMinutes < 10) {
-                templateJSON.totalTimeMinutes = '0'+templateJSON.totalTimeMinutes;
+                templateJSON.totalTimeMinutes = '0' + templateJSON.totalTimeMinutes;
             }
             
             templateJSON.index = RadianApp.app.runningTimeLapseIndex + 1;
