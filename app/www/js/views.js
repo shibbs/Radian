@@ -384,8 +384,31 @@ $(document).ready(function () {
             'click #clearLink': 'clear'
         },
         clear: function(e) {
-            RadianApp.app.queue.reset();
-            $('li.canSort').remove();
+            $.modal("<div class='error' style='width: 268px; font-family:\"Conv_Gotham-Medium\", Helvetica, Arial, sans-serif; font-size: 13.5px; color: rgb(30,30,30)'> \
+        <div>Are you sure you want to clear the queue?</div> \
+        <div class='minibox'> \
+                            <div id='cancelAddNewPreset' class='btn btn-white simplemodal-close'>CANCEL</div> \
+                            <div id='addNewPreset' class='btn highlighted-btn'>CLEAR QUEUE</div> \
+                        </div> \
+        </div>", {  position: ['50%', '50%'],
+                                onShow: function() { 
+                        $('#simplemodal-container').css('margin-left', '-152px');
+                        $('#simplemodal-container').css('margin-top', '-40px');
+                                                $('#addNewPreset').hammer().bind("tap", function(event){
+                                                
+                                                    event.preventDefault();
+                                                event.stopImmediatePropagation();
+                                                RadianApp.app.queue.reset();
+                                                $('li.canSort').remove();
+                                                Views.navigation.setNext(true);
+                                                $.modal.close();
+                                            });
+
+                                        },
+                                onClose: function() {
+                                    $.modal.close();
+                                }
+                            });
         },
         navigateToAddView: function(e) {
             e.preventDefault();
@@ -402,6 +425,7 @@ $(document).ready(function () {
             var me = this;
             var temp = new Views.TimeLapseQueueItemView(model);
             this.$('#list').prepend(temp.render().$el);
+            Views.navigation.setNext(true, "#timelapse/upload");
             var scroller = this.scroller;
             temp.scroller = scroller;
             setTimeout(function() { scroller.refresh()}, 0);
@@ -410,7 +434,11 @@ $(document).ready(function () {
         render: function () {
             Views.navigation.selectStep(2);
             Views.navigation.unhide();
-            Views.navigation.setNext(true, "#timelapse/upload");
+            if(RadianApp.app.queue.length > 0) {
+                Views.navigation.setNext(true, "#timelapse/upload");
+            } else {
+                Views.navigation.setNext(true);
+            }
             Views.navigation.setPrevious(true, "#home");
 
             this.$el.empty().append(this.template(RadianApp.app.visibleTimeLapse.getTemplateJSON()));
