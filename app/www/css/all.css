@@ -144,6 +144,7 @@ h1{
 }
 
 #newTimeLapse {
+	position: relative;
 	padding-bottom:47px;
 	border-bottom:1px solid rgb(70,70,70);;
 }
@@ -151,10 +152,10 @@ h1{
 	background: url('../images/RadianIcon_highlighted.png') no-repeat;
 	background-size: 15.5px 15.5px;
 	background-position: 0px 0px;
-	width: 15.5px;
-	height: 15.5px;
+	width: 16px;
+	height: 16px;
 	position: absolute;
-	left: 26px;
+	left: -29px;
 }
 
 #newTimeLapse .mainChoice {
@@ -169,10 +170,10 @@ h1{
 	background: url('../images/RadianIcon.png') no-repeat !important;
 	background-size: 15.5px 15.5px !important;
 	background-position: 0px 0px !important;
-	width: 15.5px !important;
-	height: 15.5px !important;
+	width: 16px !important;
+	height: 16px !important;
 	position: absolute !important;
-	left: 26px !important;
+	left: -29px !important;
 }
 
 #newTimeLapse.tappable-active .mainChoice {
