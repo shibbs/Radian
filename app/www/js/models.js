@@ -112,8 +112,8 @@ $(document).ready(function () {
             var percent = seconds/totalTimeSeconds;
             var degreesProgress = this.calculateActualDegrees(Math.floor(totalTimeSeconds / (this.get('intervalMinutes') * 60 + this.get('intervalSeconds')))) * percent;
             degreesProgress = RadianApp.Utilities.round(degreesProgress, 1);
-            timeHoursProgress = Math.floor(seconds / 3600);
-            timeMinutesProgress = Math.floor((seconds - Math.round(seconds / 3600) * 3600) / 60);
+            var timeHoursProgress = Math.floor(seconds / 3600);
+            var timeMinutesProgress = Math.floor((seconds - (timeHoursProgress * 3600)) / 60);
             return {
                 photosProgress: totalPhotos,
                 degreesProgress: degreesProgress,  
@@ -296,6 +296,7 @@ $(document).ready(function () {
             this.runningTimeLapseIndex = null;
             this.sentTime = null;
             this.soundPlaying = false;
+            this.lastCount = 0;
             this.queue = new M.Queue();
             this.presets = new M.Presets();
             this.loadCollection(this.presets, "presets");
@@ -330,6 +331,7 @@ $(document).ready(function () {
                 }
             }
             this.runningTimeLapseIndex = 0;
+            this.lastCount = 0;
 
             var that = this;
             var appendCallback = function() {
@@ -340,7 +342,9 @@ $(document).ready(function () {
                 } else {
                     pause += runningTimeLapse.get('intervalSeconds')/2;
                 }
-                setTimeout(function() {that.sentTime = new Date();}, pause*1000);
+                that.sentTime = new Date();
+                that.pause = pause;
+                //setTimeout(function() {that.sentTime = new Date()}, pause);
                 finishedCallback();
             }
             RadianApp.DataTransmission.send(this.runningTimeLapses, appendCallback);
