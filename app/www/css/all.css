@@ -144,6 +144,7 @@ h1{
 }
 
 #newTimeLapse {
+	position: relative;
 	padding-bottom:47px;
 	border-bottom:1px solid rgb(70,70,70);;
 }
@@ -151,10 +152,10 @@ h1{
 	background: url('../images/RadianIcon_highlighted.png') no-repeat;
 	background-size: 15.5px 15.5px;
 	background-position: 0px 0px;
-	width: 15.5px;
-	height: 15.5px;
+	width: 16px;
+	height: 16px;
 	position: absolute;
-	left: 26px;
+	left: -29px;
 }
 
 #newTimeLapse .mainChoice {
@@ -169,10 +170,10 @@ h1{
 	background: url('../images/RadianIcon.png') no-repeat !important;
 	background-size: 15.5px 15.5px !important;
 	background-position: 0px 0px !important;
-	width: 15.5px !important;
-	height: 15.5px !important;
+	width: 16px !important;
+	height: 16px !important;
 	position: absolute !important;
-	left: 26px !important;
+	left: -29px !important;
 }
 
 #newTimeLapse.tappable-active .mainChoice {
@@ -2406,4 +2407,47 @@ table {
 	margin-left: -150px;
 	margin-top: -60px;
 	text-align: center;
+}
+
+#aboutRadian h1 {
+	color: rgb(176, 193, 199);
+	display: block;
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-size: 22px;
+	font-weight: bold;
+	height: 38px;
+	line-height: 28px;
+	margin-bottom: 13px;
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-top: 0px;
+	text-align: left;
+}
+
+#aboutRadian a {
+	color: rgb(0, 139, 202);
+	cursor: auto;
+	display: block;
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	height: auto;
+	line-height: 21px;
+	text-decoration: none;
+}
+
+#aboutRadian h2 {
+	color: rgb(0, 139, 202);
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-size: 28px;
+	line-height: 36px;
+	margin: 0 0 13px 0;
+	text-align: left;
+}
+
+#aboutRadian {
+	color: rgb(176, 193, 199);
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	line-height: 21px;
+	padding: 0px 10px;
 }
