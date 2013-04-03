@@ -78,6 +78,9 @@ div#preloaded-images {
 .threePicker .ios .dwwl {
 	min-width: 93px;
 }
+.threePicker .android-ics .dww li {
+min-width: 50px;
+}
 #aboveNavigation {
 	position: fixed;
 	bottom: 74px;
