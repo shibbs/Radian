@@ -247,7 +247,6 @@ $(document).ready(function () {
         },
 
         toggleShow: function(e) {
-            alert('nice');
             if(e) this.endEvent(e);
             this.$('.box').toggleClass('hide');
             this.open = !this.open;
@@ -384,11 +383,13 @@ $(document).ready(function () {
             'click #clearLink': 'clear'
         },
         clear: function(e) {
+            if(RadianApp.app.queue.length > 0) {
+            
             $.modal("<div class='error' style='width: 268px; font-family:\"Conv_Gotham-Medium\", Helvetica, Arial, sans-serif; font-size: 13.5px; color: rgb(30,30,30)'> \
         <div>Are you sure you want to clear the queue?</div> \
         <div class='minibox'> \
                             <div id='cancelAddNewPreset' class='btn btn-white simplemodal-close'>CANCEL</div> \
-                            <div id='addNewPreset' class='btn highlighted-btn'>CLEAR QUEUE</div> \
+                            <div id='addNewPreset' class='btn highlighted-btn'>CLEAR</div> \
                         </div> \
         </div>", {  position: ['50%', '50%'],
                                 onShow: function() { 
@@ -401,6 +402,7 @@ $(document).ready(function () {
                                                 RadianApp.app.queue.reset();
                                                 $('li.canSort').remove();
                                                 Views.navigation.setNext(true);
+                                                this.$('#saveLink .btn').addClass('disable');
                                                 $.modal.close();
                                             });
 
@@ -409,6 +411,7 @@ $(document).ready(function () {
                                     $.modal.close();
                                 }
                             });
+            }
         },
         navigateToAddView: function(e) {
             e.preventDefault();
