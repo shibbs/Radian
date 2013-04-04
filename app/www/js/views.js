@@ -402,7 +402,8 @@ $(document).ready(function () {
                                                 RadianApp.app.queue.reset();
                                                 $('li.canSort').remove();
                                                 Views.navigation.setNext(true);
-                                                this.$('#saveLink .btn').addClass('disable');
+                                                $('#clearLink .btn').addClass('disable');
+                                                //this.$('#saveLink .btn').addClass('disable');
                                                 $.modal.close();
                                             });
 
@@ -450,6 +451,13 @@ $(document).ready(function () {
             Views.navigation.setPrevious(true, "#home");
 
             this.$el.empty().append(this.template(RadianApp.app.visibleTimeLapse.getTemplateJSON()));
+            
+            this.listenTo(RadianApp.app.queue, 'remove', function() {
+                if(RadianApp.app.queue.length == 0) {
+                    this.$('#clearLink .btn').addClass('disable');
+                }
+            });
+
             var handleClass = 'handle';
 
             $('.sortable').sortable({
@@ -697,6 +705,7 @@ $(document).ready(function () {
             'Delete',            // title
             'No,Yes'          // buttonLabels
             );
+
             e.preventDefault();
             e.stopImmediatePropagation();
         },
