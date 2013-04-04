@@ -8,7 +8,7 @@ $(document).ready(function() {
 
 //});
 
-	//document.addEventListener('deviceready', function() {
+	document.addEventListener('deviceready', function() {
 
 		RadianApp.app = new RadianApp.Models.App();
 
@@ -25,5 +25,5 @@ $(document).ready(function() {
     
  
 
-	//}, false);
+	}, false);
 });
