@@ -5,14 +5,25 @@ $().ns('RadianApp.app');
 $(document).ready(function() {
 
 // Create a new RadianApp
-RadianApp.app = new RadianApp.Models.App();
 
-});
-
-//document.addEventListener('deviceready', function() {
-
-		
-
-
-//}, false);
 //});
+
+	//document.addEventListener('deviceready', function() {
+
+		RadianApp.app = new RadianApp.Models.App();
+
+	    
+	    onBackKeyDown = function() {
+	        // Handle the back button
+	        if($('#simplemodal-data').length) {
+	        	$.modal.close();
+	        	return;
+	        }
+	        window.location.hash = RadianApp.app.backButton;
+	    }
+	    document.addEventListener("backbutton", onBackKeyDown, false);
+    
+ 
+
+	//}, false);
+});
