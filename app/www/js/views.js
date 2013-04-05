@@ -456,6 +456,10 @@ $(document).ready(function () {
                 }
             });
 
+            if(RadianApp.app.queue.length == 0) {
+                $('#clearLink .btn').addClass('disable');
+            }
+            
             var handleClass = 'handle';
 
             $('.sortable').sortable({
