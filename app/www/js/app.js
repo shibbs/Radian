@@ -106,9 +106,3 @@ window.MobileAppRouter = Backbone.Router.extend({
     }
 
 });
-
-$(document).ready(function() {
-    window.mobileRouter = new MobileAppRouter();
-    Backbone.history.start();
-    //window.location.hash = 'timelapse';
-});

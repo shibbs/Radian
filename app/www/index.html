@@ -64,7 +64,7 @@ left: 0;
 				<div id="topNav">
 					<div class="title main"><%= name %></div>
 					<div class='leftArea'></div>
-					<div class='rightArea' id='saveLink' <><div class='btn <% if(name!="RADIAN") { %>disable <% } %>'>SAVE</div></div>
+					<div class='rightArea' id='saveLink'><div class='btn <% if(name!="RADIAN") { %>disable <% } %>'>SAVE</div></div>
 				</div>
 				<div id="content" style='padding-top: 7px;'>
 					<div class='newStyleBox'>
@@ -326,7 +326,7 @@ left: 0;
 font-family: 'Conv_Gotham-Black';
 position: relative;
 color: rgb(0, 139, 202);">
-					1.01
+					1.03
 				</div>
 				<div class="bottom" style="position: fixed; bottom: 0"></div>
 			</div>
@@ -736,7 +736,7 @@ left: 0px;font-weight: bold;'>
 			<div>
 				<div id="topNav" style="z-index:100; position: relative; ">
 					<div class="title">ADD PRESETS</div>
-					<div class='leftArea parentHighlight' id='backLink'><a href="#queue" class="btn-back parentHighlightNeeded"></a></div>
+					<div class='leftArea parentHighlight backLink'><a href="#queue" class="btn-back parentHighlightNeeded"></a></div>
 					<div class='rightArea'></div>
 				</div>
 				<div style="position:absolute; z-index: 80; top: 0; left:0; right:0; height: 65px; width:100%; background-color:rgb(30,30,30)">
@@ -1387,7 +1387,7 @@ left: 45px;">
         <!-- Load Libs -->
          <script src="js/lib/bugsense.1.1.js" type='text/javascript'></script>
 		 <script type="text/javascript">
-		    var bugsense = new Bugsense( { apiKey: '1554a485' } );
+		    //var bugsense = new Bugsense( { apiKey: '1554a485' } );
 		 </script>
         <script>
 
@@ -1509,7 +1509,7 @@ left: 45px;">
         <script type="text/javascript" src="js/router.js"></script>
         <script type="text/javascript" src="js/radian.js"></script>
         <script type="text/javascript" src="js/ui.js"></script> 
-         <script type="text/javascript" src="js/views.js"></script> 
+        <script type="text/javascript" src="js/views.js"></script> 
 
         
         
@@ -1519,6 +1519,29 @@ left: 45px;">
 		<script type="text/javascript" src="js/sound.js"></script>
 		<script type="text/javascript" src="js/send.js"></script>
 		<script type="text/javascript" src="js/cubic_spline_chart.js"></script>
+		<script>
+
+			$(document).ready(function() {
+
+				document.addEventListener('deviceready', function() {
+
+			        
+				    
+				    onBackKeyDown = function() {
+				        // Handle the back button
+				        if($('#simplemodal-data') && $('#simplemodal-data').length > 0) {
+				        	$.modal.close();
+				        } else {
+				        	window.location.hash = RadianApp.app.backButton;
+				        }
+				        return false;
+				    }
+				    document.addEventListener("backbutton", onBackKeyDown, false);
+				    window.location.hash = 'home';
+
+				}, false);
+			});
+		</script>
 
     </body>
 </html>

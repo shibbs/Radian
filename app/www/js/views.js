@@ -402,7 +402,8 @@ $(document).ready(function () {
                                                 RadianApp.app.queue.reset();
                                                 $('li.canSort').remove();
                                                 Views.navigation.setNext(true);
-                                                this.$('#saveLink .btn').addClass('disable');
+                                                $('#clearLink .btn').addClass('disable');
+                                                //this.$('#saveLink .btn').addClass('disable');
                                                 $.modal.close();
                                             });
 
@@ -419,9 +420,7 @@ $(document).ready(function () {
                 RadianApp.Utilities.errorModal('You may only have four presets in the queue.')
                 return;
             }
-            window.location.hash = '#timelapse/queue/add';
-            var addView = new Views.TimeLapseQueueAddView();
-            addView.render();
+            window.location.hash = '#queue/add';
         },
 
         insertNewQueue: function (model) {
@@ -450,6 +449,17 @@ $(document).ready(function () {
             Views.navigation.setPrevious(true, "#home");
 
             this.$el.empty().append(this.template(RadianApp.app.visibleTimeLapse.getTemplateJSON()));
+            
+            this.listenTo(RadianApp.app.queue, 'remove', function() {
+                if(RadianApp.app.queue.length == 0) {
+                    this.$('#clearLink .btn').addClass('disable');
+                }
+            });
+
+            if(RadianApp.app.queue.length == 0) {
+                $('#clearLink .btn').addClass('disable');
+            }
+            
             var handleClass = 'handle';
 
             $('.sortable').sortable({
@@ -604,7 +614,7 @@ $(document).ready(function () {
 
         events: {
             "click #edit": "editMode",
-            "click #backLink": "backLink"
+            "click .backLink": "backLink"
         },
 
         backLink: function() {
@@ -697,6 +707,7 @@ $(document).ready(function () {
             'Delete',            // title
             'No,Yes'          // buttonLabels
             );
+
             e.preventDefault();
             e.stopImmediatePropagation();
         },
@@ -850,7 +861,7 @@ $(document).ready(function () {
         template: _.template($('#timeLapseQueueAdd_template').html()),
 
         events: {
-            'click #backLink': 'save'
+            'click .backLink': 'save'
         },
 
         save: function() {
@@ -1524,10 +1535,18 @@ $(document).ready(function () {
                 //<canvas width="100%" height="100%" id="chart"></canvas>
                 var totalTime = RadianApp.app.visibleTimeLapse.get('totalTimeHours') * 60 + RadianApp.app.visibleTimeLapse.get('totalTimeMinutes');
                 var degrees = RadianApp.app.visibleTimeLapse.get('degrees');
-
-                ChartMonotonic = new SplineChart('chart_monotonic', 'Time (minutes)', 'Degrees', '#008bca', function(xs, ys) {
-                    return new MonotonicCubicSpline(xs, ys);
-                }, totalTime, degrees);
+               // alert('about to load the chart');
+                ChartMonotonic = new SplineChart({
+                    div_id: 'chart_monotonic',
+                    xAxisLabel: 'Time (minutes)',
+                    yAxisLabel: 'Degrees',
+                    color: '#008bca',
+                    splineFunc: function(xs, ys) {
+                        return new MonotonicCubicSpline(xs, ys);
+                    },
+                    xmax: totalTime,
+                    ymax: degrees
+                });
 
                 //ChartMonotonic.addNewPoint(0, 0, true); //Hack to be able to reset graph
                 if(RadianApp.app.visibleTimeLapse.get('isSpeedRamping')) {
@@ -2218,10 +2237,5 @@ $(document).ready(function () {
 
 
 
-            //Launch the router
-        RadianApp.router= new RadianApp.Router();
-        Backbone.history.start();
 
-        //Launch the home page
-        window.location.hash = 'home';
 });
