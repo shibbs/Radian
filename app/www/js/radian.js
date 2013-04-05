@@ -4,15 +4,8 @@ $().ns('RadianApp.app');
 
 $(document).ready(function() {
 
-// Create a new RadianApp
-RadianApp.app = new RadianApp.Models.App();
+	RadianApp.app = new RadianApp.Models.App();
+	RadianApp.router= new RadianApp.Router();
+    Backbone.history.start();
 
 });
-
-//document.addEventListener('deviceready', function() {
-
-		
-
-
-//}, false);
-//});
