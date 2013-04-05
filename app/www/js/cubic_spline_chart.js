@@ -38,8 +38,14 @@ Question = Backbone.Model.extend({
 });
 
 SplineChart = Backbone.Model.extend({
-  initialize: function(div_id, xAxisLabel, yAxisLabel, color, splineFunc, xmax, ymax) {
-
+  initialize: function(dict) {
+    var div_id=dict.div_id;
+    var xAxisLabel = dict.xAxisLabel;
+    var yAxisLabel = dict.yAxisLabel;
+    var color = dict.color;
+    var splineFunc = dict.splineFunc;
+    var xmax = dict.xmax;
+    var ymax = dict.ymax;
     this.div_id = div_id;
     this.iOS = !! window.navigator.appVersion.match(/\biP(ad|od|hone)\b/) || navigator.userAgent.match(/Android/);;
     this.xAxisLabel = xAxisLabel;
