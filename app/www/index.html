@@ -371,13 +371,15 @@ color: rgb(0, 139, 202);">
 <b><a name="overview"></a></b>
 <h1 style="font-weight: bold;">OVERVIEW</h1>
 <p dir="ltr">The app is organized into 3 simple steps. In Step 1, you will choose whether you want to create a new time-lapse configuration, load a previous configuration (Preset), or create a queue using a combination of these Presets. In Step 2 you will finalize your configuration's settings or specify the order in which you want your Presets executed if you choose to create a queue. Lastly, in Step 3 you will upload your configuration to Radian, and be able to track the progress of your time-lapse.</p>
+<b><a name="step1"></a></b>
 <h1 style="font-weight: bold;"><span>Step 1) Select an option</span></h1>
 <p dir="ltr">Choose “NEW TIME-LAPSE" if you’d like to configure a new time-lapse, or “PRESETS” to load a previously saved time-lapse. "<a href="#step2queue">QUEUE</a>" allows you to create a list of up to 4 presets, to be executed sequentially by Radian.</p>
+<b><a name="step2basic"></a></b>
 <h1 style="font-weight: bold;"><span>Step 2) Basic Settings</span></h1>
 <p dir="ltr">If you’re not making a queue, Step 2 is where you will configure your time-lapse settings. There are 3 fundamental settings for any time-lapse:</p>
 <ol>
   <li><a href="#movement">MOVEMENT</a> (how many degrees Radian will move)</li>
-  <li><a href="#movement">DURATION</a> (how long you want to time-lapse for)</li>
+  <li><a href="#duration">DURATION</a> (how long you want to time-lapse for)</li>
   <li><a href="#interval">INTERVAL</a> (how often you want to take a photo)</li>
 </ol>
 <ol>
@@ -413,6 +415,7 @@ color: rgb(0, 139, 202);">
 <p dir="ltr"><span style="text-align: left;"><img src="images/filmstrip_icon.png" alt="" style="float: left; margin-right: 10px;" /></span> Length your compiled time-lapse video will be. This is based on the number of photos that will be taken and the frame rate you set in the app. (# photos / Frames per second). You can set your desired frame rate in the app settings, but the default is 24 FPS.</p>
 <span></span>
 <p dir="ltr">Use these as guidelines to help determine your time-lapse settings. For example, you may want a slower moving time-lapse (generally recommended), which means that you should aim to keep your degrees/photo between .1 and .2 degrees. Or, you may want a shorter time-lapse video (also recommended), which means having 240 photos instead of 2,400. Get comfortable by playing around with the basic settings to see how each one affects the results, and soon you should have an intuitive sense for which settings will give you your desired results.</p>
+<b><a name="step2advanced"></a></b>
 <h1 style="font-weight: bold;"><span>Step 2) Advanced Settings</span></h1>
 <b><span></span></b>
 <p dir="ltr">Advanced settings can be reached by tapping the “advanced” button. There are 4 advanced settings: Time Delay, Speed Ramp, Bulb Ramp, and Hold. When any of these are on, a corresponding label will appear on the main page of Step 2 to denote that the advanced feature is activated.</p>
@@ -432,6 +435,7 @@ color: rgb(0, 139, 202);">
 Interval: 10s<br />
 Duration 1 hour<br />
 Movement: 45 cwSpeed ramp: 15 degrees x 15 minutes : 30 degrees x 45 minutes</p>
+<b><a name="hold"></a></b>
 <h3 style="font-weight: bold;"><span>Hold</span></h3>
 <p dir="ltr">By default, every time Radian triggers your camera to take a photo, it sends a .25 second pulse (the equivalent of manually pressing the shutter button for .25 seconds). Your “hold” time should stay at the default .25 seconds unless:</p>
 <p dir="ltr"></p>
@@ -487,6 +491,7 @@ Movement: 45 cwSpeed ramp: 15 degrees x 15 minutes : 30 degrees x 45 minutes</p>
 <p dir="ltr">To use a queue to control your time-lapses, choose Create a Queue in Step 1 of the app. This will take you to the Queue screen where you can add/delete presets, and rearrange them into the order you want them carried out by Radian. Radian will complete each preset one after the other in the order you specify until all of them have been completed.</p>
 <span></span>
 <p dir="ltr">Presets can be created from the basic settings screen by pressing the Save button after you have your outlined your desired settings.</p>
+<b><a name="step3"></a></b>
 <h1 style="font-weight: bold;"><span>Step 3) Uploading</span></h1>
 <b><span></span></b>
 <p dir="ltr">Once you have chosen the settings/queue you want, navigate to Step 3 (by swiping or pressing the arrow at the bottom right of the screen). Connect your phone to Radian via the 3.5mm audio cable. Turn Radian on and wait until after the battery status has flashed and the unit has recalibrated before pressing upload. Once uploaded, you should see the Time-Lapse LED turn solid green to confirm a successful upload. You are now free to disconnect your phone at any point. A countdown will start to indicate the the beginning of your time-lapse. Radian is now programmed to the settings you just uploaded. Restarting Radian will always restart the last programmed time-lapse from the beginning. &nbsp;&nbsp;</p>
@@ -506,6 +511,7 @@ Movement: 45 cwSpeed ramp: 15 degrees x 15 minutes : 30 degrees x 45 minutes</p>
 <b><a name="pantilt"></a></b>
 <h1>Programming a pan/tilt setup</h1>
 <div>If you are using a pan/tilt combo, you'll need to program each Radian separately (one with tilt settings, and one with pan settings). Make sure the intervals are the same, and when you are ready to start the time-lapse, simply switch on (or restart) both Radians at the same time.&nbsp;</div>
+<div style="height: 200px"></div>
 <br />
 
 			</div>
@@ -1384,11 +1390,11 @@ left: 45px;">
 
  
 
-        <!-- Load Libs -->
+        <!-- Load Libs 
          <script src="js/lib/bugsense.1.1.js" type='text/javascript'></script>
 		 <script type="text/javascript">
 		    //var bugsense = new Bugsense( { apiKey: '1554a485' } );
-		 </script>
+		 </script>-->
         <script>
 
         		/*// EXTREME DEBUGGING
@@ -1523,7 +1529,7 @@ left: 45px;">
 
 			$(document).ready(function() {
 
-				document.addEventListener('deviceready', function() {
+				//document.addEventListener('deviceready', function() {
 
 			        
 				    
@@ -1539,7 +1545,7 @@ left: 45px;">
 				    document.addEventListener("backbutton", onBackKeyDown, false);
 				    window.location.hash = 'home';
 
-				}, false);
+				//}, false);
 			});
 		</script>
 
