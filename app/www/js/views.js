@@ -181,6 +181,14 @@ $(document).ready(function () {
             "click .backLink": "back",
         },
 
+        render: function() {
+            Views.navigation.hide();
+            var elem = this.template();
+            this.$el.empty().append(elem);
+            RadianApp.UI.centerVertically('#vcenter');
+            return this;
+        },
+
         back: function () {
             window.location.hash = '#settings';
         }

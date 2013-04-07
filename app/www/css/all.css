@@ -75,6 +75,60 @@ div#preloaded-images {
    height: 1px;
    width: 1px;
 }
+
+#aboutRadian a[name] {
+   margin-top: -65px;
+   padding-top: 65px;
+}
+#aboutRadian blockquote {
+	background-attachment: scroll;
+	background-clip: border-box;
+	background-color: rgb(50, 50, 50);
+	background-image: none;
+	background-origin: padding-box;
+	background-size: auto;
+	color: rgb(176, 193, 199);
+	display: block;
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	line-height: 21px;
+	margin-bottom: 24px;
+	margin-left: 40px;
+	margin-right: 40px;
+	margin-top: 24px;
+	padding-bottom: 20px;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-top: 20px;
+	-webkit-margin-start: 0px;
+	-webkit-margin-end: 0px;
+}
+#aboutRadian h3 {
+	color: rgb(0, 139, 202);
+	display: inline;
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-size: 18px;
+	font-weight: bold;
+	height: auto;
+	line-height: 18px;
+	width: auto;
+	zoom: 1;
+}
+
+#aboutRadian h4 {
+	color: rgb(99, 116, 121);
+	display: block;
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-size: 15px;
+	font-weight: bold;
+	height: 15px;
+	line-height: 15px;
+	margin-bottom: 15px;
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-top: 0px;
+}
+
 .threePicker .ios .dwwl {
 	min-width: 93px;
 }
@@ -2441,8 +2495,8 @@ table {
 #aboutRadian h2 {
 	color: rgb(0, 139, 202);
 	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-	font-size: 28px;
-	line-height: 36px;
+	font-size: 24px;
+	line-height: 26px;
 	margin: 0 0 13px 0;
 	text-align: left;
 }
