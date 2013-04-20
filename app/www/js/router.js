@@ -47,6 +47,10 @@ $(document).ready(function () {
         },
 
         settings: function() {
+            if(!RadianApp.app.currentView) {
+                window.location.hash = 'home';
+                return;
+            }
             RadianApp.app.currentView.close();
             RadianApp.app.backButton = 'home';
             RadianApp.app.currentView = new RadianApp.Views.SettingsView();
@@ -54,6 +58,10 @@ $(document).ready(function () {
         },
 
         settingsFrameRate: function() {
+            if(!RadianApp.app.currentView) {
+                window.location.hash = 'home';
+                return;
+            }
             RadianApp.app.currentView.close();
             RadianApp.app.backButton = 'settings';
             RadianApp.app.currentView = new RadianApp.Views.SettingsFrameRateView();
@@ -61,6 +69,10 @@ $(document).ready(function () {
         },
         
         settingsAbout: function() {
+            if(!RadianApp.app.currentView) {
+                window.location.hash = 'home';
+                return;
+            }
             RadianApp.app.currentView.close();
             RadianApp.app.backButton = 'settings';
             RadianApp.app.currentView = new RadianApp.Views.SettingsAboutView();
@@ -68,6 +80,10 @@ $(document).ready(function () {
         },
 
         settingsUse: function() {
+            if(!RadianApp.app.currentView) {
+                window.location.hash = 'home';
+                return;
+            }
             RadianApp.app.currentView.close();
             RadianApp.app.backButton = 'settings';
             RadianApp.app.currentView = new RadianApp.Views.SettingsUseView();
@@ -75,6 +91,10 @@ $(document).ready(function () {
         },
 
         settingsVersion: function() {
+            if(!RadianApp.app.currentView) {
+                window.location.hash = 'home';
+                return;
+            }
             RadianApp.app.currentView.close();
             RadianApp.app.backButton = 'settings';
             RadianApp.app.currentView = new RadianApp.Views.SettingsVersion();
@@ -82,6 +102,10 @@ $(document).ready(function () {
         },
 
         timeLapse: function() {
+            if(!RadianApp.app.currentView) {
+                window.location.hash = 'home';
+                return;
+            }
             RadianApp.app.currentView.close();
             RadianApp.app.backButton = 'home';
             RadianApp.app.currentView = new RadianApp.Views.TimeLapseView({
@@ -91,6 +115,10 @@ $(document).ready(function () {
         },
 
     	timeLapsePresets: function() {
+            if(!RadianApp.app.currentView) {
+                window.location.hash = 'home';
+                return;
+            }
             RadianApp.app.currentView.close();
             RadianApp.app.backButton = 'home';
             RadianApp.app.currentView = new RadianApp.Views.TimeLapsePresetsView();
@@ -98,6 +126,10 @@ $(document).ready(function () {
         },
 
     	timeLapseDegrees: function() {
+            if(!RadianApp.app.currentView) {
+                window.location.hash = 'home';
+                return;
+            }
             RadianApp.app.currentView.close();
             RadianApp.app.backButton = 'timelapse';
             RadianApp.app.currentView = new RadianApp.Views.TimeLapseDegreesView({
@@ -107,6 +139,10 @@ $(document).ready(function () {
         },
 
     	timeLapseTotalTime: function() {
+            if(!RadianApp.app.currentView) {
+                window.location.hash = 'home';
+                return;
+            }
             RadianApp.app.currentView.close();
             RadianApp.app.backButton = 'timelapse';
             RadianApp.app.currentView = new RadianApp.Views.TimeLapseTotalTimeView({
@@ -116,6 +152,10 @@ $(document).ready(function () {
         },
 
     	timeLapseInterval: function() {
+            if(!RadianApp.app.currentView) {
+                window.location.hash = 'home';
+                return;
+            }
             RadianApp.app.currentView.close();
             RadianApp.app.backButton = 'timelapse';
             RadianApp.app.currentView = new RadianApp.Views.TimeLapseIntervalView({
@@ -125,6 +165,10 @@ $(document).ready(function () {
         },
 
     	timeLapseCountDown: function() {
+            if(!RadianApp.app.currentView) {
+                window.location.hash = 'home';
+                return;
+            }
             RadianApp.app.currentView.close();
             RadianApp.app.backButton = 'timelapse/upload';
             RadianApp.app.currentView = new RadianApp.Views.TimeLapseCountDownView({
@@ -134,6 +178,10 @@ $(document).ready(function () {
         },
 
     	timeLapseUpload: function() {
+            if(!RadianApp.app.currentView) {
+                window.location.hash = 'home';
+                return;
+            }
             RadianApp.app.currentView.close();
             if(RadianApp.app.isRunningSingleTimeLapse) {
                 RadianApp.app.backButton = 'timelapse';
@@ -148,6 +196,10 @@ $(document).ready(function () {
         },
 
     	timeLapseCurrent: function() {
+            if(!RadianApp.app.currentView) {
+                window.location.hash = 'home';
+                return;
+            }
             RadianApp.app.currentView.close();
             RadianApp.app.backButton = 'timelapse/upload';
     		RadianApp.app.currentView =  new RadianApp.Views.TimeLapseCurrent({model: window.running_program});
@@ -155,6 +207,10 @@ $(document).ready(function () {
         },
 
     	timeLapseQueue: function() {
+            if(!RadianApp.app.currentView) {
+                window.location.hash = 'home';
+                return;
+            }
             RadianApp.app.currentView.close();
             RadianApp.app.backButton = 'home';
             RadianApp.app.currentView = new RadianApp.Views.TimeLapseQueueView({
@@ -164,6 +220,10 @@ $(document).ready(function () {
         },
 
         queueAdd: function() {
+            if(!RadianApp.app.currentView) {
+                window.location.hash = 'home';
+                return;
+            }
             RadianApp.app.currentView.close();
             RadianApp.app.backButton = 'queue';
             RadianApp.app.currentView = new RadianApp.Views.TimeLapseQueueAddView();
@@ -171,6 +231,10 @@ $(document).ready(function () {
         },
         
     	timeLapseAdvanced: function() {
+            if(!RadianApp.app.currentView) {
+                window.location.hash = 'home';
+                return;
+            }
             RadianApp.app.currentView.close();
             RadianApp.app.backButton = 'timelapse';
             RadianApp.app.currentView = new RadianApp.Views.TimeLapseAdvancedView({
@@ -180,6 +244,10 @@ $(document).ready(function () {
         },
 
         timeLapseCompleted: function() {
+            if(!RadianApp.app.currentView) {
+                window.location.hash = 'home';
+                return;
+            }
             RadianApp.app.currentView.close();
             RadianApp.app.backButton = 'timelapse/upload';
             RadianApp.app.currentView = new RadianApp.Views.TimeLapseCompletedView({
@@ -189,6 +257,10 @@ $(document).ready(function () {
         },
 
         speedRamping: function() {
+            if(!RadianApp.app.currentView) {
+                window.location.hash = 'home';
+                return;
+            }
             RadianApp.app.currentView.close();
             RadianApp.app.backButton = 'timelapse/advanced';
             RadianApp.app.currentView = new RadianApp.Views.SpeedRampingView({
@@ -198,6 +270,10 @@ $(document).ready(function () {
         },
 
         bulbramping: function() {
+            if(!RadianApp.app.currentView) {
+                window.location.hash = 'home';
+                return;
+            }
             RadianApp.app.currentView.close();
             RadianApp.app.backButton = 'timelapse/advanced';
             RadianApp.app.currentView = new RadianApp.Views.BulbRampingView({
@@ -207,6 +283,10 @@ $(document).ready(function () {
         },
 
         bulbrampingDelay: function() {
+            if(!RadianApp.app.currentView) {
+                window.location.hash = 'home';
+                return;
+            }
             RadianApp.app.currentView.close();
             RadianApp.app.backButton = 'timelapse/bulbramping';
             RadianApp.app.currentView = new RadianApp.Views.BulbRampingDelay({
@@ -216,6 +296,10 @@ $(document).ready(function () {
         },
 
         bulbrampingDuration: function() {
+            if(!RadianApp.app.currentView) {
+                window.location.hash = 'home';
+                return;
+            }
             RadianApp.app.currentView.close();
             RadianApp.app.backButton = 'timelapse/bulbramping';
             RadianApp.app.currentView = new RadianApp.Views.BulbRampingDuration({
@@ -225,6 +309,10 @@ $(document).ready(function () {
         },
 
         bulbrampingStartShutter: function() {
+            if(!RadianApp.app.currentView) {
+                window.location.hash = 'home';
+                return;
+            }
             RadianApp.app.currentView.close();
             RadianApp.app.backButton = 'timelapse/bulbramping';
             RadianApp.app.currentView = new RadianApp.Views.BulbRampingStartShutter({
@@ -234,6 +322,10 @@ $(document).ready(function () {
         },
 
         bulbrampingExposureChange: function() {
+            if(!RadianApp.app.currentView) {
+                window.location.hash = 'home';
+                return;
+            }
             RadianApp.app.currentView.close();
             RadianApp.app.backButton = 'timelapse/bulbramping';
             RadianApp.app.currentView = new RadianApp.Views.BulbRampingExposureChange({
@@ -243,6 +335,10 @@ $(document).ready(function () {
         },
 
         timeLapseTimeDelay: function() {
+            if(!RadianApp.app.currentView) {
+                window.location.hash = 'home';
+                return;
+            }
             RadianApp.app.currentView.close();
             RadianApp.app.backButton = 'timelapse/advanced';
             RadianApp.app.currentView = new RadianApp.Views.TimeLapseTimeDelay({model: RadianApp.app});
@@ -250,6 +346,10 @@ $(document).ready(function () {
         },
 
         timeLapseHold: function() {
+            if(!RadianApp.app.currentView) {
+                window.location.hash = 'home';
+                return;
+            }
             RadianApp.app.currentView.close();
             RadianApp.app.backButton = 'timelapse/advanced';
             RadianApp.app.currentView =  new RadianApp.Views.TimeLapseHoldView({

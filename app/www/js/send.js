@@ -76,20 +76,29 @@ RadianApp.DataTransmission.send = function(models, finishedCallback) {
  	var wavName = "test.wav"; //TODO abstract
     
  	// Save file
- 	setTimeout(function() {
- 		if(!RadianApp.app.soundPlaying) {
-            RadianApp.app.soundPlaying = true;
-	       	RadianApp.Filesystem.saveBase64File(wavData, wavName, function(path) {
-				//Play wav
-				//TODO Save Volume
-				//TODO Increase Volume
-				Sound.play(path, function() {
-					RadianApp.app.soundPlaying = false;
-					finishedCallback();
+ 	if(!isRadianWeb) {
+ 		 setTimeout(function() {
+	 		if(!RadianApp.app.soundPlaying) {
+	            RadianApp.app.soundPlaying = true;
+		       	RadianApp.Filesystem.saveBase64File(wavData, wavName, function(path) {
+					//Play wav
+					//TODO Save Volume
+					//TODO Increase Volume
+					Sound.play(path, function() {
+						RadianApp.app.soundPlaying = false;
+						finishedCallback();
+					});
+					//TODO Change Volume back
 				});
-				//TODO Change Volume back
-			});
-		}
-     }, 1000);
+			}
+     	}, 1000);
+ 	} else {
+ 		var audio = new Audio('data:audio/wav;base64,'+wavData);
+ 		audio.play();
+ 		$(audio).bind('ended', function()  {
+		    finishedCallback();
+		});
+ 		
+ 	}
 }
 

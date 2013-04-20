@@ -1399,17 +1399,9 @@ left: 45px;">
 		    //var bugsense = new Bugsense( { apiKey: '1554a485' } );
 		 </script>-->
         <script>
-
-        		/*// EXTREME DEBUGGING
-        		window.onerror = function(error, url, line) {
-					document.getElementsByTagName('body')[0].innerHTML = 'JS ERROR :( <br /> Message: '+ error + '<br /> URL: ' + url + '<br /> Line Number: ' + line;
-    				return false;
-				};	*/
-
 			(function () {
-			
-
-
+				window.location.hash = '';
+				isRadianWeb = true;
 				isDroid = true//navigator.userAgent.match(/Android/); //polluting global, TODO: wrap under radianapp
 
 				var loadScript = function(src) {
@@ -1442,11 +1434,9 @@ left: 45px;">
         <script type='application/javascript' src='js/lib/textFill.js'></script>
         <script>
         	
-    		//if(!isDroid) {
-				window.addEventListener('load', function() {
-    				new FastClick(document.body);
-				}, false);
-    		//}
+			window.addEventListener('load', function() {
+    			new FastClick(document.body);
+			}, false);
 
         	// Namespacing Plugin for JQuery
 			(function( $ ){
@@ -1515,11 +1505,11 @@ left: 45px;">
         <script type="text/javascript" src="js/models.js"></script>
         
        
-        <script type="text/javascript" src="js/router.js"></script>
+        
         <script type="text/javascript" src="js/radian.js"></script>
         <script type="text/javascript" src="js/ui.js"></script> 
         <script type="text/javascript" src="js/views.js"></script> 
-
+        
         
         
 		<script type="text/javascript" src="js/data_transmission.js"></script>
@@ -1528,6 +1518,7 @@ left: 45px;">
 		<script type="text/javascript" src="js/sound.js"></script>
 		<script type="text/javascript" src="js/send.js"></script>
 		<script type="text/javascript" src="js/cubic_spline_chart.js"></script>
+		<script type="text/javascript" src="js/router.js"></script>
 		<script>
 
 			$(document).ready(function() {
@@ -1535,17 +1526,19 @@ left: 45px;">
 				//document.addEventListener('deviceready', function() {
 
 			        
-				    
-				    onBackKeyDown = function() {
-				        // Handle the back button
-				        if($('#simplemodal-data') && $('#simplemodal-data').length > 0) {
-				        	$.modal.close();
-				        } else {
-				        	window.location.hash = RadianApp.app.backButton;
-				        }
-				        return false;
+				    if(!isRadianWeb) {
+				    	onBackKeyDown = function() {
+					        // Handle the back button
+					        if($('#simplemodal-data') && $('#simplemodal-data').length > 0) {
+					        	$.modal.close();
+					        } else {
+					        	window.location.hash = RadianApp.app.backButton;
+					        }
+					        return false;
+					    }
+					    document.addEventListener("backbutton", onBackKeyDown, false);
 				    }
-				    document.addEventListener("backbutton", onBackKeyDown, false);
+
 				    window.location.hash = 'home';
 
 				//}, false);

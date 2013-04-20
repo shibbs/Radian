@@ -535,19 +535,49 @@ $(document).ready(function () {
 
         deleteEvent: function(e) {
             var that = this;
-            navigator.notification.confirm(
-            'Would you like to delete the preset?',  // message
-            function(i) {
-                if(i===1) return;
-                RadianApp.app.removeTimeLapseFromPresets(that.model);
-                that.remove();
-                that.unbind();
-                var scroller = that.scroller;
-                setTimeout(function() { scroller.refresh()}, 0); 
-            },// callback to invoke with index of button pressed
-            'Delete Preset',            // title
-            'No,Yes'          // buttonLabels
-            );
+            if(isRadianWeb) {
+                  $.modal("<div class='error' style='width: 268px; font-family:\"Conv_Gotham-Medium\", Helvetica, Arial, sans-serif; font-size: 13.5px; color: rgb(30,30,30)'> \
+        <div>Would you like to delete the preset?</div> \
+        <div class='minibox'> \
+                            <div id='cancel' class='btn btn-white simplemodal-close'>NO</div> \
+                            <div id='confirm' class='btn highlighted-btn'>YES</div> \
+                        </div> \
+        </div>", {  position: ['50%', '50%'],
+                                onShow: function() { 
+                        $('#simplemodal-container').css('margin-left', '-152px');
+                        $('#simplemodal-container').css('margin-top', '-40px');
+                                                $('#confirm').hammer().bind("tap", function(event){
+                                                
+                                                    event.preventDefault();
+                                                    event.stopImmediatePropagation();
+                                                    RadianApp.app.removeTimeLapseFromPresets(that.model);
+                                                    that.remove();
+                                                    that.unbind();
+                                                    var scroller = that.scroller;
+                                                    setTimeout(function() { scroller.refresh()}, 0); 
+                                                    $.modal.close();
+                                            });
+
+                                        },
+                                onClose: function() {
+                                    $.modal.close();
+                                }
+                            });
+            } else {
+                navigator.notification.confirm(
+                    'Would you like to delete the preset?',  // message
+                    function(i) {
+                        if(i===1) return;
+                        RadianApp.app.removeTimeLapseFromPresets(that.model);
+                        that.remove();
+                        that.unbind();
+                        var scroller = that.scroller;
+                        setTimeout(function() { scroller.refresh()}, 0); 
+                    },// callback to invoke with index of button pressed
+                    'Delete Preset',            // title
+                    'No,Yes'          // buttonLabels
+                );
+            }
             this.endEvent(e);
         },
 
@@ -701,20 +731,50 @@ $(document).ready(function () {
         },
 
         deleteEvent: function(e) {
-            var that = this;
-            navigator.notification.confirm(
-            'Would you like to delete this from the queue?',  // message
-            function(i) {
-                if(i===1) return;
-                RadianApp.app.removePresetFromQueue(that.model);
-                var scroller = that.scroller;
-                that.remove();
-                that.unbind();
-                setTimeout(function() { if(scroller) scroller.refresh()}, 0); 
-            },// callback to invoke with index of button pressed
-            'Delete',            // title
-            'No,Yes'          // buttonLabels
-            );
+                        var that = this;
+            if(isRadianWeb) {
+                  $.modal("<div class='error' style='width: 268px; font-family:\"Conv_Gotham-Medium\", Helvetica, Arial, sans-serif; font-size: 13.5px; color: rgb(30,30,30)'> \
+        <div>Would you like to delete this from the queue?</div> \
+        <div class='minibox'> \
+                            <div id='cancel' class='btn btn-white simplemodal-close'>NO</div> \
+                            <div id='confirm' class='btn highlighted-btn'>YES</div> \
+                        </div> \
+        </div>", {  position: ['50%', '50%'],
+                                onShow: function() { 
+                        $('#simplemodal-container').css('margin-left', '-152px');
+                        $('#simplemodal-container').css('margin-top', '-40px');
+                                                $('#confirm').hammer().bind("tap", function(event){
+                                                
+                                                    event.preventDefault();
+                                                    event.stopImmediatePropagation();
+                                                    RadianApp.app.removePresetFromQueue(that.model);
+                                                    var scroller = that.scroller;
+                                                    that.remove();
+                                                    that.unbind();
+                                                    setTimeout(function() { if(scroller) scroller.refresh()}, 0); 
+                                                    $.modal.close();
+                                            });
+
+                                        },
+                                onClose: function() {
+                                    $.modal.close();
+                                }
+                            });
+            } else {
+                navigator.notification.confirm(
+                'Would you like to delete this from the queue?',  // message
+                function(i) {
+                    if(i===1) return;
+                    RadianApp.app.removePresetFromQueue(that.model);
+                    var scroller = that.scroller;
+                    that.remove();
+                    that.unbind();
+                    setTimeout(function() { if(scroller) scroller.refresh()}, 0); 
+                },// callback to invoke with index of button pressed
+                'Delete',            // title
+                'No,Yes'          // buttonLabels
+                );
+            }
 
             e.preventDefault();
             e.stopImmediatePropagation();
