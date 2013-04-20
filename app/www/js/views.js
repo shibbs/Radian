@@ -1081,7 +1081,7 @@ $(document).ready(function () {
         },
 
         events: {
-            "click #continue": "continue",
+            "click #continue": "next",
             "click .backLink": "back",
         },
 
@@ -1090,7 +1090,7 @@ $(document).ready(function () {
             window.location.hash = '#timelapse';
         },
 
-        continue: function() {
+        next: function() {
             RadianApp.app.visibleTimeLapse.set("shouldContinue", !RadianApp.app.visibleTimeLapse.get("shouldContinue"));
             if(RadianApp.app.visibleTimeLapse.get("shouldContinue")) {
                 this.$('#continue').addClass('highlight');
