@@ -1410,7 +1410,7 @@ left: 45px;">
 			
 
 
-				isDroid = true//navigator.userAgent.match(/Android/); //polluting global, TODO: wrap under radianapp
+				isDroid = navigator.userAgent.match(/Android/); //polluting global, TODO: wrap under radianapp
 
 				var loadScript = function(src) {
 					var line = "<script src='"+src+"'><\/script>";
