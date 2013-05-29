@@ -135,9 +135,10 @@ $(document).ready(function () {
             console.log(lastPoint)
             var error = {};
 
-            /* Radian cannot exceed 5 degrees per second. If user selects an interval in 
-                which (degrees per photo/interval) > 5, a message should appear          */
-            if(degreesPerPhoto / intervalTotalSeconds > 5) {
+            /* Radian can only move so fast. If user selects an interval in which 
+                ShutterOpenTime + motionTime (movement between + 40 ms for engine turn on) + MinStepToShootTime (150ms) >= SetInterval invalid settings;
+                This simplifies to degreesPerPhoto >= intervalTotalSeconds - .2          */
+            if(degreesPerPhoto >= intervalTotalSeconds - .2 ) {
                 error.message = "Radian cannot move this fast!";
             }
 
