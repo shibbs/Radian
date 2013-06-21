@@ -15,6 +15,7 @@
     NSLog(@"test test");
     NSMutableArray *allowed = [NSMutableArray array];
     NSString *targetOrientation = [options objectForKey:@"key"];
+    int statusBarHeight = [[UIApplication sharedApplication] statusBarFrame].size.height;
     int statusBarWidth = [[UIApplication sharedApplication] statusBarFrame].size.width;
     
     if([targetOrientation isEqualToString:@"landscape"]) {
@@ -29,11 +30,11 @@
         [mv presentModalViewController:nc animated:NO];
         [mv dismissModalViewControllerAnimated:NO];
         /*
-        [[UIApplication sharedApplication] setStatusBarOrientation:UIDeviceOrientationLandscapeRight animated:YES];
-        [appDelegate.viewController.view setTransform: CGAffineTransformMakeRotation(M_PI * 1.5)];
-        [appDelegate.viewController.view setFrame:CGRectMake(statusBarHeight, 0, appDelegate.viewController.view.frame.size.height-statusBarHeight, appDelegate.viewController.view.frame.size.width+statusBarHeight)];
-        
-        [UIView commitAnimations];*/
+         [[UIApplication sharedApplication] setStatusBarOrientation:UIDeviceOrientationLandscapeRight animated:YES];
+         [appDelegate.viewController.view setTransform: CGAffineTransformMakeRotation(M_PI * 1.5)];
+         [appDelegate.viewController.view setFrame:CGRectMake(statusBarHeight, 0, appDelegate.viewController.view.frame.size.height-statusBarHeight, appDelegate.viewController.view.frame.size.width+statusBarHeight)];
+         
+         [UIView commitAnimations];*/
     }
     if([targetOrientation isEqualToString:@"portrait"]) {
         MainViewController * mv = (MainViewController *) appDelegate.viewController;
@@ -48,7 +49,7 @@
             [allowed addObject:[NSNumber numberWithInt:UIDeviceOrientationPortrait]];
             mv.allowedOrientations = allowed;
             
-
+            
             UIViewController *portraitViewController = [[UIViewController alloc] init];
             portraitViewController.view.backgroundColor = [UIColor redColor];
             UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:portraitViewController];
@@ -56,10 +57,10 @@
             [mv dismissModalViewControllerAnimated:NO];
             
             /*
-
+             
              */
             
-
+            
         }
     }
     

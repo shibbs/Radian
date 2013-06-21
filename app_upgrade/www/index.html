@@ -1,42 +1,1426 @@
 <!DOCTYPE html>
-<!--
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
 <html>
     <head>
-        <meta charset="utf-8" />
+		<title>radian</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="format-detection" content="telephone=no" />
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-        <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <title>Hello World</title>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+		<link type="text/css" rel="stylesheet" href="css/all.css">
+		<link href="css/mobiscroll-2.0.3.custom.min.css" rel="stylesheet" type="text/css" />
+		<style>
+			.android-ics .dwhl {
+				padding: 1px 0px;
+			}	
+
+			.android-ics .dww li {
+				min-width: 125px;
+			}
+			.android-ics .dwwol {
+				width: 80%;
+				left: 10%;
+			}
+		</style>
+
     </head>
-    <body>
-        <div class="app">
-            <h1>Apache Cordova</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
+    <body class='loading' style=''>
+		<div id="container">
+		</div>
+		<div id="navigation" class="navi" style="position:fixed; bottom:14px; width: 100%; z-index: 500;">
+				<nav class="step-nav inner-step" style="width:89%; margin: 0 auto">
+					<ul>
+						<li class="prev-holder" style="visibility">
+							<a href="#" class="prev"></a>
+						</li>
+						<li id="nav_numbers">
+						    <div class="number selected">1</div>
+							<div class="number">2</div>
+							<div class="number">3</div>
+							<div class="number" id="4"> </div>
+					    </li>
+						<li class="next-holder">
+							<a id="thirdstep" href="#" class="next">next</a>
+						</li>
+					</ul>
+				</nav>
+		</div>
+		
+		<script type="text/template" id="timeLapse_template">
+			<div>
+				<div id="topNav">
+					<div class="title main"><%= name %></div>
+					<div class='leftArea'></div>
+					<div class='rightArea' id='saveLink'><div class='btn <% if(name!="RADIAN") { %>disable <% } %>'>SAVE</div></div>
+				</div>
+				<div id="content" style='padding-top: 7px;'>
+					<div class='newStyleBox'>
+						<div class='row  parentHighlight' id='degreeLink'>
+							<div class='miniTitle parentHighlightNeeded'>														<% if (timeLapse === 1) { %>
+											PAN
+										 <% } else { %>
+										 	TILT
+										 <% } %></div>
+							<div class='parentHighlightNeeded'>
+								<div class='display parentHighlightNeeded'>
+									<div class='valueContainer parentHighlightNeeded'>
+										<div class='value parentHighlightNeeded'><%= degrees %><span class='degree parentHighlightNeeded'>°</span></div>
+										<div class='unit parentHighlightNeeded'><%= directionAbr %></div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class='row  parentHighlight' id='totalTimeLink'>
+							<div class='miniTitle parentHighlightNeeded'>IN</div>
+							<div class='parentHighlightNeeded'>
+								<div class='display parentHighlightNeeded'>
+									<% if (totalTimeHours !== 0) { %>
+										<div class='valueContainer first parentHighlightNeeded'>
+											<div class='value parentHighlightNeeded'><%= totalTimeHours %></div>
+											<div class='unit parentHighlightNeeded'>hr</div>
+										</div>
+									<% } %>
+									<div class='valueContainer last parentHighlightNeeded'>
+										<div class='value parentHighlightNeeded'><%= totalTimeMinutes %></div>
+										<div class='unit parentHighlightNeeded'>min</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class='row  parentHighlight'>
+							<div class='miniTitle parentHighlightNeeded'>SHOOT EVERY</div>
+							<div class='parentHighlightNeeded'>
+								<a href='#' id='intervalLink' class='parentHighlightNeeded'>
+									<div class='display parentHighlightNeeded'>
+										<% if (intervalMinutes !== 0) { %>
+											<div class='valueContainer first parentHighlightNeeded'>
+												<div class='value parentHighlightNeeded'><%= intervalMinutes %></div>
+												<div class='unit parentHighlightNeeded'>min</div>
+											</div>
+										<% } %>
+										<div class='valueContainer last parentHighlightNeeded'>
+											<div class='value parentHighlightNeeded'><%= intervalSeconds %></div>
+											<div class='unit parentHighlightNeeded'>sec</div>
+										</div>
+									</div>
+								</a>
+							</div>
+						</div>
+					</div>
+					<div class='centeredBox'>
+						<div class='advancedbtn' id='advancedLink'>ADVANCED</div>
+					</div>
+				</div>
+				<div id="aboveNavigation" class='test' style="bottom: 73px;">
+				<div>
+					<div class='advancedSettings'>
+						<% if (isTimeDelay) { %>
+							<div>DELAY</DIV>
+						<% } %>
+						<% if (isSpeedRamping) { %>
+						<div>SRAMP</div>
+						<% } %>
+						<% if (isBulbRamping) { %>
+						<div>BRAMP</div>
+						<% } %>
+						<% if (hold!=='.25') { %>
+						<div>HOLD</div>
+						<% } %>
+					</div>
+				</div>
+				
+					<div class='stats'>
+						<div><div class='photos'></div><div class="fill"><span><%= totalPhotos %></span></div></div>
+						<div><div class='degrees'></div><div class="fill"><span><%= degreesPerPhoto %>°</span></div></div>
+						<div><div class='duration'></div><div class="fill"><span><%= frameRate %>s</span></div></div>
+					</div>
+				</div>
+			</div>
+		</script>
+
+		<!-- Home Template -->
+		<script type="text/template" id="home_template">
+			<div>
+				<div id="topNav">
+					<div class="title">RADIAN</div>
+					<div class='leftArea'></div>
+					<div class='rightArea'></div>
+				</div>
+			</div>
+			<div style="background-color:red; position: absolute; top:0; left:0"></div>
+			<div id="home">
+				<div style="padding-top: 31px; padding-bottom: 47px">
+					<div id="newTimeLapse" class="parentHighlight">
+						<div class="timeLapseIcon parentHighlightNeeded"></div>
+						<div class="mainChoice parentHighlightNeeded">NEW TIME-LAPSE</div>
+					</div>
+					<ul class="mainList">
+						<li id="loadPresetLink" class='parentHighlight'>
+							<div class="mainHeading parentHighlightNeeded">LOAD A PRESET</div>
+							<div class="subHeader  parentHighlightNeeded">Saved Presets: <%= num_presets %></div>
+						</li>
+						<li id="createQueueLink" class='parentHighlight'>
+							<div class="mainHeading  parentHighlightNeeded">CREATE A QUEUE</div>
+							<div class="subHeader  parentHighlightNeeded">From Presets</div>
+						</li>
+						<li id="settingsLink" class='parentHighlight'>
+							<div class="mainHeading  parentHighlightNeeded">APP SETTINGS</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div id="preloaded-images">
+			   <img src="./images/ico-photo.png" width="1" height="1" />
+			   <img src="./images/ico-photo-info.png" width="1" height="1" />
+			   <img src="./images/ico-time.png" width="1" height="1" />
+			   <img src="./images/DialogueCheckMark.png" width="1" height="1" />
+			   <img src="./images/step2arrow.png" width="1" height="1" />
+			   <img src="./images/step2arrowgray.png" width="1" height="1" />
+	   			<div style="font-family: 'Conv_Gotham-Black'; color:rgb(30,30,30);">
+					abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890/&deg;
+				</div>
+					<div style="font-family: 'Conv_Gotham-Bold';color:rgb(30,30,30);">
+					abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890/&deg;
+				</div>
+				<div style="font-family: 'Conv_Gotham-Book';color:rgb(30,30,30); font-size: 11px;">
+					abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890/&deg;
+				</div>
+				<div style="font-family: 'Conv_Gotham-Book';color:rgb(30,30,30);">
+					abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890/&deg;
+				</div>
+				<div style="font-family: 'Conv_Gotham-Medium';color:rgb(30,30,30);">
+					abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890/&deg;
+				</div>
+				<div style="font-family: 'Conv_Gotham-Medium';color:rgb(30,30,30);">
+					abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890/&deg;
+				</div>
+			</div>
+		</script>
+
+		<script type="text/template" id="preload_template">
+			<div id="preloaded-images">
+			   <img src="./images/ico-photo.png" width="1" height="1" />
+			   <img src="./images/ico-photo-info.png" width="1" height="1" />
+			   <img src="./images/ico-time.png" width="1" height="1" />
+			   <img src="./images/DialogueCheckMark.png" width="1" height="1" />
+			   <img src="./images/step2arrow.png" width="1" height="1" />
+			   <img src="./images/step2arrowgray.png" width="1" height="1" />
+	   			<div style="font-family: 'Conv_Gotham-Black'; color:rgb(30,30,30);">
+					abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890/&deg;
+				</div>
+					<div style="font-family: 'Conv_Gotham-Bold';color:rgb(30,30,30);">
+					abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890/&deg;
+				</div>
+				<div style="font-family: 'Conv_Gotham-Book';color:rgb(30,30,30); font-size: 11px;">
+					abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890/&deg;
+				</div>
+				<div style="font-family: 'Conv_Gotham-Book';color:rgb(30,30,30);">
+					abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890/&deg;
+				</div>
+				<div style="font-family: 'Conv_Gotham-Medium';color:rgb(30,30,30);">
+					abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890/&deg;
+				</div>
+				<div style="font-family: 'Conv_Gotham-Medium';color:rgb(30,30,30);">
+					abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890/&deg;
+				</div>
+			</div>
+		</script>
+
+		<!-- TimeLapseSettings Template -->
+		<script type="text/template" id="settings_template">
+		    <div>
+				<div id="topNav">
+					<div class="title">SETTINGS</div>
+					<div class='leftArea parentHighlight backLink'><a href="#home" class="btn-back parentHighlightNeeded"></a></div>
+					<div class='rightArea'></div>
+				</div>
+				<div id='modalContainer'>
+					<ul class="extraList">
+						<li id="fps" class='parentHighlight'>
+							<div class="mainHeading parentHighlightNeeded">FRAME RATE</div>
+							<div class="subHeader  parentHighlightNeeded">CURRENT: <%= fps %> fps</div>
+						</li>
+						<li id="about" class='parentHighlight'>
+							<div class="mainHeading  parentHighlightNeeded">ABOUT RADIAN</div>
+							<div class="subHeader  parentHighlightNeeded">LEARN MORE</div>
+						</li>
+						<li id="use" class='parentHighlight'>
+							<div class="mainHeading  parentHighlightNeeded">USING RADIAN</div>
+							<div class="subHeader  parentHighlightNeeded">Using the app and Radian</div>
+						</li>
+						<li id="version" class='parentHighlight'>
+							<div class="mainHeading  parentHighlightNeeded">APP VERSION</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</script>
+
+		<!-- TimeLapseSettingsFrameRate Template -->
+		<script type="text/template" id="settingsFrameRate_template">
+	    	<div id="topNav">
+				<div class="title">FRAMES PER SECOND</div>
+				<div class='leftArea parentHighlight backLink'><a href="#settings" class="btn-back parentHighlightNeeded"></a></div>
+				<div class='rightArea'></div>
+			</div>
+			<div class="block-info" style='padding: 0px;'>
+				<span class="text">TIME-LAPSE WILL BE COMPILED AT</span>
+				<div class="row">
+					<strong id="fps" class="mark"><%= fps %></strong>
+					<span>fps</span>
+				</div>
+				<span class="text"></span>
+			</div>
+			<div id="abovePicker">
+				<div style="width: 268px; margin:0 auto;">
+						<span class="superscript">*</span>
+						 This setting does not affect your time lapse. This value is simply used to calculate your time-lapse's resulting video length, which is denoted by the filmstrip icon.
+						 <!-- ' to keep sublime happy -->
+				</div>
+			</div>
+			<div id="picker" class='bottom'>
+			</div>
+
+
+		</script>
+
+
+
+		<!-- TimeLapseSettingsAbout Template -->
+		<script type="text/template" id="settingsAbout_template">
+		    <div>
+				<div id="topNav" class="top">
+					<div class="title">ABOUT RADIAN</div>
+					<div class='leftArea parentHighlight backLink'><a href="#settings" class="btn-back parentHighlightNeeded"></a></div>
+					<div class='rightArea'></div>
+				</div>
+				<div id="vcenter" style="padding: 0px 10px">
+					<div id="aboutRadian" style="text-align:center; padding-bottom:65px;"> 
+					Radian is a remarkably simple and affordable motion time-lapse device that can be used to create beautiful panning, tilting, or still time-lapses. This app is necessary in order to program the device, but is not needed during operation. Find out more about Radian at <a href="http://www.alpinelaboratories.com">http://www.alpinelaboratories.com</a>
+					</div>
+				</div>
+				<div class="bottom" style="position:fixed; bottom: 0px"></div>
+			</div>
+		</script>
+
+				<!-- TimeLapseSettingsAbout Template -->
+		<script type="text/template" id="settingsVersion_template">
+		    <div>
+				<div id="topNav" class="top">
+					<div class="title">VERSION</div>
+					<div class='leftArea parentHighlight backLink'><a href="#settings" class="btn-back parentHighlightNeeded"></a></div>
+					<div class='rightArea'></div>
+				</div>
+
+				<div class="version" style="text-align:center; font-size: 38px;
+font-family: 'Conv_Gotham-Black';
+position: relative;
+color: rgb(0, 139, 202);">
+					1.03
+				</div>
+				<div class="bottom" style="position: fixed; bottom: 0"></div>
+			</div>
+		</script>
+
+		<!-- TimeLapseSettingsUse Template -->
+		<script type="text/template" id="settingsUse_template">
+		    <div>
+				<div id="topNav" style="position:fixed; background-color: rgb(30, 30, 30);">
+					<div class="title">USING RADIAN</div>
+					<div class='leftArea parentHighlight backLink'><a href="#settings" class="btn-back parentHighlightNeeded"></a></div>
+					<div class='rightArea'></div>
+				</div>
+				<div style="height:65px"></div>
+				<div id="aboutRadian">
+				<div id="aboutRadian">
+				<dl>
+
+<dt><a href="#overview">Overview</a></dt>
+<dt><a href="#step1">Step 1</a></dt>
+
+<dt><a href="#step2basic">Step 2: Basic Settings</a></dt>
+
+<dd><a href="#movement"><span>○</span> Movement</a></dd>
+<dd><a href="#duration"><span>○</span> Duration</a></dd>
+<dd><a href="#interval"><span>○</span> Interval</a></dd>
+<dd><a href="#results"><span>○</span> Results</a></dd>
+
+<dt><a href="#step2advanced">Step 2: Advanced Settings</a></dt>
+
+<dd><a href="#timedelay"><span>○</span> Time Delay</a></dd>
+<dd><a href="#speedramping"><span>○</span> Speed Ramping</a></dd>
+<dd><a href="#hold"><span>○</span> Hold</a></dd>
+<dd><a href="#bulbramping"><span>○</span> Bulb Ramping</a></dd>
+
+<dt><a href="#step2queue">Step 2: Creating a Queue</a></dt>
+
+<dt><a href="#step3">Step 3: Uploading</a></dt>
+<dt><a href="#progress">Progress Tracking</a></dt>
+<dt><a href="#pantilt">Programming a pan/tilt setup</a></dt>
+</dl>
+<b><a name="overview"></a></b>
+<h1 style="font-weight: bold;">OVERVIEW</h1>
+<p dir="ltr">The app is organized into 3 simple steps. In Step 1, you will choose whether you want to create a new time-lapse configuration, load a previous configuration (Preset), or create a queue using a combination of these Presets. In Step 2 you will finalize your configuration's settings or specify the order in which you want your Presets executed if you choose to create a queue. Lastly, in Step 3 you will upload your configuration to Radian, and be able to track the progress of your time-lapse.</p>
+<b><a name="step1"></a></b>
+<h1 style="font-weight: bold;"><span>Step 1) Select an option</span></h1>
+<p dir="ltr">Choose “NEW TIME-LAPSE" if you’d like to configure a new time-lapse, or “PRESETS” to load a previously saved time-lapse. "<a href="#step2queue">QUEUE</a>" allows you to create a list of up to 4 presets, to be executed sequentially by Radian.</p>
+<b><a name="step2basic"></a></b>
+<h1 style="font-weight: bold;"><span>Step 2) Basic Settings</span></h1>
+<p dir="ltr">If you’re not making a queue, Step 2 is where you will configure your time-lapse settings. There are 3 fundamental settings for any time-lapse:</p>
+<ol>
+  <li><a href="#movement">MOVEMENT</a> (how many degrees Radian will move)</li>
+  <li><a href="#duration">DURATION</a> (how long you want to time-lapse for)</li>
+  <li><a href="#interval">INTERVAL</a> (how often you want to take a photo)</li>
+</ol>
+<ol>
+</ol>
+<span></span>
+<p dir="ltr">These three settings are selectable from the main screen in Step two. </p>
+<b><a name="movement"></a></b>
+<h3 style="font-weight: bold;"><span>Movement</span><span>&nbsp;</span></h3>
+<p dir="ltr">When you select the first line, “Pan/tilt X degrees”, you are taken to a screen where you can select how many degrees you want Radian to move over the length of your time-lapse. From here you can also select whether this particular time-lapse will pan or tilt. This is important for power consumption: in pan-mode the battery can last for over 100+ rotations, but in tilt-mode, the motor must always be on in order to lift a camera, resulting in 5-6 hours of power. </p>
+<blockquote><b>Tip</b>: if you are tilting down, you can simply select “Pan” to save power</blockquote>
+<b><span></span></b>
+<b><a name="duration"></a></b>
+<h3 style="font-weight: bold;">Duration</h3>
+<p dir="ltr">When you select the second line, “in Y hours”, you are taken to a screen where you can select how long you would like Radian to time-lapse for.</p>
+<span></span>
+<p dir="ltr">You’ll also notice an infinity loop icon. Pressing it, so that it is highlighted blue, will enable continuous mode. This means that your time-lapse will continue shooting with your specified settings even after you reach your set duration. In other words, it will still move X degrees in Y time firing at your Z interval, but will continue at this rate until you end the time-lapse.</p>
+<b><a name="interval"></a></b>
+<h3 style="font-weight: bold;">Interval</h3>
+<p dir="ltr">When you select the third line, “and shoot every Z sec/min”, you are taken to a screen where you can select how often Radian should trigger your camera to take a photo and move. Keep in mind that as you shorten the interval and keep the movement and duration settings constant, Radian will take more photos and move less between shots (and thus pan slower in the final time-lapse video).</p>
+<span></span>
+<blockquote><b>Tip</b>: For Radian, we recommend a speed between .1 and .15 degrees per photo</blockquote>
+<span></span>
+<p dir="ltr"><span>For intervals that are 3 seconds or less, Radian will move, wait (.5 * interval) seconds, trigger the camera, wait for (.5 * interval) seconds, then repeat the process. For intervals that are 4 seconds or greater, Radian will shoot, wait (interval-2s), move, wait 2 seconds, and repeat the process again. The green LED on Radian will blink every time Radian moves.</span></p>
+<span></span>
+<p dir="ltr">Note: If you are using another remote or syncing Radian with another motion time-lapse device, it is important to note that the interval is an absolute time, and is the time between the beginning of each photo taken.</p>
+<b><span></span></b>
+<b><a name="results"></a></b>
+<h3 style="font-weight: bold;"><span>Results Section</span></h3>
+<b><span></span></b>
+<p dir="ltr">Note the three icons and stats at the bottom of the main screen. These are the “results” based on your time-lapse settings: </p>
+<p dir="ltr"><span style="text-align: left;"><img src="images/photos_2x_icon.png" alt="" style="float: left; margin-right: 10px;" /></span> Total number of photos that will be taken</p>
+<p dir="ltr"><span style="text-align: left;"><img src="images/degreesperphoto_2x_icon.png" alt="" style="float: left; margin-right: 10px;" /></span> Degrees Radian will move between photos</p>
+<p dir="ltr"><span style="text-align: left;"><img src="images/filmstrip_icon.png" alt="" style="float: left; margin-right: 10px;" /></span> Length your compiled time-lapse video will be. This is based on the number of photos that will be taken and the frame rate you set in the app. (# photos / Frames per second). You can set your desired frame rate in the app settings, but the default is 24 FPS.</p>
+<span></span>
+<p dir="ltr">Use these as guidelines to help determine your time-lapse settings. For example, you may want a slower moving time-lapse (generally recommended), which means that you should aim to keep your degrees/photo between .1 and .2 degrees. Or, you may want a shorter time-lapse video (also recommended), which means having 240 photos instead of 2,400. Get comfortable by playing around with the basic settings to see how each one affects the results, and soon you should have an intuitive sense for which settings will give you your desired results.</p>
+<b><a name="step2advanced"></a></b>
+<h1 style="font-weight: bold;"><span>Step 2) Advanced Settings</span></h1>
+<b><span></span></b>
+<p dir="ltr">Advanced settings can be reached by tapping the “advanced” button. There are 4 advanced settings: Time Delay, Speed Ramp, Bulb Ramp, and Hold. When any of these are on, a corresponding label will appear on the main page of Step 2 to denote that the advanced feature is activated.</p>
+<span></span>
+<a name="timedelay"></a>
+<h3 style="font-weight: bold;"><span>Time Delay</span></h3>
+<p dir="ltr">Radian will wait the amount of time set here before starting the time-lapse. DEFAULT: 0 minutes.</p>
+<span></span>
+<a name="speedramping"></a>
+<h3 style="font-weight: bold;"><span>Speed Ramping</span></h3>
+<p dir="ltr">This feature gives you finer control over how Radian moves throughout your time-lapse. It enables Radian to speed up or slow down its movement. This can be used for slow in/slow out, or fast in/fast out transitions.</p>
+<span></span>
+<p dir="ltr"><span>This is set using a simple graphical interface with Time Duration of the time-lapse on the X-axis and Total Movement of Radian (in degrees) on the Y-axis. The starting point is fixed at the origin (the beginning of the time-lapse), and the end-point (the end of the time-lapse) is fixed at the total number of degrees Radian will move as set in the </span><span>Movement</span><span> screen in the basic settings. You can add/remove keypoints by double tapping on the graph, and move them around by dragging them. Radian will speed up/slow down accordingly to meet each keypoint you set. As an example, if you set a keypoint at 30 minutes, 30 degrees, Radian will have moved 30 degrees at the 30 min. mark in your time-lapse. You may select a “curve” or “linear” fit depending on how smooth you want Radian to change speeds. Hitting “reset” will simply turn off speed ramping, and Radian will move at a constant rate.</span></p>
+<span></span>
+<blockquote><b>Note</b>: If Speed Ramping is enabled, your time-lapse will stop after your set duration even if you enable Continuous-Mode in the Duration screen.</blockquote>
+<p>Fast-in Fast-out<br />
+Interval: 10s<br />
+Duration 1 hour<br />
+Movement: 45 cwSpeed ramp: 15 degrees x 15 minutes : 30 degrees x 45 minutes</p>
+<b><a name="hold"></a></b>
+<h3 style="font-weight: bold;"><span>Hold</span></h3>
+<p dir="ltr">By default, every time Radian triggers your camera to take a photo, it sends a .25 second pulse (the equivalent of manually pressing the shutter button for .25 seconds). Your “hold” time should stay at the default .25 seconds unless:</p>
+<p dir="ltr"></p>
+<ol>
+  <li>You have set your camera to take bracketed exposures (3 photos with varying exposures, to be merged into an HDR image later, instead of one photo each time). In this case, 2 seconds or more is generally needed.</li>
+  <li>You are using a third party infrared trigger. For IR triggering, at least .5 seconds is necessary.</li>
+</ol>
+<b><a name="bulbramping"></a></b>
+<h3 style="font-weight: bold;"><span>Bulb Ramping</span></h3>
+<p dir="ltr">In bulb-ramping mode, Radian dynamically controls the shutter length of each photo taken, allowing you to better adjust to big changes in light (sunsets, sunrises). Bulb-ramping can be tricky at first, but once you get the hang of it, bramps can be set up in a matter of seconds.</p>
+<span></span>
+<p dir="ltr"><span>There are a few important things to note with bulb-ramping:</span></p>
+<ol>
+  <li>At this point, bulb-ramping only works reliably with Canon cameras. This is unfortunately due to limitations on the camera manufacturer’s end and bulb-ramping in general.</li>
+  <li>You need a <a href="http://www.amazon.com/EDEALLINE-3-5mm-FLASH-Cable-Screw/dp/B00A8VNFTO/ref=sr_1_2?s=electronics&amp;ie=UTF8&amp;qid=1364495559&amp;sr=1-2&amp;keywords=3.5mm+pc+sync+cord">3.5mm/PC sync cable</a>, to be connected between Radian’s phone port (after programming) and your camera’s PC sync port. If your camera does not have one, you’ll need a PC Sync Hot shoe adapter like <a href="http://www.amazon.com/Seagull-SC-2-Flash-Adapter-Socket/dp/B00281Y6FO/ref=sr_1_1?s=electronics&amp;ie=UTF8&amp;qid=1364495287&amp;sr=1-1&amp;keywords=pc+sync+hot+shoe">this one</a>. This allows Radian to accurately time the shutter length.</li>
+  <li>The fastest shutter speed for most cameras is 1/25th of a second. This is also a technical limitation on the camera’s end.</li>
+  <li>Your camera needs to be in Bulb mode.</li>
+</ol>
+<ol>
+</ol>
+<span></span>
+<p dir="ltr">The bulb-ramping page has 4 settings to configure: the delay, the duration, initial exposure length, and the exposure change.</p>
+<b><span></span></b>
+<h4 style="font-weight: bold;">Delay<b>&nbsp;</b></h4>
+<p>This is how long into the time-lapse that Radian should stay constant at the initial exposure until bulb-ramping.</p>
+<span></span>
+<h4 style="font-weight: bold;">Duration&nbsp;</h4>
+<p dir="ltr">How long Radian will change the exposure for, not the actual length of the time-lapse (configured in the Step 2 main page). Note that the delay + duration can never exceed the time-lapse length you’ve set on the main page.</p>
+<span></span>
+<h4 style="font-weight: bold;">Initial Exposure</h4>
+<p dir="ltr">The starting shutter speed. For the length of your delay, if any, and for the first frame of your bulb-ramp, this will be your initial exposure length.</p>
+<span></span>
+<h4 style="font-weight: bold;">Exposure Change&nbsp;</h4>
+<p dir="ltr">This is the rate at which Radian will change the exposure length. We recommend using f/10min, which is short for f-stops per 10 minutes. Every f-stop is is either a doubling or halving of light, so an exp change of 1 f/10min means that your shutter length will double every 10 minutes. An exp of 2 f/10 min means that your shutter will quadruple every 10 min. An exp change of -1 f/10min means that it will halve every 10 minutes. For sunsets, the general rule of thumb is that the light fall-off is about 2 f/10min for an hour, starting at sunset.</p>
+<span></span>
+<h4 style="font-weight: bold;">Results<b>&nbsp;</b></h4>
+<p dir="ltr">The results section is important for keeping note of the time-lapse interval, the number of frames your bulb-ramp will last for, and the final exposure given your settings. Use the final exposure to help you figure out the optimal interval, exp change, and duration of the bulb-ramp.</p>
+<span></span>
+<blockquote><b>Sunset Example</b><br />
+  <dl><dt>General Radian Settings</dt>
+  <dd>○&nbsp;Movement: 60 degrees CW</dd>
+  <dd>○&nbsp;Duration 1.5 hours &amp; continuous</dd>
+  <dd>○&nbsp;Interval: 15-20 sec</dd>
+  <dt>Bramp Settings</dt>
+  <dd>○&nbsp;Duration: about 40-44min</dd>
+  <dd>○&nbsp;Initial exposure: 1/25 sec (set your ISO and Aperture manually according to this shutter speed)</dd>
+  <dd>○&nbsp;Exposure Change: 2f/10min</dd>
+  </dl>
+</blockquote>
+<blockquote><b>Note</b>: Most of the time, bulb-ramping cannot change the exposure enough to adequately cover a full day-night or night-day transition. If you are trying to do a full transition, however, you can manually aid your bulb-ramp by periodically changing the ISO and aperture, and smoothing out the jumps in exposure in Lightroom and/or LRTimelapse. This requires a little more work, but works to great effect.</blockquote>
+<b><a name="step2queue"></a></b>
+<h3 style="font-weight: bold;"><span>Creating a Queue </span></h3>
+<p dir="ltr">To use a queue to control your time-lapses, choose Create a Queue in Step 1 of the app. This will take you to the Queue screen where you can add/delete presets, and rearrange them into the order you want them carried out by Radian. Radian will complete each preset one after the other in the order you specify until all of them have been completed.</p>
+<span></span>
+<p dir="ltr">Presets can be created from the basic settings screen by pressing the Save button after you have your outlined your desired settings.</p>
+<b><a name="step3"></a></b>
+<h1 style="font-weight: bold;"><span>Step 3) Uploading</span></h1>
+<b><span></span></b>
+<p dir="ltr">Once you have chosen the settings/queue you want, navigate to Step 3 (by swiping or pressing the arrow at the bottom right of the screen). Connect your phone to Radian via the 3.5mm audio cable. Turn Radian on and wait until after the battery status has flashed and the unit has recalibrated before pressing upload. Once uploaded, you should see the Time-Lapse LED turn solid green to confirm a successful upload. You are now free to disconnect your phone at any point. A countdown will start to indicate the the beginning of your time-lapse. Radian is now programmed to the settings you just uploaded. Restarting Radian will always restart the last programmed time-lapse from the beginning. &nbsp;&nbsp;</p>
+<span></span>
+<p dir="ltr">If you do not see the Time-Lapse LED turn solid green, you must re-upload your time-lapse settings until it does. If after a few tries nothing happens, try restarting the device, your phone, and the app itself. Also try reconnecting the audio cable and ensuring a secure connection. You can confirm that the app is sending a signal by unplugging the audio cable from your phone, and pressing the upload button. If it plays a sound, then it means the app is successfully sending a signal.</p>
+<b><span></span></b>
+<b><a name="progress"></a></b>
+<h1 style="font-weight: bold;"><span>Progress</span></h1>
+<p dir="ltr">This screen is purely to help you track the progress of your time-lapse. After uploading, there is no actual communication between the phone and Radian. Pressing “Reset counter” will simply reset the Progress page, useful if you are restarting the time-lapse by turning Radian off and on.</p>
+<span></span>
+<p dir="ltr">During the time-lapse, the Radian unit’s Time-lapse LED will blink green every time it moves.</p>
+<p dir="ltr"><br />
+</p>
+<p dir="ltr"></p>
+
+<b><span></span></b>
+<b><a name="pantilt"></a></b>
+<h1>Programming a pan/tilt setup</h1>
+<div>If you are using a pan/tilt combo, you'll need to program each Radian separately (one with tilt settings, and one with pan settings). Make sure the intervals are the same, and when you are ready to start the time-lapse, simply switch on (or restart) both Radians at the same time.&nbsp;</div>
+<div style="height: 200px"></div>
+<br />
+
+			</div>
+		
+				</div>
+			</div>
+		</script>
+
+		<!-- TimeLapseQueueItem Template -->
+		<script type="text/template" id="timeLapseQueueItemHome_template">
+					<a href="#" class="opener">
+							<strong class="title"><% if (current) { %>
+								CURRENT
+								 <% } else { %><%= name %><% } %></strong>
+							<em class="date"><%= dateCreated %></em>
+						</a>
+
+						<div class="box hide" style='padding-bottom:0px'>
+							<div class="box-holder">
+								<div class="row">
+									<span style='margin-bottom: 5px;
+left: 0px;font-weight: bold;'>
+									<% if (timeLapse === 1) { %>
+										PAN
+									 <% } else { %>
+									 	TILT
+									 <% } %>
+									</span>
+								</div>
+								<div class="row">
+									<strong class="mark"><%= degrees %></strong>
+									<span><%= directionAbr %></span>
+								</div>
+								<div class="row">
+		  							<% if (totalTimeHours !== 0) { %>
+		                                <strong class="mark"><%= totalTimeHours %></strong>
+		                                 <span>hr</span>
+		                                 <% } %><strong class="mark"><%= totalTimeMinutes %></strong>
+									<span>min</span>
+								</div>
+								<div class="row">
+            						<% if (intervalMinutes !== 0) { %>
+            						<strong class="mark"><%= intervalMinutes %></strong>
+									<span>min</span><% } %><strong class="mark"><%= intervalSeconds %></strong>
+									<span>sec</span>
+								</div>
+								<div class="small-btn-row">
+									 <% if (isTimeDelay) { %> <a class="light-btn" href="#">DELAY</a> <% } %>
+									<% if (isSpeedRamping) { %><a href="#"  class="light-btn">SRAMP</a><% } %>
+									<% if (isBulbRamping) { %> <a href="#" class="light-btn">BRAMP</a><% } %>
+									<% if (hold!=='.25') {  %><a href="#" class="light-btn">HOLD</a><% } %>
+								</div>
+							</div>
+						</div>
+		</script>
+
+		<!-- TimeLapse Template - Queues -->
+		<script type="text/template" id="timeLapse_Queue_template">
+		    <div>
+				<div id="topNav">
+					<div class="title main">QUEUE</div>
+					<div class='leftArea'></div>
+					<div class='rightArea' id='clearLink'><div class='btn'>CLEAR</div></div>
+				</div>
+				<div id="secondaryList" style="height: 300px;">
+								<div id="scrollwrapper" style="position:absolute; z-index:1;
+     bottom:75px; top: 65px;
+	width:100%;
+	overflow:auto; margin: 0 auto;
+left: 0;
+right: 0;">
+						<div id="scroller" style=" 	width:100%;
+			padding:0;">
+							<ul id="list" class="presets-list list sortable needsclick" style="position:relative; width:100%; padding:0; margin:0" >
+												<li id="addPresets">
+						<a href="#" class="add-link">ADD PRESET TO QUEUE</a>
+					</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+									<div style="position:absolute; z-index: 80; bottom: 0; left:0; right:0; height: 64px; width:100%; background-color:rgb(30,30,30)"></div>
+		</script>
+		
+		<!-- TimeLapsePresets Template -->
+		<script type="text/template" id="timeLapsePresets_template">
+			<div>
+				<div id="topNav" style="z-index: 100; position:relative">
+					<div class="title">PRESETS</div>
+					<div class='leftArea parentHighlight backLink'><a href="#home" class="btn-back parentHighlightNeeded"></a></div>
+					<div class='rightArea'><a href="#" id="edit" class="btn">EDIT</a></div>
+				</div>
+								<div style="position:absolute; z-index: 80; top: 0; left:0; right:0; height: 64px; width:100%; background-color:rgb(30,30,30)">
+				</div>
+				<div id="scrollwrapper" style="	position:absolute; z-index:1;
+	top:64px; bottom:0px; left:0;
+	width:100%;
+	overflow:auto;">
+				<div id="scroller" style=" 	width:100%;
+	padding:0;">
+				<ul id="list" class="presets-list sortable needsclick" style="position:relative; width:100%; padding:0; margin:0">
+
+
+
+				</ul>
+			</div>
+			</div>
+			</div>
+		</script>
+
+		<!-- TimeLapsePresetItem Template -->
+		<script type="text/template" id="timeLapsePresetItem_template">
+							<li>
+						<a href="#" class="opener">
+							<strong class="title"><% if (current) { %>
+								CURRENT
+								 <% } else { %><%= name %><% } %></strong>
+							<em class="date"><%= dateCreated %></em>
+							<span class="delete"></span>
+						</a>
+
+						<div class="box hide">
+							<div class="box-holder">
+								<div class="row">
+									<span style='margin-bottom: 5px;
+left: 0px;font-weight: bold;'>
+									<% if (timeLapse === 1) { %>
+										PAN
+									 <% } else { %>
+									 	TILT
+									 <% } %>
+									</span>
+								</div>
+								<div class="row">
+									<strong class="mark"><%= degrees %></strong>
+									<span><%= directionAbr %></span>
+								</div>
+								<div class="row">
+		  							<% if (totalTimeHours !== 0) { %>
+		                                <strong class="mark"><%= totalTimeHours %></strong>
+		                                 <span>hr</span>
+		                                 <% } %><strong class="mark"><%= totalTimeMinutes %></strong>
+									<span>min</span>
+								</div>
+								<div class="row">
+            						<% if (intervalMinutes !== 0) { %>
+            						<strong class="mark"><%= intervalMinutes %></strong>
+									<span>min</span><% } %><strong class="mark"><%= intervalSeconds %></strong>
+									<span>sec</span>
+								</div>
+								<div class="small-btn-row">
+									 <% if (isTimeDelay) { %> <a class="light-btn" href="#">DELAY</a> <% } %>
+									<% if (isSpeedRamping) { %><a href="#"  class="light-btn">SRAMP</a><% } %>
+									<% if (isBulbRamping) { %> <a href="#" class="light-btn">BRAMP</a><% } %>
+									<% if (hold!=='.25') {  %><a href="#" class="light-btn">HOLD</a><% } %>
+								</div>
+								<div class="btn-row">
+									<a href="#" class="save-btn norm">LOAD PRESET</a>
+								</div>
+							</div>
+						</div>
+					</li>
+		</script>
+
+
+		<!-- TimeLapseQueueItem Template -->
+		<script type="text/template" id="timeLapseQueueItem_template">
+	
+				<div class="handle"></div>
+				<a href="#" class="delete" style='z-index:100'></a>
+				<a href="#" class="list-link"><%= name %></a>
+
+				<div class="box hide">
+							<div class="box-holder">
+								<div class="row">
+									<span style='margin-bottom: 5px;
+left: 0px;font-weight: bold;'>
+									<% if (timeLapse === 1) { %>
+										PAN
+									 <% } else { %>
+									 	TILT
+									 <% } %>
+									</span>
+								</div>
+								<div class="row">
+									<strong class="mark"><%= degrees %></strong>
+									<span><%= directionAbr %></span>
+								</div>
+								<div class="row">
+		  							<% if (totalTimeHours !== 0) { %>
+		                                <strong class="mark"><%= totalTimeHours %></strong>
+		                                 <span>hr</span>
+		                                 <% } %><strong class="mark"><%= totalTimeMinutes %></strong>
+									<span>min</span>
+								</div>
+								<div class="row">
+            						<% if (intervalMinutes !== 0) { %>
+            						<strong class="mark"><%= intervalMinutes %></strong>
+									<span>min</span><% } %><strong class="mark"><%= intervalSeconds %></strong>
+									<span>sec</span>
+								</div>
+								<div class="small-btn-row">
+									 <% if (isTimeDelay) { %> <a class="light-btn" href="#">DELAY</a> <% } %>
+									<% if (isSpeedRamping) { %><a href="#"  class="light-btn">SRAMP</a><% } %>
+									<% if (isBulbRamping) { %> <a href="#" class="light-btn">BRAMP</a><% } %>
+									<% if (hold!=='.25') {  %><a href="#" class="light-btn">HOLD</a><% } %>
+								</div>
+								<div class="btn-row">
+									<a href="#" class="save-btn norm">LOAD PRESET</a>
+								</div>
+							</div>
+						</div>
+
+		</script>
+
+		<!-- TimeLapseQueueAddItem Template -->
+		<script type="text/template" id="timeLapseQueueAddItem_template">
+			<li class="row">
+				<a href="#" class="check">check</a>
+				<a href="#" class="list-link-add"><%= name %></a>
+			</li>
+		</script>
+
+
+				<!-- TimeLapseQueue Template -->
+		<script type="text/template" id="timeLapseQueueAdd_template">
+			<div>
+				<div id="topNav" style="z-index:100; position: relative; ">
+					<div class="title">ADD PRESETS</div>
+					<div class='leftArea parentHighlight backLink'><a href="#queue" class="btn-back parentHighlightNeeded"></a></div>
+					<div class='rightArea'></div>
+				</div>
+				<div style="position:absolute; z-index: 80; top: 0; left:0; right:0; height: 65px; width:100%; background-color:rgb(30,30,30)">
+				</div>
+				<div id="scrollwrapper" style="	position:absolute; z-index:1;
+	top:65px; bottom:0px; left:0;
+	width:100%;
+	">
+				<div id="scroller" style=" 	width:100%;
+	padding:0;">
+				<ul id="list" class="list sortable needsclick" style="position:relative; width:100%; padding:0; margin:0" >
+				</ul>
+				</div>
+				</div>
+			</div>
+		</script>
+		
+		<!-- TimeLapseDegrees Template -->
+		<script type="text/template" id="timeLapseDegrees_template">
+		    <div>
+				<div id="topNav">
+					<div class="title">DEGREES</div>
+					<div class='leftArea parentHighlight backLink'><a href="#timelapse" class="btn-back parentHighlightNeeded"></a></div>
+					<div class='rightArea'></div>
+				</div>
+				<div class="block-info">
+					<span id="timeLapseType" class="text"><% if (timeLapse === 1) { %>
+										PAN
+									 <% } else { %>
+									 	TILT
+									 <% } %>
+									</span>
+					<div class="row">
+						<strong id="degrees" class="mark" style='padding-left:7px'><%= degrees %>&deg;</strong>
+					</div>
+					<div class="row">
+					<span id="direction" class="text" style="font-size: 19px; color:rgb(150, 150, 150);"><%= direction %></span>
+					</div>
+				</div>
+			</div>
+
+			<div id="picker">
+			</div>
+		</script>
+		
+		<!-- TimeLapseTotalTime Template -->
+		<script type="text/template" id="timeLapseTotalTime_template">
+		    <div>
+				<div id="topNav">
+					<div class="title">DURATION</div>
+					<div class='leftArea parentHighlight backLink'><a href="#timelapse" class="btn-back parentHighlightNeeded"></a></div>
+					<div class='rightArea'></div>
+				</div>
+				<div class="block-info" style='padding-bottom:0px'>
+				    <span class="text">TIME-LAPSE FOR</span>
+					<div class="row">					
+						<strong id="hours" class="mark"><%= totalTimeHours %></strong>
+						<span>hr</span>
+						<strong id="totalTimeMinutes" class="mark"><%= totalTimeMinutes %></strong>
+						<span>min</span> 
+					</div>
+					<div class="row">
+					
+					<span style="font-size: 50px;
+line-height: 15PX;
+font-family: 'Conv_Gotham-Book';
+color: rgb(110, 110, 110);
+width:36px;
+margin: 0 auto;
+height: 23px; 	background:url(./images/infinity.png) no-repeat;
+	background-size:36px 18px;" id="continue" <% if (shouldContinue) { %>class="highlight"<% } %>></span>
+					</div>
+					<div style='width: 200px;
+font-size: 9px;
+font-family: "Conv_Gotham-Book", Helvetica, Arial, sans-serif;
+text-align: center;
+margin: 0 auto;color: rgb(110, 110, 110);'>THIS WILL CONTINUE THE TIME-LAPSE INDEFINITELY.</div>
+					
+					<div class="choice-btn-box">
+						<!--
+						<a href="#" class="btn-blue">SHOOTING</a>
+						<a href="#" class="save-btn">MOVING</a> 
+						-->
+					</div>
+
+				</div>
+			</div>
+            <div id="picker">
+			</div>
+		</script>
+		
+		<!-- TimeLapseInterval Template -->
+		<script type="text/template" id="timeLapseInterval_template">
+			<div>
+				<div id="topNav">
+					<div class="title">INTERVAL</div>
+					<div class='leftArea parentHighlight backLink'><a href="#timelapse" class="btn-back parentHighlightNeeded"></a></div>
+					<div class='rightArea'></div>
+				</div>
+				<div class="block-info">
+					<span class="text">TAKE A PHOTO EVERY</span>
+					<div class="row">
+						<strong id="intervalMinutes" class="mark"><%= intervalMinutes %></strong>
+						<span>min</span>
+						<strong id="intervalSeconds" class="mark"><%= intervalSeconds %></strong>
+						<span>sec</span>
+					</div>
+				</div>
+			</div>
+            <div id="picker">
+			</div>
+		</script>
+		
+		<!-- The Stats Box Template -->
+		<script type="text/template" id="statsBox_template">
+		<div id="abovePicker">
+			<div class="total-box">
+				<div class="holder">
+					<span><strong class="photo"><%= totalPhotos %></strong> photos</span>
+					<span><strong class="photo-info"><%= degreesPerPhoto %>&deg;</strong>/photo</span>
+					<span><strong class="time"><%= frameRate %></strong> seconds</span>
+				</div>
+			</div>
+		</div>
+		</script>
+
+		<!-- TimeLapseMoreInfo Template -->
+		<script type="text/template" id="timeLapseMoreInfo_template">
+			<div class='infoBox'>
+							<div class='text' style='font-size: 11.5px;
+font-family: "Conv_Gotham-Book";
+line-height: 12px;'>
+						Radian will <span> <% if (timeLapse === 1) { %>
+										pan
+									 <% } else { %>
+									 	tilt
+									 <% } %> <%= actualDegrees %>°</span> in<span>
+									<% if (totalTimeHours !== 0) { %> <%= totalTimeHours %> hr<% } %> <%= totalTimeMinutes %> min</span> and 
+						take a photo every <span>
+									<% if (intervalMinutes !== 0) { %> <%= intervalMinutes %> min<% } %> <%= intervalSeconds %> sec</span>.
+					</div>
+			</div>
+		</script>
+		
+		<!-- TimeLapseUpload Template -->
+		<script type="text/template" id="timeLapseUpload_template">
+		<div>
+			<div id="topNav">
+				<div class="title">ARE YOU READY?</div>
+				<div class='leftArea'></div>
+				<div class='rightArea' id='moreInfo'><div class='info' style='
+background: url("./images/infoicon.png") no-repeat;
+background-size: 20px 20px;
+right: 17px;
+width: 20px;
+height: 20px;
+top: 20.5px;
+position: absolute;
+'></div></div>
+		    </div>
+		    <div id="content">
+			<img class='readyImage' src='images/Step3RadianImage.png' style='width: 210px;
+margin: 0 auto;
+height: 225px;
+display: block;' />
+			</div>
+
+			<div id="aboveNavigation">
+				<div class='bottom' style='text-align: center;
+	font-size: 12px;
+	font-family: "Conv_Gotham-Bold";
+	color: rgb(110, 110, 110);'>
+				Make sure Radian is on and connected
+				</div>
+				
+				<div class="btn-box" style='width: 247px;
+	margin: 12px auto 0 auto;'>
+					<div id="timelapse" class="progress-btn upload">
+						<div class="message">UPLOAD</div>
+						<div class="holder" style="width:0%"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		</script>
+		
+		<!-- TimeLapseUploadInProgress Template -->
+		<script type="text/template" id="timeLapseUploadInProgress_template">
+		<div id="wrapper" class="loading-page">
+			<div style="height: 35px"></div>
+			<h1>ARE YOU READY?</h1>
+			<div class="btn-box">
+				<div class="loading-box btn-white">
+					<div class="line">
+						<div class="holder" style="width:54%;"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		</script>
+		
+		<!-- TimeLapseCountDown Template -->
+		<script type="text/template" id="timeLapseCountDown_template">
+		<div style="position:relative;">
+			<div class="above"></div>
+			<div id="vcenter" style="width: 268px; margin:0 auto; text-align:center;">
+				<div style="padding-bottom:20px; font: 15px/15px 'Conv_Gotham-Bold'; color: rgb(255, 255, 255);">
+					YOUR TIME-LAPSE<br />
+					WILL START IN:
+				</div>
+				<div id="countdown" style="font: 50px/50px 'Conv_Gotham-Bold'; color: rgb(0, 139, 202);">
+					8
+				</div>
+			</div>
+			<div id="aboveNavigation" class="below">
+				<div style="width: 268px; margin:0 auto; font: 12px/12px 'Conv_Gotham-Bold'; color: rgb(110, 110, 110); text-align:center;">
+					You may now unplug your phone!
+					<br /><br />
+					If you didn't see the Time-lapse <br /> LED on the Radian turn solid green, <br />  you'll need to re-upload.
+				</div>
+			</div>
+		</div>
+
+		</script>
+		
+		<!-- TimeLapseCurrent Template -->
+		<script type="text/template" id="timeLapseCurrent_template">
+		<div>
+			<% if(!isQueue) { %>
+			<div class="upper" style='margin: 30px 0 0px 0px;
+			padding-bottom: 30px;
+color: white;
+text-align: center;
+font: bold 18px/13px "Conv_Gotham-Bold", Helvetica, Arial, sans-serif;'>IN PROGRESS</div>
+
+			<% } else { %>
+							<div style='margin: 30px 0 0px;
+color: white;
+text-align: center;
+font: bold 14px/11px "Conv_Gotham-Bold", Helvetica, Arial, sans-serif;'>
+								<%= name %>
+							</div>
+							<div style='height: 62px'>
+							<div class= "upper" style='text-align:center; font-size: 12px;
+font-family: "Conv_Gotham-Medium";
+line-height: 16px; color:rgb(110,110,110);'>
+								TIME LAPSE <%= index %> OF <%= size %>
+							</div>
+							<% if(isNext) { %>
+								<div class= "upper"  style='text-align: center;
+font-size: 13px;
+font-family: "Conv_Gotham-Medium";
+color:rgb(110,110,110)'>
+									UP NEXT: <%= nextName %>
+								</div>
+							<% } %>
+							</div>
+			<% } %>
+			<div id="content" style="margin-top: 0px">
+				<div class="loading-box">
+					<div class="general">
+					<input type="text" class="dial" data-textSize='14px' data-min="0" data-max="100" data-fgColor="#008bca" data-textColor="#FFF" data-bgColor="#1c4557" data-skin="tron" data-thickness="1" data-readOnly="true" data-width="110" data-height="110">
+					</div>
+				</div>
+				<div class="final-box">
+					<div class="holder">
+
+					<table border="0" bordercolor="" style="background-color:" width="100%" cellpadding="0" cellspacing="0">
+						<tr>
+							<td><div class='photo'></div></td>
+							<td><strong id="photosProgress">368</strong> <span>/ <span  id="photosTotal"><%= totalPhotos %></span></span></td>
+						</tr>
+						<tr>
+							<td><div class='photo-info'></div></td>
+							<td><strong id="degreesProgress">180.0</strong><strong>&deg;</strong><span id="degreesTotal">/<%= actualDegrees %>&deg;</span></td>
+						</tr>
+						<tr>
+							<td><div class='time'></div></td>
+							<td><strong id="timeProgressHour">1</strong><strong>:</strong><strong id="timeProgressMinute">23</strong> <span id="timeTotal">/<%= totalTimeHours %>:<%= totalTimeMinutes %></span></td>
+						</tr>
+					</table>
+
+		
+					</div>
+				</div>
+			</div>
+			<div>
+				<div id="aboveNavigation" class="below">
+					<div class="choiceBox">
+						<a class="cancel side restartCounter" href="#timelapse/current">RESET COUNTER</a>
+						<a class="cancel side newTimeLapse" href="#home">NEW TIMELAPSE</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		</script>
+
+				<script type="text/template" id="settings_template">
+		    <div>
+				<header id="header">
+					<a href="#home" class="btn-back"></a>
+					<span class="no-btn no-back alignright">&nbsp;</span>
+					<h1>SETTINGS</h1>
+				</header>
+				<ul class="extraList">
+					<li id="fps">
+						<div class="mainHeading">FRAME RATE</div>
+						<div class="subHeader">CURRENT: <%= fps %> fps</div>
+					</li>
+					<li id="about">
+						<div class="mainHeading">ABOUT RADIAN</div>
+						<div class="subHeader">LEARN MORE</div>
+					</li>
+					<li id="use">
+						<div class="mainHeading">USING RADIAN</div>
+						<div class="subHeader">Using the app and Radian</div>
+					</li>
+				</ul>
+			</div>
+		</script>
+		
+		<!-- TimeLapseAdvanced Template -->
+		<script type="text/template" id="timeLapseAdvanced_template">
+		    <div>
+				<div id="topNav">
+					<div class="title">ADVANCED</div>
+					<div class='leftArea parentHighlight backLink'><a href="#timelapse" class="btn-back parentHighlightNeeded"></a></div>
+					<div class='rightArea'></div>
+				</div>
+				<ul class="extraList" style='margin-top: 46px'>
+					<li id="timedelay" class='parentHighlight'>
+						<div class="mainHeading parentHighlightNeeded">TIME DELAY</div>
+						<% if (isTimeDelay) { %>
+							<div class="subHeader highlight parentHighlightNeeded">ON</div>
+						<% } else { %>
+							<div class="subHeader parentHighlightNeeded">OFF</div>
+						<% } %>
+					</li>
+					<li id="speedramping" class='parentHighlight'>
+						<div class="mainHeading parentHighlightNeeded">SPEED RAMPING</div>
+						<% if (isSpeedRamping) { %>
+							<div class="subHeader highlight parentHighlightNeeded">ON</div>
+						<% } else { %>
+							<div class="subHeader parentHighlightNeeded">OFF</div>
+						<% } %>
+					</li>
+					<li id="bulbramping" class='parentHighlight'>
+						<div class="mainHeading parentHighlightNeeded">BULB RAMPING</div>
+						<% if (isBulbRamping) { %>
+							<div class="subHeader highlight parentHighlightNeeded">ON</div>
+						<% } else { %>
+							<div class="subHeader parentHighlightNeeded">OFF</div>
+						<% } %>
+					</li>
+					<li id="hold" class='parentHighlight'>
+						<div class="mainHeading parentHighlightNeeded">HOLD</div>
+						<% if (hold!=='.25') { %>
+							<div class="subHeader highlight parentHighlightNeeded">ON</div>
+						<% } else { %>
+							<div class="subHeader parentHighlightNeeded">OFF</div>
+						<% } %>
+					</li>
+				</ul>
+
+			</div>
+		</script>
+
+		<!-- TimeLapse Completed Template -->
+		<script type="text/template" id="timeLapseCompleted_template">
+			<div id="wrapper">
+				<h1>TIME-LAPSE<br />COMPLETED!</h1>
+				<div style="height:40px"></div>
+				<div class="btn-box">
+					<a href="#home" class="btn-white newTimeLapse">NEW TIME-LAPSE</a>
+					<a href="#timelapse/current" class="btn-white restartCounter">RESTART COUNTER</a>
+				</div>
+			</div>
+		</script>
+
+		<!-- SpeedRamping Template -->
+		<script type="text/template" id="speedRamping_template">
+			<div style='overflow: visible;'>
+				        <div id='horizontalNav' style='overflow: visible; height:auto'>
+				        	<div id='previous' class='leftArea'><div  class='backarrow'></div></div>
+				        	<div id='reset' class='rightArea'><div class='btn reset'>RESET</div></div>
+				        	<div class='middleArea' style='overflow: visible;'>
+				        		<div class='text'>FIT</div>
+				        		<div id='linear' class='btn'>LINEAR</div>
+				        		<div id='cubic' class='btn'>CURVE</div>
+				        	</div>
+				        </div>
+
+
+				        <div id="page" style="cursor: default; position: absolute;
+overflow: visible;
+width: 90%; 
+height: 67%; margin: -18px auto;
+left: 45px;">
+				          <div id="chart_monotonic" class="cubic_spline" style='width:100%; height:100%'>
+
+				          	
+				          </div>
+				        </div>
+
+			</div>
+		</script>
+
+
+		<!-- Bulb Ramping Template -->
+		<script type="text/template" id="bulbRamping_template">
+    	<div>
+
+		<div id="topNav">
+			<div class="title">BULB RAMP</div>
+			<div class='leftArea parentHighlight backLink'><a href="#timelapse/advanced" class="btn-back parentHighlightNeeded"></a></div>
+			<div class='rightArea'></div>
+		</div>
+
+        <div id='secondary' style='margin: 0 auto; position: relative;'>
+        	<div style='width:290px; margin: 0 auto; '>
+<div  class="holo-dark holo-accent-blue" style="font-size:20px; font-weight:strong; 	font-family:'Conv_Gotham-Black', Helvetica, Arial, sans-serif;
+	vertical-align:baseline;position:relative; top:3px;left:-12px">
+
+				<div style="
+    width: 40%;
+    margin: 0 auto;
+">
+				<div class="holo-switch needsclick">
+			<input type="checkbox" id="unchecked" class='needsclick' <% if (isBulbRamping) { %>checked<% } %>>
+			<label id="isBulbRamping"  class="holo-label needsclick" for="unchecked">
+			</label>
+		</div>
+		</div>
+		</div>
+
+	            <div class='centerfix' style='width: 70%; border-top: 1px solid rgb(106, 106, 106); margin:13px auto 0px auto'></div>
+            </div>
+            <div class='inform-list-wrapper' style='text-align:center; margin-top:0px; padding-top: 5px;'>
+                <ul class="inform-list" style="position:relative; display: inline-block; padding: 0px">
+                    <li id="delayLink">
+                        <div>
+                            <a href="#timelapse/bulbramping/delay">DELAY</a>
+
+                            <div class="holder">
+                                <% if (delayHours !== 0) { %> <span style='position:relative; left:8px'><strong class="mark"><%= delayHours %></strong> <span>hr</span></span> <% } %> <strong class="mark"><%= delayMinutes %></strong> <span>min</span>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li id="delayLink">
+                        <div>
+                            <a href="#timelapse/bulbramping/duration">DURATION</a>
+
+                            <div class="holder">
+                                <% if (durationHours !== 0) { %> <span style='position:relative; left:8px'><strong class="mark"><%= durationHours %></strong> <span>hr</span></span> <% } %> <strong class="mark"><%= durationMinutes %></strong> <span>min</span>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li id="startShutterLink">
+                        <div>
+                            <a href="#timelapse/bulbramping/startshutter">INITIAL EXP</a>
+
+                            <div class="holder">
+                                <strong class="mark"><%= startShutter %></strong> <span>s</span>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li id="startShutterLink" style='margin-bottom:0px'>
+                        <div>
+                            <a href="#timelapse/bulbramping/exposurechange">EXP CHANGE</a>
+
+                            <div class="holder">
+                                <strong class="mark"><%= expChange %></strong> <span><% if (expType === 'f/10frames') { %> f/10f <% }  else { %> <%= expType %> <% } %></span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript">
-            app.initialize();
-        </script>
+    </div>
+		</script>
+
+		<!-- BulbRampingDelay Template -->
+		<script type="text/template" id="bulbRampingDelay_template">
+		    <div class="pickerPage bulbramping">
+				<div id="topNav">
+					<div class="title">DELAY</div>
+					<div class='leftArea parentHighlight backLink'><a href="#timelapse/bulbramping" class="btn-back parentHighlightNeeded"></a></div>
+					<div class='rightArea'></div>
+				</div>
+				<div class="block-info">
+					<span class="text">DELAY BEFORE BULB RAMP</span>
+					<div class="row">					
+						<strong id="delayHours" class="mark"><%= delayHours %></strong>
+						<span>hr</span>
+						<strong id="delayMinutes" class="mark"><%= delayMinutes %></strong>
+						<span>min</span> 
+					</div>
+				</div>
+			</div>
+			<div id="picker">
+			</div>
+		</script>
+		
+		<!-- BulbRampingDuration Template -->
+		<script type="text/template" id="bulbRampingDuration_template">
+		    <div class="pickerPage bulbramping">
+				<div id="topNav">
+					<div class="title">DURATION</div>
+					<div class='leftArea parentHighlight backLink'><a href="#timelapse/bulbramping" class="btn-back parentHighlightNeeded"></a></div>
+					<div class='rightArea'></div>
+				</div>
+				<div class="block-info">
+					<span class="text">BULB RAMP FOR</span>
+					<div class="row">					
+						<strong id="durationHours" class="mark"><%= durationHours %></strong>
+						<span>hr</span>
+						<strong id="durationMinutes" class="mark"><%= durationMinutes %></strong>
+						<span>min</span> 
+					</div>
+				</div>
+			</div>
+			<div id="picker">
+			</div>
+		</script>
+
+		<!-- BulbRampingInitialExp Template -->
+		<script type="text/template" id="bulbRampingStartShutter_template">
+		    <div id="wrapper" class="pickerPage inner-page bulbramping">
+				<div id="topNav">
+					<div class="title">INITIAL EXPOSURE</div>
+					<div class='leftArea parentHighlight backLink'><a href="#timelapse/bulbramping" class="btn-back parentHighlightNeeded"></a></div>
+					<div class='rightArea'></div>
+				</div>
+				<div class="block-info">
+					<span class="text">START EXPOSURE AT</span>
+					<div class="row">					
+						<strong id="startShutter" class="mark"><%= startShutter %></strong>
+						<span>seconds</span>
+					</div>
+				</div>
+			</div>
+			<div id="picker">
+			</div>
+		</script>
+
+		<!-- BulbRampingExpChange Template -->
+		<script type="text/template" id="bulbRampingExpChange_template">
+		    <div class="pickerPage bulbramping">
+				<div id="topNav">
+					<div class="title">EXP CHANGE</div>
+					<div class='leftArea parentHighlight backLink'><a href="#timelapse/bulbramping" class="btn-back parentHighlightNeeded"></a></div>
+					<div class='rightArea'></div>
+				</div>
+				<div class="block-info">
+					<span class="text">CHANGE EXPOSURE BY</span>
+					<div class="row">					
+						<strong id="expChange" class="mark"><%= expChange %></strong>
+						<span id="expType"><%= expType %></span>
+					</div>
+				</div>
+			</div>
+			<div id="picker">
+			</div>
+		</script>
+
+		<!-- TimeLapseTimeDelay Template -->
+		<script type="text/template" id="timeLapseTimeDelay_template">
+		    <div>
+				<div id="topNav">
+					<div class="title">TIME DELAY</div>
+					<div class='leftArea parentHighlight backLink'><a href="#timelapse/advanced" class="btn-back parentHighlightNeeded"></a></div>
+					<div class='rightArea'></div>
+				</div>
+				<div class="block-info">
+				    <span class="text">WAIT</span>
+					<div class="row">					
+						<strong id="timeDelayHours" class="mark"><%= timeDelayHours %></strong>
+						<span>hr</span>
+						<strong id="timeDelayMinutes" class="mark"><%= timeDelayMinutes %></strong>
+						<span>min</span> 
+					</div>
+					<span class="text">BEFORE STARTING</span>
+				</div>
+			
+            <div id="picker" class='test' style="left:-5px">
+			</div>
+			</div>
+		</script>
+
+		<!-- The Bulb Ramp Box Template -->
+		<script type="text/template" id="bulbRampStatsBox_template">
+			<div class='bramp-stats'>
+				<div style='width:290px; margin: 0 auto;'>
+					<div class="total-box" style='width: 70%; margin-bottom:0px; '>
+						<div class="holder">
+							<span>Frames: <strong style='padding: 0;'> <%= totalPhotos %></strong></span>
+							<span>Final Exp: <strong style='padding: 0;'><%= finalShutter %></strong>s</span>
+							<span>Interval: <strong style='padding: 0;'>
+										<% if (intervalMinutes !== 0) { %>
+											<%= intervalMinutes %>min<% } %> <%= intervalSeconds %></strong>s
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</script>
+
+		<!-- TimeLapseHold Template -->
+		<script type="text/template" id="timeLapseHold_template">
+		    <div>
+				<div id="topNav">
+					<div class="title">HOLD</div>
+					<div class='leftArea parentHighlight backLink'><a href="#timelapse/advanced" class="btn-back parentHighlightNeeded"></a></div>
+					<div class='rightArea'></div>
+				</div>
+				<div class="block-info" style="padding-bottom:20px">
+					<span class="text">PRESS THE SHUTTER FOR</span>
+					<div class="row">
+						<strong id="hold" class="mark"><%= hold %></strong>
+						<span>SEC</span>
+					</div>
+					<span class="text">EVERY PHOTO</span>
+					<div style='height: 25px'></div>
+				</div>
+				<div id="abovePicker">
+					<div class="textBox">
+						<ul>
+							<li>.25s is the default.</li>
+							<li>.5s is for IR triggering.</li>
+							<li>2s is for HDR bracketing.</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div id="picker">
+			</div>
+		</script>
+
+		<div id="ghostBuster" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:9999;display:none;"></div>
+        <script type="text/javascript" src="js/launch.js"></script>
+        <script type="text/javascript" src="js/lib/underscore-min.js"></script>
+        <script type="text/javascript" src="js/lib/jquery-1.8.2.min.js"></script> 
+        <script type="text/javascript" src="js/lib/jquery-ui-1.9.1.custom.min.js"></script>
+        
+		<script type="text/javascript" src="js/lib/jquery.touchpunch.0.2.2.js"></script>
+		<script type="text/javascript" src="js/lib/iscroll.js"></script>
+        <script src="js/lib/mobiscroll-2.0.3.custom.min.js"></script>
+        <script src="js/lib/circle-progress-bar.js"></script>
+         <!-- <script src="js/lib/boot.min.js"></script>-->
+        <script src="js/lib/hammer.js"></script>
+        <script src="js/lib/jquery.hammer.js"></script>
+        <script type="text/javascript" src="js/lib/jquery.simplemodal.1.4.3.min.js"></script>
+        <script type="text/javascript" src="js/lib/backbone-min.js"></script>
+        <script type='application/javascript' src='js/lib/fastclick.js'></script>
+        <script type='application/javascript' src='js/lib/textFill.js'></script>
+
+        <script type='application/javascript' src='js/namespace.js'></script>
+
+        <!-- Load Plugins  -->
+        <script type="text/javascript" src="js/lib/screenOrientation.js"></script>
+
+
+        <!-- Load Scripts  -->
+        <script type="text/javascript" src="js/configuration.js"></script>
+        <script type="text/javascript" src="js/constants.js"></script>
+        <script type="text/javascript" src="js/utilities.js"></script>	
+        
+        <script type="text/javascript" src="js/models.js"></script>
+        
+       
+        
+        <script type="text/javascript" src="js/radian.js"></script>
+        <script type="text/javascript" src="js/ui.js"></script> 
+        <script type="text/javascript" src="js/views.js"></script> 
+        
+        
+        
+		<script type="text/javascript" src="js/data_transmission.js"></script>
+		<script type="text/javascript" src="js/wav_generator.js"></script>
+		<script type="text/javascript" src="js/file_system.js"></script>
+		<script type="text/javascript" src="js/sound.js"></script>
+		<script type="text/javascript" src="js/send.js"></script>
+		<script type="text/javascript" src="js/cubic_spline_chart.js"></script>
+		<script type="text/javascript" src="js/router.js"></script>
+		<script type="text/javascript" src="js/load.js"></script>
+
     </body>
 </html>
