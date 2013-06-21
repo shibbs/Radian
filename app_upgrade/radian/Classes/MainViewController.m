@@ -26,6 +26,7 @@
 //
 
 #import "MainViewController.h"
+#import <MediaPlayer/MediaPlayer.h>
 
 @implementation MainViewController
 
@@ -86,6 +87,9 @@
     [super viewDidLoad];
     self.allowedOrientations =  [NSMutableArray array];
     self.allowedOrientationsMask = UIInterfaceOrientationMaskPortrait;
+    MPVolumeView *volumeView = [[MPVolumeView alloc] initWithFrame: CGRectZero];
+    volumeView.showsRouteButton = NO;
+    [self.view addSubview: volumeView];
     // Do any additional setup after loading the view from its nib.
 }
 

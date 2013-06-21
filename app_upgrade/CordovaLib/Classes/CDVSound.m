@@ -20,6 +20,7 @@
 #import "CDVSound.h"
 #import "NSArray+Comparisons.h"
 #import "CDVJSON.h"
+#import <MediaPlayer/MediaPlayer.h>
 
 #define DOCUMENTS_SCHEME_PREFIX @"documents://"
 #define HTTP_SCHEME_PREFIX @"http://"
@@ -29,6 +30,8 @@
 @implementation CDVSound
 
 @synthesize soundCache, avSession;
+
+float oldVolume = 0.0f;
 
 - (NSURL*)urlForResource:(NSString*)resourcePath
 {
@@ -261,6 +264,9 @@
 
 - (void)setVolume:(CDVInvokedUrlCommand*)command
 {
+    
+
+
     NSString* callbackId = command.callbackId;
 
 #pragma unused(callbackId)
@@ -284,6 +290,10 @@
 
 - (void)startPlayingAudio:(CDVInvokedUrlCommand*)command
 {
+    MPMusicPlayerController *musicPlayer = [MPMusicPlayerController iPodMusicPlayer];
+    oldVolume = musicPlayer.volume;
+    musicPlayer.volume = 1.0f;
+    
     NSString* callbackId = command.callbackId;
 
 #pragma unused(callbackId)
@@ -629,6 +639,9 @@
 
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer*)player successfully:(BOOL)flag
 {
+    MPMusicPlayerController *musicPlayer = [MPMusicPlayerController iPodMusicPlayer];
+    musicPlayer.volume = oldVolume;
+    
     CDVAudioPlayer* aPlayer = (CDVAudioPlayer*)player;
     NSString* mediaId = aPlayer.mediaId;
     CDVAudioFile* audioFile = [[self soundCache] objectForKey:mediaId];

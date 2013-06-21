@@ -5,6 +5,7 @@ RadianApp.Sound.play = function(soundFile, finishCallback) {
 
     function playAudio() {
         my_media = new Media(soundFile, onSuccess, onError);
+        my_media.setVolume(1.0);
         my_media.play();
         if(isDroid) {
             my_media.reset();

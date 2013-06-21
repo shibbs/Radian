@@ -20,7 +20,7 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         id        = "com.alpinelabs.radian"
         version   = "1.0.2">
-    <name>Hello Cordova</name>
+    <name>radian</name>
 
     <description>
         Mobile application that controls the radian device.
