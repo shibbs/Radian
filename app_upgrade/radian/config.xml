@@ -18,16 +18,16 @@
  under the License.
 -->
 <widget xmlns     = "http://www.w3.org/ns/widgets"
-        id        = "io.cordova.helloCordova"
-        version   = "2.0.0">
+        id        = "com.alpinelabs.radian"
+        version   = "1.0.2">
     <name>Hello Cordova</name>
 
     <description>
-        A sample Apache Cordova application that responds to the deviceready event.
+        Mobile application that controls the radian device.
     </description>
 
-    <author href="http://cordova.io" email="dev@cordova.apache.org">
-        Apache Cordova Team
+    <author href="" email="rowanc@stanford.edu">
+        Rowan Chakoumakos
     </author>
 
     <access origin="*"/>
@@ -84,6 +84,9 @@
     </feature>
     <feature name="LocalStorage">
         <param name="ios-package" value="CDVLocalStorage"/>
+    </feature>
+    <feature name="ScreenOrientation">
+        <param name="ios-package" value="ScreenOrientation"/>
     </feature>
     <!-- Deprecated plugins element. REmove in 3.0 -->
     <plugins>
