@@ -114,7 +114,7 @@ $(function(){
             var model = this.get('model');
             this.isBulbRamping = model.isBulbRamping ? 1 : 0;
             this.startShutterLSB = (eval(model.startShutter)*1000) % MAX_PACKET_VALUE;
-            this.startShutterMSB = (eval(model.startShutter)*1000) / MAX_PACKET_VALUE;
+            this.startShutterMSB = Math.floor((eval(model.startShutter)*1000) /MAX_PACKET_VALUE ) ;
             this.expPower =  (MAX_PACKET_VALUE/2) + eval(model.expChange)*10; // The value * 10 positive/negative
             this.expIncreaseMinutes = (MAX_PACKET_VALUE/2) - ((model.expType == "f/10min") ? 10 : -10);  // f/10 frames 125, f/10 minutes 105
             this.totalTimeInMinutes = model.durationHours * 60 + model.durationMinutes;
