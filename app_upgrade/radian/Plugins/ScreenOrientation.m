@@ -15,7 +15,6 @@
     NSLog(@"test test");
     NSMutableArray *allowed = [NSMutableArray array];
     NSString *targetOrientation = [options objectForKey:@"key"];
-    int statusBarHeight = [[UIApplication sharedApplication] statusBarFrame].size.height;
     int statusBarWidth = [[UIApplication sharedApplication] statusBarFrame].size.width;
     
     if([targetOrientation isEqualToString:@"landscape"]) {

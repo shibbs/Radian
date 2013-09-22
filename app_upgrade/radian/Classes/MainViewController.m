@@ -87,10 +87,12 @@
     [super viewDidLoad];
     self.allowedOrientations =  [NSMutableArray array];
     self.allowedOrientationsMask = UIInterfaceOrientationMaskPortrait;
-    MPVolumeView *volumeView = [[MPVolumeView alloc] initWithFrame: CGRectZero];
+    
+    MPVolumeView *volumeView = [[MPVolumeView alloc] initWithFrame:CGRectMake(-2000., -2000., 0.f, 0.f)];
     volumeView.showsRouteButton = NO;
+    volumeView.alpha = 0.1f;
+    volumeView.userInteractionEnabled = NO;
     [self.view addSubview: volumeView];
-    // Do any additional setup after loading the view from its nib.
 }
 
 - (void)viewDidUnload

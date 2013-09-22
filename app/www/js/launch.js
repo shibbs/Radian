@@ -1,7 +1,7 @@
 (function () {
 	window.location.hash = '';
 
-	isRadianWeb = true;
+	isRadianWeb = false;
 	isDroid = true;//navigator.userAgent.match(/Android/); //polluting global, TODO: wrap under radianapp
 
 	var loadScript = function(src) {
